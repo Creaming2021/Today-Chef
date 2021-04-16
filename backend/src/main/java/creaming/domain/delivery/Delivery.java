@@ -1,0 +1,31 @@
+package creaming.domain.delivery;
+
+import creaming.domain.etc.Address;
+import creaming.domain.etc.BaseTimeEntity;
+import creaming.domain.register.Register;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id", callSuper = false)
+public class Delivery extends BaseTimeEntity {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "delivery_id")
+    private Long id;
+
+    @Embedded
+    private Address address;
+
+    private String notes; // 배송 요청 사항
+    private String company; // 택배회사
+    private String number; // 송장번호
+
+    @OneToOne(mappedBy = "delivery")
+    private Register register;
+}
