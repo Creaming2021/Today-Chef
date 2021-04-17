@@ -26,6 +26,6 @@ public class Delivery extends BaseTimeEntity {
     private String company; // 택배회사
     private String number; // 송장번호
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
     private Register register;
 }
