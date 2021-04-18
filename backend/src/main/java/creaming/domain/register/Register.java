@@ -4,15 +4,15 @@ import creaming.domain.course.Course;
 import creaming.domain.delivery.Delivery;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "registers")
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Register extends BaseTimeEntity {
