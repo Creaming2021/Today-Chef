@@ -3,15 +3,15 @@ package creaming.domain.review;
 import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "reviews")
 @EqualsAndHashCode(of = "id", callSuper = false)

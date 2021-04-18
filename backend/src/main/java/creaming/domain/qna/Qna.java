@@ -3,14 +3,14 @@ package creaming.domain.qna;
 import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "qnas")
 @EqualsAndHashCode(of = "id", callSuper = false)

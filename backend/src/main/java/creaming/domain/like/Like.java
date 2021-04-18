@@ -2,15 +2,15 @@ package creaming.domain.like;
 
 import creaming.domain.course.Course;
 import creaming.domain.member.Member;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Getter
 @Table(name = "likes")
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Like {

@@ -3,14 +3,14 @@ package creaming.domain.delivery;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.register.Register;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Entity
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Delivery extends BaseTimeEntity {
