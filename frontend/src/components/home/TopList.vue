@@ -55,12 +55,21 @@ export default {
 
 				alert("요청 때립니다");
 			})
-		});
+		},
+		);
 	},
 	props: {
 		tabList: [Array, Object],
 		itemList: [Array, Object],
 		type: String,
+	},
+	watch: {
+		currentActive: function() {
+			this.$emit("currentActiveChanged", { 
+				tab: this.currentActive.innerText,
+				type: this.type,
+			});
+		}
 	}
 }
 </script>
