@@ -207,9 +207,13 @@
                   </div>
               </div>
               <div class="row product__filter">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(item,idx) in HomeItems" :key="idx">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(item,idx) in CourseFilterList" :key="idx">
                   <HomeItem :item="item" :idx="idx" />
                 </div>
+                <course-item 
+                  v-for="course in CourseFilterList" 
+                  v-bind:key="course.id" 
+                  :course="course"/>
               </div>
           </div>
       </section>
@@ -415,17 +419,20 @@
 </template>
 
 <script>
-import HomeItem from '@/components/HomeItem.vue'
+import HomeItem from '@/components/HomeItem.vue
+import CourseItem from '@/components/CourseItem.vue';
 
 export default {
   name: "Home",
   components: {
-    HomeItem
+    HomeItem,
+    CourseItem
   },
   data() {
     return {
-      HomeItems : [
+      CourseFilterList: [
         {
+          id: 1,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
           category: '한식',
           date: '2021.04.16',
@@ -436,77 +443,87 @@ export default {
           rate: '3.5',
         },
         {
-            thumbnail: 'https://cdn.class101.net/images/903f58cb-8bb0-46f0-8745-da01a48880cf',
-            category: '한식',
-            date: '2021.04.16',
-            name: '거리공연 10만회! 10년차 마술사에게 배우는 스트릿 버스킹 매직',
-            teacher: '김한식',
-            price: '50000',
-            likeCnt: '123',
-            rate: '3.5',
+          id: 2,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.16',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
         },
         {
-            thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-            category: '한식',
-            date: '2021.04.16',
-            name: '쉽게 배워보는 갈비찜',
-            teacher: '김한식',
-            price: '50000',
-            likeCnt: '123',
-            rate: '3.5',
+          id: 3,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.16',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
         },
         {
-            thumbnail: 'https://cdn.class101.net/images/903f58cb-8bb0-46f0-8745-da01a48880cf',
-            category: '한식',
-            date: '2021.04.16',
-            name: '거리공연 10만회! 10년차 마술사에게 배우는 스트릿 버스킹 매직',
-            teacher: '김한식',
-            price: '50000',
-            likeCnt: '123',
-            rate: '3.5',
+          id: 4,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.16',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
         },
         {
-            thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-            category: '한식',
-            date: '2021.04.16',
-            name: '쉽게 배워보는 갈비찜',
-            teacher: '김한식',
-            price: '50000',
-            likeCnt: '123',
-            rate: '3.5',
+          id: 5,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.16',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
         },
         {
-            thumbnail: 'https://cdn.class101.net/images/903f58cb-8bb0-46f0-8745-da01a48880cf',
-            category: '한식',
-            date: '2021.04.16',
-            name: '거리공연 10만회! 10년차 마술사에게 배우는 스트릿 버스킹 매직',
-            teacher: '김준표',
-            price: '50000',
-            likeCnt: '123',
-            rate: '3.5',
+          id: 6,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.16',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
         },
         {
-            thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-            category: '한식',
-            date: '2021.04.16',
-            name: '쉽게 배워보는 갈비찜',
-            teacher: '김한식',
-            price: '50000',
-            likeCnt: '123',
-            rate: '3.5',
+          id: 7,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.16',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
         },
         {
-            thumbnail: 'https://cdn.class101.net/images/903f58cb-8bb0-46f0-8745-da01a48880cf',
-            category: '한식',
-            date: '2021.04.16',
-            name: '거리공연 10만회! 10년차 마술사에게 배우는 스트릿 버스킹 매직',
-            teacher: '김준표',
-            price: '50000',
-            likeCnt: '123',
-            rate: '3.5',
+          id: 8,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.16',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
         },
       ]
     }
   }
 };
+
+
+
 </script>
