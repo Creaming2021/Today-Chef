@@ -99,10 +99,9 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(item,idx) in CourseFilterList" :key="idx">
                   <HomeItem :item="item" :idx="idx" />
                 </div>
-                <course-item 
-                  v-for="course in CourseFilterList" 
-                  v-bind:key="course.id" 
-                  :course="course"/>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in CourseFilterList" :key="idx">
+                  <CourseItem :course="course" :idx="idx" />
+                </div>
               </div>
           </div>
       </section>
