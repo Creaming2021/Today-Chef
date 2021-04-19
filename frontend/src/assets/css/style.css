@@ -421,6 +421,7 @@ ol {
 	display: inline-block;
 	margin-right: 45px;
 	position: relative;
+	cursor: pointer;
 }
 
 .header__menu ul li.active a:after {
@@ -908,7 +909,7 @@ ol {
 -----------------------*/
 
 .product {
-	padding-top: 0;
+	padding-top: 60px;
 	padding-bottom: 60px;
 }
 
@@ -919,11 +920,11 @@ ol {
 
 .filter__controls li {
 	color: #b7b7b7;
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: 700;
 	list-style: none;
 	display: inline-block;
-	margin-right: 88px;
+	margin-right: 50px;
 	cursor: pointer;
 }
 
