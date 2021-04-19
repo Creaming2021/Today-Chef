@@ -421,6 +421,7 @@ ol {
 	display: inline-block;
 	margin-right: 45px;
 	position: relative;
+	cursor: pointer;
 }
 
 .header__menu ul li.active a:after {
@@ -749,6 +750,7 @@ ol {
 	overflow: hidden;
 	padding-top: 150px;
 	padding-bottom: 125px;
+	margin-bottom: 40px;
 }
 
 .categories__text {
@@ -919,11 +921,11 @@ ol {
 
 .filter__controls li {
 	color: #b7b7b7;
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: 700;
 	list-style: none;
 	display: inline-block;
-	margin-right: 88px;
+	margin-right: 50px;
 	cursor: pointer;
 }
 
