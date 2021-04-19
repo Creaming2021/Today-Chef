@@ -40,11 +40,7 @@ export default {
 	mounted(){
 		let tab = null;
 		const tabs = document.querySelectorAll('.filter__controls');
-		if (this.type === 'arrival') {
-			tab = tabs[0];
-		} else {
-			tab = tabs[1];
-		}
+		tab = this.type === 'arrival' ? tabs[0] : tabs[1];
 
 		tab.childNodes.forEach((node,idx) => {
 			if (idx === 0) {

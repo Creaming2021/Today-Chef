@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import Notice from "../views/Course.vue";
+import Notice from "../views/Notice.vue";
 import NoticeDetail from "../views/CourseDetail.vue";
 import Course from "../views/Course.vue";
 import CourseDetail from "../views/CourseDetail.vue";
@@ -20,12 +20,12 @@ const routes = [
   {
     path: "/notice",
     name: "Notice",
-    component: Course,
+    component: Notice,
   },
   {
     path: "/noticeDetail",
     name: "NoticeDetail",
-    component: Course,
+    component: NoticeDetail,
   },
   {
     path: "/course",
