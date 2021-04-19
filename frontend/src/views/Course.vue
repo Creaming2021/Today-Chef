@@ -8,8 +8,8 @@
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
                             <div>
-                                <input type="text" placeholder="Search..." v-model="serachCourseValue" @keyup.enter="serachCourse">
-                                <button @click="serachCourse"><span class="icon_search"></span></button>
+                                <input type="text" placeholder="Search..." v-model="searchCourseValue" @keyup.enter="searchCourse">
+                                <button @click="searchCourse"><span class="icon_search"></span></button>
                             </div>
                         </div>
                         <div class="shop__sidebar__accordion">
@@ -57,12 +57,15 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__right">
-                                  <select>
-                                      <option value="">리뷰순</option>
-                                      <option value="">별점순</option>
-                                      <option value="">좋아요 순</option>
-                                      <option value="">최신순</option>
-                                  </select>
+                                  <div class="nice-select">
+                                    <span class="current">{{currentSortValue}}</span>
+                                    <ul class="list">
+                                        <li class="option" value="review">리뷰순</li>
+                                        <li value="rank">별점순</li>
+                                        <li value="likeCnt">좋아요 순</li>
+                                        <li value="arrival">최신순</li>
+                                    </ul>
+                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -101,10 +104,13 @@ export default {
   mounted() {
     this.setCategory();
     this.setCategoryCollapse();
+    this.setSort();
   },
   data() {
     return {
-      serachCourseValue : '',
+      currentSortType: '',
+      currentSortValue: '',
+      searchCourseValue : '',
       categoryList : {},
       currentShowingList : [],
       CourseFilterList: [
@@ -310,7 +316,7 @@ export default {
     }
   },
   methods : {
-    serachCourse() {
+    searchCourse() {
       alert('Search Value',this.serachCourseValue);
     },
     setCategory() {
@@ -355,6 +361,34 @@ export default {
         })
       }); 
     },
+    setSort() {
+      const sortList = document.querySelectorAll('.nice-select')[0];
+      sortList.addEventListener('click', () => {
+        sortList.setAttribute('class', 'nice-select open');
+        this.currentSortType.classList.add('focus');
+      });
+
+      sortList.querySelectorAll('li').forEach((node, idx) => {
+        if(idx === 0) {
+          node.setAttribute('class', 'option focus selected');
+          this.currentSortType = node;
+          this.currentSortValue = node.innerText;
+        } else {
+          node.setAttribute('class', 'option');
+        }
+        node.addEventListener('click', (e) => {
+					e.stopPropagation();
+
+          this.currentSortType.classList.remove('selected');
+          this.currentSortType.classList.remove('focus');
+          sortList.setAttribute('class', 'nice-select');
+          node.classList.add('selected');
+
+          this.currentSortType = node;
+          this.currentSortValue = node.innerText;
+        })
+      });
+    }
   }
 }
 </script>

@@ -13,10 +13,13 @@
 						</div>
 				</div>
 				<div class="row product__filter">
-				<course-item 
-						v-for="course in itemList" 
-						v-bind:key="course.id" 
-						:course="course"/>
+					<div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in itemList" :key="idx">
+						<!-- <course-item 
+								v-for="course in itemList" 
+								v-bind:key="course.id" 
+								:course="course"/> -->
+								<CourseItem :course="course" :idx="idx" />
+						</div>
 				</div>
 			</div>
 	</section>
@@ -38,25 +41,7 @@ export default {
 		}
 	},
 	mounted(){
-		let tab = null;
-		const tabs = document.querySelectorAll('.filter__controls');
-		tab = this.type === 'arrival' ? tabs[0] : tabs[1];
-
-		tab.childNodes.forEach((node,idx) => {
-			if (idx === 0) {
-				node.setAttribute('class','active');
-				this.currentActive = node;
-			}
-			node.addEventListener('click', (e) => {
-				e.stopPropagation();
-				this.currentActive.classList.remove('active');
-				node.classList.add('active');
-				this.currentActive = node;
-
-				alert("요청 때립니다");
-			})
-		},
-		);
+		this.setChangeTabEvent();
 	},
 	props: {
 		tabList: [Array, Object],
@@ -64,11 +49,34 @@ export default {
 		type: String,
 	},
 	watch: {
-		currentActive: function() {
+		currentActive: () => {
 			this.$emit("currentActiveChanged", { 
 				tab: this.currentActive.innerText,
 				type: this.type,
 			});
+		}
+	},
+	methods : {
+		setChangeTabEvent() {
+			let tab = null;
+			const tabs = document.querySelectorAll('.filter__controls');
+			tab = this.type === 'arrival' ? tabs[0] : tabs[1];
+
+			tab.childNodes.forEach((node,idx) => {
+				if (idx === 0) {
+					node.setAttribute('class','active');
+					this.currentActive = node;
+				}
+				node.addEventListener('click', (e) => {
+					e.stopPropagation();
+					this.currentActive.classList.remove('active');
+					node.classList.add('active');
+					this.currentActive = node;
+
+					alert("요청 때립니다");
+				})
+			},
+			);
 		}
 	}
 }
