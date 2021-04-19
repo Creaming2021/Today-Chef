@@ -26,6 +26,7 @@
 									<nav class="header__menu mobile-menu">
 											<ul>
 													<li class="active" @click="onClickNav('Home')">홈</li>
+													<li class="active" @click="onClickNav('Notice')">공지사항</li>
 													<li @click="onClickNav('Course')">강의</li>
 													<li @click="onClickNav('Creator')">강사</li>
 													<li @click="onClickNav('Profile')">마이프로필</li>
