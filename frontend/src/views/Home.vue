@@ -200,14 +200,16 @@
           <div class="container">
               <div class="row">
                   <div class="col-lg-12">
-                      <ul class="filter__controls">
-                          <li class="active" data-filter="*">Best Sellers</li>
-                          <li data-filter=".new-arrivals">New Arrivals</li>
-                          <li data-filter=".hot-sales">Hot Sales</li>
-                      </ul>
+                      <div class="section-title">
+                          <span>Coming Soon</span>
+                          <h2>오픈 예정 강의</h2>
+                      </div>
                   </div>
               </div>
               <div class="row product__filter">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(item,idx) in CourseFilterList" :key="idx">
+                  <HomeItem :item="item" :idx="idx" />
+                </div>
                 <course-item 
                   v-for="course in CourseFilterList" 
                   v-bind:key="course.id" 
@@ -417,11 +419,13 @@
 </template>
 
 <script>
-import CourseItem from '../components/CourseItem';
+import HomeItem from '@/components/HomeItem.vue
+import CourseItem from '@/components/CourseItem.vue';
 
 export default {
   name: "Home",
   components: {
+    HomeItem,
     CourseItem
   },
   data() {
