@@ -15,9 +15,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Notice extends BaseTimeEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notice_id")
-    private UUID id;
+    private Long id;
 
     private String title;
 
