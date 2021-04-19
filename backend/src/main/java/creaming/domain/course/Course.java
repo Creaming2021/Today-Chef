@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -23,9 +24,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Course extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "course_id")
-    private Long id;
+    private UUID id;
 
     private String name;
     private LocalDateTime date;

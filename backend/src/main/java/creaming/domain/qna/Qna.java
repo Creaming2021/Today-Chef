@@ -6,6 +6,7 @@ import creaming.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -16,9 +17,9 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Qna extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "qna_id")
-    private Long id;
+    private UUID id;
 
     private String subject;
     private String content;

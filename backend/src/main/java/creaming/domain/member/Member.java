@@ -12,6 +12,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -22,9 +23,9 @@ import java.util.List;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Member extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "member_id")
-    private Long id;
+    private UUID id;
 
     private String nickname;
     private String profileImage;

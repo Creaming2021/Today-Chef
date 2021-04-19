@@ -7,6 +7,7 @@ import creaming.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -17,9 +18,9 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Register extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "register_id")
-    private Long id;
+    private UUID id;
 
     private int price;
 

@@ -6,6 +6,7 @@ import creaming.domain.register.Register;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -15,9 +16,9 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Delivery extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "delivery_id")
-    private Long id;
+    private UUID id;
 
     @Embedded
     private Address address;
