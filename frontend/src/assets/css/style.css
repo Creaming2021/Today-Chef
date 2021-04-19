@@ -750,7 +750,6 @@ ol {
 	overflow: hidden;
 	padding-top: 150px;
 	padding-bottom: 125px;
-	margin-bottom: 40px;
 }
 
 .categories__text {
@@ -910,7 +909,7 @@ ol {
 -----------------------*/
 
 .product {
-	padding-top: 0;
+	padding-top: 60px;
 	padding-bottom: 60px;
 }
 
