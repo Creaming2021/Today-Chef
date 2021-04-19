@@ -1,20 +1,17 @@
 <template>
-	<div class="col-lg-4 col-md-6 col-sm-6">
 		<div class="blog__item">
 				<img class="blog__item__pic set-bg" :src="course.thumbnail"/>
 				<div class="blog__item__text">
-						<span>{{course.category}} <img src="@/assets/img/icon/calendar.png" alt="">{{course.date}} / 좋아요 수 : {{course.likeCnt}}</span>
-						<h5>{{course.name}}</h5>
-						<h6 href="#">{{course.teacher}} / 별점 : {{course.rate}}</h6>
-						<h5>{{course.price}}원</h5>
+						<!-- <span>{{course.category}} <img src="@/assets/img/icon/calendar.png" alt="">{{course.date}} / 좋아요 수 : {{course.likeCnt}}</span> -->
+						<h6>{{course.name}}</h6>
+						<span href="#">{{course.teacher}} / 별점 : {{course.rate}}</span>
+						<h6>{{course.price}}원</h6>
 						<a href="#">자세히 보기</a>
 				</div>
 		</div>
-	</div>
 </template>
 
 <script>
-
 
 	export default {
 		data(){
@@ -35,3 +32,10 @@
 		}
 	}
 </script>
+
+<style scoped>
+.blog__item__text h6 {
+	color: #0d0d0d;
+	font-weight: 700;
+}
+</style>
