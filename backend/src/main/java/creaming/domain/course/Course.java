@@ -2,6 +2,7 @@ package creaming.domain.course;
 
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.etc.FoodType;
+import creaming.domain.file.CourseFile;
 import creaming.domain.like.Like;
 import creaming.domain.member.Member;
 import creaming.domain.qna.Qna;
@@ -58,4 +59,7 @@ public class Course extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<CourseFile> courseFiles = new ArrayList<>();
 }

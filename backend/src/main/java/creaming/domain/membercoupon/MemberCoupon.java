@@ -29,6 +29,7 @@ public class MemberCoupon extends BaseTimeEntity {
 
     private LocalDateTime expiredDate;
 
+    @Enumerated(EnumType.STRING)
     private CouponStatus couponStatus;
 
     @Builder

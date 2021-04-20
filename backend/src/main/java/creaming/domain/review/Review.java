@@ -3,6 +3,7 @@ package creaming.domain.review;
 import creaming.domain.comment.ReviewComment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
+import creaming.domain.file.ReviewFile;
 import creaming.domain.member.Member;
 import lombok.*;
 
@@ -38,4 +39,7 @@ public class Review extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ReviewComment> reviewComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ReviewFile> reviewFiles = new ArrayList<>();
 }

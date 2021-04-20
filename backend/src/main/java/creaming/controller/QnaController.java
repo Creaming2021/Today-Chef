@@ -17,15 +17,16 @@ import java.util.UUID;
 @RequestMapping("qna")
 public class QnaController {
 
-    @GetMapping("/{qnaId}")
-    public ResponseEntity<?> getQna(@PathVariable("qnaId") UUID qnaUUID) {
-        QnaDto.Response result = new QnaDto.Response();
+    @GetMapping
+    public ResponseEntity<?> getQnaAll(@RequestParam("courseId") UUID courseId,
+                                       Pageable pageable) {
+        Page<QnaDto.Response> result = Page.empty();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping
-    public ResponseEntity<?> getQnaAll(Pageable pageable) {
-        Page<QnaDto.Response> result = Page.empty();
+    @GetMapping("/{qnaId}")
+    public ResponseEntity<?> getQna(@PathVariable("qnaId") UUID qnaUUID) {
+        QnaDto.Response result = new QnaDto.Response();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
