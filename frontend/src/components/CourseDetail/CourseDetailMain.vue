@@ -8,10 +8,10 @@
       <span @click="onChangeType('refund')">한불 반품 정보</span>
     </p>
     <CourseIntroduction v-if="this.type === 'introduction'"/>
-    <CourseKit v-if="this.type === 'kit'"/>
-    <CourseReview v-if="this.type === 'review'"/>
-    <CourseQnA v-if="this.type === 'qna'"/>
-    <CourseRefund v-if="this.type === 'refund'"/>
+    <CourseKit v-else-if="this.type === 'kit'"/>
+    <CourseReview v-else-if="this.type === 'review'"/>
+    <CourseQnA v-else-if="this.type === 'qna'"/>
+    <CourseRefund v-else-if="this.type === 'refund'"/>
   </div>
 </template>
 
