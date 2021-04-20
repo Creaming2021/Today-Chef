@@ -1,9 +1,28 @@
 <template>
-  <div id="app">
-    <div id="nav">
-    </div>
+  <div>
+    <Nav/>
+    <router-view/>
+    <Footer/>
   </div>
 </template>
+
+
+<script>
+import '@/assets/css/bootstrap.min.css';
+import '@/assets/css/font-awesome.min.css';
+import '@/assets/css/elegant-icons.css';
+import '@/assets/css/magnific-popup.css';
+import '@/assets/css/nice-select.css';
+import '@/assets/css/owl.carousel.min.css';
+import '@/assets/css/slicknav.min.css';
+import '@/assets/css/style.css';
+import Nav from './components/Nav.vue';
+import Footer from './components/Footer.vue';
+
+export default {
+  components :{Nav, Footer},
+}
+</script>
 
 <style>
 #app {
