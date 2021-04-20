@@ -1,19 +1,18 @@
-package creaming.domain.notice;
+package creaming.domain.event;
 
 import creaming.domain.etc.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Builder
 @Entity
 @Getter
-@Table(name = "notices")
+@Table(name = "events")
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notice extends BaseTimeEntity {
+public class Event extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notice_id")

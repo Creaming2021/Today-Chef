@@ -4,6 +4,7 @@ import creaming.domain.course.Course;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.like.Like;
+import creaming.domain.membercoupon.MemberCoupon;
 import creaming.domain.qna.Qna;
 import creaming.domain.register.Register;
 import creaming.domain.review.Review;
@@ -51,4 +52,8 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<MemberCoupon> memberCoupons = new ArrayList<>();
+
 }

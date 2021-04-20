@@ -2,16 +2,19 @@ package creaming.dto;
 
 import lombok.*;
 
-public class NoticeDto {
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+public class EventDto {
 
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SimpleResponse {
-        private Long id;
+        private UUID id;
         private String title;
-        private String createdDate;
+        private LocalDateTime createdDate;
         private String image;
     }
 
@@ -20,10 +23,10 @@ public class NoticeDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DetailResponse {
-        private Long id;
+        private UUID id;
         private String title;
         private String content;
-        private String createdDate;
+        private LocalDateTime createdDate;
         private String image;
     }
 
