@@ -40,7 +40,7 @@ export default {
 			currentActive: '',
 		}
 	},
-	mounted(){
+	mounted() {
 		this.setChangeTabEvent();
 	},
 	props: {
@@ -49,7 +49,7 @@ export default {
 		type: String,
 	},
 	watch: {
-		currentActive: () => {
+		currentActive: function () {
 			this.$emit("currentActiveChanged", { 
 				tab: this.currentActive.innerText,
 				type: this.type,
