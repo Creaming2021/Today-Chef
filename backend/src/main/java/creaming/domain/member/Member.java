@@ -56,4 +56,17 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<MemberCoupon> memberCoupons = new ArrayList<>();
 
+    public void add(MemberCoupon memberCoupon) {
+        this.memberCoupons.add(memberCoupon);
+    }
+
+    // MemberCoupon
+//    public void addMemberCoupon(MemberCoupon memberCoupon) {
+//        this.memberCoupons.add(memberCoupon);
+//    }
+//
+//    public void deleteMemberCoupon(MemberCoupon memberCoupon) {
+//        this.memberCoupons.remove(memberCoupon);
+//    }
+    ///////////////////////////////////////////////////////
 }

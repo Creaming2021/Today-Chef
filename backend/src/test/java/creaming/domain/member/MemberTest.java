@@ -3,11 +3,14 @@ package creaming.domain.member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class MemberTest {
 
     @Autowired
@@ -15,16 +18,22 @@ class MemberTest {
 
     @Test
     public void 회원저장() throws Exception {
+
         // given
-        Member member = new Member();
+        String email = "ssafy@ssafy.com";
+        String nickName = "김싸피";
 
         // when
-        memberRepository.save(member);
+        Member member = Member.builder()
+                .email(email)
+                .nickname(nickName)
+                .build();
+
+        UUID id = memberRepository.save(member).getId();
 
         // then
-        Member findMember = memberRepository.findAll().get(0);
-        System.out.println("findMember.getId() = " + findMember.getId());
-        System.out.println("findMember.getCreatedDate() = " + findMember.getCreatedDate());
-        assertThat(findMember).isEqualTo(member);
+        Member findMember = memberRepository.findById(id).orElse(null);
+        assertThat(findMember.getEmail()).isEqualTo(email);
+        assertThat(findMember.getNickname()).isEqualTo(nickName);
     }
 }

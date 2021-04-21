@@ -11,11 +11,14 @@ import java.util.UUID;
 
 @Getter
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class MemberCoupon extends BaseTimeEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "member_coupon_id")
     private UUID id;
 
@@ -27,17 +30,26 @@ public class MemberCoupon extends BaseTimeEntity {
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-    private LocalDateTime expiredDate;
+    //
+//    private final LocalDateTime expiredDate =  LocalDateTime.now().plusDays(coupon.getExpiredDay());
+//
+//    @Enumerated(EnumType.STRING)
+//    private final CouponStatus couponStatus = CouponStatus.AVAILABLE;
 
-    @Enumerated(EnumType.STRING)
-    private CouponStatus couponStatus;
-
-    @Builder
-    public MemberCoupon(Member member, Coupon coupon) {
-        this.member = member;
-        this.coupon = coupon;
-        this.expiredDate = getCreatedDate().plusDays(coupon.getExpiredDay());
-        this.couponStatus = CouponStatus.AVAILABLE;
-    }
-
+    // Member, Coupon
+//    public void addMemberCoupn(Member member, Coupon coupon) {
+//        this.member = member;
+//        this.coupon = coupon;
+//        member.addMemberCoupon(this);
+//        coupon.addMemberCoupon(this);
+//    }
+//
+//    public void deleteMemberCoupon() {
+//        this.member.deleteMemberCoupon(this);
+//        this.coupon.deleteMemberCoupon(this);
+//        this.member = null;
+//        this.coupon = null;
+//    }
+    ////////////////////////////////
 }
+

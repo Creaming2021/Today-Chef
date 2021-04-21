@@ -32,5 +32,4 @@ public class Coupon extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "coupon", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<MemberCoupon> memberCoupons = new ArrayList<>();
-
 }

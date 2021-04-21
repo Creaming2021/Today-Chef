@@ -1,5 +1,6 @@
 package creaming.domain.review;
 
+import creaming.domain.comment.QnaComment;
 import creaming.domain.comment.ReviewComment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;

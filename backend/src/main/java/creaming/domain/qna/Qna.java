@@ -10,7 +10,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -40,5 +39,4 @@ public class Qna extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<QnaComment> qnaComments = new ArrayList<>();
-
 }
