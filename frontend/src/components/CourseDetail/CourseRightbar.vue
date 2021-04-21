@@ -1,24 +1,34 @@
 <template>
   <div class="col-lg-3 course-right-bar-container">
-		<div class="course-detail-header">
-      <b-badge>{{courseInfo.category}}</b-badge>
+    <div class="course-detail-header">
+      <b-badge variant="primary">{{courseInfo.category}}</b-badge>
       {{courseInfo.date}}</div>
-		<h4>{{courseInfo.name}}</h4>
-		<div class="row detail-info">
+    <h4>{{courseInfo.name}}</h4>
+    <div class="row detail-info">
       <h5 class="teacher">{{courseInfo.teacher}}</h5>
-		  <h5 class="price">{{courseInfo.price}}원</h5>
+      <h5 class="price">{{courseInfo.price}}원</h5>
     </div>
     <div class="row">
       <div class="like-btn" @click="setLike">
-        <b-icon v-if="!likeState" icon="heart"/> 
         <b-icon v-if="likeState" icon="heart-fill"/> 
+        <b-icon v-else icon="heart"/> 
         <div>{{courseInfo.likeCnt}}</div></div>
       <b-form-rating v-model="courseInfo.rate" readonly no-border/>
     </div>
-    <button>클래스 신청하기</button><br/>
+    <div v-if="role=='student'">
+      <button v-if="state=='before'">클래스 신청하기</button>
+      <button v-if="state=='waiting'">클래스 준비중</button>
+      <button v-if="state=='streaming'">클래스 참여하기</button>
+      <button v-if="state=='after'">리뷰 작성하기</button>
+      <br/>
+    </div>
+    <div v-else>
+      <br/>
+      <button @click="goToManageCourse">강의 정보 관리</button><br/>
+      <button @click="startStreaming">수업 시작하기</button><br/>
+    </div>
   </div>
 </template>
-
 
 <script>
 
@@ -30,10 +40,18 @@ export default {
   },
   props: {
     courseInfo: Object,
+    state: String,
+    role: String,
   },
   methods: {
     setLike() {
       this.likeState = !this.likeState;
+    },
+    goToManageCourse(){
+      alert("강의 관리 페이지 이동");
+    },
+    startStreaming(){
+      alert("수업 방송 시작");
     }
   }
 }
@@ -46,7 +64,7 @@ export default {
   height: inherit;
   padding: 10px;
 
-  background-color: lightgrey;
+  background-color: #f3f2ee;
   border-radius: 10px;
 
   margin-bottom: 100px;
@@ -88,7 +106,7 @@ export default {
   margin: auto;
   border: none;
   border-radius: 10px;
-  background-color: rgb(75, 75, 75);
+  background-color: white;
   width: 90%;
   height: 50px;
   font-weight: bold;
@@ -107,6 +125,4 @@ export default {
   width: 70%;
   background: none;
 }
-
-
 </style>

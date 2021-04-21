@@ -3,11 +3,29 @@
     <CourseThumbnail :thumbnailList="thumbnailList"/>
     <div class="row">
       <CourseDetailMain/>
-      <CourseRightbar :courseInfo="courseInfo"/>
+      <CourseRightbar 
+        :courseInfo="courseInfo"
+        :role="teacher"
+        :state="state"/>
+      <CourseRightbar 
+        :courseInfo="courseInfo"
+        :role="student"
+        :state="stateBefore"/>
+      <CourseRightbar 
+        :courseInfo="courseInfo"
+        :role="student"
+        :state="stateWaiting"/>
+      <CourseRightbar 
+        :courseInfo="courseInfo"
+        :role="student"
+        :state="stateStreaming"/>
+      <CourseRightbar 
+        :courseInfo="courseInfo"
+        :role="student"
+        :state="stateAfter"/>
     </div>
   </div>
 </template>
-
 
 <script>
 import CourseThumbnail from '@/components/CourseDetail/CourseThumbnail.vue';
@@ -35,6 +53,12 @@ export default {
         likeCnt: '123',
         rate: '3.5',
       },
+      student: 'student',
+      teacher: 'teacher',
+      stateBefore: 'before',
+      stateWaiting: 'waiting',
+      stateStreaming: 'streaming',
+      stateAfter: 'after',
     }
   },
   components: {
