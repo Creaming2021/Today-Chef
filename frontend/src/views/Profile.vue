@@ -16,10 +16,10 @@
                                         <div class="card-body">
                                             <div class="shop__sidebar__price">
                                                 <ul id="mypage-filter">
-                                                    <li><div>내 쿠폰</div></li>
-                                                    <li><div>내가 수강한 강의</div></li>
-                                                    <li><div>내가 진행한 강의</div></li>
-                                                    <li><div>결제 내역</div></li>
+                                                    <li>내 쿠폰</li>
+                                                    <li>내가 수강한 강의</li>
+                                                    <li>내가 진행한 강의</li>
+                                                    <li>결제 내역</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -32,13 +32,13 @@
                 <!-- 마이페이지 사이드바 Section End -->
 
                 <!-- 내 쿠폰 Section Start -->
-                <div v-if="currentAtiveFilter==0" class="col-lg-9">
+                <div v-show="currentAtiveFilter==0" class="col-lg-9">
                   <div class="row">
-                    <nav class="header__menu mobile-menu">
+                    <nav class="coupon-nav header__menu mobile-menu">
                         <ul>
-                          <li class="active" @click="onClickNav('Home')">사용 가능 쿠폰</li>
-                          <li @click="onClickNav('Notice')">사용 완료 쿠폰</li>
-                          <li @click="onClickNav('Course')">사용 만료 쿠폰</li>
+                          <li @click="onClickCouponFilter('possible')">사용 가능 쿠폰</li>
+                          <li @click="onClickCouponFilter('done')">사용 완료 쿠폰</li>
+                          <li @click="onClickCouponFilter('impossible')">사용 만료 쿠폰</li>
                         </ul>
                     </nav>
                   </div>
@@ -51,9 +51,9 @@
                 <!-- 내 쿠폰 Section End -->
 
                 <!-- 내가 수강한 강의 Section Start -->
-                <div v-if="currentAtiveFilter==1" class="col-lg-9">
+                <div v-show="currentAtiveFilter==1" class="col-lg-9">
                   <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in CourseFilterList" :key="idx">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in enrolledCourseList" :key="idx">
                       <CourseItem :course="course" :idx="idx" />
                     </div>
                   </div>
@@ -67,6 +67,47 @@
                   </div>
                 </div>
                 <!-- 내가 수강한 강의 Section End -->
+
+                <!-- 내가 진행한 강의 Section Start -->
+                <div v-show="currentAtiveFilter==2" class="col-lg-9">
+                  <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in myCourseList" :key="idx">
+                      <CourseItem :course="course" :idx="idx" />
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div class="product__pagination">
+                              <a class="active" href="#">1</a>
+                              <a href="#">2</a>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- 내가 수강한 강의 Section End -->
+
+                <!-- 결제 내역 Section Start -->
+                <div v-show="currentAtiveFilter==3" class="col-lg-9">
+                  <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shopping__cart__table">
+                          <table>
+                            <thead>
+                                <tr>
+                                  <th>강의</th>
+                                  <th>결제일</th>
+                                  <th>가격</th>
+                                </tr>
+                            </thead>
+                            <tbody v-for="(payment,idx) in myPaymentList" :key="idx">
+                              <PaymentItem :payment="payment" :idx="idx" />
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 결제 내역 Section End -->
             </div>
         </div>
     </section>
@@ -77,43 +118,117 @@
 <script>
 import CourseItem from '@/components/CourseItem.vue';
 import CouponItem from '@/components/CouponItem.vue';
+import PaymentItem from '@/components/PaymentItem.vue';
 
 export default {
   components: {
     CourseItem,
     CouponItem,
+    PaymentItem
   },
   mounted() {
     this.initActiveFilter();
-    this.setClickEventOfFilter();
+    this.setClickEventOfFilter(document.querySelector('#mypage-filter').querySelectorAll('li'),'currentAtiveFilter');
+    this.setClickEventOfFilter(document.querySelector('.coupon-nav').querySelectorAll('li'),'couponAtiveFilter');
     },
   methods : {
     initActiveFilter() {
       this.currentAtiveFilter = this.$router.query ? this.$router.query.active : 0;
+      this.couponAtiveFilter = 0;
       const mypageFilterArray = document.querySelector('#mypage-filter').querySelectorAll('li');
-      mypageFilterArray[this.currentAtiveFilter].querySelector('div').classList.toggle('active');
+      const mypageCouponActiveArray = document.querySelector('.coupon-nav').querySelectorAll('li');
+      mypageFilterArray[this.currentAtiveFilter].classList.toggle('active');
+      mypageCouponActiveArray[this.couponAtiveFilter].classList.toggle('active');
     },
-    setClickEventOfFilter() {
-      const mypageFilterArray = document.querySelector('#mypage-filter').querySelectorAll('li');
-      mypageFilterArray.forEach((li,idx) => {
-        li.querySelector('div').addEventListener('click',() => {
-          mypageFilterArray[this.currentAtiveFilter].querySelector('div').classList.toggle('active');
-          this.currentAtiveFilter = idx;
-          mypageFilterArray[this.currentAtiveFilter].querySelector('div').classList.toggle('active');
+    setClickEventOfFilter(array,type) {
+      array.forEach((element,idx) => {
+        element.addEventListener('click',() => {
+          array[this[type]].classList.toggle('active');
+          this[type] = idx;
+          array[this[type]].classList.toggle('active');
         })
       });
     },
+    onClickCouponFilter(state) {
+      if (state === 'done') {// 완료 쿠폰
+        alert('사용완료쿠폰 정렬')
+      }
+      else if (state === 'possible') { //사용 가능 쿠폰
+        alert('사용가능쿠폰 정렬')
+      }
+      else { //사용 만료 쿠폰
+        alert('사용만료쿠폰 정렬')
+      }
+    }
   },
   data() {
     return {
       currentAtiveFilter : '',
-      CourseFilterList: [
+      couponAtiveFilter : '',
+      enrolledCourseList: [
         {
           id: 1,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
           category: '한식',
           date: '2021.04.16',
+          name: '어렵게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
+        },
+        {
+          id: 2,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.17',
+          name: '보통으로 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '323',
+          rate: '3.5',
+        },
+        {
+          id: 3,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '양식',
+          date: '2021.04.18',
           name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
+        },
+        {
+          id: 3,
+          thumbnail: 'https://cdn.class101.net/images/70d3e20b-0c66-4321-be69-6b4f682017d6/375xauto.webp',
+          category: '양식',
+          date: '2021.04.18',
+          name: '쉽게 까먹는 일본가정식',
+          teacher: '다까무라',
+          price: '50600',
+          likeCnt: '123',
+          rate: '3.5',
+        },
+        {
+          id: 3,
+          thumbnail: 'https://cdn.class101.net/images/25b73a82-9387-44b9-86bd-fe312461e139/375xauto.webp',
+          category: '양식',
+          date: '2021.02.12',
+          name: '낭만 캠핑을 위한 비비큐',
+          teacher: '미국소',
+          price: '52600',
+          likeCnt: '123',
+          rate: '3.2',
+        },
+      ],
+      myCourseList: [
+        {
+          id: 1,
+          thumbnail: 'https://cdn.class101.net/images/8fd1878d-9cae-4d48-8dad-52a0fcff7127/2048xauto',
+          category: '한식',
+          date: '2021.04.16',
+          name: '취미로 하는 수비드 고기 요리',
           teacher: '김한식',
           price: '50000',
           likeCnt: '123',
@@ -132,13 +247,46 @@ export default {
         },
         {
           id: 3,
-          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          thumbnail: 'https://cdn.class101.net/images/860b79ca-e228-404a-816a-573b69fae710/375xauto.webp',
           category: '양식',
           date: '2021.04.18',
-          name: '쉽게 배워보는 갈비찜',
+          name: '낭만브레드의 김탁구',
+          teacher: '낭만브레드',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
+        },
+        {
+          id: 3,
+          thumbnail: 'https://cdn.class101.net/images/caa0d8ae-6d24-4f1c-b3f3-00961541e2be/375xauto.webp',
+          category: '양식',
+          date: '2021.04.18',
+          name: '감각적인 디저트를 완성하다!',
+          teacher: '미완성식탁',
+          price: '56300',
+          likeCnt: '123',
+          rate: '3.5',
+        },
+        {
+          id: 1,
+          thumbnail: 'https://cdn.class101.net/images/8fd1878d-9cae-4d48-8dad-52a0fcff7127/2048xauto',
+          category: '한식',
+          date: '2021.04.16',
+          name: '취미로 하는 수비드 고기 요리',
           teacher: '김한식',
           price: '50000',
           likeCnt: '123',
+          rate: '3.5',
+        },
+        {
+          id: 2,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.17',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '323',
           rate: '3.5',
         },
       ],
@@ -187,9 +335,44 @@ export default {
           likeCnt: '123',
           rate: '3.5',
         },
+      ],
+      myPaymentList : [
+        {
+          id: 1,
+          thumbnail: 'https://cdn.class101.net/images/8fd1878d-9cae-4d48-8dad-52a0fcff7127/2048xauto',
+          category: '양식',
+          date: '2021.04.18',
+          name: '쉽게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
+        },
+        {
+          id: 1,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.16',
+          name: '어렵게 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '123',
+          rate: '3.5',
+        },
+        {
+          id: 2,
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
+          category: '한식',
+          date: '2021.04.17',
+          name: '보통으로 배워보는 갈비찜',
+          teacher: '김한식',
+          price: '50000',
+          likeCnt: '323',
+          rate: '3.5',
+        },
         {
           id: 3,
-          thumbnail: 'https://bonmall.co.kr/Res/U/M/BONMALL/img/event/coupon01_01.png',
+          thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
           category: '양식',
           date: '2021.04.18',
           name: '쉽게 배워보는 갈비찜',
@@ -200,25 +383,25 @@ export default {
         },
         {
           id: 3,
-          thumbnail: 'https://bonmall.co.kr/Res/U/M/BONMALL/img/event/coupon01_01.png',
+          thumbnail: 'https://cdn.class101.net/images/70d3e20b-0c66-4321-be69-6b4f682017d6/375xauto.webp',
           category: '양식',
           date: '2021.04.18',
-          name: '쉽게 배워보는 갈비찜',
-          teacher: '김한식',
-          price: '50000',
+          name: '쉽게 까먹는 일본가정식',
+          teacher: '다까무라',
+          price: '50600',
           likeCnt: '123',
           rate: '3.5',
         },
         {
           id: 3,
-          thumbnail: 'https://bonmall.co.kr/Res/U/M/BONMALL/img/event/coupon01_01.png',
+          thumbnail: 'https://cdn.class101.net/images/25b73a82-9387-44b9-86bd-fe312461e139/375xauto.webp',
           category: '양식',
-          date: '2021.04.18',
-          name: '쉽게 배워보는 갈비찜',
-          teacher: '김한식',
-          price: '50000',
+          date: '2021.02.12',
+          name: '낭만 캠핑을 위한 비비큐',
+          teacher: '미국소',
+          price: '52600',
           likeCnt: '123',
-          rate: '3.5',
+          rate: '3.2',
         },
       ]
     }
@@ -271,6 +454,16 @@ export default {
 }
 .shop__sidebar__price ul li div:hover{
 	color: #111111;
+  text-decoration: underline;
+}
+.active {
+	color: #111111;
+	font-weight: 700;
+}
+#mypage-filter li {
+  cursor: pointer;
+}
+#mypage-filter li:hover, .coupon-nav li:hover {
   text-decoration: underline;
 }
 </style>
