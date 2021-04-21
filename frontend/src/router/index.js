@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import Home from "../views/Home.vue";
 import Notice from "../views/Notice.vue";
 import NoticeDetail from "../views/CourseDetail.vue";
@@ -10,6 +11,8 @@ import Profile from "../views/Profile.vue";
 import Streaming from "../views/Streaming.vue";
 
 Vue.use(VueRouter);
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 
 const routes = [
   {
