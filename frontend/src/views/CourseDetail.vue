@@ -1,8 +1,10 @@
 <template>
   <div class="course-detail-container">
     <CourseThumbnail :thumbnailList="thumbnailList"/>
-    <CourseDetailMain/>
-    <CourseRightbar/>
+    <div class="row">
+      <CourseDetailMain/>
+      <CourseRightbar :courseInfo="courseInfo"/>
+    </div>
   </div>
 </template>
 
@@ -22,7 +24,17 @@ export default {
         'https://cdn.class101.net/images/a89a90ff-baa4-4ba2-b7d5-317f09e84a71',
         'https://i.pinimg.com/564x/0e/ef/38/0eef38624526b44f1741e7b663179125.jpg',
         'https://dimg.donga.com/ugc/CDB/WOMAN/Article/5f/f8/06/41/5ff806410c12d2738de6.jpg',
-      ]
+      ],
+      courseInfo : {
+        id: 1,
+        category: '한식',
+        date: '2021.04.16',
+        name: '쉽게 배워보는 갈비찜',
+        teacher: '김한식',
+        price: '50000',
+        likeCnt: '123',
+        rate: '3.5',
+      },
     }
   },
   components: {

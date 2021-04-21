@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <p>
+  <div class="col-lg-9 course-detail-main-container">
+    <div>
       <span @click="onChangeType('introduction')">클래스 소개</span> |
       <span @click="onChangeType('kit')">키트 소개</span> |
       <span @click="onChangeType('review')">리뷰</span> |
       <span @click="onChangeType('qna')">QnA</span> |
       <span @click="onChangeType('refund')">한불 반품 정보</span>
-    </p>
+    </div>
     <CourseIntroduction v-if="this.type === 'introduction'"/>
     <CourseKit v-else-if="this.type === 'kit'"/>
     <CourseReview v-else-if="this.type === 'review'"/>
@@ -45,4 +45,19 @@ export default {
 </script>
 
 <style>
+.course-detail-main-container{
+  display: inline-block;
+  width: 70%;
+  height: inherit;
+  padding: 10px;
+}
+
+.course-detail-main-container div{
+  word-spacing: 5px;
+  margin-bottom: 20px;
+}
+
+.course-detail-main-container div:hover{
+  cursor: pointer;
+}
 </style>
