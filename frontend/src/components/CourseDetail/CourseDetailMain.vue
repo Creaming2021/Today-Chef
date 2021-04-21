@@ -12,6 +12,8 @@
     <CourseReview 
       v-else-if="this.type === 'review'"
       :reviewList="reviewList"/>
+    <CourseReviewDetail
+      v-else-if="this.type === 'reviewDetail'"/>
     <CourseQnA v-else-if="this.type === 'qna'"/>
     <CourseRefund v-else-if="this.type === 'refund'"/>
   </div>
@@ -22,6 +24,7 @@
 import CourseIntroduction from '@/components/CourseDetail/CourseIntroduction.vue';
 import CourseKit from '@/components/CourseDetail/CourseKit.vue';
 import CourseReview from '@/components/CourseDetail/CourseReview.vue';
+import CourseReviewDetail from '@/components/CourseDetail/CourseReviewDetail.vue';
 import CourseQnA from '@/components/CourseDetail/CourseQnA.vue';
 import CourseRefund from '@/components/CourseDetail/CourseRefund.vue';
 
@@ -37,23 +40,7 @@ export default {
           content: '리뷰 내용',
           writer: '작성자 닉네임',
           date: '2021년 4월 21일',
-          commentCnt: 2
-          // [
-          //   {
-          //     id: 1,
-          //     writer: '리뷰 작성자',
-          //     date: '2021년 4월 21일',
-          //     profile: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA0MDZfMjg0/MDAxNTg2MTgwNjMxODE1.B22_kATsB4cyKg2yr9x6GoRk8OuBXutbaQdRG2wxbAMg.ZIGXNEYc2xDiH61A18wLGcNeFNl4RsDTCrK1pMY0cnIg.JPEG.b-seol/46858675_511354619382565_4518962982505897027_n(1).jpg?type=w800',
-          //     content: '리뷰 내용',
-          //   },
-          //   {
-          //     id: 2,
-          //     writer: '리뷰 작성자',
-          //     date: '2021년 4월 21일',
-          //     profile: 'https://i1.sndcdn.com/artworks-WzFnntNp1E7dHw7y-RqzlrQ-t500x500.jpg',
-          //     content: '리뷰 내용',
-          //   }
-          // ], 
+          commentCnt: 2 
         },
         {
           id: 2,
@@ -94,17 +81,34 @@ export default {
       ]
     }
   },
+  created() {
+    this.checkQuery();
+  },
   components: {
     CourseIntroduction,
     CourseKit,
     CourseReview,
+    CourseReviewDetail,
     CourseQnA,
     CourseRefund
   },
   methods: {
     onChangeType( clickType ){
-      this.type = clickType;
-    }
+			this.$router.push({
+				name: 'CourseDetail',
+        params: { type: clickType }
+			});
+    },
+    checkQuery() {
+      this.type = this.$route.params.type;
+    },
+  },
+  watch: { 
+    $route(to, from) { 
+      if (to.path != from.path) { 
+        this.checkQuery();
+      } 
+    } 
   }
 }
 </script>

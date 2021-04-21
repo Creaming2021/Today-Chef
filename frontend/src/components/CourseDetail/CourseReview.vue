@@ -1,6 +1,10 @@
 <template>
   <div class="course-review-container">
-    <div class="review-item" v-for="review in reviewList" v-bind:key="review.id">
+    <div 
+      class="review-item" 
+      v-for="review in reviewList" 
+      v-bind:key="review.id"
+      @click="onGoToReviewDetail(review.id)">
       <div class="review-item-left">
         <div class="title">{{review.title}}</div>
         <h6>{{review.content}}</h6>
@@ -17,6 +21,14 @@
 export default {
   props: {
     reviewList: Array,
+  },
+  methods: {
+    onGoToReviewDetail(id){
+      this.$router.push({
+				name: 'CourseDetail',
+        params: { type: 'reviewDetail', id: id }
+      });
+    }
   }
 }
 </script>

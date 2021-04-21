@@ -36,7 +36,7 @@ const routes = [
     component: Course,
   },
   {
-    path: "/courseDetail",
+    path: "/courseDetail/:type",
     name: "CourseDetail",
     component: CourseDetail,
   },
