@@ -5,7 +5,7 @@
       <span @click="onChangeType('kit')">키트 소개</span> |
       <span @click="onChangeType('review')">리뷰</span> |
       <span @click="onChangeType('qna')">QnA</span> |
-      <span @click="onChangeType('refund')">한불 반품 정보</span>
+      <span @click="onChangeType('refund')">한불 정책</span>
     </div>
     <CourseIntroduction v-if="this.type === 'introduction'"/>
     <CourseKit v-else-if="this.type === 'kit'"/>
@@ -213,7 +213,7 @@ export default {
 
 .course-detail-main-container .tab{
   word-spacing: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .course-detail-main-container .tab:hover{
