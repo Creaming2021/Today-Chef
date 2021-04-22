@@ -54,7 +54,7 @@
                 <div v-show="currentAtiveFilter==1" class="col-lg-9">
                   <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in enrolledCourseList" :key="idx">
-                      <CourseItem :course="course" :idx="idx" />
+                      <CourseItem :course="course" :idx="idx" :type="'otherClass'" />
                     </div>
                   </div>
                   <div class="row">
@@ -72,7 +72,7 @@
                 <div v-show="currentAtiveFilter==2" class="col-lg-9">
                   <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in myCourseList" :key="idx">
-                      <CourseItem :course="course" :idx="idx" />
+                      <CourseItem :course="course" :idx="idx" :type="'myClass'" />
                     </div>
                   </div>
                   <div class="row">
@@ -159,6 +159,9 @@ export default {
       else { //사용 만료 쿠폰
         alert('사용만료쿠폰 정렬')
       }
+    },
+    onClickMyClass() {
+      console.log('course')
     }
   },
   data() {
@@ -347,6 +350,10 @@ export default {
           price: '50000',
           likeCnt: '123',
           rate: '3.5',
+          enrolledAddress : '대전 유성구 온천서로 2',
+          deliveryCorp : '대한통운',
+          deliveryNum : 12351,
+          deliveryReq : '상온에 두면 안됩니다.'
         },
         {
           id: 1,
@@ -358,6 +365,10 @@ export default {
           price: '50000',
           likeCnt: '123',
           rate: '3.5',
+          enrolledAddress : '대전 유성구 온천서로 2',
+          deliveryCorp : '대한통운',
+          deliveryNum : 12351,
+          deliveryReq : '상온에 두면 안됩니다.'
         },
         {
           id: 2,
@@ -369,6 +380,10 @@ export default {
           price: '50000',
           likeCnt: '323',
           rate: '3.5',
+          enrolledAddress : '대전 유성구 온천서로 2',
+          deliveryCorp : '대한통운',
+          deliveryNum : 12351,
+          deliveryReq : '상온에 두면 안됩니다.'
         },
         {
           id: 3,
@@ -380,6 +395,10 @@ export default {
           price: '50000',
           likeCnt: '123',
           rate: '3.5',
+          enrolledAddress : '대전 유성구 온천서로 2',
+          deliveryCorp : '대한통운',
+          deliveryNum : 12351,
+          deliveryReq : '상온에 두면 안됩니다.'
         },
         {
           id: 3,
@@ -391,6 +410,10 @@ export default {
           price: '50600',
           likeCnt: '123',
           rate: '3.5',
+          enrolledAddress : '대전 유성구 온천서로 2',
+          deliveryCorp : '대한통운',
+          deliveryNum : 12351,
+          deliveryReq : '상온에 두면 안됩니다.'
         },
         {
           id: 3,
@@ -402,6 +425,10 @@ export default {
           price: '52600',
           likeCnt: '123',
           rate: '3.2',
+          enrolledAddress : '대전 유성구 온천서로 2',
+          deliveryCorp : '대한통운',
+          deliveryNum : 12351,
+          deliveryReq : '상온에 두면 안됩니다.'
         },
       ]
     }

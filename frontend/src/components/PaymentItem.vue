@@ -18,13 +18,44 @@
     </td>
     <td class="cart__price">{{payment.price}}원</td>
     <td class="cart__price"><div class="payment-detail" @click="onClickPaymentDetail">상세 내역</div></td>
+    <b-modal 
+    size="lg" 
+    v-model="modalState" 
+    hide-footer hide-header>
+    <div class="container" style="min-height : 300px">
+      <p @click="onCloseDetailModal" class="btn" style="display : flex;justify-content : flex-end">X</p>
+      <!-- {{payment}} -->
+      <div class="shopping__cart__table">
+        <table>
+          <thead>
+            <tr>
+              <th>상품정보</th>
+              <th>상품금액</th>
+              <th>배송조회</th>
+              <th>배송요청사항</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{payment.name}}</td>
+              <td>{{payment.price}}</td>
+              <td @click="deliveryDetail" class="delivery-detail">{{payment.deliveryCorp}}</td>
+              <td>{{payment.deliveryReq}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </b-modal>
   </tr>
 </template>
 
 <script>
 	export default {
 		data(){
-			return {}
+      return {
+        modalState : false,
+      }
 		},
 		props: {
       payment : Object,
@@ -35,8 +66,17 @@
     },
     methods : {
       onClickPaymentDetail() {
-        alert('상세내역보기')
+        this.onOpenDetailModal();
       },
+		onCloseDetailModal() {
+			this.modalState = false;
+		},
+		onOpenDetailModal() {
+			this.modalState = true;
+		},
+    deliveryDetail() {
+      alert('배송조회')
+    }
     }
 	}
 </script>
@@ -49,5 +89,11 @@
 }
 .payment-detail {
   cursor: pointer;
+}
+.delivery-detail {
+  cursor: pointer;
+}
+.delivery-detail:hover {
+  text-decoration: underline;
 }
 </style>
