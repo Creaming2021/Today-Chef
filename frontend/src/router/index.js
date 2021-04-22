@@ -10,6 +10,7 @@ import Profile from "../views/Profile.vue";
 import Streaming from "../views/Streaming.vue";
 import Payment from "../views/Payment.vue";
 import VueDaumPostcode from "vue-daum-postcode"
+import Sign from "../views/Sign.vue";
 
 Vue.use(VueRouter, VueDaumPostcode);
 
@@ -58,6 +59,11 @@ const routes = [
     path: "/payment",
     name: "Payment",
     component: Payment,
+  },
+  {
+    path: "/auth",
+    name: "Sign",
+    component: Sign,
   }
 ];
 
