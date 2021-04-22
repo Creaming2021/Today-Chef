@@ -14,7 +14,7 @@ public class EventDto {
     public static class SimpleResponse {
         private UUID id;
         private String title;
-        private LocalDateTime createdDate;
+        private LocalDateTime date;
         private String image;
     }
 
@@ -26,7 +26,7 @@ public class EventDto {
         private UUID id;
         private String title;
         private String content;
-        private LocalDateTime createdDate;
+        private LocalDateTime date;
         private String image;
     }
 

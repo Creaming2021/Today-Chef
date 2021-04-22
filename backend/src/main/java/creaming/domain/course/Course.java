@@ -12,6 +12,7 @@ import creaming.domain.timetable.TimeTable;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,9 @@ public class Course extends BaseTimeEntity {
     private UUID id;
 
     private String name;
-    private LocalDateTime date;
-    private int price;
-    private String image;
+    private LocalDate date;
+    private Integer price;
+    private Integer rating;
 
     @Enumerated(EnumType.STRING)
     private FoodType category;
@@ -66,4 +67,9 @@ public class Course extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<TimeTable> timeTables = new ArrayList<>();
+
+    public void test(TimeTable timeTable) {
+        timeTables.remove(timeTable);
+        timeTable.deleteTimeTable();
+    }
 }

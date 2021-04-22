@@ -20,8 +20,8 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/{eventUUID}")
-    public ResponseEntity<EventDto.DetailResponse> getEvent(@PathVariable("eventUUID") UUID eventUUID) {
+    @GetMapping("/{eventId}")
+    public ResponseEntity<EventDto.DetailResponse> getEvent(@PathVariable("eventId") UUID eventId) {
         return ResponseEntity.status(HttpStatus.OK).body(new EventDto.DetailResponse());
     }
 
@@ -31,18 +31,18 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @PostMapping("/{eventUUID}/image")
-    public ResponseEntity<Void> postEventImage(@PathVariable("eventUUID") UUID eventUUID, MultipartFile file) {
+    @PostMapping("/{eventId}/image")
+    public ResponseEntity<Void> postEventImage(@PathVariable("eventId") UUID eventId, MultipartFile file) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping("/{eventUUID}")
-    public ResponseEntity<UUID> putEvent(@PathVariable("eventUUID") UUID eventUUID, @RequestBody EventDto.Request dto) {
-        return ResponseEntity.status(HttpStatus.OK).body(eventUUID);
+    @PutMapping("/{eventId}")
+    public ResponseEntity<UUID> putEvent(@PathVariable("eventId") UUID eventId, @RequestBody EventDto.Request dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(eventId);
     }
 
-    @DeleteMapping("/{eventUUID}")
-    public ResponseEntity<Void> deleteEvent(@PathVariable("eventUUID") UUID eventUUID) {
+    @DeleteMapping("/{eventId}")
+    public ResponseEntity<Void> deleteEvent(@PathVariable("eventId") UUID eventUUID) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

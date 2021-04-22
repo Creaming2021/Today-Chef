@@ -30,11 +30,11 @@ public class MemberCoupon extends BaseTimeEntity {
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-    //
-//    private final LocalDateTime expiredDate =  LocalDateTime.now().plusDays(coupon.getExpiredDay());
-//
-//    @Enumerated(EnumType.STRING)
-//    private final CouponStatus couponStatus = CouponStatus.AVAILABLE;
+
+    private final LocalDateTime expiredDate =  LocalDateTime.now().plusDays(coupon.getExpiredDay());
+
+    @Enumerated(EnumType.STRING)
+    private final CouponStatus couponStatus = CouponStatus.AVAILABLE;
 
     // Member, Coupon
 //    public void addMemberCoupn(Member member, Coupon coupon) {

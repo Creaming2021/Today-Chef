@@ -62,10 +62,16 @@ class QnaCommentTest {
         em.flush();
         em.clear();
 
-//        MemberCoupon findMemberCoupon = memberCouponRepository.findById(memberCouponId).get();
-//        memberCouponRepository.delete(findMemberCoupon);
-        Coupon findCoupon = couponRepository.findById(couponId).get();
-        couponRepository.delete(findCoupon);
+        MemberCoupon findMemberCoupon = memberCouponRepository.findById(memberCouponId).get();
+        memberCouponRepository.delete(findMemberCoupon);
+//        Coupon findCoupon = couponRepository.findById(couponId).get();
+//        couponRepository.delete(findCoupon);
+
+        em.flush();
+        em.clear();
+
+        Member findMember = memberRepository.findAll().get(0);
+        assertThat(findMember.getMemberCoupons().size()).as("땡").isEqualTo(0);
     }
 
     @Test

@@ -13,11 +13,13 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SimpleResponse {
-        private UUID id;
+        private UUID reviewId;
         private MemberDto.SimpleProfile profile;
         private int rating;
+        private String title;
         private String content;
         private LocalDateTime createdDate;
+        private int commentCount;
     }
 
     @Getter
@@ -25,11 +27,13 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DetailResponse {
-        private UUID id;
+        private UUID reviewId;
         private MemberDto.SimpleProfile profile;
         private int rating;
+        private String title;
         private String content;
-        private LocalDateTime createdDate;
+        private LocalDateTime date;
+        private int commentCount;
         private List<Comment> comments;
     }
 
@@ -39,8 +43,28 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Comment {
-        private UUID id;
+        private UUID commentId;
         private MemberDto.SimpleProfile profile;
-        private LocalDateTime createdDate;
+        private String content;
+        private LocalDateTime date;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PostRequest {
+        private UUID memberId;
+        private UUID courseId;
+        private String content;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PutRequest {
+        private String content;
+    }
+
 }

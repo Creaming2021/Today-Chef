@@ -35,4 +35,8 @@ public class TimeTable {
     @JoinColumn(name = "course")
     private Course course;
 
+    public void deleteTimeTable() {
+        course = null;
+    }
+
 }

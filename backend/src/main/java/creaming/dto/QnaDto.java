@@ -1,11 +1,9 @@
 package creaming.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class QnaDto {
@@ -15,13 +13,13 @@ public class QnaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        private UUID id;
+        private UUID qnaId;
+        private MemberDto.SimpleProfile profile;
         private String title;
-        private String memberName;
-        private String courseName;
-        private LocalDateTime createdDate;
+        private LocalDateTime date;
         private String content;
-        private int answerCount;
+        private boolean isSecret;
+        private List<Comment> comments;
     }
 
     @Getter
@@ -29,8 +27,8 @@ public class QnaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
-        private String memberId;
-        private String courseId;
+        private UUID memberId;
+        private UUID courseId;
         private String title;
         private String content; // TODO editor 로 작업시 수정
         private boolean isSecret;
@@ -44,5 +42,17 @@ public class QnaDto {
         private String title;
         private String content;
         private boolean isSecret;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Comment {
+        private UUID commentId;
+        private MemberDto.SimpleProfile profile;
+        private String content;
+        private LocalDateTime date;
     }
 }

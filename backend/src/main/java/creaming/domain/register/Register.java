@@ -7,6 +7,7 @@ import creaming.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.util.UUID;
 
 @Builder
@@ -21,6 +22,8 @@ public class Register extends BaseTimeEntity {
     @Id @GeneratedValue
     @Column(name = "register_id")
     private UUID id;
+
+    private DayOfWeek dayOfWeek;
 
     private int price;
 
