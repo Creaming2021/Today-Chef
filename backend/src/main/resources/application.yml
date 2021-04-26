@@ -19,3 +19,6 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+
+my-app:
+  server-url: https://j4b106.p.ssafy.io
