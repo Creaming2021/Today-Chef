@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Event extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "notice_id")
+    @Column(name = "event_id")
     private Long id;
 
     private String title;

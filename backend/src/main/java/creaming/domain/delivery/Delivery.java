@@ -1,5 +1,6 @@
 package creaming.domain.delivery;
 
+import creaming.domain.course.Course;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.register.Register;
@@ -29,4 +30,10 @@ public class Delivery extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
     private Register register;
+
+    // JPA
+    public void updateRegister(Register register) {
+        this.register = register;
+    }
+    /////////////////////////////////////////
 }

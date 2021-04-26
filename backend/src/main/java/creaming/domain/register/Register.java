@@ -35,4 +35,14 @@ public class Register extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
+
+    // JPA
+    public void updateCourse(Course course) {
+        this.course = course;
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+    /////////////////////////////
 }

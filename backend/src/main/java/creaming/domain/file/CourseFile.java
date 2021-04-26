@@ -21,4 +21,11 @@ public class CourseFile extends File{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
+
+    // JPA
+    @Override
+    public void updateFK(Object course) {
+        this.course = (Course) course;
+    }
+    ////////////////////////////////
 }

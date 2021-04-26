@@ -28,4 +28,13 @@ public class Like {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // JPA
+    public void updateCourse(Course course) {
+        this.course = course;
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+    /////////////////////////////////////
 }

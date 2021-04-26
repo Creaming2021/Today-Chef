@@ -28,4 +28,11 @@ public class ReviewComment extends Comment {
         super(id, content, member);
         this.review = review;
     }
+
+    // JPA
+    @Override
+    public void updateFK(Object review) {
+        this.review = (Review) review;
+    }
+    ////////////////////////////////////////
 }

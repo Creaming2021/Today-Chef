@@ -43,4 +43,24 @@ public class Review extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ReviewFile> reviewFiles = new ArrayList<>();
+
+    // JPA
+    public void updateCourse(Course course) {
+        this.course = course;
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+
+    public void addComment(ReviewComment reviewComment) {
+        reviewComments.add(reviewComment);
+        reviewComment.updateFK(this);
+    }
+
+    public void deleteComment(ReviewComment reviewComment) {
+        reviewComments.remove(reviewComment);
+        reviewComment.updateFK(null);
+    }
+    /////////////////////////////////////////
 }

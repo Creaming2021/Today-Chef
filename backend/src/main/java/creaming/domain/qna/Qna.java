@@ -39,4 +39,24 @@ public class Qna extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<QnaComment> qnaComments = new ArrayList<>();
+
+    // JPA
+    public void updateCourse(Course course) {
+        this.course = course;
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+
+    public void addComment(QnaComment qnaComment) {
+        qnaComments.add(qnaComment);
+        qnaComment.updateFK(this);
+    }
+
+    public void deleteComment(QnaComment qnaComment) {
+        qnaComments.remove(qnaComment);
+        qnaComment.updateFK(null);
+    }
+    /////////////////////////////////
 }

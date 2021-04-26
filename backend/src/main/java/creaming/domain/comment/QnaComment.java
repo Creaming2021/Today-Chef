@@ -28,4 +28,11 @@ public class QnaComment extends Comment {
         super(id, content, member);
         this.qna = qna;
     }
+
+    // JPA
+    @Override
+    public void updateFK(Object qna) {
+        this.qna = (Qna) qna;
+    }
+    ////////////////////////////////////////
 }

@@ -35,4 +35,9 @@ public class TimeTable {
     @JoinColumn(name = "course")
     private Course course;
 
+    // JPA
+    public void updateCourse(Course course) {
+        this.course = course;
+    }
+    /////////////////////////////
 }

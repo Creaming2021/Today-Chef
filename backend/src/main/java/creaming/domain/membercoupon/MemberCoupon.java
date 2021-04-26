@@ -1,9 +1,11 @@
 package creaming.domain.membercoupon;
 
 import creaming.domain.coupon.Coupon;
+import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
 import lombok.*;
+import net.bytebuddy.implementation.bind.annotation.BindingPriority;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +15,6 @@ import java.util.UUID;
 @Entity
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class MemberCoupon extends BaseTimeEntity {
 
@@ -30,26 +31,24 @@ public class MemberCoupon extends BaseTimeEntity {
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-    //
-//    private final LocalDateTime expiredDate =  LocalDateTime.now().plusDays(coupon.getExpiredDay());
-//
-//    @Enumerated(EnumType.STRING)
-//    private final CouponStatus couponStatus = CouponStatus.AVAILABLE;
+    private LocalDateTime expiredDate;
 
-    // Member, Coupon
-//    public void addMemberCoupn(Member member, Coupon coupon) {
-//        this.member = member;
-//        this.coupon = coupon;
-//        member.addMemberCoupon(this);
-//        coupon.addMemberCoupon(this);
-//    }
-//
-//    public void deleteMemberCoupon() {
-//        this.member.deleteMemberCoupon(this);
-//        this.coupon.deleteMemberCoupon(this);
-//        this.member = null;
-//        this.coupon = null;
-//    }
-    ////////////////////////////////
+    @Enumerated(EnumType.STRING)
+    private CouponStatus couponStatus = CouponStatus.AVAILABLE;
+
+    public void updateExpiredDate() {
+        expiredDate =  LocalDateTime.now().plusDays(coupon.getExpiredDay());
+    }
+
+    // JPA
+    public void updateCoupon(Coupon coupon) {
+        this.coupon = coupon;
+        updateExpiredDate();
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+    ///////////////////////////////
 }
 

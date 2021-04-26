@@ -19,4 +19,6 @@ public abstract class File extends BaseTimeEntity {
     private UUID id;
 
     private String fileName;
+
+    public abstract void updateFK(Object o);
 }

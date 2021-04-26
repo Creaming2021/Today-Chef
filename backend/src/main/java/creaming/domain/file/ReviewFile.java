@@ -21,4 +21,11 @@ public class ReviewFile extends File{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private Review review;
+
+    // JPA
+    @Override
+    public void updateFK(Object review) {
+        this.review = (Review) review;
+    }
+    ///////////////////////////////////
 }
