@@ -2,8 +2,9 @@
   <!-- Header Section Begin -->
   <header class="header">
     <div class="sign-container">
-      <div @click="onOpenSign">SIGN IN</div>
-      <div @click="onClickSignOut">SIGN OUT</div>
+      <div v-if="signStatus == 'logIn'" @click="setSignOut">
+        {{userNickname}}님 안녕하세요! SIGN OUT</div>
+      <div v-else @click="onOpenSign">SIGN IN</div>
     </div>
     <div class="container">
       <div class="row">
@@ -30,14 +31,14 @@
     <b-modal v-model="openSignModal" size="lg" centered hide-footer>
       <img 
         src="@/assets/img/kakao/kakao_login_large_wide.png"
-        @click="kakaoSignIn"/>
+        @click="setSignIn"/>
     </b-modal>
   </header>
   <!-- Header Section End -->
 </template>
 
 <script>
-import { getKakaoLogin, signOut } from '@/api/kakao.js';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   data(){
@@ -45,7 +46,11 @@ export default {
       openSignModal: false,
     }
   },
+  computed : {
+    ...mapState(['signStatus', 'userNickname']),
+  },
   methods : {
+    ...mapActions(['setSignIn','setSignOut']),
     onClickNav(pathName) {
       this.$router.push({
         name: pathName
@@ -57,12 +62,6 @@ export default {
     onCloseSign() {
       this.openSignModal = false;
     },
-    kakaoSignIn(){
-      getKakaoLogin();
-    },
-    onClickSignOut(){
-      signOut();
-    }
   }
 }
 </script>
@@ -79,6 +78,4 @@ export default {
 .header .sign-container > div{
   cursor: pointer;
 }
-
-
 </style>

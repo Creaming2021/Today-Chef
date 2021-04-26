@@ -13,11 +13,3 @@ export const basic = axios.create({
     'Content-Type': 'application/json',
   }
 });
-
-export const kakao = axios.create({
-  baseURL: 'https://kauth.kakao.com/',
-  headers: {
-    'Authorization': '11062caa28def457380d2b37765fae5e',
-    'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-  }
-})

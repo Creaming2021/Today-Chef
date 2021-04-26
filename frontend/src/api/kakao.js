@@ -1,41 +1,32 @@
-// import { kakao } from './instance.js';
-
-// const BASE_URL = "https://kauth.kakao.com/oauth/authorize";
-// const AUTHORIZATION_CODE = 'authorization_code';
-// const REST_API_KEY = "d441239bc2e622db1a715417daa8e828";
-// const REDIRECT_URI = "http://localhost:8080/auth";
-// const CODE = "code";
-// const CLIENT_SECRET_CODE = 'UOj54MGZPFAkyJrK9hfp2zV3lsCgX0r8';
-// const scope = '';
-
-export const getKakaoLogin = () => {
+export const getKakaoLogIn = () => (
   window.Kakao.Auth.login({
     scope : 'profile, account_email',
-    success: res => getKakaoInfo(res),
-  });
-};
+    success: async res => {
+      console.log("겟 카카오 로그인", getKakaoInfo(res));
+      return await getKakaoInfo(res);
+    },
+  })
+);
 
-const getKakaoInfo = authObj => {
-  console.log(authObj);
-  window.Kakao.API.request({
+const getKakaoInfo = async authObj => {
+  await window.Kakao.API.request({
     url:'/v2/user/me',
     success : res => {
-      const kakao_account = res.kakao_account;
-      // const userInfo = {
-      //   nickname : kakao_account.profile.nickname,
-      //   email : kakao_account.email,
-      //   password : '',
-      //   account_type : 2,
-      // }
-      console.log(kakao_account);
-    },
-    fail : error => {
-      this.$router.push("/errorPage");
-      console.log(error);
+      console.log("겟 카카오 인포", {
+        id: res.id,
+        acount: res.kakao_account,
+        auth: authObj,
+      });
+      return {
+      id: res.id,
+      acount: res.kakao_account,
+      auth: authObj,
+    }
+  },
+    fail : () => {
+      this.$router.push({
+        name: "Error"
+      });
     }
   })
 }
-
-export const signOut = () => {
-  alert("로그아웃");
-};
