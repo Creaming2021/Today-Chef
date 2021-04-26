@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { getKakaoAccessToken, signOut } from '@/api/kakao.js';
+import { getKakaoLogin, signOut } from '@/api/kakao.js';
 
 export default {
   data(){
@@ -58,7 +58,7 @@ export default {
       this.openSignModal = false;
     },
     kakaoSignIn(){
-      getKakaoAccessToken();
+      getKakaoLogin();
     },
     onClickSignOut(){
       signOut();
