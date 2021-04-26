@@ -16,6 +16,7 @@
                                         <div class="card-body">
                                             <div class="shop__sidebar__price">
                                                 <ul id="mypage-filter">
+                                                    <li>내 정보 수정</li>
                                                     <li>내 쿠폰</li>
                                                     <li>내가 수강한 강의</li>
                                                     <li>내가 진행한 강의</li>
@@ -31,8 +32,16 @@
                 </div>
                 <!-- 마이페이지 사이드바 Section End -->
 
-                <!-- 내 쿠폰 Section Start -->
+                <!-- 내 정보 수정 Section Start -->
                 <div v-show="currentAtiveFilter==0" class="col-lg-9">
+                  <div class="row">
+                    <Personal :personalData="personalData"/>
+                  </div>
+                </div>
+                <!-- 내 정보 수정 Section Start -->
+
+                <!-- 내 쿠폰 Section Start -->
+                <div v-show="currentAtiveFilter==1" class="col-lg-9">
                   <div class="row">
                     <nav class="coupon-nav header__menu mobile-menu">
                         <ul>
@@ -51,7 +60,7 @@
                 <!-- 내 쿠폰 Section End -->
 
                 <!-- 내가 수강한 강의 Section Start -->
-                <div v-show="currentAtiveFilter==1" class="col-lg-9">
+                <div v-show="currentAtiveFilter==2" class="col-lg-9">
                   <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in enrolledCourseList" :key="idx">
                       <CourseItem :course="course" :idx="idx" :type="'otherClass'" />
@@ -69,7 +78,7 @@
                 <!-- 내가 수강한 강의 Section End -->
 
                 <!-- 내가 진행한 강의 Section Start -->
-                <div v-show="currentAtiveFilter==2" class="col-lg-9">
+                <div v-show="currentAtiveFilter==3" class="col-lg-9">
                   <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" v-for="(course,idx) in myCourseList" :key="idx">
                       <CourseItem :course="course" :idx="idx" :type="'myClass'" />
@@ -87,7 +96,7 @@
                 <!-- 내가 수강한 강의 Section End -->
 
                 <!-- 결제 내역 Section Start -->
-                <div v-show="currentAtiveFilter==3" class="col-lg-9">
+                <div v-show="currentAtiveFilter==4" class="col-lg-9">
                   <div class="row">
                     <div class="col-lg-12">
                         <div class="shopping__cart__table">
@@ -119,12 +128,14 @@
 import CourseItem from '@/components/CourseItem.vue';
 import CouponItem from '@/components/CouponItem.vue';
 import PaymentItem from '@/components/PaymentItem.vue';
+import Personal from '@/components/mypage/Personal.vue';
 
 export default {
   components: {
     CourseItem,
     CouponItem,
-    PaymentItem
+    PaymentItem,
+    Personal
   },
   mounted() {
     this.initActiveFilter();
@@ -168,6 +179,13 @@ export default {
     return {
       currentAtiveFilter : '',
       couponAtiveFilter : '',
+      personalData : {
+        name : "이병훈",
+        img : "https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg",
+        email : "er******@n*******.com",
+        phone : "+82 10-4***-8***",
+        address : "경기도 수원시 영통구 청명로 100 (영통동, 건영1차아파트) 000동 0000호",
+      },
       enrolledCourseList: [
         {
           id: 1,
