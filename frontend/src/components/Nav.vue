@@ -2,8 +2,8 @@
   <!-- Header Section Begin -->
   <header class="header">
     <div class="sign-container">
-      <div v-if="signStatus == 'logIn'" @click="setSignOut">
-        {{userNickname}}님 안녕하세요! SIGN OUT</div>
+      <div v-if="user.signStatus === 'signIn'" @click="setSignOut">
+        {{user.userNickname}}님 안녕하세요! SIGN OUT</div>
       <div v-else @click="onOpenSign">SIGN IN</div>
     </div>
     <div class="container">
@@ -29,9 +29,18 @@
       <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
     <b-modal v-model="openSignModal" size="lg" centered hide-footer>
-      <img 
-        src="@/assets/img/kakao/kakao_login_large_wide.png"
-        @click="setSignIn"/>
+      <div 
+        v-if="user.signStatus === 'signUp'"
+        class="sign-up-container">
+          <input placeholder="010-1234-5678"/><br/>
+          <input placeholder="이메일을 입력하세요."/>
+          <button @click="onClickSignUp">회원 가입</button>
+      </div>
+      <div v-else>
+        <img 
+          src="@/assets/img/kakao/kakao_login_large_wide.png"
+          @click="onClickKakaoSignIn"/>
+      </div>
     </b-modal>
   </header>
   <!-- Header Section End -->
@@ -47,10 +56,10 @@ export default {
     }
   },
   computed : {
-    ...mapState(['signStatus', 'userNickname']),
+    ...mapState(['user']),
   },
   methods : {
-    ...mapActions(['setSignIn','setSignOut']),
+    ...mapActions(['getKakaoInfo','setSignOut']),
     onClickNav(pathName) {
       this.$router.push({
         name: pathName
@@ -62,6 +71,13 @@ export default {
     onCloseSign() {
       this.openSignModal = false;
     },
+    onClickKakaoSignIn() {
+      // this.onCloseSign();
+      this.getKakaoInfo();
+    },
+    onClickSignUp() {
+      
+    }   
   }
 }
 </script>
@@ -78,4 +94,33 @@ export default {
 .header .sign-container > div{
   cursor: pointer;
 }
+
+.sign-up-container{
+  text-align: center;
+  padding-top: 50px;
+}
+
+.sign-up-container input,
+.sign-up-container button{
+  margin: 10px 0px 10px 0px;
+  width: 80%;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid #f3f2ee;
+  padding-left: 10px;
+}
+
+.sign-up-container button{
+  margin: 50px 0px 50px 0px;
+  background-color: #f3f2ee;
+  border: none;
+  font-weight: bold;
+}
+
+.sign-up-container button:hover{
+  background-color: #e53637;
+  font-weight: bold;
+  color: white;
+}
+
 </style>
