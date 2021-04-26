@@ -1,11 +1,13 @@
 package creaming.domain.delivery;
 
+import creaming.domain.course.Course;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.register.Register;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -15,9 +17,9 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Delivery extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "delivery_id")
-    private Long id;
+    private UUID id;
 
     @Embedded
     private Address address;
@@ -28,4 +30,10 @@ public class Delivery extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
     private Register register;
+
+    // JPA
+    public void updateRegister(Register register) {
+        this.register = register;
+    }
+    /////////////////////////////////////////
 }

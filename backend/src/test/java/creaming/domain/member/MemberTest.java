@@ -1,30 +1,49 @@
 package creaming.domain.member;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class MemberTest {
 
     @Autowired
     MemberRepository memberRepository;
 
-    @Test
-    public void 회원저장() throws Exception {
-        // given
-        Member member = new Member();
+    @BeforeEach
+    public void beforeEach() {
 
-        // when
+        String email = "ssafy@ssafy.com";
+        String nickName = "김싸피";
+
+        Member member = Member.builder()
+                .email(email)
+                .nickname(nickName)
+                .build();
+
         memberRepository.save(member);
+    }
 
-        // then
-        Member findMember = memberRepository.findAll().get(0);
-        System.out.println("findMember.getId() = " + findMember.getId());
-        System.out.println("findMember.getCreatedDate() = " + findMember.getCreatedDate());
-        assertThat(findMember).isEqualTo(member);
+    @Test
+    @DisplayName("멤버 정보 조회")
+    public void findMember() {
+        // Given
+        String email = "ssafy@ssafy.com";
+        String nickName = "김싸피";
+
+        // When
+        Member member = memberRepository.findByNickname(nickName).get();
+
+        // Then
+        assertThat(member.getNickname()).as("fail nickname").isEqualTo(nickName);
+        assertThat(member.getEmail()).as("fail email").isEqualTo(email);
     }
 }
