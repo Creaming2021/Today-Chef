@@ -1,24 +1,27 @@
 package creaming.dto;
 
+import creaming.domain.membercoupon.CouponStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-public class QnaCommentDto {
+public class CouponDto {
 
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        private String writer;
+        private UUID couponId;
+        private String name;
         private String content;
-        private LocalDateTime date;
+        private Integer discount;
+        private LocalDateTime expiredDate;
+        private CouponStatus couponStatus;
     }
 
     @Getter
@@ -26,16 +29,10 @@ public class QnaCommentDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
-        private UUID memberId;
+        private String name;
         private String content;
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PutRequest {
-        private String content;
+        private Integer discount;
+        private Long expiredDay;
     }
 
 }

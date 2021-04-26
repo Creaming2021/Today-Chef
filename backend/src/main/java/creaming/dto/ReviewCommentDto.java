@@ -6,10 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-public class QnaCommentDto {
+public class ReviewCommentDto {
 
     @Getter
     @Builder
@@ -18,7 +17,7 @@ public class QnaCommentDto {
     public static class Response {
         private String writer;
         private String content;
-        private LocalDateTime date;
+        private LocalDateTime createdDate;
     }
 
     @Getter
@@ -37,5 +36,4 @@ public class QnaCommentDto {
     public static class PutRequest {
         private String content;
     }
-
 }
