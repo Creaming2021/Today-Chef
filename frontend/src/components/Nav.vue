@@ -32,8 +32,8 @@
       <div 
         v-if="user.signStatus === 'signUp'"
         class="sign-up-container">
-          <input placeholder="010-1234-5678"/><br/>
-          <input placeholder="이메일을 입력하세요."/>
+          <input :v-model="signUpForm.phoneNumber" placeholder="010-1234-5678"/><br/>
+          <input :v-model="signUpForm.email" placeholder="이메일을 입력하세요."/>
           <button @click="onClickSignUp">회원 가입</button>
       </div>
       <div v-else>
@@ -53,13 +53,17 @@ export default {
   data(){
     return {
       openSignModal: false,
+      signUpForm : {
+        phoneNumber: '',
+        email: '',
+      }
     }
   },
   computed : {
     ...mapState(['user']),
   },
   methods : {
-    ...mapActions(['getKakaoInfo','setSignOut']),
+    ...mapActions(['getKakaoInfo','setSignOut', 'setSignUp']),
     onClickNav(pathName) {
       this.$router.push({
         name: pathName
@@ -76,7 +80,7 @@ export default {
       this.getKakaoInfo();
     },
     onClickSignUp() {
-      
+      this.setSignUp(this.signUpForm);
     }   
   }
 }

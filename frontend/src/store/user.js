@@ -10,7 +10,7 @@ export default {
   },
   mutations: {
     setAuthObj(state, payload){
-      state = payload;
+      state.authObj = payload;
     },
     setSignStatus(state, payload){
       state.signStatus = payload;
