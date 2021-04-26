@@ -33,15 +33,6 @@ public class CourseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TimeTableResponse {
-
-
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class PostRequest {
         private UUID memberId;
 
