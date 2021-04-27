@@ -125,9 +125,9 @@
 
 
 <script>
-import CourseItem from '@/components/CourseItem.vue';
-import CouponItem from '@/components/CouponItem.vue';
-import PaymentItem from '@/components/PaymentItem.vue';
+import CourseItem from '@/components/common/CourseItem.vue';
+import CouponItem from '@/components/common/CouponItem.vue';
+import PaymentItem from '@/components/common/PaymentItem.vue';
 import Personal from '@/components/mypage/Personal.vue';
 
 export default {

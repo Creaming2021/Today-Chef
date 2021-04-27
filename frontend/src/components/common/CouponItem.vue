@@ -9,27 +9,27 @@
 
 <script>
 
-	export default {
-		data(){
-			return {}
-		},
-		props: {
-			coupon: Object,
-		},
-		methods : {
-			onClickImage() {
-				alert('쿠폰')
-			}
-		},
-	}
+  export default {
+    data(){
+      return {}
+    },
+    props: {
+      coupon: Object,
+    },
+    methods : {
+      onClickImage() {
+        alert('쿠폰')
+      }
+    },
+  }
 </script>
 
 <style scoped>
 .blog__item__text h6 {
-	color: #0d0d0d;
-	font-weight: 700; 
+  color: #0d0d0d;
+  font-weight: 700; 
 }
 .coupon { 
-	cursor: pointer;
+  cursor: pointer;
 }
 </style>

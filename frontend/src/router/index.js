@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import Home from "../views/Home.vue";
 import Notice from "../views/Notice.vue";
 import NoticeDetail from "../views/CourseDetail.vue";
@@ -11,6 +12,8 @@ import Streaming from "../views/Streaming.vue";
 import Payment from "../views/Payment.vue";
 import VueDaumPostcode from "vue-daum-postcode"
 
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 Vue.use(VueRouter, VueDaumPostcode);
 
 const routes = [
@@ -35,7 +38,7 @@ const routes = [
     component: Course,
   },
   {
-    path: "/courseDetail",
+    path: "/courseDetail/:type",
     name: "CourseDetail",
     component: CourseDetail,
   },

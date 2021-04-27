@@ -16,8 +16,8 @@ import '@/assets/css/nice-select.css';
 import '@/assets/css/owl.carousel.min.css';
 import '@/assets/css/slicknav.min.css';
 import '@/assets/css/style.css';
-import Nav from './components/Nav.vue';
-import Footer from './components/Footer.vue';
+import Nav from './components/common/Nav.vue';
+import Footer from './components/common/Footer.vue';
 
 export default {
   components :{Nav, Footer},
