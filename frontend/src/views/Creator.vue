@@ -16,6 +16,7 @@
 
 // TOAST UI Editor import
 import Editor from '@toast-ui/editor';
+import _Editor from '@toast-ui/editor/dist/toastui-editor.js';
 import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
 import ImageEditor from 'tui-image-editor';
 // TOAST UI Editor Plugins
@@ -42,15 +43,12 @@ export default {
       hooks: {
         addImageBlobHook: function (blob,callback) {
           console.log('커스텀했어요')
-          console.log(blob)
-          console.log(callback)
-          // const imageUrl = document.querySelector('.te-image-file-input').value;
-          // const altText = document.querySelector('.te-alt-text-input').value;
+          console.log('blob',blob)
+          console.log('callback',callback)
           const reader = new FileReader();
           reader.onload = event => {
             callback(event.target.result);
           };
-          // callback(imageUrl,altText)
           reader.readAsDataURL(blob);
 
           return false
@@ -59,10 +57,6 @@ export default {
     });
     const instance = new ImageEditor(document.querySelector('#tui-image-editor'), {
       includeUI: {
-        // loadImage: {
-        //   path: 'img/sampleImage.jpg',
-        //   name: 'SampleImage',
-        // },
         initMenu: 'filter',
         menuBarPosition: 'right',
       },
@@ -72,18 +66,23 @@ export default {
 
     });
     this.imgEditor = instance;
-    // document.querySelector("#tui-image-editor > div.tui-image-editor-main-container > div.tui-image-editor-header > div.tui-image-editor-header-buttons > div").remove()
     const saveBtn = document.querySelector('.tui-image-editor-header-buttons .tui-image-editor-download-btn')
     saveBtn.innerText = 'Save'
-    console.log(' editor.hooks.addImageBlobHook', editor.options)
-    saveBtn.addEventListener('click', editor.options.hooks.addImageBlobHook(instance.toDataURL(),'txt'))
-    document.querySelector("#submit").addEventListener("click", () => {
-      this.editContent = editor.getMarkdown()
-      this.getViewer()
+    var myblob = new Blob([instance.toDataURL().split(',')[1]], {
+    type: 'text/plain'
+    });
+    console.log(editor.options.hooks.addImageBlobHook)
+    console.dir(editor.options.hooks.addImageBlobHook)
+    saveBtn.addEventListener('click', () => {
+      editor.options.hooks.addImageBlobHook(myblob,(url, text) => _Editor._proto._applyImage(url, text))
     })
-    document.querySelector("#imgsubmit").addEventListener("click", () => {
-      console.log(instance.toDataURL())
-    })
+    // document.querySelector("#submit").addEventListener("click", () => {
+    //   this.editContent = editor.getMarkdown()
+    //   this.getViewer()
+    // })
+    // document.querySelector("#imgsubmit").addEventListener("click", () => {
+    //   console.log('instance.toDataURL()',instance.toDataURL())
+    // })
 
   },
   methods : {
