@@ -28,7 +28,8 @@
       </div>
       <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
-    <b-modal v-model="openSignModal" size="lg" centered hide-footer>
+    <b-modal v-model="openSignModal" size="md" centered hide-footer hide-header>
+      <p class="sign-modal-btn" @click="onCloseSign">X</p>
       <div 
         v-if="user.signStatus === 'signUp'"
         class="sign-up-container">
@@ -135,6 +136,11 @@ export default {
   background-color: #e53637;
   font-weight: bold;
   color: white;
+}
+
+.sign-modal-btn{
+  text-align: right;
+  cursor: pointer;
 }
 
 </style>
