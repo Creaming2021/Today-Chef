@@ -7,6 +7,8 @@ import creaming.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -17,9 +19,11 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Register extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "register_id")
-    private Long id;
+    private UUID id;
+
+    private DayOfWeek dayOfWeek;
 
     private int price;
 
@@ -34,4 +38,14 @@ public class Register extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
+
+    // JPA
+    public void updateCourse(Course course) {
+        this.course = course;
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+    /////////////////////////////
 }

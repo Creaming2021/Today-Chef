@@ -9,10 +9,12 @@ import CourseDetail from "../views/CourseDetail.vue";
 import Creator from "../views/Creator.vue";
 import Profile from "../views/Profile.vue";
 import Streaming from "../views/Streaming.vue";
+import Payment from "../views/Payment.vue";
+import VueDaumPostcode from "vue-daum-postcode"
 
-Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
+Vue.use(VueRouter, VueDaumPostcode);
 
 const routes = [
   {
@@ -54,6 +56,11 @@ const routes = [
     path: "/class",
     name: "Streaming",
     component: Streaming,
+  },
+  {
+    path: "/payment",
+    name: "Payment",
+    component: Payment,
   }
 ];
 

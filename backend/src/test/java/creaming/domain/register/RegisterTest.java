@@ -81,8 +81,42 @@ class RegisterTest {
 
         Member member2 = memberRepository.findByNickname("student").get();
         assertThat(member2.getRegisters().size()).isEqualTo(1);
-        
 
+    }
+
+    @Test
+    public void 강의_수강_취소() throws Exception {
+        // given
+        Member teacher = Member.builder()
+                .nickname("teacher")
+                .email("melon@melon.com")
+                .build();
+        memberRepository.save(teacher);
+
+        Course course = Course.builder()
+                .category(FoodType.DRINK)
+                .date(LocalDateTime.now().plusDays(3))
+                .price(10000)
+                .materials("밀가루 1kg, 설탕 100g")
+                .descriptions("정말 재미있는 클래스 입니다.")
+                .name("빵 만들기")
+                .member(teacher)
+                .build();
+        courseRepository.save(course);
+        teacher.getCourses().add(course);
+
+        Member student = Member.builder()
+                .nickname("student")
+                .build();
+        memberRepository.save(student);
+
+        em.flush();
+        em.clear();
+
+        // when
+        Member findMember = memberRepository.findByNickname("student").get();
+
+        // then
     }
 
 }

@@ -21,7 +21,7 @@
 
 
 <script>
-import HomeItem from '@/components/HomeItem.vue';
+import HomeItem from '@/components/common/HomeItem.vue';
 export default {
   name: "Recommend",
   components: {

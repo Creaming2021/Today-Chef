@@ -93,7 +93,7 @@
 
 
 <script>
-import CourseItem from '@/components/CourseItem.vue';
+import CourseItem from '@/components/common/CourseItem.vue';
 // import HomeItem from '@/components/HomeItem.vue';
 
 export default {
