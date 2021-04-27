@@ -14,13 +14,10 @@
       @sliding-end="onSlideEnd"
     >
       <!-- Text slides with image -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=52"/>
+      <b-carousel-slide img-src="https://github.com/wlsdhr0831/wlsdhr0831/blob/main/event1_%EB%8C%80%EC%A7%80%201.png?raw=true"/>
 
       <!-- Slides with custom text -->
       <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=54"/>
-
-      <!-- Slides with image only -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/300/?image=58"/>
 
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
