@@ -54,9 +54,9 @@ export default {
     setSignUp : function(context, userInfo) {
       user.signUp(userInfo)
         .then(() => {
-          sessionStorage.setItem('access_token', this.authObj.auth.access_token);
-          sessionStorage.setItem('refresh_token', this.authObj.auth.refresh_token);
-          context.dispatch('setSignIn', this.authObj);
+          sessionStorage.setItem('access_token', context.state.authObj.auth.access_token);
+          sessionStorage.setItem('refresh_token', context.state.authObj.auth.refresh_token);
+          context.dispatch('setSignIn', context.state.authObj);
         });
     },
     setSignOut : function(context) {
