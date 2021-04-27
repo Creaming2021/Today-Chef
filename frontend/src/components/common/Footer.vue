@@ -3,63 +3,61 @@
   <footer class="footer">
       <div class="container">
           <div class="row">
-              <div class="col-lg-3 col-md-6 col-sm-6">
-                  <div class="footer__about">
-                      <div class="footer__logo">
-                          <a href="#"><img src="@/assets/img/footer-logo.png" alt=""></a>
-                      </div>
-                      <p>The customer is at the heart of our unique business model, which includes design.</p>
-                      <a href="#"><img src="@/assets/img/payment.png" alt=""></a>
+              <div class="col-lg-1 offset-lg-1 col-md-3 col-sm-6">
+                  <div class="footer__widget">
+                      <h6 @click="onClickTab('Home')">home</h6>
+                  </div>
+              </div>
+              <div class="col-lg-1 offset-lg-1 col-md-3 col-sm-6">
+                  <div class="footer__widget">
+                      <h6 @click="onClickNav('Notice')">notice</h6>
+                  </div>
+              </div>
+              <div class="col-lg-1 offset-lg-1 col-md-3 col-sm-6">
+                  <div class="footer__widget">
+                      <h6>course</h6>
+                      <ul>
+                          <li><a href="Course">일식</a></li>
+                          <li><a href="Course">양식</a></li>
+                          <li><a href="Course">한식</a></li>
+                          <li><a href="Course">중식</a></li>
+                          <li><a href="Course">디저트</a></li>
+                          <li><a href="Course">음료</a></li>
+                          <li><a href="Course">세계음식</a></li>
+                          <li><a href="Course">기타</a></li>
+                      </ul>
+
+                  </div>
+              </div>
+              <div class="col-lg-1 offset-lg-1 col-md-3 col-sm-6">
+                  <div class="footer__widget">
+                      <h6 @click="onClickNav('Creator')">creator</h6>
                   </div>
               </div>
               <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
                   <div class="footer__widget">
-                      <h6>Shopping</h6>
+                      <h6>profile</h6>
                       <ul>
-                          <li><a href="#">Clothing Store</a></li>
-                          <li><a href="#">Trending Shoes</a></li>
-                          <li><a href="#">Accessories</a></li>
-                          <li><a href="#">Sale</a></li>
+                          <li><a href="Profile">정보 수정</a></li>
+                          <li><a href="Profile">내 쿠폰</a></li>
+                          <li><a href="Profile">수강한 강의</a></li>
+                          <li><a href="Profile">진행한 강의</a></li>
+                          <li><a href="Profile">결제 내역</a></li>
                       </ul>
-                  </div>
-              </div>
-              <div class="col-lg-2 col-md-3 col-sm-6">
-                  <div class="footer__widget">
-                      <h6>Shopping</h6>
-                      <ul>
-                          <li><a href="#">Contact Us</a></li>
-                          <li><a href="#">Payment Methods</a></li>
-                          <li><a href="#">Delivary</a></li>
-                          <li><a href="#">Return & Exchanges</a></li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
-                  <div class="footer__widget">
-                      <h6>NewLetter</h6>
-                      <div class="footer__newslatter">
-                          <p>Be the first to know about new arrivals, look books, sales & promos!</p>
-                          <form action="#">
-                              <input type="text" placeholder="Your email">
-                              <button type="submit"><span class="icon_mail_alt"></span></button>
-                          </form>
-                      </div>
                   </div>
               </div>
           </div>
-          <!-- <div class="row">
+          <div class="row">
               <div class="col-lg-12 text-center">
                   <div class="footer__copyright__text">
+                      <div>CREAMING 로고</div>
                       <p>Copyright ©
-                          <script>
-                              document.write(new Date().getFullYear());
-                          </script>2020
-                          All rights reserved | This template is made with <i class="fa fa-heart-o"
-                          aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                          2021 Creaming
+                          All rights reserved
                       </p>
                   </div>
               </div>
-          </div> -->
+          </div>
       </div>
   </footer>
   <!-- Footer Section End -->
@@ -68,8 +66,18 @@
 
 <script>
 export default {
+  methods: {
+    onClickTab(pathName) {
+      this.$router.push({
+        name: pathName
+      })
+    },
+  }
 }
 </script>
 
 <style>
+.footer .container h6{
+  cursor: pointer;
+}
 </style>
