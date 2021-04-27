@@ -1,10 +1,10 @@
 # Welcome to CREAMING
 
-![creaming](./documents/README/images/creaming.png)
+![creaming](./documents/README/images/creaming_logo.png)
 
 > 크리밍 (Creaming) 웹사이트 
 
-## 🏠 [Homepage](www.creaming.co.kr)
+## 🏠 [Homepage](https://www.creaming.co.kr)
 
 <br>
 
@@ -64,11 +64,23 @@
 <details>
     <summary>2주차</summary>
     <ul>
+        <a href="documents/dev_log/20210419_dev_log.md"><li>4/19 - 개발 (FrontEnd: 컴포넌트 큰 틀 잡기, BackEnd: Api 설계) + 기획 변경 사항 (이벤트 목록, 쿠폰 데이터) </li></a>
+        <a href="documents/dev_log/20210420_dev_log.md"><li>4/20 - 개발 (FrontEnd: 각자 페이지 작업, BackEnd: Controller 작성 및 엔티티 수정) & 팀 미팅</li></a>
+        <a href="documents/dev_log/20210421_dev_log.md"><li>4/21 - 개발 (스트리밍 중간 정리, 서버 배포) & 팀 미팅 (기술 제안 : AR, Unity 등) </li></a>
+        <a href="documents/dev_log/20210422_dev_log.md"><li>4/22 - 발표 준비 & 개발 </li></a>
+        <a href="documents/dev_log/20210423_dev_log.md"><li>4/23 - 중간 발표 & 개발 & 스트리밍 오픈소스 테스트 및 결정 </li></a>
+    </ul>
+</details>
+<details>
+    <summary>3주차</summary>
+    <ul>
+        <a href="documents/dev_log/20210426_dev_log.md"><li>4/26 - 개발 (FrontEnd: 카카오 로그인, 이미지 제작, OpenVidu 파일 분석, 내 정보 수정, 강의 제작, BackEnd: OpenVidu 소스 분석, CI/CD 구축, 가비아 도메인 적용, mm연동, Swagger3) </li></a>
+        <a href="documents/dev_log/20210427_dev_log.md"><li>4/27 - </li></a>
     </ul>
 </details>
 
 ## :wrench: 기술 스택
-![기술 스택](./documents/README/images/stack.png)
+![기술 스택](./documents/README/images/tech_stack.png)
 
 ## :rocket: 주요 기능
 - **강의 참여**
