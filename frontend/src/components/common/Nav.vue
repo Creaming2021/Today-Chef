@@ -9,8 +9,10 @@
     <div class="container">
       <div class="row">
           <div class="col-lg-3 col-md-3">
-              <div class="header__logo">
-                  로고자리
+              <div 
+                class="header__logo"
+                @click="onClickNav('Home')">
+                  <img src="@/assets/img/logo/logo_col.png"/>
                   <!-- <a href="./index.html"><img src="@/assets/CREAMING-logo-white.png" alt=""></a> -->
               </div>
           </div>

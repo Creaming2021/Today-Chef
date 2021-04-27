@@ -50,7 +50,7 @@ const routes = [
     component: Creator,
   },
   {
-    path: "/me",
+    path: "/me/:type",
     name: "Profile",
     component: Profile,
   },

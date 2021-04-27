@@ -1,6 +1,6 @@
 <template>
   <div>
-		공지사항 리스트
+    공지사항 리스트
   </div>
 </template>
 
