@@ -1,18 +1,21 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "@/views/Home.vue";
-import Notice from "@/views/Notice.vue";
-import NoticeDetail from "@/views/CourseDetail.vue";
-import Course from "@/views/Course.vue";
-import CourseDetail from "@/views/CourseDetail.vue";
-import Creator from "@/views/Creator.vue";
-import Profile from "@/views/Profile.vue";
-import Streaming from "@/views/Streaming.vue";
-import Payment from "@/views/Payment.vue";
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import Home from "../views/Home.vue";
+import Notice from "../views/Notice.vue";
+import NoticeDetail from "../views/CourseDetail.vue";
+import Course from "../views/Course.vue";
+import CourseDetail from "../views/CourseDetail.vue";
+import Creator from "../views/Creator.vue";
+import Profile from "../views/Profile.vue";
+import Streaming from "../views/Streaming.vue";
+import Payment from "../views/Payment.vue";
 import VueDaumPostcode from "vue-daum-postcode"
 import Sign from "@/views/Sign.vue";
 import ErrorPage from "@/views/Error.vue";
 
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 Vue.use(VueRouter, VueDaumPostcode);
 
 const routes = [
@@ -37,7 +40,7 @@ const routes = [
     component: Course,
   },
   {
-    path: "/courseDetail",
+    path: "/courseDetail/:type",
     name: "CourseDetail",
     component: CourseDetail,
   },

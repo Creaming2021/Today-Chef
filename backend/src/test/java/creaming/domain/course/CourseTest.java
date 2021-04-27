@@ -26,7 +26,7 @@ class CourseTest {
     CourseRepository courseRepository;
 
     @Test
-    public void 유저의_강의_제작_테스트() throws Exception {
+    public void 유저의_강의_제작_테스트() {
         // given
         Member teacher = Member.builder()
                 .nickname("teacher")
@@ -46,7 +46,6 @@ class CourseTest {
         courseRepository.save(course);
         teacher.getCourses().add(course); // 자동 add 가 되지않았다 => cascade all 인 경우? => 변화없음!
 
-
         // when
         Member findTeacher = memberRepository.findByNickname("teacher").get();
 
@@ -56,5 +55,4 @@ class CourseTest {
         System.out.println(course.getMember().getNickname());
         System.out.println(findTeacher.getCourses().get(0).getName());
     }
-
 }
