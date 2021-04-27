@@ -62,6 +62,16 @@ export default {
   computed : {
     ...mapState(['user']),
   },
+  watch: {
+    user : {
+      handler: function () {
+        if(this.user.signStatus == 'signIn'){
+          this.onCloseSign();
+        }
+      },
+      deep: true,
+    }
+  },
   methods : {
     ...mapActions(['getKakaoInfo','setSignOut', 'setSignUp']),
     onClickNav(pathName) {

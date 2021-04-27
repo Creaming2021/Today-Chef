@@ -2,7 +2,7 @@
 
 export const checkUserDB =  async ( kakaoId ) => {
   console.log(`${kakaoId}로 db에 회원있는지 물어봅니다.`);
-  return await false;
+  return await true;
 }
 
 export const signUp = async ( userInfo ) => {
