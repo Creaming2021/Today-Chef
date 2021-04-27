@@ -11,6 +11,8 @@ import Profile from "../views/Profile.vue";
 import Streaming from "../views/Streaming.vue";
 import Payment from "../views/Payment.vue";
 import VueDaumPostcode from "vue-daum-postcode"
+import Sign from "@/views/Sign.vue";
+import ErrorPage from "@/views/Error.vue";
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
@@ -61,6 +63,16 @@ const routes = [
     path: "/payment",
     name: "Payment",
     component: Payment,
+  },
+  {
+    path: "/auth",
+    name: "Sign",
+    component: Sign,
+  },
+  {
+    path: "/error",
+    name: "Error",
+    component: ErrorPage,
   }
 ];
 

@@ -24,12 +24,12 @@
 
 
 <script>
-import CourseIntroduction from '@/components/CourseDetail/CourseIntroduction.vue';
-import CourseKit from '@/components/CourseDetail/CourseKit.vue';
-import CourseReview from '@/components/CourseDetail/CourseReview.vue';
-import CourseReviewDetail from '@/components/CourseDetail/CourseReviewDetail.vue';
-import CourseQnA from '@/components/CourseDetail/CourseQnA.vue';
-import CourseRefund from '@/components/CourseDetail/CourseRefund.vue';
+import CourseIntroduction from '@/components/courseDetail/CourseIntroduction.vue';
+import CourseKit from '@/components/courseDetail/CourseKit.vue';
+import CourseReview from '@/components/courseDetail/CourseReview.vue';
+import CourseReviewDetail from '@/components/courseDetail/CourseReviewDetail.vue';
+import CourseQnA from '@/components/courseDetail/CourseQnA.vue';
+import CourseRefund from '@/components/courseDetail/CourseRefund.vue';
 
 export default {
   data() {
