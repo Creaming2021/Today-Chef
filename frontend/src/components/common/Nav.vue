@@ -104,12 +104,16 @@ export default {
   color: white;
   text-align: right;
   font-size: 1rem;
-  background-color: black;
+  /* background-color: #f3f2ee; */
+  background-color: #b30b0b;
   padding: 10px 50px 10px 0px;
 }
 
 .header .sign-container > div{
   cursor: pointer;
+  /* color: black; */
+  color: white;
+  font-weight: bold;
 }
 
 .sign-up-container{

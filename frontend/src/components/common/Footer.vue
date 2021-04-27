@@ -88,7 +88,7 @@ export default {
 }
 
 .footer .container li{
-  color: #b7b7b7;
+  color: black;
   font-size: 15px;
   cursor: pointer;
 }
