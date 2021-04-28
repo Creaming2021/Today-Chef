@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package creaming.service;
 
 import creaming.domain.event.Event;
@@ -49,7 +48,4 @@ public class EventService {
                 .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND));
         event.update(dto.getTitle(), dto.getContent());
     }
-=======
-package creaming.service;public class EventService {
->>>>>>> 59bffee (test)
 }

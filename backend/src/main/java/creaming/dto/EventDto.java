@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.ast.Test;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -21,15 +22,12 @@ public class EventDto {
         private UUID id;
         private String title;
         private LocalDateTime date;
-<<<<<<< HEAD
-=======
 
         public SimpleResponse(Event event) {
             this.id = event.getId();
             this.title = event.getTitle();
             this.date = event.getCreatedDate();
         }
->>>>>>> 929093a (Test)
     }
 
     @Getter
