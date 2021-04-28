@@ -50,7 +50,6 @@ public class EventDto {
     public static class Request {
         @NotEmpty
         private String title;
-
         @NotNull
         private String content;
 
