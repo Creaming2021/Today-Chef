@@ -24,6 +24,7 @@ public enum ErrorCode {
 
     // Event
     EVENT_DTO_EMPTY(HttpStatus.BAD_REQUEST, "05000", "Event 잘못된 요청"),
+    EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "05001", "없는 이벤트"),
 
     // 서버 에러
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST, "00100"),

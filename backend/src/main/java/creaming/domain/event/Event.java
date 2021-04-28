@@ -26,4 +26,8 @@ public class Event extends BaseTimeEntity {
 
     private String image;
 
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

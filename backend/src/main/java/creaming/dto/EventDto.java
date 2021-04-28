@@ -1,7 +1,10 @@
 package creaming.dto;
 
 import creaming.domain.event.Event;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -18,7 +21,6 @@ public class EventDto {
         private UUID id;
         private String title;
         private LocalDateTime date;
-        private String image;
     }
 
     @Getter
@@ -33,11 +35,11 @@ public class EventDto {
         private String image;
 
         public DetailResponse(Event event) {
-            this.id = id;
-            this.title = title;
-            this.content = content;
-            this.date = date;
-            this.image = image;
+            this.id = event.getId();
+            this.title = event.getTitle();
+            this.content = event.getContent();
+            this.date = event.getCreatedDate();
+            this.image = event.getImage();
         }
     }
 
@@ -48,7 +50,8 @@ public class EventDto {
     public static class Request {
         @NotEmpty
         private String title;
-        @NotEmpty
+
+        @NotNull
         private String content;
 
         public Event toEntity() {
