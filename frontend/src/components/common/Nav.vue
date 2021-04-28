@@ -9,8 +9,10 @@
     <div class="container">
       <div class="row">
           <div class="col-lg-3 col-md-3">
-              <div class="header__logo">
-                  로고자리
+              <div 
+                class="header__logo"
+                @click="onClickNav('Home')">
+                  <img src="@/assets/img/logo/logo_col.png"/>
                   <!-- <a href="./index.html"><img src="@/assets/CREAMING-logo-white.png" alt=""></a> -->
               </div>
           </div>
@@ -28,7 +30,8 @@
       </div>
       <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
-    <b-modal v-model="openSignModal" size="lg" centered hide-footer>
+    <b-modal v-model="openSignModal" size="md" centered hide-footer hide-header>
+      <p class="sign-modal-btn" @click="onCloseSign">X</p>
       <div 
         v-if="user.signStatus === 'signUp'"
         class="sign-up-container">
@@ -101,12 +104,16 @@ export default {
   color: white;
   text-align: right;
   font-size: 1rem;
-  background-color: black;
+  /* background-color: #f3f2ee; */
+  background-color: #b30b0b;
   padding: 10px 50px 10px 0px;
 }
 
 .header .sign-container > div{
   cursor: pointer;
+  /* color: black; */
+  color: white;
+  font-weight: bold;
 }
 
 .sign-up-container{
@@ -135,6 +142,11 @@ export default {
   background-color: #e53637;
   font-weight: bold;
   color: white;
+}
+
+.sign-modal-btn{
+  text-align: right;
+  cursor: pointer;
 }
 
 </style>

@@ -21,10 +21,7 @@
       class="remain-image-cnt"
       @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
     </div>
-    <b-modal 
-      size="lg" 
-      v-model="openThumbnailModal" 
-      hide-footer hide-header>
+    <b-modal v-model="openThumbnailModal" size="lg" hide-footer hide-header>
       <p class="thumbnail-modal-btn" @click="onCloseThumbnailModal">X</p>
       <span class="thumbnail-modal-btn" @click="onClickDecreaseImageIdx">이전</span>
       <img class="modalImage" :src="thumbnailList[currentImage]"/>
@@ -88,6 +85,10 @@ export default {
 .remain-image-cnt:hover,
 .thumbnail-modal-btn:hover{
   cursor: pointer;
+}
+
+.thumbnail-modal-btn{
+  text-align: right;
 }
 
 #first-image{
