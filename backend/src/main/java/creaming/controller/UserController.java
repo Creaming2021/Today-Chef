@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/user")
@@ -26,8 +26,8 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody UserDto.SignupRequestDto dto) {
-        UUID result = UUID.randomUUID();
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(1L);
     }
 
 }

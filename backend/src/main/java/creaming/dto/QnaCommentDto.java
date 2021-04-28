@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
+
 
 public class QnaCommentDto {
 
@@ -26,7 +26,7 @@ public class QnaCommentDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
-        private UUID memberId;
+        private Long memberId;
         private String content;
     }
 

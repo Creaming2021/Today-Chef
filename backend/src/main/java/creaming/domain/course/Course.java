@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Builder
 @Entity
@@ -27,9 +27,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Course extends BaseTimeEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_id")
-    private UUID id;
+    private Long id;
 
     private String name;
     private LocalDate date;

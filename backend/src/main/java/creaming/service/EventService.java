@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+
 
 @Service
 @RequiredArgsConstructor
@@ -25,25 +25,25 @@ public class EventService {
                 .map(event -> new EventDto.SimpleResponse(event.getId(), event.getTitle(), event.getCreatedDate()));
     }
 
-    public EventDto.DetailResponse findEvent(UUID eventId) {
+    public EventDto.DetailResponse findEvent(Long eventId) {
         return new EventDto.DetailResponse(eventRepository.findById(eventId)
                 .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND)));
     }
 
     @Transactional
-    public UUID saveEvent(EventDto.Request dto) {
+    public Long saveEvent(EventDto.Request dto) {
         return eventRepository.save(dto.toEntity()).getId();
     }
 
     @Transactional
-    public void deleteEvent(UUID eventId) {
+    public void deleteEvent(Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND));
         eventRepository.delete(event);
     }
 
     @Transactional
-    public void updateEvent(UUID eventId, EventDto.Request dto) {
+    public void updateEvent(Long eventId, EventDto.Request dto) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND));
         event.update(dto.getTitle(), dto.getContent());

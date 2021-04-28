@@ -9,7 +9,7 @@ import net.bytebuddy.implementation.bind.annotation.BindingPriority;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 @Getter
 @Entity
@@ -19,9 +19,9 @@ import java.util.UUID;
 public class MemberCoupon extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_coupon_id")
-    private UUID id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
