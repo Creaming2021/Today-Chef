@@ -75,7 +75,8 @@
     <summary>3주차</summary>
     <ul>
         <a href="documents/dev_log/20210426_dev_log.md"><li>4/26 - 개발 (FrontEnd: 카카오 로그인, 이미지 제작, OpenVidu 파일 분석, 내 정보 수정, 강의 제작, BackEnd: OpenVidu 소스 분석, CI/CD 구축, 가비아 도메인 적용, mm연동, Swagger3) </li></a>
-        <a href="documents/dev_log/20210427_dev_log.md"><li>4/27 - </li></a>
+        <a href="documents/dev_log/20210427_dev_log.md"><li>4/27 - 개발 (FrontEnd: toast UI, image-editor, viewer, CSS, BackEnd: OpenVidu, nginx 설정 변경, 새로운 aws jenkins 적용, mariadb 설치 및 설정) </li></a>
+        <a href="documents/dev_log/20210428_dev_log.md"><li>4/28 - 기술 추가 (AR, Unity) & 개발 (API 코드 작성) </li></a>
     </ul>
 </details>
 
