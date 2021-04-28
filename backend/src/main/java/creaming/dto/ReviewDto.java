@@ -4,6 +4,7 @@ import creaming.domain.comment.ReviewComment;
 import creaming.domain.review.Review;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -88,11 +89,25 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
+
+        @NotEmpty
         private UUID memberId;
+        @NotEmpty
         private UUID courseId;
+        @NotEmpty
         private String title;
+        @NotEmpty
         private String content;
+        @NotEmpty
         private Integer rating;
+
+        public Review toEntity() {
+            return Review.builder()
+                    .title(this.title)
+                    .content(this.content)
+                    .rating(this.rating)
+                    .build();
+        }
     }
 
     @Getter
@@ -100,6 +115,7 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PutRequest {
+        @NotEmpty
         private String content;
     }
 

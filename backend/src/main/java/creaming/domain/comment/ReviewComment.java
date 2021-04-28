@@ -24,15 +24,24 @@ public class ReviewComment extends Comment {
     private Review review;
 
     @Builder
-    public ReviewComment(UUID id, String content, Member member, Review review) {
-        super(id, content, member);
-        this.review = review;
+    public ReviewComment(String content) {
+        super(content);
     }
 
     // JPA
+    @Override
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+
     @Override
     public void updateFK(Object review) {
         this.review = (Review) review;
     }
     ////////////////////////////////////////
+
+    public void update(String content) {
+        this.content = content;
+    }
+
 }

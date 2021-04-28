@@ -25,5 +25,11 @@ public abstract class Comment extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     protected Member member;
 
+    public Comment(String content) {
+        this.content = content;
+    }
+
+    public abstract void updateMember(Member member);
+
     public abstract void updateFK(Object o);
 }

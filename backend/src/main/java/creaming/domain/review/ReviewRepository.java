@@ -10,7 +10,6 @@ import java.util.UUID;
 
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
 
-    @Query("SELECT ")
     Page<Review> findAllByCourseId(UUID courseId, Pageable pageable);
 
 }

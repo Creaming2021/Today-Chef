@@ -40,8 +40,6 @@ public class Review extends BaseTimeEntity {
     @JoinColumn(name = "course_id")
     private Course course;
 
-
-
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ReviewComment> reviewComments = new ArrayList<>();
 
@@ -75,4 +73,9 @@ public class Review extends BaseTimeEntity {
         member.addReview(this);
         course.addReview(this);
     }
+
+    public void update(String content) {
+        this.content = content;
+    }
+
 }
