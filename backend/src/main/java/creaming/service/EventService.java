@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package creaming.service;
 
 import creaming.domain.event.Event;
@@ -23,7 +22,7 @@ public class EventService {
 
     public Page<EventDto.SimpleResponse> findEventList(Pageable pageable) {
         return eventRepository.findAll(pageable)
-                .map(event -> new EventDto.SimpleResponse(event.getId(), event.getTitle(), event.getCreatedDate()));
+                .map(EventDto.SimpleResponse::new);
     }
 
     public EventDto.DetailResponse findEvent(UUID eventId) {
@@ -49,7 +48,4 @@ public class EventService {
                 .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND));
         event.update(dto.getTitle(), dto.getContent());
     }
-=======
-package creaming.service;public class EventService {
->>>>>>> 59bffee (test)
 }

@@ -21,6 +21,12 @@ public class EventDto {
         private UUID id;
         private String title;
         private LocalDateTime date;
+
+        public SimpleResponse(Event event) {
+            this.id = event.getId();
+            this.title = event.getTitle();
+            this.date = getDate();
+        }
     }
 
     @Getter
@@ -50,7 +56,6 @@ public class EventDto {
     public static class Request {
         @NotEmpty
         private String title;
-
         @NotNull
         private String content;
 
