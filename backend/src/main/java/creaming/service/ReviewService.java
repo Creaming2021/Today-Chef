@@ -60,7 +60,6 @@ public class ReviewService {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         review.update(dto.getContent());
-        reviewRepository.save(review);
     }
 
     @Transactional
@@ -83,9 +82,7 @@ public class ReviewService {
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_COMMENT_NOT_FOUND));
-
         reviewComment.update(dto.getContent());
-        reviewCommentRepository.save(reviewComment);
     }
 
     @Transactional

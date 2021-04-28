@@ -2,15 +2,11 @@ package creaming.controller;
 
 import creaming.dto.CourseDto;
 import creaming.dto.MemberDto;
-import creaming.dto.QnaDto;
-import org.hibernate.type.descriptor.java.UUIDTypeDescriptor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -51,8 +47,5 @@ public class CourseController {
     public ResponseEntity<?> deleteCourse(@PathVariable("courseId") UUID courseId) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-    //
-
 
 }
