@@ -4,6 +4,7 @@ import creaming.domain.etc.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Builder
 @Entity
@@ -14,9 +15,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Event extends BaseTimeEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "event_id")
-    private Long id;
+    private UUID id;
 
     private String title;
 

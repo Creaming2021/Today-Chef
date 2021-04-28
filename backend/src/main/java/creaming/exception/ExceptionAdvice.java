@@ -1,6 +1,7 @@
 package creaming.exception;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -40,6 +41,17 @@ public class ExceptionAdvice {
                 .status(ErrorCode.ACCESS_DENIED_EXCEPTION.getStatus())
                 .body(ExceptionDto.builder()
                         .errorCode(ErrorCode.ACCESS_DENIED_EXCEPTION.getCode())
+                        .build());
+    }
+
+    // MethodArgumentNotValidException
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<ExceptionDto> exceptionHandler(MethodArgumentNotValidException e) {
+        e.printStackTrace();
+        return ResponseEntity
+                .status(ErrorCode.VALID_EXCEPTION.getStatus())
+                .body(ExceptionDto.builder()
+                        .errorCode(ErrorCode.VALID_EXCEPTION.getCode())
                         .build());
     }
 
