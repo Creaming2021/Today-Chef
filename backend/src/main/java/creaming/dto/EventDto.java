@@ -1,7 +1,14 @@
 package creaming.dto;
 
-import lombok.*;
+import creaming.domain.event.Event;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.aspectj.weaver.ast.Test;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,7 +22,12 @@ public class EventDto {
         private UUID id;
         private String title;
         private LocalDateTime date;
-        private String image;
+
+        public SimpleResponse(Event event) {
+            this.id = event.getId();
+            this.title = event.getTitle();
+            this.date = event.getCreatedDate();
+        }
     }
 
     @Getter
@@ -28,6 +40,14 @@ public class EventDto {
         private String content;
         private LocalDateTime date;
         private String image;
+
+        public DetailResponse(Event event) {
+            this.id = event.getId();
+            this.title = event.getTitle();
+            this.content = event.getContent();
+            this.date = event.getCreatedDate();
+            this.image = event.getImage();
+        }
     }
 
     @Getter
@@ -35,8 +55,17 @@ public class EventDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Request {
+        @NotEmpty
         private String title;
-        private String content;
-    }
 
+        @NotNull
+        private String content;
+
+        public Event toEntity() {
+            return Event.builder()
+                    .content(this.content)
+                    .title(this.title)
+                    .build();
+        }
+    }
 }

@@ -24,12 +24,16 @@ public class QnaComment extends Comment {
     private Qna qna;
 
     @Builder
-    public QnaComment(UUID id, String content, Member member, Qna qna) {
-        super(id, content, member);
-        this.qna = qna;
+    public QnaComment(String content) {
+        super(content);
     }
 
     // JPA
+    @Override
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+
     @Override
     public void updateFK(Object qna) {
         this.qna = (Qna) qna;
