@@ -1,6 +1,6 @@
 <template>
   <div>
-		공지사항 디테일
+    공지사항 디테일
   </div>
 </template>
 
