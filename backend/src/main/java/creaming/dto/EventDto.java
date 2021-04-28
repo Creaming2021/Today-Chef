@@ -21,6 +21,15 @@ public class EventDto {
         private UUID id;
         private String title;
         private LocalDateTime date;
+<<<<<<< HEAD
+=======
+
+        public SimpleResponse(Event event) {
+            this.id = event.getId();
+            this.title = event.getTitle();
+            this.date = event.getCreatedDate();
+        }
+>>>>>>> 929093a (Test)
     }
 
     @Getter

@@ -13,7 +13,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30) // open api spec 3.0
-//                .host("k4b204.p.ssafy.io")
+                .host("k4b204.p.ssafy.io")
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
