@@ -9,25 +9,29 @@
     </div>
     <CourseIntroduction v-if="this.type === 'introduction'"/>
     <CourseKit v-else-if="this.type === 'kit'"/>
-    <CourseReview 
+    <List 
       v-else-if="this.type === 'review'"
-      :reviewList="reviewList"/>
-    <CourseReviewDetail
+      :type="type"
+      :list="reviewList"
+      :pageTotal="pageTotal"
+      :currentPage="currentPage"/>
+    <ListDetail
       v-else-if="this.type === 'reviewDetail'"
-      :reviewInfo="reviewInfo"/>
+      :type="type"
+      :item="reviewInfo"/>
     <CourseQnA 
       v-else-if="this.type === 'qna'"
       :qnaList="qnaList"/>
-    <CourseRefund v-else-if="this.type === 'refund'"/>
+    <CourseRefund 
+      v-else-if="this.type === 'refund'"/>
   </div>
 </template>
-
 
 <script>
 import CourseIntroduction from '@/components/courseDetail/CourseIntroduction.vue';
 import CourseKit from '@/components/courseDetail/CourseKit.vue';
-import CourseReview from '@/components/courseDetail/CourseReview.vue';
-import CourseReviewDetail from '@/components/courseDetail/CourseReviewDetail.vue';
+import List from '@/components/common/List.vue';
+import ListDetail from '@/components/common/ListDetail.vue';
 import CourseQnA from '@/components/courseDetail/CourseQnA.vue';
 import CourseRefund from '@/components/courseDetail/CourseRefund.vue';
 
@@ -35,6 +39,8 @@ export default {
   data() {
     return {
       type: 'introduction',
+      pageTotal: 8,
+      currentPage: 1,
       reviewList: [
         {
           id: 1,
@@ -171,8 +177,8 @@ export default {
   components: {
     CourseIntroduction,
     CourseKit,
-    CourseReview,
-    CourseReviewDetail,
+    List,
+    ListDetail,
     CourseQnA,
     CourseRefund
   },
