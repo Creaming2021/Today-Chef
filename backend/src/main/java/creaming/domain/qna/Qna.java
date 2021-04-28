@@ -59,4 +59,5 @@ public class Qna extends BaseTimeEntity {
         qnaComment.updateFK(null);
     }
     /////////////////////////////////
+
 }

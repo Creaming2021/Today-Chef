@@ -1,39 +1,47 @@
 package creaming.controller;
 
-import creaming.domain.qna.Qna;
 import creaming.dto.QnaCommentDto;
 import creaming.dto.QnaDto;
+import creaming.service.QnaService;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping("qna")
+@RequiredArgsConstructor
 public class QnaController {
 
+    private final QnaService qnaService;
+
+    @Operation(summary = "강의 별 모든 질문 조회", description = "courseId에 해당하는 모든 QnA를 페이징 처리해서 출력합니다")
     @GetMapping
     public ResponseEntity<?> getQnaAll(@RequestParam("courseId") UUID courseId,
                                        Pageable pageable) {
-        Page<QnaDto.Response> result = Page.empty();
+        Page<QnaDto.Response> result = qnaService.getQnaAll(courseId, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/{qnaId}")
-    public ResponseEntity<?> getQna(@PathVariable("qnaId") UUID qnaUUID) {
-        QnaDto.Response result = new QnaDto.Response();
+    public ResponseEntity<?> getQna(@PathVariable("qnaId") UUID qnaId) {
+        QnaDto.Response result = qnaService.getQna(qnaId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping
     public ResponseEntity<?> postQna(QnaDto.PostRequest dto) {
-        UUID uuid = UUID.randomUUID();
-        return ResponseEntity.status(HttpStatus.OK).body(uuid);
+        UUID result = qnaService.postQna(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PutMapping("/{qnaId}")
