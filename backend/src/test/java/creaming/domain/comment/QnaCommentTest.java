@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 import java.util.Optional;
-import java.util.UUID;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,13 +51,13 @@ class QnaCommentTest {
         Coupon coupon = Coupon.builder()
                 .content("coupon")
                 .build();
-        UUID couponId = couponRepository.save(coupon).getId();
+        Long couponId = couponRepository.save(coupon).getId();
 
         MemberCoupon memberCoupon = MemberCoupon.builder()
                 .member(member)
                 .coupon(coupon)
                 .build();
-        UUID memberCouponId = memberCouponRepository.save(memberCoupon).getId();
+        Long memberCouponId = memberCouponRepository.save(memberCoupon).getId();
 
         em.flush();
         em.clear();

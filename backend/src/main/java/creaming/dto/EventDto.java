@@ -10,7 +10,7 @@ import org.aspectj.weaver.ast.Test;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 public class EventDto {
 
@@ -19,7 +19,7 @@ public class EventDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SimpleResponse {
-        private UUID id;
+        private Long id;
         private String title;
         private LocalDateTime date;
 
@@ -35,7 +35,7 @@ public class EventDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DetailResponse {
-        private UUID id;
+        private Long id;
         private String title;
         private String content;
         private LocalDateTime date;

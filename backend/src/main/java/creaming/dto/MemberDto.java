@@ -4,7 +4,7 @@ import creaming.domain.etc.Address;
 import lombok.*;
 
 import java.time.DayOfWeek;
-import java.util.UUID;
+
 
 public class MemberDto {
 
@@ -14,7 +14,7 @@ public class MemberDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SimpleProfile {
-        private UUID memberId;
+        private Long memberId;
         private String nickname;
         private String profileImage;
     }
@@ -25,7 +25,7 @@ public class MemberDto {
     @AllArgsConstructor
     public static class Response {
 
-        private UUID memberId;
+        private Long memberId;
         private String nickname;
         private String profileImage;
         private String email;
@@ -56,7 +56,7 @@ public class MemberDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DayOfWeekResponse {
-        private UUID memberId;
+        private Long memberId;
         private String nickname;
         private String profileImage;
         private String phoneNumber;

@@ -4,7 +4,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
+
 
 public class ReviewDto {
 
@@ -13,7 +13,7 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SimpleResponse {
-        private UUID reviewId;
+        private Long reviewId;
         private MemberDto.SimpleProfile profile;
         private int rating;
         private String title;
@@ -27,7 +27,7 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DetailResponse {
-        private UUID reviewId;
+        private Long reviewId;
         private MemberDto.SimpleProfile profile;
         private int rating;
         private String title;
@@ -43,7 +43,7 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Comment {
-        private UUID commentId;
+        private Long commentId;
         private MemberDto.SimpleProfile profile;
         private String content;
         private LocalDateTime date;
@@ -54,8 +54,8 @@ public class ReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
-        private UUID memberId;
-        private UUID courseId;
+        private Long memberId;
+        private Long courseId;
         private String content;
     }
 
