@@ -36,7 +36,6 @@ class CourseTest {
 
         Course course = Course.builder()
                 .category(FoodType.DRINK)
-                .date(LocalDateTime.now().plusDays(3))
                 .price(10000)
                 .materials("밀가루 1kg, 설탕 100g")
                 .descriptions("정말 재미있는 클래스 입니다.")

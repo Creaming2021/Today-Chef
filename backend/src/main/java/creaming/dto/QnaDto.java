@@ -4,6 +4,7 @@ import creaming.domain.comment.QnaComment;
 import creaming.domain.qna.Qna;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class QnaDto {
             this.title = qna.getTitle();
             this.date = qna.getLastModifiedDate();
             this.content = qna.getContent();
-            this.isSecret = qna.isSecret();
+            this.isSecret = qna.getIsSecret();
             this.comments = qna.getQnaComments().stream()
                     .map(Comment::new).collect(Collectors.toList());
         }
@@ -42,11 +43,23 @@ public class QnaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
+
+        @NotEmpty
         private UUID memberId;
+        @NotEmpty
         private UUID courseId;
+        @NotEmpty
         private String title;
         private String content; // TODO editor 로 작업시 수정
         private boolean isSecret;
+
+        public Qna toEntity() {
+            return Qna.builder()
+                    .title(this.title)
+                    .content(this.content)
+                    .isSecret(this.isSecret)
+                    .build();
+        }
     }
 
     @Getter

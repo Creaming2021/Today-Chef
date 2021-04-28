@@ -10,6 +10,7 @@ import creaming.domain.register.Register;
 import creaming.domain.review.Review;
 import creaming.domain.timetable.TimeTable;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,8 +28,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Course extends BaseTimeEntity {
 
-    @Id @GeneratedValue
-    @Column(name = "course_id")
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "course_id", columnDefinition = "CHAR(32)")
     private UUID id;
 
     private String name;

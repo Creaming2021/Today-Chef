@@ -1,5 +1,8 @@
 package creaming.domain.member;
 
+import creaming.domain.comment.Comment;
+import creaming.domain.comment.QnaComment;
+import creaming.domain.comment.ReviewComment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;
@@ -11,6 +14,7 @@ import creaming.domain.register.Register;
 import creaming.domain.review.Review;
 import creaming.domain.timetable.TimeTable;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,8 +30,10 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Member extends BaseTimeEntity {
 
-    @Id @GeneratedValue
-    @Column(name = "member_id")
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "member_id", columnDefinition = "CHAR(32)")
     private UUID id;
 
     private String nickname;
@@ -57,6 +63,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<MemberCoupon> memberCoupons = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Comment> comments = new ArrayList<>();
 
     // JPA
     public void addRegister(Register register) {
@@ -118,5 +127,16 @@ public class Member extends BaseTimeEntity {
         memberCoupons.remove(memberCoupon);
         memberCoupon.updateMember(null);
     }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.updateMember(this);
+    }
+
+    public void deleteComment(Comment comment) {
+        comments.remove(comment);
+        comment.updateMember(null);
+    }
+
     //////////////////////////////////////
 }

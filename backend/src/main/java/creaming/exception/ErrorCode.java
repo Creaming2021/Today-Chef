@@ -19,6 +19,18 @@ public enum ErrorCode {
     // Member
     // ex) LOGIN_FAIL(HttpStatus.UNAUTHORIZED, "01002", "로그인 실패")
 
+    // Member
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "01000", "없는 계정"),
+
+    // Course
+    COURSE_NOT_FOUND(HttpStatus.NOT_FOUND, "02000", "없는 강의"),
+
+    // Qna
+    QNA_NOT_FOUND(HttpStatus.NOT_FOUND, "04000", "없는 질문"),
+
+    // Comment
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "06000", "없는 댓글"),
+
     // 서버 에러
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST, "00100"),
     ACCESS_DENIED_EXCEPTION(HttpStatus.UNAUTHORIZED, "00101"),

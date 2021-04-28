@@ -5,7 +5,9 @@ import creaming.domain.comment.QnaComment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
+import creaming.dto.QnaDto;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,13 +23,15 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Qna extends BaseTimeEntity {
 
-    @Id @GeneratedValue
-    @Column(name = "qna_id")
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "qna_id", columnDefinition = "CHAR(32)")
     private UUID id;
 
     private String title;
     private String content;
-    private boolean isSecret;
+    private Boolean isSecret;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -59,5 +63,11 @@ public class Qna extends BaseTimeEntity {
         qnaComment.updateFK(null);
     }
     /////////////////////////////////
+
+    public void update(String title, String content, Boolean isSecret) {
+        this.title = title;
+        this.content = content;
+        this.isSecret = isSecret;
+    }
 
 }

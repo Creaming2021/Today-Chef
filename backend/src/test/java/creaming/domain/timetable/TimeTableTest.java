@@ -102,7 +102,6 @@ class TimeTableTest {
 
         Course course2 = Course.builder()
                 .category(FoodType.DRINK)
-                .date(LocalDateTime.now().plusDays(4))
                 .price(10000)
                 .materials("밀가루 1kg, 설탕 100g")
                 .descriptions("정말 재미있는 클래스 입니다.")
@@ -142,7 +141,7 @@ class TimeTableTest {
 //        em.clear();
 
         TimeTable timeTable1 = timeTableRepository.findAll().get(0);
-        course.test(timeTable1);
+//        course.test(timeTable1);
         timeTableRepository.delete(timeTable1);
 
 //        timeTables.forEach(timeTable -> {
