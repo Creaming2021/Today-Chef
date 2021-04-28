@@ -17,12 +17,19 @@ public enum ErrorCode {
      */
 
     // Member
-    // ex) LOGIN_FAIL(HttpStatus.UNAUTHORIZED, "01002", "로그인 실패")
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "01000", "없는 계정"),
+
+    // Course
+    COURSE_NOT_FOUND(HttpStatus.NOT_FOUND, "02000", "없는 강의"),
+
+    // Event
+    EVENT_DTO_EMPTY(HttpStatus.BAD_REQUEST, "05000", "Event 잘못된 요청"),
 
     // 서버 에러
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST, "00100"),
     ACCESS_DENIED_EXCEPTION(HttpStatus.UNAUTHORIZED, "00101"),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "00102");
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "00102"),
+    VALID_EXCEPTION(HttpStatus.BAD_REQUEST, "00103");
     /////////////////////////////////////////
 
     private final HttpStatus status;
