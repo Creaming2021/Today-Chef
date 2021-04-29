@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -22,7 +20,7 @@ public class EventService {
 
     public Page<EventDto.SimpleResponse> findEventList(Pageable pageable) {
         return eventRepository.findAll(pageable)
-                .map(event -> new EventDto.SimpleResponse(event.getId(), event.getTitle(), event.getCreatedDate()));
+                .map(EventDto.SimpleResponse::new);
     }
 
     public EventDto.DetailResponse findEvent(Long eventId) {
@@ -44,8 +42,8 @@ public class EventService {
 
     @Transactional
     public void updateEvent(Long eventId, EventDto.Request dto) {
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND));
-        event.update(dto.getTitle(), dto.getContent());
+        eventRepository.findById(eventId)
+                .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND))
+                .update(dto.getTitle(), dto.getContent());
     }
 }
