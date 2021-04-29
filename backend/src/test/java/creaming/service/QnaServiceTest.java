@@ -55,7 +55,7 @@ class QnaServiceTest {
     MockMvc mockMvc;
 
     @Test
-    @Rollback(value = false)
+//    @Rollback(value = false)
     public void 질문_및_댓글_생성() throws Exception {
         // given
         String email = "ssafy@ssafy.com";
@@ -68,35 +68,49 @@ class QnaServiceTest {
         memberRepository.save(member);
 
         Course course = courseRepository.save(new Course());
-        Qna qna = Qna.builder()
-                .title("호랑이")
-                .content("무서워")
-                .isSecret(false)
-                .build();
-        course.addQna(qna);
-        member.addQna(qna);
-        qnaRepository.save(qna);
+
+        for (int i = 1; i <= 20; i++) {
+            Qna qna = Qna.builder()
+                    .title("호랑이")
+                    .content("무서워")
+                    .isSecret(false)
+                    .build();
+            course.addQna(qna);
+            member.addQna(qna);
+            qnaRepository.save(qna);
+
+            for (int j = 1; j <= 10; j++) {
+                QnaComment qnaComment = QnaComment.builder()
+                        .content("테스트" + i)
+                        .build();
+                member.addComment(qnaComment);
+                qna.addComment(qnaComment);
+                qnaCommentRepository.save(qnaComment);
+            }
+        }
 
         // when
-        for (int i = 1; i <= 10; i++) {
-            QnaComment qnaComment = QnaComment.builder()
-                    .content("테스트" + i)
-                    .build();
-            member.addComment(qnaComment);
-            qnaCommentRepository.save(qnaComment);
-        }
+
 
         em.flush();
         em.clear();
 
         // then
-        Long id = courseRepository.findAll().get(0).getId();
+        Course course1 = courseRepository.findAll().get(0);
+        Long id = course1.getId();
         System.out.println("id = " + id);
-        Page<QnaDto.Response> qnaAll = qnaService.getQnaAll(id, PageRequest.of(0, 20));
+
+        Qna qna1 = qnaRepository.findAll().get(0);
+        System.out.println(qna1.getQnaComments().size());
+
+        System.out.println("===========================");
+
+        Page<QnaDto.Response> qnaAll = qnaService.getQnaAll(id, PageRequest.of(1, 5));
+
+        System.out.println("===========================");
+
         System.out.println("오기유니");
 
-
-//        System.out.println(qnaAll.getContent().size());
         qnaAll.getContent().forEach(response -> {
             System.out.println("이해가 안가");
             System.out.println(response.getProfile().getNickname());
@@ -104,7 +118,7 @@ class QnaServiceTest {
         });
 
 //        mockMvc.perform(get("/api/qna")
-//                .param("courseId", id + "")
+//                .param("courseId", "1")
 //                .param("page", "0")
 //                .param("size", "10"))
 //                .andExpect(status().isOk())

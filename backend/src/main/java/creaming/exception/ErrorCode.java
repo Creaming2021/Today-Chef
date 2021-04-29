@@ -26,12 +26,6 @@ public enum ErrorCode {
     EVENT_DTO_EMPTY(HttpStatus.BAD_REQUEST, "05000", "Event 잘못된 요청"),
     EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "05001", "없는 이벤트"),
 
-    // Member
-    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "01000", "없는 계정"),
-
-    // Course
-    COURSE_NOT_FOUND(HttpStatus.NOT_FOUND, "02000", "없는 강의"),
-
     // Qna
     QNA_NOT_FOUND(HttpStatus.NOT_FOUND, "04000", "없는 질문"),
 
