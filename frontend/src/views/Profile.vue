@@ -21,11 +21,13 @@
                 <MyCourseList
                   v-else-if="currentAtiveFilter === 'student'"
                   class="col-lg-9"
+                  :type="'otherClass'"
                   :myCourseList="myCourseList"/>
 
                 <MyCourseList
                   v-else-if="currentAtiveFilter === 'teacher'"
                   class="col-lg-9"
+                  :type="'myClass'"
                   :myCourseList="myCourseList"/>
 
                 <MyPayment 
