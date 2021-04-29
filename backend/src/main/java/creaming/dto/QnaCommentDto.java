@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.UUID;
 
 public class QnaCommentDto {
 
@@ -17,7 +16,7 @@ public class QnaCommentDto {
     @AllArgsConstructor
     public static class PostRequest {
         @NotEmpty
-        private UUID memberId;
+        private Long memberId;
         private String content;
 
         public QnaComment toEntity() {

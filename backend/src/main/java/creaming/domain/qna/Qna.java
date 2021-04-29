@@ -1,18 +1,15 @@
 package creaming.domain.qna;
 
-import creaming.domain.comment.Comment;
 import creaming.domain.comment.QnaComment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
-import creaming.dto.QnaDto;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Builder
 @Entity
@@ -23,11 +20,9 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Qna extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "qna_id", columnDefinition = "CHAR(32)")
-    private UUID id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "qna_id")
+    private Long id;
 
     private String title;
     private String content;

@@ -29,8 +29,7 @@
               <span @click="onClickDay(5, $event)">토</span>
               <span @click="onClickDay(6, $event)">일</span>
             </div>
-            <div class="row" style="justify-content : center; height: 60vh;
-">
+            <div class="row" style="justify-content : center; height: 60vh;">
               <Student :day="currentDay"/>
             </div>
           </div>

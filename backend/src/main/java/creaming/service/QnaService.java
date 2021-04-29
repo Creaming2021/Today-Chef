@@ -32,23 +32,19 @@ public class QnaService {
     private final CourseRepository courseRepository;
     private final MemberRepository memberRepository;
 
-    public Page<QnaDto.Response> getQnaAll(UUID courseId, Pageable pageable) {
-        Page<Qna> qnaPage = qnaRepository.findByCourseId(courseId, pageable);
-        List<Qna> qnaList = qnaRepository.findMelonByCourseId(courseId);
-        System.out.println("전체: " + qnaRepository.findAll().size());
-        System.out.println("제발: " + qnaList.size());
-        return qnaPage
+    public Page<QnaDto.Response> getQnaAll(Long courseId, Pageable pageable) {
+        return qnaRepository.findByCourseId(courseId, pageable)
                 .map(QnaDto.Response::new);
     }
 
-    public QnaDto.Response getQna(UUID qnaId) {
+    public QnaDto.Response getQna(Long qnaId) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         return new QnaDto.Response(qna);
     }
 
     @Transactional
-    public UUID postQna(QnaDto.PostRequest dto) {
+    public Long postQna(QnaDto.PostRequest dto) {
         Course course = courseRepository.findById(dto.getCourseId())
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         Member member = memberRepository.findById(dto.getMemberId())
@@ -57,19 +53,18 @@ public class QnaService {
         Qna qna = dto.toEntity();
         member.addQna(qna);
         course.addQna(qna);
-
         return qnaRepository.save(qna).getId();
     }
 
     @Transactional
-    public void putQna(UUID qnaId, QnaDto.PostRequest dto) {
+    public void putQna(Long qnaId, QnaDto.PostRequest dto) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         qna.update(dto.getTitle(), dto.getContent(), dto.isSecret());
     }
 
     @Transactional
-    public void deleteQna(UUID qnaId) {
+    public void deleteQna(Long qnaId) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         qna.getMember().deleteQna(qna);
@@ -77,7 +72,7 @@ public class QnaService {
         qnaRepository.delete(qna);
     }
 
-    public List<QnaDto.Comment> getCommentAll(UUID qnaId) {
+    public List<QnaDto.Comment> getCommentAll(Long qnaId) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         return qna.getQnaComments().stream()
@@ -86,7 +81,7 @@ public class QnaService {
     }
 
     @Transactional
-    public UUID postComment(UUID qnaId, QnaCommentDto.PostRequest dto) {
+    public Long postComment(Long qnaId, QnaCommentDto.PostRequest dto) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         Member member = memberRepository.findById(dto.getMemberId())
@@ -98,7 +93,7 @@ public class QnaService {
     }
 
     @Transactional
-    public void putComment(UUID qnaId, UUID commentId, QnaCommentDto.PutRequest dto) {
+    public void putComment(Long qnaId, Long commentId, QnaCommentDto.PutRequest dto) {
         Qna qna = qnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         QnaComment qnaComment = qnaCommentRepository.findById(commentId)
@@ -107,7 +102,7 @@ public class QnaService {
     }
 
     @Transactional
-    public void deleteComment(UUID qnaId, UUID commentId) {
+    public void deleteComment(Long qnaId, Long commentId) {
         QnaComment qnaComment = qnaCommentRepository.findById(commentId)
                 .orElseThrow(() -> new BaseException(ErrorCode.COMMENT_NOT_FOUND));
         Qna qna = qnaRepository.findById(qnaId)

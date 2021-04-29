@@ -8,7 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
-import java.util.UUID;
+
 
 @Builder
 @Entity
@@ -19,9 +19,9 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Register extends BaseTimeEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "register_id")
-    private UUID id;
+    private Long id;
 
     private DayOfWeek dayOfWeek;
 

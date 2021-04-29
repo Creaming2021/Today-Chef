@@ -6,9 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class QnaDto {
@@ -18,7 +16,7 @@ public class QnaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        private UUID qnaId;
+        private Long qnaId;
         private MemberDto.SimpleProfile profile;
         private String title;
         private LocalDateTime date;
@@ -45,9 +43,9 @@ public class QnaDto {
     public static class PostRequest {
 
         @NotEmpty
-        private UUID memberId;
+        private Long memberId;
         @NotEmpty
-        private UUID courseId;
+        private Long courseId;
         @NotEmpty
         private String title;
         private String content; // TODO editor 로 작업시 수정
@@ -78,7 +76,7 @@ public class QnaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Comment {
-        private UUID commentId;
+        private Long commentId;
         private MemberDto.SimpleProfile profile;
         private String content;
         private LocalDateTime date;

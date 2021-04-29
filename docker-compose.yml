@@ -18,6 +18,7 @@ services:
     container_name: app_nginx
     ports:
       - 80:80
+      - 443:443
  
   backend:
     build:
@@ -26,3 +27,5 @@ services:
     container_name: app_backend
     volumes:
       - ./backend:/app
+    ports: 
+      - 8080:8080

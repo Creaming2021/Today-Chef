@@ -6,7 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
+
 
 @Entity
 @Getter
@@ -17,11 +17,9 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Comment extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "comment_id", columnDefinition = "CHAR(32)")
-    protected UUID id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
+    protected Long id;
 
     protected String content;
 

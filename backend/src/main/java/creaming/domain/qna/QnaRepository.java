@@ -10,10 +10,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.UUID;
 
-public interface QnaRepository extends JpaRepository<Qna, UUID> {
+public interface QnaRepository extends JpaRepository<Qna, Long> {
 
-//    @Query("select q from Qna q join fetch q.member, q.qnaComments where q.course = :courseId")
-    Page<Qna> findByCourseId(UUID courseId, Pageable pageable);
+    @Query("select q from Qna q join fetch q.member where q.course.id = :courseId")
+    Page<Qna> findByCourseId(@Param("courseId") Long courseId, Pageable pageable);
 
     List<Qna> findMelonByCourseId(UUID courseId);
 

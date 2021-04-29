@@ -90,7 +90,7 @@ class QnaServiceTest {
         em.clear();
 
         // then
-        UUID id = courseRepository.findAll().get(0).getId();
+        Long id = courseRepository.findAll().get(0).getId();
         System.out.println("id = " + id);
         Page<QnaDto.Response> qnaAll = qnaService.getQnaAll(id, PageRequest.of(0, 20));
         System.out.println("오기유니");
