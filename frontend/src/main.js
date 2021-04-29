@@ -7,7 +7,9 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-Vue.use(BootstrapVue)
+window.Kakao.init('3a4c716678b023fe5358b12888ad66a7');
+
+Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 

@@ -7,18 +7,14 @@
     <TopList
       :type="arrival" 
       :tabList="topListTab" 
-      :itemList="currentArrivalHomeState"
-      @currentActiveChanged="currentActiveChanged"
-      />
+      :itemList="home.currentArrivalHomeState"/>
     <Sale/>
     <TopList 
       :type="category" 
       :tabList="categoryTab" 
-      :itemList="currentCategoryHomeState"
-      @currentActiveChanged="currentActiveChanged"
-      />
+      :itemList="home.currentCategoryHomeState"/>
     <Recommend
-      :list="randomListState"/>
+      :list="home.randomListState"/>
   </div>
 </template>
 
@@ -46,13 +42,7 @@ export default {
     this.setRandomListState(this.randomList);
   },
   computed: {
-    ...mapState([
-      "arrivalHomeState", 
-      "currentArrivalHomeState",
-      "arrivalHomeState", 
-      "currentCategoryHomeState",
-      "randomListState",
-    ])
+    ...mapState(['home']),
   },
   methods: {
     ...mapActions([
@@ -62,9 +52,6 @@ export default {
       "setCurrentCategotyHomeState",
       "setRandomListState",
     ]),
-    currentActiveChanged(params) {
-      console.log(params);
-    }
   },
   data() {
     return {

@@ -5,7 +5,7 @@ import creaming.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
+
 
 @Entity
 @Getter
@@ -16,14 +16,20 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Comment extends BaseTimeEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
-    protected UUID id;
+    protected Long id;
 
     protected String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     protected Member member;
+
+    public Comment(String content) {
+        this.content = content;
+    }
+
+    public abstract void updateMember(Member member);
 
     public abstract void updateFK(Object o);
 }

@@ -2,18 +2,14 @@ package creaming.controller;
 
 import creaming.dto.CourseDto;
 import creaming.dto.MemberDto;
-import creaming.dto.QnaDto;
-import org.hibernate.type.descriptor.java.UUIDTypeDescriptor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("courses")
@@ -21,7 +17,7 @@ public class CourseController {
 
     // 해당 강의의 수강생 출력
     @GetMapping("/{courseId}/students")
-    public ResponseEntity<?> getCourseStudents(@PathVariable("courseId") UUID courseId) {
+    public ResponseEntity<?> getCourseStudents(@PathVariable("courseId") Long courseId) {
         List<MemberDto.DayOfWeekResponse> result = new ArrayList<>();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -29,26 +25,25 @@ public class CourseController {
     // 강의 제작
     @PostMapping
     public ResponseEntity<?> postCourse(CourseDto.PostRequest dto) {
-        UUID result = UUID.randomUUID();
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
     // 강의 이미지 삽입 및 수정
     @PostMapping("/{courseId}/image")
-    public ResponseEntity<?> postCourseImage(@PathVariable("courseId") UUID courseId,
+    public ResponseEntity<?> postCourseImage(@PathVariable("courseId") Long courseId,
                                              @RequestPart MultipartFile file) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     // 강의 수정
     @PutMapping("/{courseId}")
-    public ResponseEntity<?> putCourse(@PathVariable("courseId") UUID courseId) {
+    public ResponseEntity<?> putCourse(@PathVariable("courseId") Long courseId) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     // 강의 삭제 or 비활성화
     @DeleteMapping("/{courseId}")
-    public ResponseEntity<?> deleteCourse(@PathVariable("courseId") UUID courseId) {
+    public ResponseEntity<?> deleteCourse(@PathVariable("courseId") Long courseId) {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

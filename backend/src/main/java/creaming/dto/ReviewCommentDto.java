@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 public class ReviewCommentDto {
 
@@ -25,7 +25,7 @@ public class ReviewCommentDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
-        private UUID memberId;
+        private Long memberId;
         private String content;
     }
 
