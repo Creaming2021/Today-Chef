@@ -38,9 +38,9 @@ public class QnaService {
     }
 
     public QnaDto.Response getQna(Long qnaId) {
-        Qna qna = qnaRepository.findById(qnaId)
+        return qnaRepository.findById(qnaId)
+                .map(QnaDto.Response::new)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
-        return new QnaDto.Response(qna);
     }
 
     @Transactional
