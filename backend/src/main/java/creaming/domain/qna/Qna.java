@@ -1,6 +1,5 @@
 package creaming.domain.qna;
 
-import creaming.domain.comment.Comment;
 import creaming.domain.comment.QnaComment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
@@ -27,7 +26,7 @@ public class Qna extends BaseTimeEntity {
 
     private String title;
     private String content;
-    private boolean isSecret;
+    private Boolean isSecret;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -59,4 +58,11 @@ public class Qna extends BaseTimeEntity {
         qnaComment.updateFK(null);
     }
     /////////////////////////////////
+
+    public void update(String title, String content, Boolean isSecret) {
+        this.title = title;
+        this.content = content;
+        this.isSecret = isSecret;
+    }
+
 }

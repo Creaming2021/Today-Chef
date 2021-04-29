@@ -38,5 +38,9 @@ public class QnaComment extends Comment {
     public void updateFK(Object qna) {
         this.qna = (Qna) qna;
     }
+
     ////////////////////////////////////////
+    public void update(String content) {
+        this.content = content;
+    }
 }

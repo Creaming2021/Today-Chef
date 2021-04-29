@@ -1,8 +1,6 @@
 package creaming.domain.member;
 
 import creaming.domain.comment.Comment;
-import creaming.domain.comment.QnaComment;
-import creaming.domain.comment.ReviewComment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;

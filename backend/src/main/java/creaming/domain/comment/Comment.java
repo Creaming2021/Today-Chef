@@ -3,6 +3,7 @@ package creaming.domain.comment;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
