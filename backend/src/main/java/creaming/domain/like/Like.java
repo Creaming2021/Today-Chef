@@ -5,7 +5,7 @@ import creaming.domain.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
+
 
 @Builder
 @Entity
@@ -16,9 +16,9 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Like {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "like_id")
-    private UUID id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")

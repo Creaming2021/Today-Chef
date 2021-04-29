@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import CourseThumbnail from '@/components/CourseDetail/CourseThumbnail.vue';
-import CourseDetailMain from '@/components/CourseDetail/CourseDetailMain.vue';
-import CourseRightbar from '@/components/CourseDetail/CourseRightbar.vue';
+import CourseThumbnail from '@/components/courseDetail/CourseThumbnail.vue';
+import CourseDetailMain from '@/components/courseDetail/CourseDetailMain.vue';
+import CourseRightbar from '@/components/courseDetail/CourseRightbar.vue';
 
 export default {
   data(){

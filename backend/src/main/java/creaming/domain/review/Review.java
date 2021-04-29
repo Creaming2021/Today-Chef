@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Builder
 @Entity
@@ -24,9 +24,9 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class Review extends BaseTimeEntity {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    private UUID id;
+    private Long id;
 
     private String title;
     private String content;

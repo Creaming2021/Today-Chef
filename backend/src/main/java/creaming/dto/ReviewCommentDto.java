@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class ReviewCommentDto {
 
@@ -18,7 +16,7 @@ public class ReviewCommentDto {
     @AllArgsConstructor
     public static class PostRequest {
         @NotEmpty
-        private UUID memberId;
+        private Long memberId;
         @NotEmpty
         private String content;
 

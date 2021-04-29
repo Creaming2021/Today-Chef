@@ -18,8 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -30,19 +28,19 @@ public class ReviewService {
     private final CourseRepository courseRepository;
     private final MemberRepository memberRepository;
 
-    public Page<ReviewDto.SimpleResponse> getReviewAll(UUID courseId, Pageable pageable) {
+    public Page<ReviewDto.SimpleResponse> getReviewAll(Long courseId, Pageable pageable) {
         return reviewRepository.findAllByCourseId(courseId, pageable)
                 .map(ReviewDto.SimpleResponse::new);
     }
 
-    public ReviewDto.DetailResponse getReview(UUID reviewId) {
+    public ReviewDto.DetailResponse getReview(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         return new ReviewDto.DetailResponse(review);
     }
 
     @Transactional
-    public UUID postReview(ReviewDto.PostRequest dto) {
+    public Long postReview(ReviewDto.PostRequest dto) {
         Course course = courseRepository.findById(dto.getCourseId())
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         Member member = memberRepository.findById(dto.getMemberId())
@@ -56,14 +54,14 @@ public class ReviewService {
     }
 
     @Transactional
-    public void putReview(UUID reviewId, ReviewDto.PutRequest dto) {
+    public void putReview(Long reviewId, ReviewDto.PutRequest dto) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         review.update(dto.getContent());
     }
 
     @Transactional
-    public UUID postReviewComment(UUID reviewId, ReviewCommentDto.PostRequest dto) {
+    public Long postReviewComment(Long reviewId, ReviewCommentDto.PostRequest dto) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         Member member = memberRepository.findById(dto.getMemberId())
@@ -77,7 +75,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public void putReviewComment(UUID reviewId, UUID commentId, ReviewCommentDto.PutRequest dto) {
+    public void putReviewComment(Long reviewId, Long commentId, ReviewCommentDto.PutRequest dto) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
@@ -86,7 +84,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public void deleteReviewComment(UUID reviewId, UUID commentId) {
+    public void deleteReviewComment(Long reviewId, Long commentId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)

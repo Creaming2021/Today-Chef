@@ -10,7 +10,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.UUID;
+
 
 public class CourseDto {
 
@@ -19,7 +19,7 @@ public class CourseDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SimpleResponse {
-        private UUID courseId;
+        private Long courseId;
         private MemberDto.SimpleProfile profile; // 강사 프로필
         private String name;
         private LocalDateTime date;
@@ -34,7 +34,7 @@ public class CourseDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
-        private UUID memberId;
+        private Long memberId;
 
         private String name;
         private LocalDate date;
@@ -54,7 +54,7 @@ public class CourseDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PutRequest {
-        private UUID courseId;
+        private Long courseId;
 
         private String name;
         private LocalDate date;

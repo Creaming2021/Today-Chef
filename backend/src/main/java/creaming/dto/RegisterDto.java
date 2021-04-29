@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 public class RegisterDto {
 
@@ -17,9 +17,9 @@ public class RegisterDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class SimpleResponse {
-        private UUID registerId;
-        private UUID courseId;
-        private UUID memberId;
+        private Long registerId;
+        private Long courseId;
+        private Long memberId;
 
         private CourseDto.SimpleResponse course;
 
@@ -32,9 +32,9 @@ public class RegisterDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DetailResponse {
-        private UUID registerId;
-        private UUID courseId;
-        private UUID memberId;
+        private Long registerId;
+        private Long courseId;
+        private Long memberId;
 
         private CourseDto.SimpleResponse course;
 
@@ -52,7 +52,7 @@ public class RegisterDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
-        private UUID courseId;
+        private Long courseId;
         private DayOfWeek dayOfWeek;
 
         private Integer paidPrice;

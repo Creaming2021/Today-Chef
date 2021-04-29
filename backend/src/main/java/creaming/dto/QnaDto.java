@@ -4,7 +4,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
+
 
 public class QnaDto {
 
@@ -13,7 +13,7 @@ public class QnaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {
-        private UUID qnaId;
+        private Long qnaId;
         private MemberDto.SimpleProfile profile;
         private String title;
         private LocalDateTime date;
@@ -27,8 +27,8 @@ public class QnaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
-        private UUID memberId;
-        private UUID courseId;
+        private Long memberId;
+        private Long courseId;
         private String title;
         private String content; // TODO editor 로 작업시 수정
         private boolean isSecret;
@@ -50,7 +50,7 @@ public class QnaDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Comment {
-        private UUID commentId;
+        private Long commentId;
         private MemberDto.SimpleProfile profile;
         private String content;
         private LocalDateTime date;
