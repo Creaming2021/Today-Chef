@@ -90,6 +90,9 @@ public class ReviewService {
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_COMMENT_NOT_FOUND));
 
+        review.getMember().deleteReview(review);
+        review.getCourse().deleteReview(review);
+
         review.deleteComment(reviewComment);
         reviewCommentRepository.delete(reviewComment);
     }
