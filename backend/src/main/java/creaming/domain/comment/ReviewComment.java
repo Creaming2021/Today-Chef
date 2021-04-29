@@ -39,4 +39,9 @@ public class ReviewComment extends Comment {
         this.review = (Review) review;
     }
     ////////////////////////////////////////
+
+    public void update(String content) {
+        this.content = content;
+    }
+
 }

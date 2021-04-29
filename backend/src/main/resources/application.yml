@@ -13,12 +13,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 1000
 
   datasource:
-    url: jdbc:h2:tcp://localhost/~/creaming
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://k4b204.p.ssafy.io/creaming?useUnicode=true&charaterEncoding=utf-8
+    username: root
+    password: creaming2021^^
 
 my-app:
   server-url: https://k4b204.p.ssafy.io

@@ -1,6 +1,7 @@
 package creaming.dto;
 
 import creaming.domain.etc.Address;
+import creaming.domain.member.Member;
 import lombok.*;
 
 import java.time.DayOfWeek;
@@ -17,6 +18,12 @@ public class MemberDto {
         private Long memberId;
         private String nickname;
         private String profileImage;
+
+        public SimpleProfile(Member member) {
+            this.memberId = member.getId();
+            this.nickname = member.getNickname();
+            this.profileImage = member.getProfileImage();
+        }
     }
 
     @Getter

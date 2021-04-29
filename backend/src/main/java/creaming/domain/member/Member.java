@@ -1,5 +1,6 @@
 package creaming.domain.member;
 
+import creaming.domain.comment.Comment;
 import creaming.domain.comment.QnaComment;
 import creaming.domain.comment.ReviewComment;
 import creaming.domain.course.Course;
@@ -59,10 +60,7 @@ public class Member extends BaseTimeEntity {
     private final List<MemberCoupon> memberCoupons = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<QnaComment> qnaComments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<ReviewComment> reviewComments = new ArrayList<>();
+    private final List<Comment> comments = new ArrayList<>();
 
     // JPA
     public void addRegister(Register register) {
@@ -124,5 +122,16 @@ public class Member extends BaseTimeEntity {
         memberCoupons.remove(memberCoupon);
         memberCoupon.updateMember(null);
     }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.updateMember(this);
+    }
+
+    public void deleteComment(Comment comment) {
+        comments.remove(comment);
+        comment.updateMember(null);
+    }
+
     //////////////////////////////////////
 }

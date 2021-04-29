@@ -22,6 +22,9 @@ public enum ErrorCode {
     // Course
     COURSE_NOT_FOUND(HttpStatus.NOT_FOUND, "02000", "없는 강의"),
 
+    // Review
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "03000", "없는 후기"),
+    REVIEW_COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "03001", "없는 댓글"),
     // Event
     EVENT_DTO_EMPTY(HttpStatus.BAD_REQUEST, "05000", "Event 잘못된 요청"),
     EVENT_NOT_FOUND(HttpStatus.NOT_FOUND, "05001", "없는 이벤트"),
