@@ -1,12 +1,12 @@
 package creaming.dto;
 
+import creaming.domain.comment.ReviewComment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
+import javax.validation.constraints.NotEmpty;
 
 public class ReviewCommentDto {
 
@@ -14,19 +14,18 @@ public class ReviewCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
-        private String writer;
-        private String content;
-        private LocalDateTime createdDate;
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class PostRequest {
+        @NotEmpty
         private Long memberId;
+        @NotEmpty
         private String content;
+
+        public ReviewComment toEntity() {
+            return ReviewComment.builder()
+                    .content(this.content)
+                    .build();
+        }
+
     }
 
     @Getter
@@ -34,6 +33,8 @@ public class ReviewCommentDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PutRequest {
+        @NotEmpty
         private String content;
     }
+
 }

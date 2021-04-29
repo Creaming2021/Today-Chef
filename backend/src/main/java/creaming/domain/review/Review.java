@@ -6,6 +6,7 @@ import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.file.ReviewFile;
 import creaming.domain.member.Member;
+import creaming.dto.ReviewDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,8 +28,9 @@ public class Review extends BaseTimeEntity {
     @Column(name = "review_id")
     private Long id;
 
+    private String title;
     private String content;
-    private int rating;
+    private Integer rating;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -63,4 +65,17 @@ public class Review extends BaseTimeEntity {
         reviewComment.updateFK(null);
     }
     /////////////////////////////////////////
+
+    public Review(ReviewDto.PostRequest dto, Member member, Course course) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.rating = dto.getRating();
+        member.addReview(this);
+        course.addReview(this);
+    }
+
+    public void update(String content) {
+        this.content = content;
+    }
+
 }

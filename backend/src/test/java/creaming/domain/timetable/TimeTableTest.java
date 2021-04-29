@@ -6,22 +6,16 @@ import creaming.domain.etc.FoodType;
 import creaming.domain.member.Member;
 import creaming.domain.member.MemberRepository;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.aggregator.AggregateWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.sql.Time;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -140,10 +134,9 @@ class TimeTableTest {
 
 //        em.clear();
 
-        TimeTable timeTable1 = timeTableRepository.findAll().get(0);
+//        TimeTable timeTable1 = timeTableRepository.findAll().get(0);
 //        course.test(timeTable1);
-        timeTableRepository.delete(timeTable1);
-
+//        timeTableRepository.delete(timeTable1);
 //        timeTables.forEach(timeTable -> {
 //            course.test(timeTable);
 //            timeTableRepository.delete(timeTable);

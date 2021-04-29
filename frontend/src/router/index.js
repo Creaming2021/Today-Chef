@@ -44,7 +44,7 @@ const routes = [
     component: CourseDetail,
   },
   {
-    path: "/creator",
+    path: "/creator/:type",
     name: "Creator",
     component: Creator,
   },

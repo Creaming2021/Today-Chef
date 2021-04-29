@@ -40,7 +40,6 @@ public class QnaComment extends Comment {
     }
 
     ////////////////////////////////////////
-
     public void update(String content) {
         this.content = content;
     }
