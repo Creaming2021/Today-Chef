@@ -41,7 +41,7 @@ public class QnaController {
     @Operation(summary = "질문 작성", description = "사용자가 특정 강의에 질문을 작성합니다")
     @PostMapping
     public ResponseEntity<Long> postQna(@RequestBody @Valid QnaDto.PostRequest dto) {
-        log.info("(Post) postQna - memberId: {}, courseId: {}, title: {}, content: {}, isSecret: {}",
+        log.info("(Post) postQna - memberId: {} | courseId: {} | title: {} | content: {} | isSecret: {}",
                 dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.isSecret());
         return ResponseEntity.status(HttpStatus.OK).body(qnaService.postQna(dto));
     }
@@ -50,7 +50,7 @@ public class QnaController {
     @PutMapping("/{qnaId}")
     public ResponseEntity<Void> putQna(@PathVariable Long qnaId,
                                     @RequestBody @Valid QnaDto.PostRequest dto) {
-        log.info("(Put) putQna - qnaId: {}, memberId: {}, courseId: {}, title: {}, content: {}, isSecret: {}",
+        log.info("(Put) putQna - qnaId: {} | memberId: {} | courseId: {} | title: {} | content: {} | isSecret: {}",
                 qnaId, dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.isSecret());
         qnaService.putQna(qnaId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -77,7 +77,7 @@ public class QnaController {
     public ResponseEntity<Long> postComment(@PathVariable Long qnaId,
                                          @RequestBody @Valid QnaCommentDto.PostRequest dto) {
         // qna 작성자이거나 강의 제작자인지 확인
-        log.info("(Post) postComment - qnaId: {}, memberId: {}, content: {}", qnaId, dto.getMemberId(), dto.getContent());
+        log.info("(Post) postComment - qnaId: {} | memberId: {} | content: {}", qnaId, dto.getMemberId(), dto.getContent());
         return ResponseEntity.status(HttpStatus.OK).body(qnaService.postComment(qnaId, dto));
     }
 
@@ -85,7 +85,7 @@ public class QnaController {
     public ResponseEntity<Void> putComment(@PathVariable Long qnaId,
                                            @PathVariable Long commentId,
                                            @RequestBody @Valid QnaCommentDto.PutRequest dto) {
-        log.info("(Put) putComment - qnaId: {}, commentId: {}, content: {}", qnaId, commentId, dto.getContent());
+        log.info("(Put) putComment - qnaId: {} | commentId: {} | content: {}", qnaId, commentId, dto.getContent());
         qnaService.putComment(qnaId, commentId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -93,7 +93,7 @@ public class QnaController {
     @DeleteMapping("/{qnaId}/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long qnaId,
                                            @PathVariable Long commentId) {
-        log.info("(Delete) deleteComment - qnaId: {}, commentId: {}", qnaId, commentId);
+        log.info("(Delete) deleteComment - qnaId: {} | commentId: {}", qnaId, commentId);
         qnaService.deleteComment(qnaId, commentId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
