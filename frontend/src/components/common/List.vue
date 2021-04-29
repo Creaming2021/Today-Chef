@@ -7,15 +7,18 @@
       @click="type === 'review' 
               ? onGoToReviewDetail(item.id)
               : onGoToNoticeDetail(item.id)">
+      <div class="list-item-thumbnail" 
+        v-if="type === 'notice'">
+          <img :src="item.imageUrl"/>
+      </div>
       <div class="list-item-left">
         <div class="title">{{item.title}}</div>
         <h6 v-if="type === 'review'">{{item.content}}</h6>
         <div class="detail">{{item.writer}} | {{item.date}}</div>
       </div>
-      <div class="list-item-cnt" v-if="type === 'review'">
-        {{item.commentCnt}}<div>답변</div></div>
-      <div class="list-item-cnt" v-else-if="type === 'notice'">
-        {{item.readCnt}}<div>조회 수</div></div>
+      <div class="list-item-cnt" 
+        v-if="type === 'review'">
+          {{item.commentCnt}}<div>답변</div></div>
       <hr/>
     </div>
     <div class="row">
@@ -94,6 +97,14 @@ export default {
   font-size: 1.5rem;
   font-weight: bold;
 }
+
+.list-container .list-item-thumbnail{
+  float: right;
+  display: block;
+  width: 70px;
+  height: 70px;
+}
+
 
 .list-container .list-item-cnt div{
   font-size: 0.8rem;

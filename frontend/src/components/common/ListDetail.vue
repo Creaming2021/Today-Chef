@@ -15,8 +15,6 @@
       <div v-if="type === 'reviewDetail'" class="comment-size">
         <b-icon icon="chat-square"/>
         {{item.commentList.length}}</div>
-      <div v-if="type === 'notice'" class="comment-size">
-        <b-icon icon="chat-square"/>{{item.readCnt}}</div>
     </div>
     <hr/>
     <div class="content">{{item.content}}</div>
