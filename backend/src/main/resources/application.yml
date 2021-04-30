@@ -21,5 +21,11 @@ spring:
     username: root
     password: creaming2021^^
 
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/creaming
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+
 my-app:
   server-url: https://k4b204.p.ssafy.io
