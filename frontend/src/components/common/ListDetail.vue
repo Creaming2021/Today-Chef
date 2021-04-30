@@ -17,7 +17,9 @@
         {{item.commentList.length}}</div>
     </div>
     <hr/>
-    <div class="content">{{item.content}}</div>
+    <viewer 
+      :initialValue="viewerText" 
+      height="500px"/>
     <div v-if="type === 'reviewDetail'" class="comment-container">
       <hr/>
       <div>댓글 {{item.commentList.length}}개</div>
@@ -37,7 +39,19 @@
 
 
 <script>
+import { Viewer } from '@toast-ui/vue-editor';
+
 export default {
+  components: {
+    // Viewer,
+    
+        'viewer': Viewer
+  },
+  data() {
+    return {
+      viewerText: '# This is Viewer.\n Hello World.',
+    }
+  },
   props: {
     item: Object,
 		type: String,
