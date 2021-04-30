@@ -4,7 +4,7 @@
       <div 
         class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
         v-for="(course,idx) in myCourseList" :key="idx">
-          <CourseItem :course="course" :idx="idx" :type="'myClass'" />
+          <CourseItem :course="course" :idx="idx" :type="type" />
       </div>
     </div>
     <div class="row">
@@ -28,6 +28,7 @@ export default {
   },
   props: {
     myCourseList: Array,
+    type: String
   }
 }
 </script>

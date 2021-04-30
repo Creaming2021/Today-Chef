@@ -101,6 +101,9 @@ export default {
     CourseItem,
     // HomeItem
   },
+  created() {
+    this.checkQuery();
+  },
   mounted() {
     this.setCategory();
     this.setCategoryCollapse();
@@ -317,7 +320,7 @@ export default {
   },
   methods : {
     searchCourse() {
-      alert('Search Value',this.serachCourseValue);
+      alert('Search Value', this.searchCourseValue);
     },
     setCategory() {
       this.CourseFilterList.forEach(element => {
@@ -388,7 +391,17 @@ export default {
           this.currentSortValue = node.innerText;
         })
       });
-    }
+    },
+    checkQuery() {
+      this.searchCourseValue = this.$route.params.category ? this.$route.params.category : 'korea';
+    },
+  },
+  watch: { 
+    $route(to, from) { 
+      if (to.path != from.path) { 
+        this.checkQuery();
+      } 
+    } 
   }
 }
 </script>
