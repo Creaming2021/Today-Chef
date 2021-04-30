@@ -21,9 +21,9 @@
                   <ul>
                       <li class="active" @click="onClickNav('Home')">홈</li>
                       <li @click="onClickNav('Notice')">공지사항</li>
-                      <li @click="onClickNav('Course')">강의</li>
-                      <li @click="onClickNav('Creator')">강사</li>
-                      <li @click="onClickNav('Profile')">마이프로필</li>
+                      <li @click="onClickNav('Course', 'korea')">강의</li>
+                      <li @click="onClickNav('Creator', 'info')">강사</li>
+                      <li @click="onClickNav('Profile', 'info')">마이프로필</li>
                   </ul>
               </nav>
           </div>
@@ -77,10 +77,26 @@ export default {
   },
   methods : {
     ...mapActions(['getKakaoInfo','setSignOut', 'setSignUp']),
-    onClickNav(pathName) {
-      this.$router.push({
-        name: pathName
-      })
+    onClickNav(pathName, paramsType) {
+      if(pathName === "Profile" || pathName === "Creator"){
+        this.$router.push({
+          name: pathName,
+          params: {
+            type : paramsType,
+          }
+        })
+      } else if(pathName === 'Course') {
+        this.$router.push({
+          name: pathName,
+          params: {
+            category : paramsType,
+          }
+        })
+      } else {
+        this.$router.push({
+          name: pathName
+        })
+      }
     },
     onOpenSign() {
       this.openSignModal = true;
