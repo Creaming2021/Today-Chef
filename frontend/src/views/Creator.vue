@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="row">
-
+        
         <div class="col-lg-3">
           <Sidebar ref="sidebar" :currentAtiveFilter="currentAtiveFilter" :creatorData="creatorData"/>
         </div>
@@ -23,23 +23,27 @@
           <Kit ref="kit" @data="onReceiveData" :creatorData="creatorData"/>
         </div>
 
-        <div v-else-if="currentAtiveFilter === 'preview'" class="col-lg-9">
-          <Preview ref="preview" @data="onReceiveData" :creatorData="creatorData"/>
+        <div v-else-if="currentAtiveFilter === 'preview'">
+          <b-modal v-model="modalState" size="xl" hide-footer hide-header>
+          <p @click="onClickCloseModal" class="btn" style="display : flex;justify-content : flex-end">X</p>
+            <Preview ref="preview" @data="onReceiveData" :creatorData="creatorData"/> 
+          </b-modal>
         </div>
-
       </div>
     </div>
+
     <div class="container" style="padding-top : 40px; padding-bottom : 40px">
       <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-9">
           <div style="display : flex; justify-content : center;">
             <button v-if="currentAtiveFilter !== 'preview'" @click="onClickTempSave">임시저장</button>
-            <button v-else @click="onClickSave">클래스 개설하기</button>
+            <button @click="onClickSave">클래스 개설하기</button>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -65,6 +69,7 @@ export default {
   },
   data() {
     return {
+      modalState : false,
       currentAtiveFilter : '',
       creatorData : {
         info : '',
@@ -87,8 +92,12 @@ export default {
   mounted() {
   },
   methods : {
+    onClickCloseModal() {
+      this.modalState = false
+    },
     checkQuery() {
       this.currentAtiveFilter = this.$route.params.type ? this.$route.params.type : 'info';
+      if (this.currentAtiveFilter === 'preview') this.modalState = true
     },
     onClickTempSave() {
       this.$refs['sidebar'].onClickSaveBtn();
@@ -98,13 +107,14 @@ export default {
       alert('클래스 개설')
     },
     onReceiveData(res) {
-      console.log(res)
       this.creatorData[res.type] = res.data
-      console.log(this.creatorData)
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
+.modal-lg {
+  max-width: 80%,!important;
+}
 </style>

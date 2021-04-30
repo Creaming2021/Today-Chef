@@ -68,25 +68,31 @@
       return true
     },
     changeFilter(type){
-      if (this.$route.params.type === 'preview') this.tmpSaveFlag = true
-      if (this.tmpSaveFlag) {
-        this.tmpSaveFlag = type === 'preview' ? true : false
-        if (type === 'preview') {
-          if(!this.isEmptyObject(this.creatorData)) {
-            alert('모든 내용을 채워주세요')
-            return
-          }
+      this.$router.push({
+        name: 'Creator',
+        params: {
+          type: type,
         }
-        this.$router.push({
-          name: 'Creator',
-          params: {
-            type: type,
-          }
-        })
-      }
-      else {
-        alert('임시 저장을 해주세요')
-      }
+      })
+      // if (this.$route.params.type === 'preview') this.tmpSaveFlag = true
+      // if (this.tmpSaveFlag) {
+      //   this.tmpSaveFlag = type === 'preview' ? true : false
+      //   if (type === 'preview') {
+      //     if(!this.isEmptyObject(this.creatorData)) {
+      //       alert('모든 내용을 채워주세요')
+      //       return
+      //     }
+      //   }
+      //   this.$router.push({
+      //     name: 'Creator',
+      //     params: {
+      //       type: type,
+      //     }
+      //   })
+      // }
+      // else {
+      //   alert('임시 저장을 해주세요')
+      // }
     },
   }
 }

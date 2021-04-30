@@ -33,6 +33,18 @@ import CourseDetailMain from '@/components/courseDetail/CourseDetailMain.vue';
 import CourseRightbar from '@/components/courseDetail/CourseRightbar.vue';
 
 export default {
+  props : {
+    creatorData : Object,
+  },
+  created () {
+    const newThumbnailList = []
+    for (let i=0;i<this.creatorData.thumbnail.imgEditor.length;i++) {
+      if (this.creatorData.thumbnail.imgEditor[i]) {
+        newThumbnailList.push(this.creatorData.thumbnail.imgEditor[i])
+      }
+    }
+    this.thumbnailList = newThumbnailList
+  },
   data(){
     return {
       thumbnailList: [

@@ -1,19 +1,20 @@
 <template>
   <div>
-    미리보기입니다
+    <CourseDetail :creatorData="creatorData"/>
   </div>
 </template>
 
 <script>
+import CourseDetail from '@/views/CourseDetail.vue';
 	export default {
 		components: {
+			CourseDetail
 	},
 	data(){
 		return {
 		}
 	},
   mounted () {
-    console.log(this.creatorData)
   },
 	props: {
 		 creatorData : Object,
