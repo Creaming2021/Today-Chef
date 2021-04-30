@@ -15,11 +15,11 @@
       <div v-if="type === 'reviewDetail'" class="comment-size">
         <b-icon icon="chat-square"/>
         {{item.commentList.length}}</div>
-      <div v-if="type === 'notice'" class="comment-size">
-        <b-icon icon="chat-square"/>{{item.readCnt}}</div>
     </div>
     <hr/>
-    <div class="content">{{item.content}}</div>
+    <viewer 
+      :initialValue="viewerText" 
+      height="500px"/>
     <div v-if="type === 'reviewDetail'" class="comment-container">
       <hr/>
       <div>댓글 {{item.commentList.length}}개</div>
@@ -39,7 +39,19 @@
 
 
 <script>
+import { Viewer } from '@toast-ui/vue-editor';
+
 export default {
+  components: {
+    // Viewer,
+    
+        'viewer': Viewer
+  },
+  data() {
+    return {
+      viewerText: '# This is Viewer.\n Hello World.',
+    }
+  },
   props: {
     item: Object,
 		type: String,
