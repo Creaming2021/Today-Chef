@@ -41,12 +41,12 @@
       <input 
         class="board-title"
         v-model="board.title" 
-        placeholder="리뷰 제목을 입력하세요."/>
+        placeholder="제목을 입력하세요."/>
       <editor
         ref="content"
         height="650px"
         editType="wysiwyg"
-        placeholder="리뷰 내용을 작성하세요."
+        placeholder="내용을 작성하세요."
         previewStyle="tab"
       />
       <button 
