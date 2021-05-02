@@ -35,6 +35,12 @@ public enum ErrorCode {
     // Comment
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "06000", "없는 댓글"),
 
+    // Coupon
+    COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "07000", "없는 쿠폰"),
+
+    // Register
+    REGISTER_NOT_FOUND(HttpStatus.NOT_FOUND, "08000", "없는 결제 내역"),
+
     // 서버 에러
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST, "00100"),
     ACCESS_DENIED_EXCEPTION(HttpStatus.UNAUTHORIZED, "00101"),
