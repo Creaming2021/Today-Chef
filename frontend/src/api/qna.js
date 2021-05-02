@@ -1,4 +1,4 @@
-import { basic, image } from '@/api/user.js';
+import { basic } from '@/api/user.js';
 
 export const getQnaList = async () => {
 	basic.get('qna')
