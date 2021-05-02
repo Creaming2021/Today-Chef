@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class MemberCoupon extends BaseTimeEntity {

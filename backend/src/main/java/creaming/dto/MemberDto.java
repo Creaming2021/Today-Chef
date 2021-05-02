@@ -37,6 +37,15 @@ public class MemberDto {
         private String profileImage;
         private String email;
         private Address address;
+
+        public Response(Member member) {
+            this.memberId = member.getId();
+            this.nickname = member.getNickname();
+            this.profileImage = member.getProfileImage();
+            this.email = member.getEmail();
+            this.address = member.getAddress();
+        }
+
     }
 
     @Getter

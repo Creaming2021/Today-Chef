@@ -132,4 +132,9 @@ public class Member extends BaseTimeEntity {
     }
 
     //////////////////////////////////////
+
+    public void update(String nickname, Address address) {
+        this.nickname = nickname;
+        this.address = address;
+    }
 }
