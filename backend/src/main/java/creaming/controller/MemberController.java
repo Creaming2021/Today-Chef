@@ -1,5 +1,6 @@
 package creaming.controller;
 
+import creaming.dto.CouponDto;
 import creaming.dto.CourseDto;
 import creaming.dto.MemberDto;
 import creaming.dto.RegisterDto;
@@ -22,6 +23,8 @@ import java.util.List;
 @RequestMapping("members")
 @RequiredArgsConstructor
 public class MemberController {
+
+    // TODO : 서비스 분리하기?
 
     private final MemberService memberService;
 
@@ -56,15 +59,18 @@ public class MemberController {
 //        return ResponseEntity.status(HttpStatus.OK).build();
 //    }
 
-    // 유저의 쿠폰 리스트
+    // TODO : 유저에게 쿠폰 발급하기
+
+    // TODO : 유저의 쿠폰 리스트
     @GetMapping("/{memberId}/coupons")
     @Operation(summary = "유저의 쿠폰 가져오기", description = "memberId 유저의 쿠폰들을 가져옵니다.")
-    public ResponseEntity<List<MemberDto.Response>> getCouponAll(@PathVariable("memberId") Long memberId) {
+    public ResponseEntity<List<CouponDto.Response>> getCouponAll(@PathVariable("memberId") Long memberId) {
 //        log.info("(Get) getCouponAll - memberId : {} ", memberId);
-        List<MemberDto.Response> result = memberService.getCouponAll(memberId);
+        List<CouponDto.Response> result = memberService.getCouponAll(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
-
+    
+    // TODO : 유저의 쿠폰 사용하기
     @PutMapping("/{memberId}/coupons/{couponId}")
     @Operation(summary = "쿠폰 사용하기", description = "memberId 유저의 쿠폰을 사용합니다.")
     public ResponseEntity<Void> useCoupon(@PathVariable("memberId") Long memberId,
@@ -78,7 +84,7 @@ public class MemberController {
     @GetMapping("/{memberId}/courses/student")
     @Operation(summary = "유저가 수강한 강의 가져오기", description = "memberId 유저가 수강한 강의 리스트를 가져옵니다.")
     public ResponseEntity<List<CourseDto.SimpleResponse>> getCourseStudent(@PathVariable("memberId") Long memberId) {
-//        log.info("(Get) getCourseStudent - memberId : {} ", memberId);
+        log.info("(Get) getCourseStudent - memberId : {} ", memberId);
         List<CourseDto.SimpleResponse> result = memberService.getCourseStudent(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -96,30 +102,34 @@ public class MemberController {
     @GetMapping("/{memberId}/registers")
     @Operation(summary = "유저의 결제 내역 가져오기", description = "memberId의 유저의 결제 내역을 가져옵니다.")
     public ResponseEntity<List<RegisterDto.SimpleResponse>> getRegisterAll(@PathVariable("memberId") Long memberId) {
-        List<RegisterDto.SimpleResponse> result = new ArrayList<>();
+        log.info("(Get) getRegisterAll - memberId : {}", memberId);
+        List<RegisterDto.SimpleResponse> result = memberService.getRegisterAll(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     // 결제 내역 상세 보기
     @GetMapping("/{memberId}/registers/{registerId}")
     @Operation(summary = "결제 내역 상세보기", description = "memberId의 registerId 결제 내역을 가져옵니다.")
-    public ResponseEntity<?> getRegister(@PathVariable("memberId") Long memberId,
+    public ResponseEntity<RegisterDto.DetailResponse> getRegister(@PathVariable("memberId") Long memberId,
                                          @PathVariable("registerId") Long registerId) {
-        RegisterDto.DetailResponse result = new RegisterDto.DetailResponse();
+        log.info("(Get) getRegister - memberId : {} | registerId : {}", memberId, registerId);
+        RegisterDto.DetailResponse result = memberService.getRegister(memberId, registerId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     // 강의 수강 등록 = 결제하기
     @PostMapping("/{memberId}/registers")
-    @Operation(summary = "", description = "")
-    public ResponseEntity<?> postRegister(@PathVariable("memberId") Long memberId,
+    @Operation(summary = "결제 내용 저장", description = "memberId의 강의 결제 내역을 저장합니다.")
+    public ResponseEntity<Long> postRegister(@PathVariable("memberId") Long memberId,
                                           @RequestBody RegisterDto.PostRequest dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(1L);
+        log.info("(Post) postRegister - memberId : {} | courseId : {}", memberId, dto.getCourseId());
+        Long result = memberService.postRegister(memberId, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     // 강의 환불 -> 보류
     @DeleteMapping("/{memberId}/registers/{registerId}")
-    @Operation(summary = "", description = "")
+    @Operation(summary = "(보류) 강의 환불", description = "")
     public ResponseEntity<?> deleteRegister(@PathVariable("memberId") Long memberId,
                                             @PathVariable("registerId") Long registerId) {
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -128,8 +138,9 @@ public class MemberController {
     // 좋아요 토글
     @PutMapping("/{memberId}/courses/{courseId}")
     @Operation(summary = "", description = "")
-    public ResponseEntity<?> toggleLike(@PathVariable("memberId") Long memberId,
+    public ResponseEntity<Void> toggleLike(@PathVariable("memberId") Long memberId,
                                         @PathVariable("courseId") Long courseId) {
+        memberService.toggleLike(memberId, courseId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
