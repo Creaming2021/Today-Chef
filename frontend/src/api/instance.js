@@ -13,3 +13,10 @@ export const basic = axios.create({
     'Content-Type': 'application/json',
   }
 });
+
+export const image = axios.create({
+  baseURL: 'api/',
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  }
+});
