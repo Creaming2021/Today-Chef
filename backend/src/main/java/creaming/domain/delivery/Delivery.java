@@ -31,6 +31,11 @@ public class Delivery extends BaseTimeEntity {
     @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
     private Register register;
 
+    public Delivery(Address address, String orderNotes) {
+        this.address = address;
+        this.notes = orderNotes;
+    }
+
     // JPA
     public void updateRegister(Register register) {
         this.register = register;
