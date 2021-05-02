@@ -24,6 +24,7 @@
                       <li @click="onClickNav('Course', 'korea')">강의</li>
                       <li @click="onClickNav('Creator', 'info')">강사</li>
                       <li @click="onClickNav('Profile', 'info')">마이프로필</li>
+                      <li @click="joinRoom">채팅창 열기</li>
                   </ul>
               </nav>
           </div>
@@ -59,7 +60,7 @@ export default {
       signUpForm : {
         phoneNumber: '',
         email: '',
-      }
+      },
     }
   },
   computed : {
@@ -110,7 +111,10 @@ export default {
     },
     onClickSignUp() {
       this.setSignUp(this.signUpForm);
-    }   
+    },
+    joinRoom(){
+      window.open("https://k4b2041.p.ssafy.io:5000/", "_blank");
+    }  
   }
 }
 </script>
