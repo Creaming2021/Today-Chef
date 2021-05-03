@@ -85,47 +85,47 @@ export default {
 
 <style>
 .shop__sidebar__search div {
-	position: relative;
+  position: relative;
 }
 
 .shop__sidebar__search div input {
-	width: 100%;
-	font-size: 15px;
-	color: #b7b7b7;
-	padding-left: 20px;
-	border: 1px solid #e5e5e5;
-	height: 42px;
+  width: 100%;
+  font-size: 15px;
+  color: #b7b7b7;
+  padding-left: 20px;
+  border: 1px solid #e5e5e5;
+  height: 42px;
 }
 
 .shop__sidebar__search div input::-webkit-input-placeholder {
-	color: #b7b7b7;
+  color: #b7b7b7;
 }
 
 .shop__sidebar__search div input::-moz-placeholder {
-	color: #b7b7b7;
+  color: #b7b7b7;
 }
 
 .shop__sidebar__search div input:-ms-input-placeholder {
-	color: #b7b7b7;
+  color: #b7b7b7;
 }
 
 .shop__sidebar__search div input::-ms-input-placeholder {
-	color: #b7b7b7;
+  color: #b7b7b7;
 }
 
 .shop__sidebar__search div input::placeholder {
-	color: #b7b7b7;
+  color: #b7b7b7;
 }
 
 .shop__sidebar__search div button {
-	color: #b7b7b7;
-	font-size: 15px;
-	border: none;
-	background: transparent;
-	position: absolute;
-	right: 0;
-	padding: 0 15px;
-	top: 0;
-	height: 100%;
+  color: #b7b7b7;
+  font-size: 15px;
+  border: none;
+  background: transparent;
+  position: absolute;
+  right: 0;
+  padding: 0 15px;
+  top: 0;
+  height: 100%;
 }
 </style>

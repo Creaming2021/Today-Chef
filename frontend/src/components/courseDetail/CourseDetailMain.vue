@@ -89,13 +89,13 @@ export default {
         }
       ],
       reviewInfo: {
-				id: 1,
-				profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-				title: '리뷰 제목',
-				content: '리뷰 내용',
-				writer: '작성자 닉네임',
-				date: '2021년 4월 21일',
-				commentList: [
+        id: 1,
+        profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
+        title: '리뷰 제목',
+        content: '리뷰 내용',
+        writer: '작성자 닉네임',
+        date: '2021년 4월 21일',
+        commentList: [
           {
             id: 1,
             writer: '댓글 작성자',
@@ -184,10 +184,10 @@ export default {
   },
   methods: {
     onChangeType( clickType ){
-			this.$router.push({
-				name: 'CourseDetail',
+      this.$router.push({
+        name: 'CourseDetail',
         params: { type: clickType }
-			});
+      });
     },
     checkQuery() {
       this.type = this.$route.params.type;
@@ -195,9 +195,9 @@ export default {
         this.getReviewInfo(this.$route.params.id);
       }
     },
-		getReviewInfo(id) {
+    getReviewInfo(id) {
       alert(`이제 ${id} 로 요청때립니다.`);
-		}
+    }
   },
   watch: { 
     $route(to, from) { 
