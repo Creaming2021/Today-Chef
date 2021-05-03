@@ -23,8 +23,6 @@ public class Register extends BaseTimeEntity {
     @Column(name = "register_id")
     private Long id;
 
-    private DayOfWeek dayOfWeek;
-
     private int price;
 
     @ManyToOne(fetch = FetchType.LAZY)

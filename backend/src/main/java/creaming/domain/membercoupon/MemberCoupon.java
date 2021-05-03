@@ -50,6 +50,10 @@ public class MemberCoupon extends BaseTimeEntity {
     public void updateMember(Member member) {
         this.member = member;
     }
+
+    public void useCoupon() {
+        this.couponStatus = CouponStatus.USED;
+    }
     ///////////////////////////////
 }
 
