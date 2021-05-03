@@ -4,10 +4,10 @@ import creaming.domain.comment.QnaComment;
 import creaming.domain.comment.QnaCommentRepository;
 import creaming.domain.comment.ReviewComment;
 import creaming.domain.comment.ReviewCommentRepository;
-import creaming.domain.qna.Qna;
-import creaming.domain.qna.QnaRepository;
-import creaming.domain.review.Review;
-import creaming.domain.review.ReviewRepository;
+import creaming.domain.qna.CourseQna;
+import creaming.domain.qna.CourseQnaRepository;
+import creaming.domain.review.CourseReview;
+import creaming.domain.review.CourseReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,13 +27,13 @@ class MemberTest {
     MemberRepository memberRepository;
 
     @Autowired
-    QnaRepository qnaRepository;
+    CourseQnaRepository courseQnaRepository;
 
     @Autowired
     QnaCommentRepository qnaCommentRepository;
 
     @Autowired
-    ReviewRepository reviewRepository;
+    CourseReviewRepository courseReviewRepository;
 
     @Autowired
     ReviewCommentRepository reviewCommentRepository;
@@ -74,17 +74,17 @@ class MemberTest {
     public void Comment_조회() throws Exception {
         // given
         Member member = memberRepository.findByNickname("김싸피").get();
-        Qna qna = Qna.builder()
+        CourseQna courseQna = CourseQna.builder()
                 .title("호랑이")
                 .content("무서워")
                 .isSecret(false)
                 .build();
-        member.addQna(qna);
-        qnaRepository.save(qna);
+        member.addQna(courseQna);
+        courseQnaRepository.save(courseQna);
 
-        Review review = new Review();
-        member.addReview(review);
-        reviewRepository.save(review);
+        CourseReview courseReview = new CourseReview();
+        member.addReview(courseReview);
+        courseReviewRepository.save(courseReview);
 
         // when
         for (int i = 1; i <= 10; i++) {

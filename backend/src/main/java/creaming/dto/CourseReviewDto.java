@@ -1,7 +1,7 @@
 package creaming.dto;
 
 import creaming.domain.comment.ReviewComment;
-import creaming.domain.review.Review;
+import creaming.domain.review.CourseReview;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ReviewDto {
+public class CourseReviewDto {
 
     @Getter
     @Builder
@@ -24,14 +24,14 @@ public class ReviewDto {
         private LocalDateTime createdDate;
         private int commentCount;
 
-        public SimpleResponse(Review review) {
-            this.reviewId = review.getId();
-            this.profile = new MemberDto.SimpleProfile(review.getMember());
-            this.rating = review.getRating();
-            this.title = review.getTitle();
-            this.content = review.getContent();
-            this.createdDate = review.getCreatedDate();
-            this.commentCount = review.getReviewComments().size();
+        public SimpleResponse(CourseReview courseReview) {
+            this.reviewId = courseReview.getId();
+            this.profile = new MemberDto.SimpleProfile(courseReview.getMember());
+            this.rating = courseReview.getRating();
+            this.title = courseReview.getTitle();
+            this.content = courseReview.getContent();
+            this.createdDate = courseReview.getCreatedDate();
+            this.commentCount = courseReview.getReviewComments().size();
         }
     }
 
@@ -49,15 +49,15 @@ public class ReviewDto {
         private int commentCount;
         private List<Comment> comments;
 
-        public DetailResponse(Review review) {
-            this.reviewId = review.getId();
-            this.profile = new MemberDto.SimpleProfile(review.getMember());
-            this.rating = review.getRating();
-            this.title = review.getTitle();
-            this.content = review.getContent();
-            this.date = review.getLastModifiedDate();
-            this.commentCount = review.getReviewComments().size();
-            this.comments = review.getReviewComments().stream()
+        public DetailResponse(CourseReview courseReview) {
+            this.reviewId = courseReview.getId();
+            this.profile = new MemberDto.SimpleProfile(courseReview.getMember());
+            this.rating = courseReview.getRating();
+            this.title = courseReview.getTitle();
+            this.content = courseReview.getContent();
+            this.date = courseReview.getLastModifiedDate();
+            this.commentCount = courseReview.getReviewComments().size();
+            this.comments = courseReview.getReviewComments().stream()
                     .map(Comment::new).collect(Collectors.toList());
         }
 
@@ -99,8 +99,8 @@ public class ReviewDto {
         @NotEmpty
         private Integer rating;
 
-        public Review toEntity() {
-            return Review.builder()
+        public CourseReview toEntity() {
+            return CourseReview.builder()
                     .title(this.title)
                     .content(this.content)
                     .rating(this.rating)

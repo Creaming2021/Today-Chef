@@ -1,14 +1,15 @@
 package creaming.domain.member;
 
+import creaming.domain.cart.Cart;
 import creaming.domain.comment.Comment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.like.Like;
 import creaming.domain.membercoupon.MemberCoupon;
-import creaming.domain.qna.Qna;
+import creaming.domain.qna.CourseQna;
 import creaming.domain.register.Register;
-import creaming.domain.review.Review;
+import creaming.domain.review.CourseReview;
 import lombok.*;
 
 import javax.persistence.*;
@@ -49,16 +50,19 @@ public class Member extends BaseTimeEntity {
     private final List<Like> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Qna> qnas = new ArrayList<>();
+    private final List<CourseQna> courseQnas = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Review> reviews = new ArrayList<>();
+    private final List<CourseReview> courseReviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<MemberCoupon> memberCoupons = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Cart> carts = new ArrayList<>();
 
     // JPA
     public void addRegister(Register register) {
@@ -91,24 +95,24 @@ public class Member extends BaseTimeEntity {
         like.updateMember(null);
     }
 
-    public void addQna (Qna qna) {
-        qnas.add(qna);
-        qna.updateMember(this);
+    public void addQna (CourseQna courseQna) {
+        courseQnas.add(courseQna);
+        courseQna.updateMember(this);
     }
 
-    public void deleteQna (Qna qna) {
-        qnas.remove(qna);
-        qna.updateMember(null);
+    public void deleteQna (CourseQna courseQna) {
+        courseQnas.remove(courseQna);
+        courseQna.updateMember(null);
     }
 
-    public void addReview (Review review) {
-        reviews.add(review);
-        review.updateMember(this);
+    public void addReview (CourseReview courseReview) {
+        courseReviews.add(courseReview);
+        courseReview.updateMember(this);
     }
 
-    public void deleteReview (Review review) {
-        reviews.remove(review);
-        review.updateMember(null);
+    public void deleteReview (CourseReview courseReview) {
+        courseReviews.remove(courseReview);
+        courseReview.updateMember(null);
     }
 
     public void addMemberCoupon(MemberCoupon memberCoupon) {

@@ -5,16 +5,15 @@ import creaming.domain.etc.FoodType;
 import creaming.domain.file.CourseFile;
 import creaming.domain.like.Like;
 import creaming.domain.member.Member;
-import creaming.domain.qna.Qna;
+import creaming.domain.product.Product;
+import creaming.domain.qna.CourseQna;
 import creaming.domain.register.Register;
-import creaming.domain.review.Review;
+import creaming.domain.review.CourseReview;
 import creaming.domain.timetable.TimeTable;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +50,10 @@ public class Course extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Register> registers = new ArrayList<>();
 
@@ -58,10 +61,10 @@ public class Course extends BaseTimeEntity {
     private final List<Like> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Qna> qnas = new ArrayList<>();
+    private final List<CourseQna> courseQnas = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Review> reviews = new ArrayList<>();
+    private final List<CourseReview> courseReviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CourseFile> courseFiles = new ArrayList<>();
@@ -73,6 +76,8 @@ public class Course extends BaseTimeEntity {
     public void updateMember(Member member) {
         this.member = member;
     }
+
+    public void updateProduct(Product product) { this.product = product; }
 
     public void addRegister(Register register) {
         registers.add(register);
@@ -94,24 +99,24 @@ public class Course extends BaseTimeEntity {
         like.updateCourse(null);
     }
 
-    public void addQna (Qna qna) {
-        qnas.add(qna);
-        qna.updateCourse(this);
+    public void addQna (CourseQna courseQna) {
+        courseQnas.add(courseQna);
+        courseQna.updateCourse(this);
     }
 
-    public void deleteQna (Qna qna) {
-        qnas.remove(qna);
-        qna.updateCourse(null);
+    public void deleteQna (CourseQna courseQna) {
+        courseQnas.remove(courseQna);
+        courseQna.updateCourse(null);
     }
 
-    public void addReview (Review review) {
-        reviews.add(review);
-        review.updateCourse(this);
+    public void addReview (CourseReview courseReview) {
+        courseReviews.add(courseReview);
+        courseReview.updateCourse(this);
     }
 
-    public void deleteReview (Review review) {
-        reviews.remove(review);
-        review.updateCourse(null);
+    public void deleteReview (CourseReview courseReview) {
+        courseReviews.remove(courseReview);
+        courseReview.updateCourse(null);
     }
 
     public void addCourseFile (CourseFile courseFile) {
@@ -133,5 +138,7 @@ public class Course extends BaseTimeEntity {
         timeTables.remove(timeTable);
         timeTable.updateCourse(null);
     }
+
     /////////////////////////////////////////////
+
 }

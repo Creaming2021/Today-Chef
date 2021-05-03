@@ -1,9 +1,7 @@
 package creaming.common;
 
-import creaming.dto.ReviewDto;
 import creaming.exception.BaseException;
 import creaming.exception.ErrorCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component

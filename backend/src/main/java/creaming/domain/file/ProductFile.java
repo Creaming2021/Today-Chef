@@ -1,6 +1,6 @@
 package creaming.domain.file;
 
-import creaming.domain.review.Review;
+import creaming.domain.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,16 +16,13 @@ import javax.persistence.ManyToOne;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewFile extends File{
+public class ProductFile extends File {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id")
-    private Review review;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    // JPA
     @Override
-    public void updateFK(Object review) {
-        this.review = (Review) review;
-    }
-    ///////////////////////////////////
+    public void updateFK(Object product) { this.product = (Product) product; }
+
 }
