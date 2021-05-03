@@ -46,14 +46,13 @@ export default {
   },
   data() {
     return {
-      search: false,
       searchKeyword: '',
       currentCategory: 'all',
       currentFilter: 'all',
       currentSortId: 'review',
       currentSortValue: '리뷰순',
-      searchCourseValue : '',
-      categoryList : {},
+      // searchCourseValue : '',
+      // categoryList : {},
       currentShowingList : [],
       courseFilterList: [
         {
@@ -264,37 +263,9 @@ export default {
       console.log('currentFilter', this.currentFilter);
       console.log('currentCategory', this.currentCategory);
     },
-    // setSort() {
-    //   const sortList = document.querySelectorAll('.nice-select')[0];
-    //   sortList.addEventListener('click', () => {
-    //     sortList.setAttribute('class', 'nice-select open');
-    //     this.currentSortType.classList.add('focus');
-    //   });
-
-    //   sortList.querySelectorAll('li').forEach((node, idx) => {
-    //     if(idx === 0) {
-    //       node.setAttribute('class', 'option focus selected');
-    //       this.currentSortType = node;
-    //       this.currentSortValue = node.innerText;
-    //     } else {
-    //       node.setAttribute('class', 'option');
-    //     }
-    //     node.addEventListener('click', (e) => {
-		// 			e.stopPropagation();
-
-    //       this.currentSortType.classList.remove('selected');
-    //       this.currentSortType.classList.remove('focus');
-    //       sortList.setAttribute('class', 'nice-select');
-    //       node.classList.add('selected');
-
-    //       this.currentSortType = node;
-    //       this.currentSortValue = node.innerText;
-    //     })
-    //   });
-    // },
     checkQuery() {
-      this.searchCourseValue = 
-        this.$route.params.category ? this.$route.params.category : 'korea';
+      this.currentCategory = 
+        this.$route.params.category ? this.$route.params.category : 'all';
     },
     setKeyword(newKeyword) {
       this.searchKeyword = newKeyword;

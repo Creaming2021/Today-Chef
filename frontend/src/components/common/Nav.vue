@@ -21,7 +21,7 @@
                   <ul>
                       <li class="active" @click="onClickNav('Home')">홈</li>
                       <li @click="onClickNav('Notice')">공지사항</li>
-                      <li @click="onClickNav('Course', 'korea')">강의</li>
+                      <li @click="onClickNav('Course', 'all')">강의</li>
                       <li @click="onClickNav('Creator', 'info')">강사</li>
                       <li @click="onClickNav('Profile', 'info')">마이프로필</li>
                   </ul>
