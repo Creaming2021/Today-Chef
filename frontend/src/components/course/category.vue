@@ -5,7 +5,8 @@
         data-toggle="collapse" 
         data-target="#categories"
         @click="openCategory">
-          {{categoryTitle}}</a>
+          {{categoryTitle}}
+      </a>
     </div>
     <div 
       id="categories" 
