@@ -34,6 +34,7 @@ public class Member extends BaseTimeEntity {
     private String profileImage;
     private String email;
     private String kakaoId;
+    private String phone;
 
     @Embedded
     private Address address;

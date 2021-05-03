@@ -82,6 +82,18 @@ public class CourseDto {
         private LocalTime startTime;
         @NotEmpty
         private LocalTime endTime;
+
+        public Course toEntity() {
+            return Course.builder()
+                    .name(this.name)
+                    .date(this.date)
+                    .price(this.price)
+                    .category(this.category)
+                    .materials(this.materials)
+                    .descriptions(this.descriptions)
+                    .build();
+        }
+
     }
 
     @Getter
