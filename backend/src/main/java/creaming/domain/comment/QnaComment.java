@@ -1,7 +1,7 @@
 package creaming.domain.comment;
 
 import creaming.domain.member.Member;
-import creaming.domain.qna.Qna;
+import creaming.domain.qna.CourseQna;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +20,8 @@ import javax.persistence.ManyToOne;
 public class QnaComment extends Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "qna_id")
-    private Qna qna;
+    @JoinColumn(name = "course_qna_id")
+    private CourseQna courseQna;
 
     @Builder
     public QnaComment(String content) {
@@ -36,7 +36,7 @@ public class QnaComment extends Comment {
 
     @Override
     public void updateFK(Object qna) {
-        this.qna = (Qna) qna;
+        this.courseQna = (CourseQna) qna;
     }
 
     ////////////////////////////////////////
