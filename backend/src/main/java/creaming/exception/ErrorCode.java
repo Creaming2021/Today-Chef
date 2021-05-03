@@ -38,6 +38,9 @@ public enum ErrorCode {
     // Coupon
     COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "07000", "없는 쿠폰"),
 
+    // MemberCoupon
+    MEMBER_COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "07000", "소유하지 않은 쿠폰"),
+
     // Register
     REGISTER_NOT_FOUND(HttpStatus.NOT_FOUND, "08000", "없는 결제 내역"),
 
