@@ -40,4 +40,4 @@ services:
       - ./openvidu:/app
     stdin_open: true
     ports:
-      - 4444:4444
+      - 3000:3000
