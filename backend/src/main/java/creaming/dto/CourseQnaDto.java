@@ -1,7 +1,7 @@
 package creaming.dto;
 
 import creaming.domain.comment.QnaComment;
-import creaming.domain.qna.Qna;
+import creaming.domain.qna.CourseQna;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QnaDto {
+public class CourseQnaDto {
 
     @Getter
     @Builder
@@ -24,14 +24,14 @@ public class QnaDto {
         private boolean isSecret;
         private List<Comment> comments;
 
-        public Response(Qna qna) {
-            this.qnaId = qna.getId();
-            this.profile = new MemberDto.SimpleProfile(qna.getMember());
-            this.title = qna.getTitle();
-            this.date = qna.getLastModifiedDate();
-            this.content = qna.getContent();
-            this.isSecret = qna.getIsSecret();
-            this.comments = qna.getQnaComments().stream()
+        public Response(CourseQna courseQna) {
+            this.qnaId = courseQna.getId();
+            this.profile = new MemberDto.SimpleProfile(courseQna.getMember());
+            this.title = courseQna.getTitle();
+            this.date = courseQna.getLastModifiedDate();
+            this.content = courseQna.getContent();
+            this.isSecret = courseQna.getIsSecret();
+            this.comments = courseQna.getQnaComments().stream()
                     .map(Comment::new).collect(Collectors.toList());
         }
     }
@@ -51,8 +51,8 @@ public class QnaDto {
         private String content; // TODO editor 로 작업시 수정
         private boolean isSecret;
 
-        public Qna toEntity() {
-            return Qna.builder()
+        public CourseQna toEntity() {
+            return CourseQna.builder()
                     .title(this.title)
                     .content(this.content)
                     .isSecret(this.isSecret)

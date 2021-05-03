@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 
-public interface ReviewFileRepository extends JpaRepository<ReviewFile, Long> {
+public interface CourseReviewFileRepository extends JpaRepository<CourseReviewFile, Long> {
 }
