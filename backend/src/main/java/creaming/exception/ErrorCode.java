@@ -16,6 +16,8 @@ public enum ErrorCode {
      * !!!!!!!! 에러코드 만들 때 Httpstatus 는 검색을 통해 확인
      */
 
+    NOT_FOUND(HttpStatus.NOT_FOUND, "00000", "NOT FOUND"),
+
     // Member
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "01000", "없는 계정"),
 

@@ -11,6 +11,7 @@ import creaming.domain.qna.CourseQna;
 import creaming.domain.qna.ProductQna;
 import creaming.domain.review.CourseReview;
 import creaming.domain.review.ProductReview;
+import creaming.dto.ProductDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -99,6 +100,13 @@ public class Product {
     public void deleteProductLike(ProductLike productLike) {
         productLikes.remove(productLike);
         productLike.updateProduct(null);
+    }
+
+    public void update(ProductDto.Request dto) {
+        this.name = dto.getName();
+        this.price = dto.getPrice();
+        this.category = dto.getCategory();
+        this.description = dto.getDescription();
     }
 
     // TODO : 언젠간 넣기
