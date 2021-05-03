@@ -2,6 +2,7 @@ package creaming.dto;
 
 import creaming.domain.etc.Address;
 import creaming.domain.member.Member;
+import creaming.domain.register.Register;
 import lombok.*;
 
 import java.time.DayOfWeek;
@@ -46,6 +47,7 @@ public class MemberDto {
             this.nickname = member.getNickname();
             this.profileImage = member.getProfileImage();
             this.email = member.getEmail();
+            this.phone = member.getPhone();
             this.address = member.getAddress();
         }
 
@@ -76,20 +78,19 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DayOfWeekResponse {
+    public static class StudentResponse {
         private Long memberId;
         private String nickname;
         private String profileImage;
         private String phone;
-        private DayOfWeek dayOfWeek;
 
-        public DayOfWeekResponse(Member member) {
+        public StudentResponse(Member member) {
             this.memberId = member.getId();
             this.nickname = member.getNickname();
             this.profileImage = member.getProfileImage();
             this.phone = member.getPhone();
-            // todo
         }
+
     }
 
 }
