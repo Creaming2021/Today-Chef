@@ -39,3 +39,5 @@ services:
       - /app/node_modules
       - ./openvidu:/app
     stdin_open: true
+    ports:
+      - 4444:4444
