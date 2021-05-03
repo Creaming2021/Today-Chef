@@ -16,12 +16,12 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "qnas")
+@Table(name = "course_qnas")
 @EqualsAndHashCode(of = "id", callSuper = false)
-public class Qna extends BaseTimeEntity {
+public class CourseQna extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "qna_id")
+    @Column(name = "course_qna_id")
     private Long id;
 
     private String title;
@@ -36,7 +36,7 @@ public class Qna extends BaseTimeEntity {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToMany(mappedBy = "qna", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "courseQna", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<QnaComment> qnaComments = new ArrayList<>();
 
     // JPA

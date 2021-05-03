@@ -1,8 +1,8 @@
 package creaming.controller;
 
 import creaming.dto.QnaCommentDto;
-import creaming.dto.QnaDto;
-import creaming.service.QnaService;
+import creaming.dto.CourseQnaDto;
+import creaming.service.CourseQnaService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,41 +18,41 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("qna")
+@RequestMapping("course-qna")
 @RequiredArgsConstructor
-public class QnaController {
+public class CourseQnaController {
 
-    private final QnaService qnaService;
+    private final CourseQnaService courseQnaService;
 
     @Operation(summary = "강의 별 모든 질문 조회", description = "courseId에 해당하는 모든 QnA를 페이징 처리해서 출력합니다")
     @GetMapping
-    public ResponseEntity<Page<QnaDto.Response>> getQnaAll(@RequestParam("courseId") Long courseId, Pageable pageable) {
+    public ResponseEntity<Page<CourseQnaDto.Response>> getQnaAll(@RequestParam("courseId") Long courseId, Pageable pageable) {
         log.info("(Get) getQnaAll - courseId: {}", courseId);
-        return ResponseEntity.status(HttpStatus.OK).body(qnaService.getQnaAll(courseId, pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.getQnaAll(courseId, pageable));
     }
 
     @Operation(summary = "질문 조회", description = "qnaId에 해당하는 QnA를 조회합니다")
     @GetMapping("/{qnaId}")
-    public ResponseEntity<QnaDto.Response> getQna(@PathVariable("qnaId") Long qnaId) {
+    public ResponseEntity<CourseQnaDto.Response> getQna(@PathVariable("qnaId") Long qnaId) {
         log.info("(Get) getQna - qnaId: {}", qnaId);
-        return ResponseEntity.status(HttpStatus.OK).body(qnaService.getQna(qnaId));
+        return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.getQna(qnaId));
     }
 
     @Operation(summary = "질문 작성", description = "사용자가 특정 강의에 질문을 작성합니다")
     @PostMapping
-    public ResponseEntity<Long> postQna(@RequestBody @Valid QnaDto.PostRequest dto) {
+    public ResponseEntity<Long> postQna(@RequestBody @Valid CourseQnaDto.PostRequest dto) {
         log.info("(Post) postQna - memberId: {} | courseId: {} | title: {} | content: {} | isSecret: {}",
                 dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.isSecret());
-        return ResponseEntity.status(HttpStatus.OK).body(qnaService.postQna(dto));
+        return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.postQna(dto));
     }
 
     @Operation(summary = "질문 수정", description = "해당 사용자가 작성한 질문을 수정합니다")
     @PutMapping("/{qnaId}")
     public ResponseEntity<Void> putQna(@PathVariable Long qnaId,
-                                    @RequestBody @Valid QnaDto.PostRequest dto) {
+                                    @RequestBody @Valid CourseQnaDto.PostRequest dto) {
         log.info("(Put) putQna - qnaId: {} | memberId: {} | courseId: {} | title: {} | content: {} | isSecret: {}",
                 qnaId, dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.isSecret());
-        qnaService.putQna(qnaId, dto);
+        courseQnaService.putQna(qnaId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -60,16 +60,16 @@ public class QnaController {
     @DeleteMapping("/{qnaId}")
     public ResponseEntity<Void> deleteQna(@PathVariable Long qnaId) {
         log.info("(Delete) deleteQna - qnaId: {}", qnaId);
-        qnaService.deleteQna(qnaId);
+        courseQnaService.deleteQna(qnaId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     // 해당 질문의 댓글 관리
     @Operation(summary = "해당 QnA의 댓글들 출력", description = "해당 QnA의 댓글 전체를 출력합니다")
     @GetMapping("/{qnaId}/comments")
-    public ResponseEntity<List<QnaDto.Comment>> getCommentAll(@PathVariable Long qnaId) {
+    public ResponseEntity<List<CourseQnaDto.Comment>> getCommentAll(@PathVariable Long qnaId) {
         log.info("(Get) getCommentAll - qnaId: {}", qnaId);
-        return ResponseEntity.status(HttpStatus.OK).body(qnaService.getCommentAll(qnaId));
+        return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.getCommentAll(qnaId));
     }
 
     @Operation(summary = "해당 QnA의 댓글 작성", description = "해당 QnA의 댓글을 작성합니다")
@@ -78,7 +78,7 @@ public class QnaController {
                                          @RequestBody @Valid QnaCommentDto.PostRequest dto) {
         // qna 작성자이거나 강의 제작자인지 확인
         log.info("(Post) postComment - qnaId: {} | memberId: {} | content: {}", qnaId, dto.getMemberId(), dto.getContent());
-        return ResponseEntity.status(HttpStatus.OK).body(qnaService.postComment(qnaId, dto));
+        return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.postComment(qnaId, dto));
     }
 
     @PutMapping("/{qnaId}/comments/{commentId}")
@@ -86,7 +86,7 @@ public class QnaController {
                                            @PathVariable Long commentId,
                                            @RequestBody @Valid QnaCommentDto.PutRequest dto) {
         log.info("(Put) putComment - qnaId: {} | commentId: {} | content: {}", qnaId, commentId, dto.getContent());
-        qnaService.putComment(qnaId, commentId, dto);
+        courseQnaService.putComment(qnaId, commentId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -94,7 +94,7 @@ public class QnaController {
     public ResponseEntity<Void> deleteComment(@PathVariable Long qnaId,
                                            @PathVariable Long commentId) {
         log.info("(Delete) deleteComment - qnaId: {} | commentId: {}", qnaId, commentId);
-        qnaService.deleteComment(qnaId, commentId);
+        courseQnaService.deleteComment(qnaId, commentId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

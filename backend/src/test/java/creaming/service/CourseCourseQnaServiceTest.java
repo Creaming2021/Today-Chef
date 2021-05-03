@@ -6,38 +6,33 @@ import creaming.domain.course.Course;
 import creaming.domain.course.CourseRepository;
 import creaming.domain.member.Member;
 import creaming.domain.member.MemberRepository;
-import creaming.domain.qna.Qna;
-import creaming.domain.qna.QnaRepository;
-import creaming.dto.QnaDto;
+import creaming.domain.qna.CourseQna;
+import creaming.domain.qna.CourseQnaRepository;
+import creaming.dto.CourseQnaDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-class QnaServiceTest {
+class CourseCourseQnaServiceTest {
 
     @Autowired
-    QnaRepository qnaRepository;
+    CourseQnaRepository courseQnaRepository;
 
     @Autowired
-    QnaService qnaService;
+    CourseQnaService courseQnaService;
 
     @Autowired
     MemberRepository memberRepository;
@@ -70,21 +65,21 @@ class QnaServiceTest {
         Course course = courseRepository.save(new Course());
 
         for (int i = 1; i <= 20; i++) {
-            Qna qna = Qna.builder()
+            CourseQna courseQna = CourseQna.builder()
                     .title("호랑이")
                     .content("무서워")
                     .isSecret(false)
                     .build();
-            course.addQna(qna);
-            member.addQna(qna);
-            qnaRepository.save(qna);
+            course.addQna(courseQna);
+            member.addQna(courseQna);
+            courseQnaRepository.save(courseQna);
 
             for (int j = 1; j <= 10; j++) {
                 QnaComment qnaComment = QnaComment.builder()
                         .content("테스트" + i)
                         .build();
                 member.addComment(qnaComment);
-                qna.addComment(qnaComment);
+                courseQna.addComment(qnaComment);
                 qnaCommentRepository.save(qnaComment);
             }
         }
@@ -100,12 +95,12 @@ class QnaServiceTest {
         Long id = course1.getId();
         System.out.println("id = " + id);
 
-        Qna qna1 = qnaRepository.findAll().get(0);
-        System.out.println(qna1.getQnaComments().size());
+        CourseQna courseQna1 = courseQnaRepository.findAll().get(0);
+        System.out.println(courseQna1.getQnaComments().size());
 
         System.out.println("===========================");
 
-        Page<QnaDto.Response> qnaAll = qnaService.getQnaAll(id, PageRequest.of(1, 5));
+        Page<CourseQnaDto.Response> qnaAll = courseQnaService.getQnaAll(id, PageRequest.of(1, 5));
 
         System.out.println("===========================");
 

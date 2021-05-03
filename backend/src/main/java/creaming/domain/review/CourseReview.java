@@ -1,16 +1,14 @@
 package creaming.domain.review;
 
-import creaming.domain.comment.QnaComment;
 import creaming.domain.comment.ReviewComment;
 import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
-import creaming.domain.file.ReviewFile;
+import creaming.domain.file.CourseReviewFile;
 import creaming.domain.member.Member;
-import creaming.dto.ReviewDto;
+import creaming.dto.CourseReviewDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +18,12 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "reviews")
+@Table(name = "course_reviews")
 @EqualsAndHashCode(of = "id", callSuper = false)
-public class Review extends BaseTimeEntity {
+public class CourseReview extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
+    @Column(name = "course_review_id")
     private Long id;
 
     private String title;
@@ -40,11 +38,11 @@ public class Review extends BaseTimeEntity {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "courseReview", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ReviewComment> reviewComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<ReviewFile> reviewFiles = new ArrayList<>();
+    @OneToMany(mappedBy = "courseReview", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<CourseReviewFile> courseReviewFiles = new ArrayList<>();
 
     // JPA
     public void updateCourse(Course course) {
@@ -66,7 +64,7 @@ public class Review extends BaseTimeEntity {
     }
     /////////////////////////////////////////
 
-    public Review(ReviewDto.PostRequest dto, Member member, Course course) {
+    public CourseReview(CourseReviewDto.PostRequest dto, Member member, Course course) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.rating = dto.getRating();

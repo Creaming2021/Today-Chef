@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional
 @Rollback(value = false)
-class QnaCommentTest {
+class CourseQnaCommentTest {
 
     @Autowired
     EntityManager em;

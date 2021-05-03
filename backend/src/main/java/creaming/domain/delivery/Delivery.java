@@ -1,8 +1,8 @@
 package creaming.domain.delivery;
 
-import creaming.domain.course.Course;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;
+import creaming.domain.order.Order;
 import creaming.domain.register.Register;
 import lombok.*;
 
@@ -29,11 +29,9 @@ public class Delivery extends BaseTimeEntity {
     private String number; // 송장번호
 
     @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Register register;
+    private Order order;
 
     // JPA
-    public void updateRegister(Register register) {
-        this.register = register;
-    }
+    public void updateOrder(Order order) { this.order = order; }
     /////////////////////////////////////////
 }
