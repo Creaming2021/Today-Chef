@@ -21,7 +21,7 @@ export const deleteCourse = async ( courseId ) => {
 export const postCourseImage = async ( course ) => {
 	image.post(
 		`courses/${course.courseId}/image`, 
-		{ file : courseId.image })
+		{ file : course.image })
 		.then(res => res)
 		.catch(e => { console.log(e); });
 }

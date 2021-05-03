@@ -45,7 +45,7 @@ export const getQnaCommentList = async ( qnaId ) => {
 		.catch(e => { console.log(e); });
 }
 
-export const putQnaComment = async ( qna ) => {
+export const postQnaComment = async ( qna ) => {
 	basic.post(
 		`qna/${qna.id}/comments`,
 		{
