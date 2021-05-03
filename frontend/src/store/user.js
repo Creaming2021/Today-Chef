@@ -29,8 +29,15 @@ export default {
     },
   },
   actions: {
-    setSignIn : function(context, authObj) {
-      user.checkUserDB(authObj.id)
+    getKakaoInfo : function(context) {
+      kakao.getKakaoLogIn()
+        .then(authObj => {
+          context.commit('setAuthObj', authObj);
+          context.dispatch('setSignIn', authObj);
+        });
+    },
+    signIn : function(context, authObj) {
+      user.signIn(authObj.id)
         .then((dbResult) => {
           if(dbResult){
             sessionStorage.setItem('access_token', authObj.auth.access_token);
@@ -44,14 +51,7 @@ export default {
           console.log(e);
         });
     },
-    getKakaoInfo : function(context) {
-      kakao.getKakaoLogIn()
-        .then(authObj => {
-          context.commit('setAuthObj', authObj);
-          context.dispatch('setSignIn', authObj);
-        });
-    },
-    setSignUp : function(context, userInfo) {
+    signUp : function(context, userInfo) {
       user.signUp(userInfo)
         .then(() => {
           sessionStorage.setItem('access_token', context.state.authObj.auth.access_token);
@@ -59,7 +59,7 @@ export default {
           context.dispatch('setSignIn', context.state.authObj);
         });
     },
-    setSignOut : function(context) {
+    signOut : function(context) {
       sessionStorage.clear();
       context.commit('setSignOut');
     },
