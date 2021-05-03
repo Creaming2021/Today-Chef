@@ -196,7 +196,7 @@ export default {
       }
     },
 		getReviewInfo(id) {
-			alert(`이제 ${id} 로 요청때립니다.`);
+      alert(`이제 ${id} 로 요청때립니다.`);
 		}
   },
   watch: { 
