@@ -24,11 +24,19 @@ public class CourseReviewController {
     private final CourseReviewService courseReviewService;
     private final Validator validator;
 
+//    @GetMapping
+//    @Operation(summary = "강의 별 모든 리뷰 조회", description = "courseId에 해당하는 모든 리뷰를 페이징 처리해서 가져옵니다.")
+//    public ResponseEntity<Page<CourseReviewDto.SimpleResponse>> getReviewAll(@RequestParam("courseId")Long courseId, Pageable pageable) {
+//        log.info("(Get) getReviewAll - courseId : {}", courseId);
+//        Page<CourseReviewDto.SimpleResponse> result = courseReviewService.getReviewAll(courseId, pageable);
+//        return ResponseEntity.status(HttpStatus.OK).body(result);
+//    }
+
     @GetMapping
-    @Operation(summary = "강의 별 모든 리뷰 조회", description = "courseId에 해당하는 모든 리뷰를 페이징 처리해서 가져옵니다.")
-    public ResponseEntity<Page<CourseReviewDto.SimpleResponse>> getReviewAll(@RequestParam("courseId")Long courseId, Pageable pageable) {
+    @Operation(summary = "강의 별 모든 리뷰 조회", description = "courseId에 해당하는 모든 리뷰를 가져옵니다.")
+    public ResponseEntity<Page<CourseReviewDto.SimpleResponse>> getReviewAll(@RequestParam("courseId")Long courseId) {
         log.info("(Get) getReviewAll - courseId : {}", courseId);
-        Page<CourseReviewDto.SimpleResponse> result = courseReviewService.getReviewAll(courseId, pageable);
+        Page<CourseReviewDto.SimpleResponse> result = courseReviewService.getReviewAll(courseId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -68,6 +76,7 @@ public class CourseReviewController {
     }
 
     @PutMapping("/{reviewId}/comments/{commentId}")
+    @Operation(summary = "리뷰 댓글 수정", description = "작성자 memberId가 reviewId에 해당하는 리뷰를 수정합니다.")
     public ResponseEntity<Void> putReviewComment(@PathVariable("reviewId") Long reviewId,
                                               @PathVariable("commentId") Long commentId,
                                               @RequestBody @Valid ReviewCommentDto.PutRequest dto) {
@@ -77,6 +86,7 @@ public class CourseReviewController {
     }
 
     @DeleteMapping("/{reviewId}/comments/{commentId}")
+    @Operation(summary = "리뷰 댓글 삭제", description = "작성자 memberId가 reviewId에 해당하는 리뷰를 삭제합니다.")
     public ResponseEntity<Void> deleteReviewComment(@PathVariable("reviewId") Long reviewId,
                                                  @PathVariable("commentId") Long commentId) {
         log.info("(Delete) deleteReviewComment - reviewId : {} | commentId : {}", reviewId, commentId);

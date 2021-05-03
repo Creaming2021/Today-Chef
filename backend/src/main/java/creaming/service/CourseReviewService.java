@@ -28,8 +28,8 @@ public class CourseReviewService {
     private final CourseRepository courseRepository;
     private final MemberRepository memberRepository;
 
-    public Page<CourseReviewDto.SimpleResponse> getReviewAll(Long courseId, Pageable pageable) {
-        return courseReviewRepository.findAllByCourseId(courseId, pageable)
+    public Page<CourseReviewDto.SimpleResponse> getReviewAll(Long courseId) {
+        return courseReviewRepository.findAllByCourseId(courseId)
                 .map(CourseReviewDto.SimpleResponse::new);
     }
 
