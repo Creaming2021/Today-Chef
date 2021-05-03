@@ -2,7 +2,7 @@ package creaming.dto;
 
 import creaming.domain.course.Course;
 import creaming.domain.etc.FoodType;
-import creaming.domain.register.Register;
+import creaming.domain.review.CourseReview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotEmpty;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.stream.Collectors;
 
 
 public class CourseDto {
@@ -25,9 +25,10 @@ public class CourseDto {
         private Long courseId;
         private MemberDto.SimpleProfile profile; // 강사 프로필
         private String name;
-        private LocalDate date;
+        private String date;
+        private String time;
         private Integer price;
-        private Integer rating;
+        private Double rating;
         // TODO : List<CourseFile> Type?
 //        private String image;
         private FoodType category;
@@ -37,9 +38,10 @@ public class CourseDto {
             this.profile = new MemberDto.SimpleProfile(course.getMember());
             this.name = course.getName();
             this.date = course.getDate();
+            this.time = course.getTime();
             this.price = course.getPrice();
-            // TODO : 우리가 계산해서 넣는 정보?
-            this.rating = course.getRating();
+            this.rating = course.getCourseReviews().stream()
+                    .collect(Collectors.averagingInt(CourseReview::getRating));
             // TODO : file?
             // this.image
             this.category = course.getCategory();
@@ -47,7 +49,7 @@ public class CourseDto {
     }
 
     @Getter
-    @Builder
+//    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DetailResponse extends SimpleResponse{
@@ -72,7 +74,9 @@ public class CourseDto {
         @NotEmpty
         private String name;
         @NotEmpty
-        private LocalDate date;
+        private String date;
+        @NotEmpty
+        private String time;
         @NotEmpty
         private Integer price;
         @NotEmpty
@@ -81,12 +85,6 @@ public class CourseDto {
         private String materials;
         @NotEmpty
         private String descriptions;
-        @NotEmpty
-        private DayOfWeek dayOfWeek;
-        @NotEmpty
-        private LocalTime startTime;
-        @NotEmpty
-        private LocalTime endTime;
 
         public Course toEntity() {
             return Course.builder()
@@ -111,7 +109,9 @@ public class CourseDto {
         @NotEmpty
         private String name;
         @NotEmpty
-        private LocalDate date;
+        private String date;
+        @NotEmpty
+        private String time;
         @NotEmpty
         private Integer price;
         @NotEmpty
@@ -120,11 +120,6 @@ public class CourseDto {
         private String materials;
         @NotEmpty
         private String descriptions;
-        @NotEmpty
-        private DayOfWeek dayOfWeek;
-        @NotEmpty
-        private LocalTime startTime;
-        @NotEmpty
-        private LocalTime endTime;
     }
+
 }

@@ -49,15 +49,14 @@ public class CourseService {
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
     }
 
-    // todo : 해당 강의의 수강생 출력
-    public List<MemberDto.DayOfWeekResponse> getCourseStudents(Long courseId) {
+    // 해당 강의의 수강생 출력
+    public List<MemberDto.StudentResponse> getCourseStudents(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         List<Register> registers = registerRepository.findByCourse(course);
         return registers.stream()
-                // todo : 이부분 register의 dayofWeeok를 뽑아내야함
                 .map(Register::getMember)
-                .map(MemberDto.DayOfWeekResponse::new)
+                .map(MemberDto.StudentResponse::new)
                 .collect(Collectors.toList());
     }
 
@@ -66,10 +65,9 @@ public class CourseService {
     public Long postCourse(CourseDto.PostRequest dto) {
         Member member = memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
-        // todo : timetable과 course 연결되어있음
-
-
-        return 1L;
+        Course course = dto.toEntity();
+        member.addCourse(course);
+        return courseRepository.save(course).getId();
     }
 
     // 강의 수정
@@ -77,7 +75,7 @@ public class CourseService {
     public void putCourse(Long courseId, CourseDto.PutRequest dto) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
-        // todo : timetable과 course 연결되어있음
+        course.update(dto);
     }
 
     // 강의 삭제
@@ -88,6 +86,5 @@ public class CourseService {
         course.getMember().deleteCourse(course);
         courseRepository.delete(course);
     }
-
 
 }
