@@ -11,6 +11,7 @@ import creaming.domain.qna.CourseQna;
 import creaming.domain.qna.ProductQna;
 import creaming.domain.register.Register;
 import creaming.domain.review.CourseReview;
+import creaming.domain.review.ProductReview;
 import lombok.*;
 
 import javax.persistence.*;
@@ -67,6 +68,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ProductQna> productQnas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ProductReview> productReviews = new ArrayList<>();
 
     // JPA
     public void addRegister(Register register) {
@@ -147,6 +151,17 @@ public class Member extends BaseTimeEntity {
     public void deleteProductQna(ProductQna productQna) {
         productQnas.remove(productQna);
         productQna.updateMember(null);
+    }
+
+    public void addProductReview(ProductReview productReview) {
+        productReviews.add(productReview);
+        productReview.updateMember(this);
+    }
+
+    public void deleteProductReview(ProductReview productReview) {
+        productReviews.remove(productReview);
+        productReview.updateMember(null);
+
     }
 
     //////////////////////////////////////

@@ -13,6 +13,7 @@ import creaming.domain.qna.ProductQna;
 import creaming.domain.review.CourseReview;
 import creaming.domain.review.ProductReview;
 import creaming.dto.ProductDto;
+import creaming.dto.ProductReviewDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -113,6 +114,15 @@ public class Product extends BaseTimeEntity {
         productQna.updateProduct(null);
     }
 
+    public void addProductReview(ProductReview productReview) {
+        productReviews.add(productReview);
+        productReview.updateProduct(this);
+    }
+
+    public void deleteProductReview(ProductReview productReview) {
+        productReviews.remove(productReview);
+        productReview.updateProduct(null);
+    }
 
     public void update(ProductDto.Request dto) {
         this.name = dto.getName();
@@ -120,4 +130,6 @@ public class Product extends BaseTimeEntity {
         this.category = dto.getCategory();
         this.description = dto.getDescription();
     }
+
+
 }
