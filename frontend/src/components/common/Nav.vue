@@ -2,7 +2,7 @@
   <!-- Header Section Begin -->
   <header class="header">
     <div class="sign-container">
-      <div v-if="user.signStatus === 'signIn'" @click="setSignOut">
+      <div v-if="user.signStatus === 'signIn'" @click="onClickSignOut">
         {{user.userNickname}}님 안녕하세요! SIGN OUT</div>
       <div v-else @click="onOpenSign">SIGN IN</div>
     </div>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   data(){
@@ -77,7 +77,6 @@ export default {
     }
   },
   methods : {
-    ...mapActions(['getKakaoInfo','setSignOut', 'setSignUp']),
     onClickNav(pathName, paramsType) {
       if(pathName === "Profile" || pathName === "Creator"){
         this.$router.push({
@@ -107,10 +106,13 @@ export default {
     },
     onClickKakaoSignIn() {
       // this.onCloseSign();
-      this.getKakaoInfo();
+      this.$store.dispatch('GET_KAKAO_INFO');
     },
     onClickSignUp() {
-      this.setSignUp(this.signUpForm);
+      this.$store.dispatch('SET_SIGN_UP', this.signUpForm);
+    },
+    onClickSignOut() {
+      this.$store.dispatch('SET_SIGN_OUT');
     },
     joinRoom(){
       window.open("https://k4b2041.p.ssafy.io:5000/", "_blank");

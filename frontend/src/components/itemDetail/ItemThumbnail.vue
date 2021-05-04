@@ -1,30 +1,30 @@
 <template>
-  <div class="thumbnail-container" v-if="thumbnailList">
+  <div class="thumbnail-container" v-if="course.thumbnailList">
     <img 
       id="first-image"
       @click="onOpenThumbnailModal"
-      :src="thumbnailList[0]"/>
+      :src="course.thumbnailList[0]"/>
     <img 
       id="second-image"
       @click="onOpenThumbnailModal"
-      :src="thumbnailList[1]"/>
+      :src="course.thumbnailList[1]"/>
     <img 
       id="third-image"
       @click="onOpenThumbnailModal"
-      :src="thumbnailList[2]"/>
+      :src="course.thumbnailList[2]"/>
     <img 
       id="fourth-image"
       @click="onOpenThumbnailModal"
-      :src="thumbnailList[3]"/>
+      :src="course.thumbnailList[3]"/>
     <div 
-      v-if="thumbnailList.length > 4"
+      v-if="course.thumbnailList.length > 4"
       class="remain-image-cnt"
       @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
     </div>
     <b-modal v-model="openThumbnailModal" size="lg" hide-footer hide-header>
       <p class="thumbnail-modal-btn" @click="onCloseThumbnailModal">X</p>
       <span class="thumbnail-modal-btn" @click="onClickDecreaseImageIdx">이전</span>
-      <img class="modalImage" :src="thumbnailList[currentImage]"/>
+      <img class="modalImage" :src="course.thumbnailList[currentImage]"/>
       <span class="thumbnail-modal-btn" @click="onClickIncreaseImageIdx">다음</span>
     </b-modal>
   </div>
@@ -32,6 +32,8 @@
 
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data(){
     return {
@@ -40,15 +42,17 @@ export default {
       currentImage: 0,
     }
   },
+  computed: {
+    ...mapState({
+       course: state => state.course.course,
+      }),
+  },
   mounted() {
     this.setRemainImageCnt();
   },
-  props: {
-    thumbnailList: Array,
-  },
   methods: {
     setRemainImageCnt(){
-      this.remainImageCnt = this.thumbnailList.length - 4;
+      this.remainImageCnt = this.course.course.thumbnailList.length - 4;
     },
     onOpenThumbnailModal(){
       this.currentImage = 0;
@@ -58,10 +62,10 @@ export default {
       this.openThumbnailModal = false;
     },
     onClickIncreaseImageIdx(){
-      this.currentImage = (this.currentImage + 1) % this.thumbnailList.length;
+      this.currentImage = (this.currentImage + 1) % this.course.course.thumbnailList.length;
     },
     onClickDecreaseImageIdx(){
-      this.currentImage = (this.currentImage - 1 + this.thumbnailList.length) % this.thumbnailList.length;
+      this.currentImage = (this.currentImage - 1 + this.course.course.thumbnailList.length) % this.course.course.thumbnailList.length;
     },
   }
 }

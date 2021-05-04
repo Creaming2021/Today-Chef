@@ -58,7 +58,7 @@ export default {
         {
           id: 1,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '한식',
+          category: 'korea',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -69,7 +69,7 @@ export default {
         {
           id: 2,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '한식',
+          category: 'korea',
           date: '2021.04.17',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -80,7 +80,7 @@ export default {
         {
           id: 3,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '양식',
+          category: 'usa',
           date: '2021.04.18',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -91,7 +91,7 @@ export default {
         {
           id: 4,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '양식',
+          category: 'usa',
           date: '2021.04.06',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -102,7 +102,7 @@ export default {
         {
           id: 5,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '양식',
+          category: 'uwa',
           date: '2021.02.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -113,7 +113,7 @@ export default {
         {
           id: 6,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -124,7 +124,7 @@ export default {
         {
           id: 7,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -135,7 +135,7 @@ export default {
         {
           id: 8,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2020.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -146,7 +146,7 @@ export default {
         {
           id: 9,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -157,7 +157,7 @@ export default {
         {
           id: 10,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.03.26',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -168,7 +168,7 @@ export default {
         {
           id: 11,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.02.06',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -179,7 +179,7 @@ export default {
         {
           id: 12,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -190,7 +190,7 @@ export default {
         {
           id: 13,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -201,7 +201,7 @@ export default {
         {
           id: 14,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -212,7 +212,7 @@ export default {
         {
           id: 15,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -223,7 +223,7 @@ export default {
         {
           id: 16,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -234,7 +234,7 @@ export default {
         {
           id: 17,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',
@@ -245,7 +245,7 @@ export default {
         {
           id: 18,
           thumbnail: 'https://m.cj.co.kr/images/theKitchen/PHON/0000001571/0000005660/0000001571.jpg',
-          category: '일식',
+          category: 'japan',
           date: '2021.04.16',
           name: '쉽게 배워보는 갈비찜',
           teacher: '김한식',

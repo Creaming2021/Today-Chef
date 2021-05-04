@@ -44,8 +44,7 @@ import { Viewer } from '@toast-ui/vue-editor';
 export default {
   components: {
     // Viewer,
-    
-        'viewer': Viewer
+    'viewer': Viewer
   },
   data() {
     return {

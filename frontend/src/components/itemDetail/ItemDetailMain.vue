@@ -7,8 +7,8 @@
       <span @click="onChangeType('qna')">QnA</span> |
       <span @click="onChangeType('refund')">한불 정책</span>
     </div>
-    <CourseIntroduction v-if="this.type === 'introduction'"/>
-    <CourseKit v-else-if="this.type === 'kit'"/>
+    <ItemIntroduction v-if="this.type === 'introduction'"/>
+    <ItemKit v-else-if="this.type === 'kit'"/>
     <List 
       v-else-if="this.type === 'review'"
       :type="type"
@@ -19,25 +19,27 @@
       v-else-if="this.type === 'reviewDetail'"
       :type="type"
       :item="reviewInfo"/>
-    <CourseQnA 
+    <ItemQnA 
       v-else-if="this.type === 'qna'"
       :qnaList="qnaList"/>
-    <CourseRefund 
+    <ItemRefund 
       v-else-if="this.type === 'refund'"/>
   </div>
 </template>
 
 <script>
-import CourseIntroduction from '@/components/courseDetail/CourseIntroduction.vue';
-import CourseKit from '@/components/courseDetail/CourseKit.vue';
+import { mapActions, mapState } from 'vuex';
+import ItemIntroduction from '@/components/itemDetail/ItemIntroduction.vue';
+import ItemKit from '@/components/itemDetail/ItemKit.vue';
 import List from '@/components/common/List.vue';
 import ListDetail from '@/components/common/ListDetail.vue';
-import CourseQnA from '@/components/courseDetail/CourseQnA.vue';
-import CourseRefund from '@/components/courseDetail/CourseRefund.vue';
+import ItemQnA from '@/components/itemDetail/ItemQnA.vue';
+import ItemRefund from '@/components/itemDetail/ItemRefund.vue';
 
 export default {
   data() {
     return {
+      id: null,
       type: 'introduction',
       pageTotal: 8,
       currentPage: 1,
@@ -171,18 +173,22 @@ export default {
       ],
     }
   },
+  computed: {
+    ...mapState(['course']),
+  },
   created() {
     this.checkQuery();
   },
   components: {
-    CourseIntroduction,
-    CourseKit,
+    ItemIntroduction,
+    ItemKit,
     List,
     ListDetail,
-    CourseQnA,
-    CourseRefund
+    ItemQnA,
+    ItemRefund
   },
   methods: {
+    ...mapActions(['getCourse']),
     onChangeType( clickType ){
       this.$router.push({
         name: 'CourseDetail',
@@ -191,12 +197,16 @@ export default {
     },
     checkQuery() {
       this.type = this.$route.params.type;
-      if(this.type === 'reviewDetail') {
-        this.getReviewInfo(this.$route.params.id);
-      }
+      this.id = this.$route.params.id;
+      this.getCourseDetailInfo();
     },
-    getReviewInfo(id) {
-      alert(`이제 ${id} 로 요청때립니다.`);
+    getCourseDetailInfo() {
+      if(this.id) {
+        console.log(`${this.id}로 강의정보 요청 떄림`);
+        this.getCourse(this.id);
+      }else{
+        alert("잘못된 접근 입니다.");
+      }
     }
   },
   watch: { 

@@ -30,7 +30,10 @@
       <div 
         class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
         v-for="(course,idx) in courseFilterList" :key="idx">
-          <CourseItem :course="course" :idx="idx" />
+          <CourseItem 
+            :course="course" 
+            :idx="idx" 
+            :type="'otherClass'"/>
       </div>
     </div>
     <div class="row">

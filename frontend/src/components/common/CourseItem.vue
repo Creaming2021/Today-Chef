@@ -69,9 +69,15 @@ import Student from '@/components/mypage/Student.vue';
     onClickDetail() {
       if (this.type === "myClass") {
         this.onOpenDetailModal(this.course);
-      }
-      if (this.type === "otherClass") {
-        alert('강의 디테일로')
+      } else if (this.type === "otherClass") {
+        this.$router.push({
+          name: 'CourseDetail',
+          params: {
+            category: this.course.category,
+            id: this.course.id,
+            type: 'introduction',
+          }
+        })
       }
     },
     onClickDay(dayNum,e) {
