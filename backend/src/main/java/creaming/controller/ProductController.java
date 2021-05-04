@@ -21,26 +21,26 @@ public class ProductController {
 
     @GetMapping
     @Operation(summary = "상품 리스트", description = "상품 리스트를 조회합니다.")
-    public ResponseEntity<List<ProductDto.SimpleResponse>> getProductList() {
+    public ResponseEntity<List<ProductDto.ProductSimpleResponse>> getProductList() {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProductList());
     }
 
     @GetMapping("/{productId}")
     @Operation(summary = "상품 상세 조회", description = "상품을 상세 조회합니다.")
-    public ResponseEntity<ProductDto.DetailResponse> getProduct(@PathVariable("productId") Long id) {
+    public ResponseEntity<ProductDto.ProductDetailResponse> getProduct(@PathVariable("productId") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProductDetail(id));
     }
 
     @PostMapping
     @Operation(summary = "상품 등록", description = "상품을 등록합니다.")
-    public ResponseEntity<Long> postProduct(@RequestBody ProductDto.Request dto) {
+    public ResponseEntity<Long> postProduct(@RequestBody ProductDto.ProductRequest dto) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.postProduct(dto));
     }
 
     @PutMapping("/{productId}")
     @Operation(summary = "상품 수정", description = "상품을 수정합니다.")
     public ResponseEntity<Long> putProduct(@PathVariable("productId") Long id,
-                                           @RequestBody ProductDto.Request dto) {
+                                           @RequestBody ProductDto.ProductRequest dto) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.putProduct(id, dto));
     }
 

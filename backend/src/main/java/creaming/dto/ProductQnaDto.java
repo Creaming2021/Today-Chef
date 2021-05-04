@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class ProductQnaDto {
 
     @Getter
-    public static class PostRequest {
+    public static class ProductQnaPostRequest {
         private Long productId;
         private Long userId;
         private String title;
@@ -28,7 +28,7 @@ public class ProductQnaDto {
     }
 
     @Getter
-    public static class PutRequest {
+    public static class ProductQnaPutRequest {
         private String title;
         private String content;
         private Boolean isSecret;
@@ -38,7 +38,7 @@ public class ProductQnaDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class ProductQnaResponse {
         private Long productQnaId;
         private MemberDto.SimpleProfile profile;
         private String title;
@@ -48,7 +48,7 @@ public class ProductQnaDto {
         private String answer;
         private LocalDateTime answerDate;
 
-        public Response(ProductQna productQna) {
+        public ProductQnaResponse(ProductQna productQna) {
             this.productQnaId = productQna.getId();
             this.profile = new MemberDto.SimpleProfile(productQna.getMember());
             this.title = productQna.getTitle();

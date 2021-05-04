@@ -1,6 +1,5 @@
 package creaming.controller;
 
-import creaming.domain.review.ProductReview;
 import creaming.dto.ProductReviewDto;
 import creaming.service.ProductReviewService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,20 +21,20 @@ public class ProductReviewController {
 
     @Operation(summary = "상품 리뷰 전체 조회", description = "상품 전체를 조회합니다.")
     @GetMapping
-    public ResponseEntity<List<ProductReviewDto.Response>> getProductReviewList(@RequestParam("productId") Long id) {
+    public ResponseEntity<List<ProductReviewDto.ProductReviewResponse>> getProductReviewList(@RequestParam("productId") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(productReviewService.getProductReviewList(id));
     }
 
     @Operation(summary = "상품 리뷰 등록", description = "상품 리뷰를 등록합니다.")
     @PostMapping
-    public ResponseEntity<Long> postProductReview(@RequestBody ProductReviewDto.PostRequest dto) {
+    public ResponseEntity<Long> postProductReview(@RequestBody ProductReviewDto.ProductReviewPostRequest dto) {
         return ResponseEntity.status(HttpStatus.OK).body(productReviewService.postProductReview(dto));
     }
 
     @Operation(summary = "상품 리뷰 수정", description = "상품 리뷰를 수정합니다.")
     @PutMapping("/{productReviewId}")
     public ResponseEntity<Long> putProductReview(@PathVariable("productReviewId") Long id,
-                                                 @RequestBody ProductReviewDto.PutRequest dto) {
+                                                 @RequestBody ProductReviewDto.ProductReviewPutRequest dto) {
         return ResponseEntity.status(HttpStatus.OK).body(productReviewService.putProductReview(id, dto));
     }
 

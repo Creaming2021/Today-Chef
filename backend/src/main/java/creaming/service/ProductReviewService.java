@@ -23,16 +23,16 @@ public class ProductReviewService {
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
 
-    public List<ProductReviewDto.Response> getProductReviewList(Long id) {
+    public List<ProductReviewDto.ProductReviewResponse> getProductReviewList(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND))
                 .getProductReviews().stream()
-                .map(ProductReviewDto.Response::new)
+                .map(ProductReviewDto.ProductReviewResponse::new)
                 .collect(Collectors.toList());
 
     }
 
-    public Long postProductReview(ProductReviewDto.PostRequest dto) {
+    public Long postProductReview(ProductReviewDto.ProductReviewPostRequest dto) {
         ProductReview productReview = productReviewRepository.save(dto.toEntity());
 
         memberRepository.findById(dto.getMemberId())
@@ -44,7 +44,7 @@ public class ProductReviewService {
         return productReview.getId();
     }
 
-    public Long putProductReview(Long id, ProductReviewDto.PutRequest dto) {
+    public Long putProductReview(Long id, ProductReviewDto.ProductReviewPutRequest dto) {
         return productReviewRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND))
                 .update(dto);

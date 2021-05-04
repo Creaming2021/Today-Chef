@@ -18,18 +18,18 @@ public class EventService {
 
     private final EventRepository eventRepository;
 
-    public Page<EventDto.SimpleResponse> findEventList(Pageable pageable) {
+    public Page<EventDto.EventSimpleResponse> findEventList(Pageable pageable) {
         return eventRepository.findAll(pageable)
-                .map(EventDto.SimpleResponse::new);
+                .map(EventDto.EventSimpleResponse::new);
     }
 
-    public EventDto.DetailResponse findEvent(Long eventId) {
-        return new EventDto.DetailResponse(eventRepository.findById(eventId)
+    public EventDto.EventDetailResponse findEvent(Long eventId) {
+        return new EventDto.EventDetailResponse(eventRepository.findById(eventId)
                 .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND)));
     }
 
     @Transactional
-    public Long saveEvent(EventDto.Request dto) {
+    public Long saveEvent(EventDto.EventRequest dto) {
         return eventRepository.save(dto.toEntity()).getId();
     }
 
@@ -41,7 +41,7 @@ public class EventService {
     }
 
     @Transactional
-    public void updateEvent(Long eventId, EventDto.Request dto) {
+    public void updateEvent(Long eventId, EventDto.EventRequest dto) {
         eventRepository.findById(eventId)
                 .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND))
                 .update(dto.getTitle(), dto.getContent());

@@ -14,7 +14,7 @@ public class ProductReviewDto {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Response {
+    public static class ProductReviewResponse {
         private Long productReviewId;
         private MemberDto.SimpleProfile profile;
         private String title;
@@ -22,7 +22,7 @@ public class ProductReviewDto {
         private LocalDateTime date;
         private Integer rating;
 
-        public Response(ProductReview productReview) {
+        public ProductReviewResponse(ProductReview productReview) {
             this.productReviewId = productReview.getId();
             this.profile = new MemberDto.SimpleProfile(productReview.getMember());
             this.title = productReview.getTitle();
@@ -36,7 +36,7 @@ public class ProductReviewDto {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class PostRequest {
+    public static class ProductReviewPostRequest {
         private Long memberId;
         private Long productId;
         private String title;
@@ -56,7 +56,7 @@ public class ProductReviewDto {
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class PutRequest {
+    public static class ProductReviewPutRequest {
         private String title;
         private String content;
         private Integer rating;

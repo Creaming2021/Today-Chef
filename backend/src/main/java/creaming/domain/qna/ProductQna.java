@@ -1,7 +1,5 @@
 package creaming.domain.qna;
 
-import creaming.domain.comment.QnaComment;
-import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
 import creaming.domain.product.Product;
@@ -10,8 +8,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Builder
 @Entity
@@ -51,7 +47,7 @@ public class ProductQna extends BaseTimeEntity {
         this.member = member;
     }
 
-    public void update(ProductQnaDto.PutRequest dto) {
+    public void update(ProductQnaDto.ProductQnaPutRequest dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.isSecret = dto.getIsSecret();

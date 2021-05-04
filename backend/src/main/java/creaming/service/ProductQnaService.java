@@ -1,8 +1,6 @@
 package creaming.service;
 
-import creaming.domain.member.Member;
 import creaming.domain.member.MemberRepository;
-import creaming.domain.product.Product;
 import creaming.domain.product.ProductRepository;
 import creaming.domain.qna.ProductQna;
 import creaming.domain.qna.ProductQnaRepository;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,15 +23,15 @@ public class ProductQnaService {
     private final ProductRepository productRepository;
     private final ProductQnaRepository productQnaRepository;
 
-    public List<ProductQnaDto.Response> getProductQnaList(Long id) {
+    public List<ProductQnaDto.ProductQnaResponse> getProductQnaList(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND))
                 .getProductQnas().stream()
-                .map(ProductQnaDto.Response::new)
+                .map(ProductQnaDto.ProductQnaResponse::new)
                 .collect(Collectors.toList());
     }
 
-    public Long postProductQna(ProductQnaDto.PostRequest dto) {
+    public Long postProductQna(ProductQnaDto.ProductQnaPostRequest dto) {
         ProductQna productQna = productQnaRepository.save(dto.toEntity());
 
         memberRepository.findById(dto.getUserId())
@@ -46,7 +43,7 @@ public class ProductQnaService {
         return productQna.getId();
     }
 
-    public Long putProductQna(Long id, ProductQnaDto.PutRequest dto) {
+    public Long putProductQna(Long id, ProductQnaDto.ProductQnaPutRequest dto) {
         ProductQna productQna = productQnaRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
         productQna.update(dto);

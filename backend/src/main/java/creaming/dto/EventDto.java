@@ -18,13 +18,13 @@ public class EventDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SimpleResponse {
+    public static class EventSimpleResponse {
         private Long id;
         private String title;
         private LocalDateTime date;
         private String image;
 
-        public SimpleResponse(Event event) {
+        public EventSimpleResponse(Event event) {
             this.id = event.getId();
             this.title = event.getTitle();
             this.date = event.getCreatedDate();
@@ -36,14 +36,14 @@ public class EventDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DetailResponse {
+    public static class EventDetailResponse {
         private Long id;
         private String title;
         private String content;
         private LocalDateTime date;
         private String image;
 
-        public DetailResponse(Event event) {
+        public EventDetailResponse(Event event) {
             this.id = event.getId();
             this.title = event.getTitle();
             this.content = event.getContent();
@@ -56,7 +56,7 @@ public class EventDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Request {
+    public static class EventRequest {
         @NotEmpty
         private String title;
 
