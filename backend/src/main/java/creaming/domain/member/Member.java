@@ -8,6 +8,7 @@ import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.like.Like;
 import creaming.domain.membercoupon.MemberCoupon;
 import creaming.domain.qna.CourseQna;
+import creaming.domain.qna.ProductQna;
 import creaming.domain.register.Register;
 import creaming.domain.review.CourseReview;
 import lombok.*;
@@ -63,6 +64,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Cart> carts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ProductQna> productQnas = new ArrayList<>();
 
     // JPA
     public void addRegister(Register register) {
@@ -133,6 +137,16 @@ public class Member extends BaseTimeEntity {
     public void deleteComment(Comment comment) {
         comments.remove(comment);
         comment.updateMember(null);
+    }
+
+    public void addProductQna(ProductQna productQna) {
+        productQnas.add(productQna);
+        productQna.updateMember(this);
+    }
+
+    public void deleteProductQna(ProductQna productQna) {
+        productQnas.remove(productQna);
+        productQna.updateMember(null);
     }
 
     //////////////////////////////////////
