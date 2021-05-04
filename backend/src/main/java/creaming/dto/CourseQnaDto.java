@@ -21,7 +21,7 @@ public class CourseQnaDto {
         private String title;
         private LocalDateTime date;
         private String content;
-        private boolean isSecret;
+        private Boolean isSecret;
         private List<CourseQnaComment> comments;
 
         public CourseQnaResponse(CourseQna courseQna) {
@@ -51,7 +51,7 @@ public class CourseQnaDto {
         @NotEmpty
         private String content; // TODO editor 로 작업시 수정
         @NotEmpty
-        private boolean isSecret;
+        private Boolean isSecret;
 
         public CourseQna toEntity() {
             return CourseQna.builder()
@@ -72,7 +72,7 @@ public class CourseQnaDto {
         @NotEmpty
         private String content;
         @NotEmpty
-        private boolean isSecret;
+        private Boolean isSecret;
     }
 
     @Getter

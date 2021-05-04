@@ -60,7 +60,7 @@ public class CourseQnaService {
     public void putQna(Long qnaId, CourseQnaDto.CourseQnaPutRequest dto) {
         CourseQna courseQna = courseQnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
-        courseQna.update(dto.getTitle(), dto.getContent(), dto.isSecret());
+        courseQna.update(dto.getTitle(), dto.getContent(), dto.getIsSecret());
     }
 
     @Transactional
