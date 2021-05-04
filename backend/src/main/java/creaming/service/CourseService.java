@@ -50,13 +50,13 @@ public class CourseService {
     }
 
     // 해당 강의의 수강생 출력
-    public List<MemberDto.StudentResponse> getCourseStudents(Long courseId) {
+    public List<MemberDto.MemberStudentResponse> getCourseStudents(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         List<Register> registers = registerRepository.findByCourseId(courseId);
         return registers.stream()
                 .map(Register::getMember)
-                .map(MemberDto.StudentResponse::new)
+                .map(MemberDto.MemberStudentResponse::new)
                 .collect(Collectors.toList());
     }
 

@@ -25,30 +25,30 @@ public class MemberController {
 
 //    @GetMapping
 //    @Operation(summary = "모든 유저 가져오기", description = "Creaming의 모든 유저의 정보를 가져옵니다.")
-//    public ResponseEntity<Page<MemberDto.Response>> getMemberAll(Pageable pageable) {
-//        Page<MemberDto.Response> result = memberService.getMemberAll(pageable);
+//    public ResponseEntity<Page<MemberDto.MemberResponse>> getMemberAll(Pageable pageable) {
+//        Page<MemberDto.MemberResponse> result = memberService.getMemberAll(pageable);
 //        return ResponseEntity.status(HttpStatus.OK).body(result);
 //    }
 
     @GetMapping
     @Operation(summary = "모든 유저 가져오기", description = "Creaming의 모든 유저의 정보를 가져옵니다.")
-    public ResponseEntity<List<MemberDto.Response>> getMemberAll() {
-        List<MemberDto.Response> result = memberService.getMemberAll();
+    public ResponseEntity<List<MemberDto.MemberResponse>> getMemberAll() {
+        List<MemberDto.MemberResponse> result = memberService.getMemberAll();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/{memberId}")
     @Operation(summary = "유저 정보 가져오기", description = "memberId에 해당하는 유저의 정보를 가져옵니다.")
-    public ResponseEntity<MemberDto.Response> getMember(@PathVariable("memberId") Long memberId) {
+    public ResponseEntity<MemberDto.MemberResponse> getMember(@PathVariable("memberId") Long memberId) {
         log.info("(Get) getMember - memberId : {} ", memberId);
-        MemberDto.Response result = memberService.getMember(memberId);
+        MemberDto.MemberResponse result = memberService.getMember(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PutMapping("/{memberId}")
     @Operation(summary = "유저 정보 수정", description = "memberId에 해당하는 유저의 정보를 수정합니다.")
     public ResponseEntity<Void> putMember(@PathVariable("memberId") Long memberId,
-                                       @RequestBody MemberDto.PutRequest dto) {
+                                       @RequestBody MemberDto.MemberPutRequest dto) {
         log.info("(Get) putMember - memberId : {} | nickname : {} | address : {}", memberId, dto.getNickname(), dto.getAddress());
         memberService.putMember(memberId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();

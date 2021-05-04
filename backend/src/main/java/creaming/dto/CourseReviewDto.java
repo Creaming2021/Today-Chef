@@ -17,7 +17,7 @@ public class CourseReviewDto {
     @AllArgsConstructor
     public static class SimpleResponse {
         private Long reviewId;
-        private MemberDto.SimpleProfile profile;
+        private MemberDto.MemberSimpleProfile profile;
         private int rating;
         private String title;
         private String content;
@@ -26,7 +26,7 @@ public class CourseReviewDto {
 
         public SimpleResponse(CourseReview courseReview) {
             this.reviewId = courseReview.getId();
-            this.profile = new MemberDto.SimpleProfile(courseReview.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(courseReview.getMember());
             this.rating = courseReview.getRating();
             this.title = courseReview.getTitle();
             this.content = courseReview.getContent();
@@ -41,7 +41,7 @@ public class CourseReviewDto {
     @AllArgsConstructor
     public static class DetailResponse {
         private Long reviewId;
-        private MemberDto.SimpleProfile profile;
+        private MemberDto.MemberSimpleProfile profile;
         private int rating;
         private String title;
         private String content;
@@ -51,7 +51,7 @@ public class CourseReviewDto {
 
         public DetailResponse(CourseReview courseReview) {
             this.reviewId = courseReview.getId();
-            this.profile = new MemberDto.SimpleProfile(courseReview.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(courseReview.getMember());
             this.rating = courseReview.getRating();
             this.title = courseReview.getTitle();
             this.content = courseReview.getContent();
@@ -70,13 +70,13 @@ public class CourseReviewDto {
     @AllArgsConstructor
     public static class Comment {
         private Long commentId;
-        private MemberDto.SimpleProfile profile;
+        private MemberDto.MemberSimpleProfile profile;
         private String content;
         private LocalDateTime date;
 
         public Comment(ReviewComment reviewComment) {
             this.commentId = reviewComment.getId();
-            this.profile = new MemberDto.SimpleProfile(reviewComment.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(reviewComment.getMember());
             this.content = reviewComment.getContent();
             this.date = reviewComment.getLastModifiedDate();
         }

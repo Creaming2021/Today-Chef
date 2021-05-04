@@ -41,23 +41,23 @@ public class MemberService {
     private final MemberCouponRepository memberCouponRepository;
 
     // 모든 유저의 정보 가져오기 
-    public List<MemberDto.Response> getMemberAll() {
+    public List<MemberDto.MemberResponse> getMemberAll() {
         return memberRepository.findAll()
                 .stream()
-                .map(MemberDto.Response::new)
+                .map(MemberDto.MemberResponse::new)
                 .collect(Collectors.toList());
     }
 
     // 하나의 유저의 정보 가져오기
-    public MemberDto.Response getMember(Long memberId) {
+    public MemberDto.MemberResponse getMember(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
-        return new MemberDto.Response(member);
+        return new MemberDto.MemberResponse(member);
     }
 
     // 유저의 정보 수정하기
     @Transactional
-    public void putMember(Long memberId, MemberDto.PutRequest dto) {
+    public void putMember(Long memberId, MemberDto.MemberPutRequest dto) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         member.update(dto.getNickname(), dto.getAddress(), dto.getPhone());

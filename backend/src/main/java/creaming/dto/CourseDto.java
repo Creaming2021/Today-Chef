@@ -22,7 +22,7 @@ public class CourseDto {
     @AllArgsConstructor
     public static class SimpleResponse {
         private Long courseId;
-        private MemberDto.SimpleProfile profile; // 강사 프로필
+        private MemberDto.MemberSimpleProfile profile; // 강사 프로필
         private String name;
         private String date;
         private String time;
@@ -33,7 +33,7 @@ public class CourseDto {
 
         public SimpleResponse(Course course) {
             this.courseId = course.getId();
-            this.profile = new MemberDto.SimpleProfile(course.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(course.getMember());
             this.name = course.getName();
             this.date = course.getDate();
             this.time = course.getTime();
