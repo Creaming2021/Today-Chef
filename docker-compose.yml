@@ -29,15 +29,3 @@ services:
       - ./backend:/app
     ports: 
       - 8080:8080
-
-  openvidu:
-    build:
-      dockerfile: Dockerfile
-      context: ./openvidu
-    container_name: app_openvidu
-    volumes:
-      - /app/node_modules
-      - ./openvidu:/app
-    stdin_open: true
-    ports:
-      - 3000:3000
