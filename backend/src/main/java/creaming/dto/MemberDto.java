@@ -2,10 +2,9 @@ package creaming.dto;
 
 import creaming.domain.etc.Address;
 import creaming.domain.member.Member;
-import creaming.domain.register.Register;
 import lombok.*;
 
-import java.time.DayOfWeek;
+import javax.validation.constraints.NotEmpty;
 
 
 public class MemberDto {
@@ -15,13 +14,13 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SimpleProfile {
+    public static class MemberSimpleProfile {
         private Long memberId;
         private String nickname;
         private String profileImage;
         private String phone;
 
-        public SimpleProfile(Member member) {
+        public MemberSimpleProfile(Member member) {
             this.memberId = member.getId();
             this.nickname = member.getNickname();
             this.profileImage = member.getProfileImage();
@@ -33,7 +32,7 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class MemberResponse {
 
         private Long memberId;
         private String nickname;
@@ -42,7 +41,7 @@ public class MemberDto {
         private String phone;
         private Address address;
 
-        public Response(Member member) {
+        public MemberResponse(Member member) {
             this.memberId = member.getId();
             this.nickname = member.getNickname();
             this.profileImage = member.getProfileImage();
@@ -57,10 +56,14 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
+    public static class MemberPostRequest {
+        @NotEmpty
         private String email;
+        @NotEmpty
         private String profileImage;
+        @NotEmpty
         private String nickname;
+        @NotEmpty
         private String phone;
     }
 
@@ -68,9 +71,12 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
+    public static class MemberPutRequest {
+        @NotEmpty
         private String nickname;
+        @NotEmpty
         private Address address;
+        @NotEmpty
         private String phone;
     }
 
@@ -78,13 +84,13 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class StudentResponse {
+    public static class MemberStudentResponse {
         private Long memberId;
         private String nickname;
         private String profileImage;
         private String phone;
 
-        public StudentResponse(Member member) {
+        public MemberStudentResponse(Member member) {
             this.memberId = member.getId();
             this.nickname = member.getNickname();
             this.profileImage = member.getProfileImage();

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -34,9 +35,9 @@ public class CourseReviewController {
 
     @GetMapping
     @Operation(summary = "강의 별 모든 리뷰 조회", description = "courseId에 해당하는 모든 리뷰를 가져옵니다.")
-    public ResponseEntity<Page<CourseReviewDto.SimpleResponse>> getReviewAll(@RequestParam("courseId")Long courseId) {
+    public ResponseEntity<List<CourseReviewDto.SimpleResponse>> getReviewAll(@RequestParam("courseId")Long courseId) {
         log.info("(Get) getReviewAll - courseId : {}", courseId);
-        Page<CourseReviewDto.SimpleResponse> result = courseReviewService.getReviewAll(courseId);
+        List<CourseReviewDto.SimpleResponse> result = courseReviewService.getReviewAll(courseId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

@@ -1,6 +1,5 @@
 package creaming.dto;
 
-import creaming.domain.delivery.Delivery;
 import creaming.domain.etc.Address;
 import creaming.domain.register.Register;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,7 @@ public class RegisterDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SimpleResponse {
+    public static class Response {
         private Long registerId;
         private Long courseId;
         private Long memberId;
@@ -28,37 +27,7 @@ public class RegisterDto {
         private Integer paidPrice; // register 의 price
         private LocalDateTime paidDate; // register 의 createdDate
 
-        public SimpleResponse(Register register) {
-            this.registerId = register.getId();
-            this.courseId = register.getCourse().getId();
-            this.memberId = register.getMember().getId();
-            this.course = new CourseDto.SimpleResponse(register.getCourse());
-            this.paidPrice = register.getPrice();
-            this.paidDate = register.getCreatedDate();
-        }
-
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class DetailResponse {
-        private Long registerId;
-        private Long courseId;
-        private Long memberId;
-
-        private CourseDto.SimpleResponse course;
-
-        private Integer paidPrice; // register 의 price
-        private LocalDateTime paidDate; // register 의 createdDate
-
-        private Address address;
-        private String orderNotes;
-        private String deliveryCompany;
-        private String deliveryNumber;
-
-        public DetailResponse(Register register) {
+        public Response(Register register) {
             this.registerId = register.getId();
             this.courseId = register.getCourse().getId();
             this.memberId = register.getMember().getId();
@@ -75,16 +44,10 @@ public class RegisterDto {
     @AllArgsConstructor
     public static class PostRequest {
         private Long courseId;
-        private DayOfWeek dayOfWeek;
-
         private Integer paidPrice;
-
-        private Address address;
-        private String orderNotes;
 
         public Register toEntity() {
             return Register.builder()
-                    .dayOfWeek(this.dayOfWeek)
                     .price(this.paidPrice)
                     .build();
         }

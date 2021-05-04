@@ -2,6 +2,7 @@ package creaming.dto;
 
 import creaming.domain.course.Course;
 import creaming.domain.etc.FoodType;
+import creaming.domain.file.CourseFile;
 import creaming.domain.review.CourseReview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -23,27 +22,28 @@ public class CourseDto {
     @AllArgsConstructor
     public static class SimpleResponse {
         private Long courseId;
-        private MemberDto.SimpleProfile profile; // 강사 프로필
+        private MemberDto.MemberSimpleProfile profile; // 강사 프로필
         private String name;
         private String date;
         private String time;
         private Integer price;
         private Double rating;
-        // TODO : List<CourseFile> Type?
-//        private String image;
+        private String image;
         private FoodType category;
 
         public SimpleResponse(Course course) {
             this.courseId = course.getId();
-            this.profile = new MemberDto.SimpleProfile(course.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(course.getMember());
             this.name = course.getName();
             this.date = course.getDate();
             this.time = course.getTime();
             this.price = course.getPrice();
             this.rating = course.getCourseReviews().stream()
                     .collect(Collectors.averagingInt(CourseReview::getRating));
-            // TODO : file?
-            // this.image
+            List<CourseFile> courseFiles = course.getCourseFiles();
+            if (!courseFiles.isEmpty()) {
+                this.image = courseFiles.get(0).getFileName();
+            }
             this.category = course.getCategory();
         }
     }

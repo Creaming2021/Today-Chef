@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RegisterRepository extends JpaRepository<Register, Long> {
-    List<Register> findByMember(Member member);
-    List<Register> findByCourse(Course course);
+    List<Register> findByMemberId(Long memberId);
+    List<Register> findByCourseId(Long courseId);
 }

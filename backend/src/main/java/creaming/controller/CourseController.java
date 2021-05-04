@@ -47,9 +47,9 @@ public class CourseController {
 
     @Operation(summary = "해당 강의의 수강생 출력", description = "courseId에 해당하는 강의를 수강하는 member 출력")
     @GetMapping("/{courseId}/students")
-    public ResponseEntity<List<MemberDto.StudentResponse>> getCourseStudents(@PathVariable("courseId") Long courseId) {
+    public ResponseEntity<List<MemberDto.MemberStudentResponse>> getCourseStudents(@PathVariable("courseId") Long courseId) {
         log.info("(Get) getCourseStudents - courseId: {}", courseId);
-        List<MemberDto.StudentResponse> result = courseService.getCourseStudents(courseId);
+        List<MemberDto.MemberStudentResponse> result = courseService.getCourseStudents(courseId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

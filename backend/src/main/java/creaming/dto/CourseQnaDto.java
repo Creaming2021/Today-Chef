@@ -17,7 +17,7 @@ public class CourseQnaDto {
     @AllArgsConstructor
     public static class Response {
         private Long qnaId;
-        private MemberDto.SimpleProfile profile;
+        private MemberDto.MemberSimpleProfile profile;
         private String title;
         private LocalDateTime date;
         private String content;
@@ -26,7 +26,7 @@ public class CourseQnaDto {
 
         public Response(CourseQna courseQna) {
             this.qnaId = courseQna.getId();
-            this.profile = new MemberDto.SimpleProfile(courseQna.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(courseQna.getMember());
             this.title = courseQna.getTitle();
             this.date = courseQna.getLastModifiedDate();
             this.content = courseQna.getContent();
@@ -77,13 +77,13 @@ public class CourseQnaDto {
     @AllArgsConstructor
     public static class Comment {
         private Long commentId;
-        private MemberDto.SimpleProfile profile;
+        private MemberDto.MemberSimpleProfile profile;
         private String content;
         private LocalDateTime date;
 
         public Comment(QnaComment qnaComment) {
             this.commentId = qnaComment.getId();
-            this.profile = new MemberDto.SimpleProfile(qnaComment.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(qnaComment.getMember());
             this.content = qnaComment.getContent();
             this.date = qnaComment.getLastModifiedDate();
         }

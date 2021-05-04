@@ -18,6 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -28,9 +31,10 @@ public class CourseReviewService {
     private final CourseRepository courseRepository;
     private final MemberRepository memberRepository;
 
-    public Page<CourseReviewDto.SimpleResponse> getReviewAll(Long courseId) {
-        return courseReviewRepository.findAllByCourseId(courseId)
-                .map(CourseReviewDto.SimpleResponse::new);
+    public List<CourseReviewDto.SimpleResponse> getReviewAll(Long courseId) {
+        return courseReviewRepository.findAllByCourseId(courseId).stream()
+                .map(CourseReviewDto.SimpleResponse::new)
+                .collect(Collectors.toList());
     }
 
     public CourseReviewDto.DetailResponse getReview(Long reviewId) {

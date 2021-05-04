@@ -40,7 +40,7 @@ public class ProductQnaDto {
     @AllArgsConstructor
     public static class ProductQnaResponse {
         private Long productQnaId;
-        private MemberDto.SimpleProfile profile;
+        private MemberDto.MemberSimpleProfile profile;
         private String title;
         private LocalDateTime date;
         private String content;
@@ -50,7 +50,7 @@ public class ProductQnaDto {
 
         public ProductQnaResponse(ProductQna productQna) {
             this.productQnaId = productQna.getId();
-            this.profile = new MemberDto.SimpleProfile(productQna.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(productQna.getMember());
             this.title = productQna.getTitle();
             this.date = productQna.getCreatedDate();
             this.content = productQna.getContent();
