@@ -2,19 +2,18 @@
 
 export default {
   state: {
-    memberInfo: null,
-    couponList: null,
-
+    memberInfo: {},
+    couponList: [],
   },
   mutations: {
-    setMemberInfo(state, payload){
+    SET_MEMBER_INFO(state, payload){
       state.memberInfo = payload;
     },
-    setCouponList(state, payload){
+    SET_COUPON_LIST(state, payload){
       state.couponList = payload;
     }
   },
   actions: {
     
   }
-}
+};

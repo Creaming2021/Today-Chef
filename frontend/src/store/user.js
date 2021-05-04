@@ -3,65 +3,65 @@ import * as user from '@/api/user.js';
 
 export default {
   state: {
-    signStatus : null,
-    userId : null,
-    userNickname : null,
-    authObj: null,
+    signStatus : '',
+    userId : '',
+    userNickname : '',
+    authObj: {},
   },
   mutations: {
-    setAuthObj(state, payload){
+    SET_AUTH_OBJ(state, payload){
       state.authObj = payload;
     },
-    setSignStatus(state, payload){
+    SET_SIGN_STATUS(state, payload){
       state.signStatus = payload;
     },
-    setSignIn(state, payload) {
+    SET_SIGN_IN(state, payload) {
       console.log(payload);
 
       state.signStatus = 'signIn';
       // state.userId = payload.id;
       state.userNickname = payload.profile.nickname;
     },
-    setSignOut(state){
+    SET_SIGN_OUT(state){
       state.signStatus = null;
       state.userId = null;
       state.userEmail = null;
     },
   },
   actions: {
-    getKakaoInfo : function(context) {
+    GET_KAKAO_INFO({ commit, dispatch }) {
       kakao.getKakaoLogIn()
         .then(authObj => {
-          context.commit('setAuthObj', authObj);
-          context.dispatch('setSignIn', authObj);
+          commit('SET_AUTH_OBJ', authObj);
+          dispatch('SET_SIGN_IN', authObj);
         });
     },
-    signIn : function(context, authObj) {
+    SIGN_IN({ commit }, authObj) {
       user.signIn(authObj.id)
-        .then((dbResult) => {
-          if(dbResult){
+        .then(({ data }) => {
+          if(data){
             sessionStorage.setItem('access_token', authObj.auth.access_token);
             sessionStorage.setItem('refresh_token', authObj.auth.refresh_token);
-            context.commit('setSignIn', authObj.account);
+            commit('SET_SIGN_IN', data);
           } else {
-            context.commit('setSignStatus', 'signUp');
+            commit('SET_SIGN_STATUS', 'signUp');
           }
         })
         .catch(e => {
           console.log(e);
         });
     },
-    signUp : function(context, userInfo) {
+    SIGN_UP({ dispatch }, userInfo) {
       user.signUp(userInfo)
         .then(() => {
           sessionStorage.setItem('access_token', context.state.authObj.auth.access_token);
           sessionStorage.setItem('refresh_token', context.state.authObj.auth.refresh_token);
-          context.dispatch('setSignIn', context.state.authObj);
+          dispatch('SET_SIGN_IN', context.state.authObj);
         });
     },
-    signOut : function(context) {
+    SIGN_OUT({ commit }) {
       sessionStorage.clear();
-      context.commit('setSignOut');
+      commit('SET_SIGN_OUT');
     },
   },
 };

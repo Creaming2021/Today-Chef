@@ -2,98 +2,109 @@ import * as qna from '@/api/qna.js';
 
 export default {
   state: {
-    qnaList: null,
-    qna: null,
-    commentList: null,
+    qnaList: [],
+    qna: {},
+    commentList: [],
   },
   mutations: {
-    setQnaList(state, payload){
+    SET_QNA_LIST(state, payload){
       state.qnaList = payload;
     },
-    setQna(state, payload){
+    SET_QNA(state, payload){
       state.qna = payload;
     },
-    setCommentList(state, payload){
+    SET_COMMENT_LIST(state, payload){
       state.commentList = payload;
     },
   },
   actions: {
-    getQnaList: function(context, request){
+    GET_QNA_LIST: function({ commit }, request){
       qna.getQnaList(request)
-       .then((result) => {
-         if(result){
-          context.commit('setQnaList', result);
+       .then(({ data }) => {
+         if(data){
+          commit('SET_QNA_LIST', data);
          } else {
-          console.log(result);
+          console.log(data);
          }
        })
-       .catch(e => { console.log(e); })
+       .catch(e => { console.log(e); });
     },
-    postQna: function(context, request){
+    POST_QNA: function({ dispatch }, request){
       qna.postQna(request)
-       .then((result) => {
-         if(result){
-          context.dispatch('getQnaList', request);
+       .then(({ data }) => {
+         if(data){
+          dispatch('GET_QNA_LIST', request);
          } else {
-          console.log(result);
+          console.log(data);
          }
        })
-       .catch(e => { console.log(e); })
+       .catch(e => { console.log(e); });
     },
-    putQna: function(context, request){
+    PUT_QNA: function({ dispatch }, request){
       qna.putQna(request)
-       .then((result) => {
-         if(result){
-          context.dispatch('getQnaList', request);
+       .then(({ data }) => {
+         if(data){
+          dispatch('GET_QNA_LIST', request);
          } else {
-          console.log(result);
+          console.log(data);
          }
        })
-       .catch(e => { console.log(e); })
+       .catch(e => { console.log(e); });
     },
-    deleteQna: function(context, request){
+    DELETE_QNA: function({ dispatch }, request){
       qna.deleteQna(request)
-       .then((result) => {
-         if(result){
-          context.dispatch('getQnaList', request);
+       .then(({ data }) => {
+         if(data){
+          dispatch('GET_QNA_LIST', request);
          } else {
-          console.log(result);
+          console.log(data);
          }
        })
-       .catch(e => { console.log(e); })
+       .catch(e => { console.log(e); });
     },
-    postQnaComment: function(context, request){
+    GET_QNA_COMMENT_LIST: function({ commit }, request){
+      qna.getQnaCommentList(request)
+       .then(({ data }) => {
+         if(data){
+          commit('SET_COMMENT_LIST', data);
+         } else {
+          console.log(data);
+         }
+       })
+       .catch(e => { console.log(e); });
+    },
+    POST_QNA_COMMENT: function({ dispatch }, request){
       qna.postQnaComment(request)
-       .then((result) => {
-         if(result){
-          context.dispatch('getQnaList', request);
+       .then(({ data }) => {
+         if(data){
+          dispatch('GET_QNA_LIST', request);
          } else {
-          console.log(result);
+          console.log(data);
          }
        })
-       .catch(e => { console.log(e); })
+       .catch(e => { console.log(e); });
     },
-    putQnaComment: function(context, request){
+    PUT_QNA_COMMENT: function({ dispatch }, request){
       qna.putQnaComment(request)
-       .then((result) => {
-         if(result){
-          context.dispatch('getQnaList', request);
+       .then(({ data }) => {
+         if(data){
+          dispatch('GET_QNA_LIST', request);
          } else {
-          console.log(result);
+          console.log(data);
          }
        })
-       .catch(e => { console.log(e); })
+       .catch(e => { console.log(e); });
     },
-    deleteQnaComment: function(context, request){
+    DELETE_QNA_COMMENT: function({ dispatch }, request){
       qna.deleteQnaComment(request)
-       .then((result) => {
-         if(result){
-          context.dispatch('getQnaList', request);
+       .then(({ data }) => {
+         if(data){
+          dispatch('GET_QNA_LIST', request);
          } else {
-          console.log(result);
+          console.log(data);
          }
        })
-       .catch(e => { console.log(e); })
+       .catch(e => { console.log(e); });
     },
-  }
-}
+  },
+};

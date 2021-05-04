@@ -2,56 +2,54 @@ import * as event from '@/api/event.js';
 
 export default {
   state: {
-    eventList: null,
-    event: null,
+    eventList: [],
+    event: {},
   },
   mutations: {
-    setEventList(state, payload){
+    SET_EVENT_LIST(state, payload){
       state.eventList = payload;
     },
-    setEvent(state, payload){
+    SET_EVENT(state, payload){
       state.eventDetail = payload;
     },
   },
   actions: {
-    getEventList: function(context, request) {
+    GET_EVENT_LIST: function({ commit }, request) {
       event.getEventList(request)
-        .then((result) => {
-          if(result){
-            context.commit('setEventList', result);
+        .then(({ data }) => {
+          if(data){
+            commit('SET_EVENT_LIST', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    getEvent: function(context, request) {
+    GET_EVENT: function({ commit }, request) {
       event.getEvent(request)
-        .then((result) => {
-          if(result){
-            context.commit('setEvent', result);
-            context.dispatch('postEventImage', request);
+        .then(({ data }) => {
+          if(data){
+            commit('SET_EVENT', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    postEventImage: function(context, request) {
+    POST_EVENT_IMAGE: function({ commit }, request) {
       event.postEventImage(request)
-        .then((result) => {
-          if(result){
-            context.commit(
-              'setEvent', 
+        .then(({ data }) => {
+          if(data){
+            commit('SET_EVENT', 
               {
                 ...event,
-                image: result,
+                image: data,
               });
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-  }
-}
+  },
+};

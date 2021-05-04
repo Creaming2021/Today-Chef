@@ -2,109 +2,109 @@ import * as review from '@/api/review.js';
 
 export default {
   state: {
-    reviewList: null,
-    review: null,
-    commentList: null,
+    reviewList: [],
+    review: {},
+    commentList: [],
   },
   mutations: {
-    setReviewList(state, payload){
+    SET_REVIEW_LIST(state, payload){
       state.reviewList = payload;
     },
-    setReview(state, payload){
+    SET_REVIEW(state, payload){
       state.review = payload;
     },
-    setCommentList(state, payload){
+    SET_COMMENT_LIST(state, payload){
       state.commentList = payload;
     }
   },
   actions: {
-    getReviewList: function(context, request){
+    GET_REVIEW_LIST: function({ commit }, request){
       review.getReviewList(request)
-        .then((result) => {
-          if(result){
-            context.commit('setReviewList', result);
+        .then(({ data }) => {
+          if(data){
+            commit('SET_REVIEW_LIST', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    postReview: function(context, request){
+    POST_REVIEW: function({ dispatch }, request){
       review.postReview(request)
-        .then((result) => {
-          if(result){
-            context.dispatch('getReview', result);
+        .then(({ data }) => {
+          if(data){
+            dispatch('SET_REVIEW', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    getReview: function(context, request){
+    GET_REVIEW: function({ commit }, request){
       review.getReview(request)
-        .then((result) => {
-          if(result){
-            context.commit('setReview', result);
+        .then(({ data }) => {
+          if(data){
+            commit('SET_REVIEW', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    putReview: function(context, request){
+    PUT_REVIEW: function({ dispatch }, request){
       review.putReview(request)
-        .then((result) => {
-          if(result){
-            context.dispatch('getReview', result);
+        .then(({ data }) => {
+          if(data){
+            dispatch('GET_REVIEW', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    getReviewComment: function(context, request){
+    GET_REVIEW_COMMENT_LIST: function({ dispatch }, request){
       review.getReviewComment(request)
-        .then((result) => {
-          if(result){
-            context.dispatch('setCommentList', result);
+        .then(({ data }) => {
+          if(data){
+            dispatch('SET_COMMENT_LIST', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    postReviewComment: function(context, request){
+    POST_REVIEW_COMMENT: function({ dispatch }, request){
       review.postReviewComment(request)
-        .then((result) => {
-          if(result){
-            context.dispatch('getReviewComment', result);
+        .then(({ data }) => {
+          if(data){
+            dispatch('GET_REVIEW_COMMENT_LIST', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    putReviewComment: function(context, request){
+    PUT_REVIEW_COMMENT: function({ dispatch }, request){
       review.putReviewComment(request)
-        .then((result) => {
-          if(result){
-            context.dispatch('getReviewComment', result);
+        .then(({ data }) => {
+          if(data){
+            dispatch('GET_REVIEW_COMMENT_LIST', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    deleteReviewComment: function(context, request){
+    DELETE_REVIEW_COMMENT: function({ dispatch }, request){
       review.deleteReviewComment(request)
-        .then((result) => {
-          if(result){
-            context.dispatch('getReviewComment', result);
+        .then(({ data }) => {
+          if(data){
+            dispatch('GET_REVIEW_COMMENT_LIST', data);
           } else {
-            console.log(result);
+            console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-  }
-}
+  },
+};
