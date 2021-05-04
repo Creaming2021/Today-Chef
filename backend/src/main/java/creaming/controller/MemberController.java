@@ -150,6 +150,7 @@ public class MemberController {
     @GetMapping("/{memberId}/courses/like")
     @Operation(summary = "좋아요한 강의 가져오기", description = "memberId가 좋아요한 강의들을 가져옵니다.")
     public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseLike(@PathVariable("memberId") Long memberId) {
+        log.info("(Get) getCourseLike - memberId : {}", memberId);
         List<CourseDto.CourseSimpleResponse> result = memberService.getCourseLike(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -157,6 +158,7 @@ public class MemberController {
     @GetMapping("/{memberId}/products/like")
     @Operation(summary = "좋아요한 키트 가져오기", description = "memberId가 좋아요한 키트들을 가져옵니다.")
     public ResponseEntity<List<ProductDto.ProductSimpleResponse>> getProductLike(@PathVariable("memberId") Long memberId) {
+        log.info("(Get) getProductLike - memberId : {}", memberId);
         List<ProductDto.ProductSimpleResponse> result = memberService.getProductLike(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
@@ -166,6 +168,7 @@ public class MemberController {
     @Operation(summary = "좋아요 토글", description = "좋아요 상태를 토글합니다.")
     public ResponseEntity<Void> toggleLike(@PathVariable("memberId") Long memberId,
                                         @PathVariable("courseId") Long courseId) {
+        log.info("(Put) toggleLike - memberId : {}, courseId : {}", memberId, courseId);
         memberService.toggleLike(memberId, courseId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -174,6 +177,7 @@ public class MemberController {
     @GetMapping("/{memberId}/carts")
     @Operation(summary = "장바구니 목록 가져오기", description = "memberId의 장바구니 목록을 가져옵니다.")
     public ResponseEntity<List<CartDto.CartResponse>> getCarts(@PathVariable("memberId") Long memberId) {
+        log.info("(Get) getCarts - memberId : {}", memberId);
         List<CartDto.CartResponse> result = memberService.getCarts(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
