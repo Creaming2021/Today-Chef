@@ -42,7 +42,7 @@ public class CourseQnaController {
     @PostMapping
     public ResponseEntity<Long> postQna(@RequestBody @Valid CourseQnaDto.CourseQnaPostRequest dto) {
         log.info("(Post) postQna - memberId: {} | courseId: {} | title: {} | content: {} | isSecret: {}",
-                dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.isSecret());
+                dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.getIsSecret());
         return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.postQna(dto));
     }
 
@@ -51,7 +51,7 @@ public class CourseQnaController {
     public ResponseEntity<Void> putQna(@PathVariable Long qnaId,
                                     @RequestBody @Valid CourseQnaDto.CourseQnaPutRequest dto) {
         log.info("(Put) putQna - qnaId: {} | title: {} | content: {} | isSecret: {}",
-                qnaId, dto.getTitle(), dto.getContent(), dto.isSecret());
+                qnaId, dto.getTitle(), dto.getContent(), dto.getIsSecret());
         courseQnaService.putQna(qnaId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
