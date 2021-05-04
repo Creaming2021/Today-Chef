@@ -17,7 +17,7 @@ public class CouponDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class CouponResponse {
         private Long couponId;
         private String name;
         private String content;
@@ -25,7 +25,7 @@ public class CouponDto {
         private LocalDateTime expiredDate;
         private CouponStatus couponStatus;
 
-        public Response(MemberCoupon memberCoupon) {
+        public CouponResponse(MemberCoupon memberCoupon) {
             this.couponId = memberCoupon.getCoupon().getId();
             this.name = memberCoupon.getCoupon().getName();
             this.content = memberCoupon.getCoupon().getContent();
@@ -39,7 +39,7 @@ public class CouponDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
+    public static class CouponPostRequest {
         @NotEmpty
         private String name;
         @NotEmpty

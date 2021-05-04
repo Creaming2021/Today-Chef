@@ -64,7 +64,7 @@ public class CourseReview extends BaseTimeEntity {
     }
     /////////////////////////////////////////
 
-    public CourseReview(CourseReviewDto.PostRequest dto, Member member, Course course) {
+    public CourseReview(CourseReviewDto.CourseReviewPostRequest dto, Member member, Course course) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.rating = dto.getRating();

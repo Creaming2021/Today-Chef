@@ -6,16 +6,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 public class ProductQnaDto {
 
     @Getter
     public static class ProductQnaPostRequest {
+        @NotEmpty
         private Long productId;
+        @NotEmpty
         private Long userId;
+        @NotEmpty
         private String title;
+        @NotEmpty
         private String content;
+        @NotEmpty
         private Boolean isSecret;
 
         public ProductQna toEntity() {
@@ -29,8 +35,11 @@ public class ProductQnaDto {
 
     @Getter
     public static class ProductQnaPutRequest {
+        @NotEmpty
         private String title;
+        @NotEmpty
         private String content;
+        @NotEmpty
         private Boolean isSecret;
     }
 

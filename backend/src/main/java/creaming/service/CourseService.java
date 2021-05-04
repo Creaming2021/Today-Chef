@@ -29,23 +29,23 @@ public class CourseService {
     private final RegisterRepository registerRepository;
 
     // 모든 강의 페이징 처리 후 출력
-//    public Page<CourseDto.SimpleResponse> getCourseAll(Pageable pageable) {
+//    public Page<CourseDto.CourseSimpleResponse> getCourseAll(Pageable pageable) {
 //        return courseRepository.findAll(pageable)
-//                .map(CourseDto.SimpleResponse::new);
+//                .map(CourseDto.CourseSimpleResponse::new);
 //    }
 
     // 모든 강의 페이징 없이 출력
-    public List<CourseDto.SimpleResponse> getCourseAll() {
+    public List<CourseDto.CourseSimpleResponse> getCourseAll() {
         return courseRepository.findAll()
                 .stream()
-                .map(CourseDto.SimpleResponse::new)
+                .map(CourseDto.CourseSimpleResponse::new)
                 .collect(Collectors.toList());
     }
 
     // 강의 하나 출력
-    public CourseDto.DetailResponse getCourse(Long courseId) {
+    public CourseDto.CourseDetailResponse getCourse(Long courseId) {
         return courseRepository.findById(courseId)
-                .map(CourseDto.DetailResponse::new)
+                .map(CourseDto.CourseDetailResponse::new)
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
     }
 
@@ -62,7 +62,7 @@ public class CourseService {
 
     // 강의 제작
     @Transactional
-    public Long postCourse(CourseDto.PostRequest dto) {
+    public Long postCourse(CourseDto.CoursePostRequest dto) {
         Member member = memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         Course course = dto.toEntity();
@@ -72,7 +72,7 @@ public class CourseService {
 
     // 강의 수정
     @Transactional
-    public void putCourse(Long courseId, CourseDto.PutRequest dto) {
+    public void putCourse(Long courseId, CourseDto.CoursePutRequest dto) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         course.update(dto);
