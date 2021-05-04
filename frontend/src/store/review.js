@@ -18,7 +18,7 @@ export default {
     }
   },
   actions: {
-    GET_REVIEW_LIST: function({ commit }, request){
+    GET_REVIEW_LIST({ commit }, request){
       review.getReviewList(request)
         .then(({ data }) => {
           if(data){
@@ -29,7 +29,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    POST_REVIEW: function({ dispatch }, request){
+    POST_REVIEW({ dispatch }, request){
       review.postReview(request)
         .then(({ data }) => {
           if(data){
@@ -40,7 +40,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    GET_REVIEW: function({ commit }, request){
+    GET_REVIEW({ commit }, request){
       review.getReview(request)
         .then(({ data }) => {
           if(data){
@@ -51,7 +51,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    PUT_REVIEW: function({ dispatch }, request){
+    PUT_REVIEW({ dispatch }, request){
       review.putReview(request)
         .then(({ data }) => {
           if(data){
@@ -62,7 +62,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    GET_REVIEW_COMMENT_LIST: function({ dispatch }, request){
+    GET_REVIEW_COMMENT_LIST({ dispatch }, request){
       review.getReviewComment(request)
         .then(({ data }) => {
           if(data){
@@ -73,7 +73,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    POST_REVIEW_COMMENT: function({ dispatch }, request){
+    POST_REVIEW_COMMENT({ dispatch }, request){
       review.postReviewComment(request)
         .then(({ data }) => {
           if(data){
@@ -84,7 +84,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    PUT_REVIEW_COMMENT: function({ dispatch }, request){
+    PUT_REVIEW_COMMENT({ dispatch }, request){
       review.putReviewComment(request)
         .then(({ data }) => {
           if(data){
@@ -95,7 +95,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    DELETE_REVIEW_COMMENT: function({ dispatch }, request){
+    DELETE_REVIEW_COMMENT({ dispatch }, request){
       review.deleteReviewComment(request)
         .then(({ data }) => {
           if(data){

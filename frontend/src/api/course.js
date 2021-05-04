@@ -1,5 +1,16 @@
 import { basic, image } from '@/api/user.js';
 
+export const getCourse = async ( courseId ) => {
+	basic.get(`courses`, 
+		{
+			params : {
+				courseId,
+			}
+		})
+		.then(res => res)
+		.catch(e => { console.log(e); });
+}
+
 export const postCourse = async ( course ) => {
 	basic.post('courses', course)
 		.then(res => res)

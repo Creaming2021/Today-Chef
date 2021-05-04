@@ -4,7 +4,7 @@ export default {
   state: {
     qnaList: [],
     qna: {},
-    commentList: [],
+    // commentList: [],
   },
   mutations: {
     SET_QNA_LIST(state, payload){
@@ -13,12 +13,12 @@ export default {
     SET_QNA(state, payload){
       state.qna = payload;
     },
-    SET_COMMENT_LIST(state, payload){
-      state.commentList = payload;
-    },
+    // SET_COMMENT_LIST(state, payload){
+    //   state.commentList = payload;
+    // },
   },
   actions: {
-    GET_QNA_LIST: function({ commit }, request){
+    GET_QNA_LIST({ commit }, request){
       courseQna.getQnaList(request)
        .then(({ data }) => {
          if(data){
@@ -29,7 +29,7 @@ export default {
        })
        .catch(e => { console.log(e); });
     },
-    POST_QNA: function({ dispatch }, request){
+    POST_QNA({ dispatch }, request){
       courseQna.postQna(request)
        .then(({ data }) => {
          if(data){
@@ -40,7 +40,7 @@ export default {
        })
        .catch(e => { console.log(e); });
     },
-    PUT_QNA: function({ dispatch }, request){
+    PUT_QNA({ dispatch }, request){
       courseQna.putQna(request)
        .then(({ data }) => {
          if(data){
@@ -51,7 +51,7 @@ export default {
        })
        .catch(e => { console.log(e); });
     },
-    DELETE_QNA: function({ dispatch }, request){
+    DELETE_QNA({ dispatch }, request){
       courseQna.deleteQna(request)
        .then(({ data }) => {
          if(data){
@@ -62,18 +62,18 @@ export default {
        })
        .catch(e => { console.log(e); });
     },
-    GET_QNA_COMMENT_LIST: function({ commit }, request){
-      courseQna.getQnaCommentList(request)
-       .then(({ data }) => {
-         if(data){
-          commit('SET_COMMENT_LIST', data);
-         } else {
-          console.log(data);
-         }
-       })
-       .catch(e => { console.log(e); });
-    },
-    POST_QNA_COMMENT: function({ dispatch }, request){
+    // GET_QNA_COMMENT_LIST ({ commit }, request){
+    //   courseQna.getQnaCommentList(request)
+    //    .then(({ data }) => {
+    //      if(data){
+    //       commit('SET_COMMENT_LIST', data);
+    //      } else {
+    //       console.log(data);
+    //      }
+    //    })
+    //    .catch(e => { console.log(e); });
+    // },
+    POST_QNA_COMMENT({ dispatch }, request){
       courseQna.postQnaComment(request)
        .then(({ data }) => {
          if(data){
@@ -84,7 +84,7 @@ export default {
        })
        .catch(e => { console.log(e); });
     },
-    PUT_QNA_COMMENT: function({ dispatch }, request){
+    PUT_QNA_COMMENT({ dispatch }, request){
       courseQna.putQnaComment(request)
        .then(({ data }) => {
          if(data){
@@ -95,7 +95,7 @@ export default {
        })
        .catch(e => { console.log(e); });
     },
-    DELETE_QNA_COMMENT: function({ dispatch }, request){
+    DELETE_QNA_COMMENT({ dispatch }, request){
       courseQna.deleteQnaComment(request)
        .then(({ data }) => {
          if(data){

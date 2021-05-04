@@ -17,11 +17,11 @@ export const postQna = async ( qna ) => {
     .catch(e => { console.log(e); });
 }
 
-export const getQna = async ( qnaId ) => {
-  basic.get(`course-qna/${qnaId}`)
-    .then(res => res)
-    .catch(e => { console.log(e); });
-}
+// export const getQna = async ( qnaId ) => {
+//   basic.get(`course-qna/${qnaId}`)
+//     .then(res => res)
+//     .catch(e => { console.log(e); });
+// }
 
 export const putQna = async ( qna ) => {
   basic.put(
@@ -44,11 +44,11 @@ export const deleteQna = async ( qnaId ) => {
     .catch(e => { console.log(e); });
 }
 
-export const getQnaCommentList = async ( qnaId ) => {
-  basic.get(`course-qna/${qnaId}/comments`)
-    .then(res => res)
-    .catch(e => { console.log(e); });
-}
+// export const getQnaCommentList = async ( qnaId ) => {
+//   basic.get(`course-qna/${qnaId}/comments`)
+//     .then(res => res)
+//     .catch(e => { console.log(e); });
+// }
 
 export const postQnaComment = async ( qna ) => {
   basic.post(

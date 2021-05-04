@@ -41,6 +41,12 @@ export const putReview = async ( review ) => {
     .catch(e => { console.log(e); });
 }
 
+export const getReviewComment = async ( reviewId ) => {
+  basic.post(`course-reviews/${reviewId}/comments`)
+    .then(res => res)
+    .catch(e => { console.log(e); });
+}
+
 export const postReviewComment = async ( review ) => {
   basic.post(`course-reviews/${review.reviewId}/comments`,
     {

@@ -12,6 +12,8 @@ export default {
         'https://i.pinimg.com/564x/0e/ef/38/0eef38624526b44f1741e7b663179125.jpg',
         'https://dimg.donga.com/ugc/CDB/WOMAN/Article/5f/f8/06/41/5ff806410c12d2738de6.jpg',
       ],
+      introduction: '',
+      kit: '',
     },
     studentList: [],
   },
@@ -27,8 +29,8 @@ export default {
     }
   },
   actions: {
-    GET_COURSE: function({ commit }, request){
-      course.postCourse(request)
+    GET_COURSE({ commit }, request){
+      course.getCourse(request)
         .then(({ data }) => {
           if(data){
             commit('SET_COURSE', data);
@@ -38,7 +40,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    POST_COURSE: function({ dispatch }, request) {
+    POST_COURSE({ dispatch }, request) {
       course.postCourse(request)
         .then(({ data }) => {
           if(data){
@@ -49,7 +51,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    PUT_COURSE: function({ dispatch }, request) {
+    PUT_COURSE({ dispatch }, request) {
       course.putCourse(request)
         .then(({ data }) => {
           if(data){
@@ -60,7 +62,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    DELETE_COURSE: function({ dispatch }, request) {
+    DELETE_COURSE({ dispatch }, request) {
       course.deleteCourse(request)
         .then(({ data }) => {
           if(data){
@@ -71,7 +73,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    POST_COURSE_IMAGE: function({ dispatch }, request) {
+    POST_COURSE_IMAGE({ dispatch }, request) {
       course.postCourseImage(request)
         .then(({ data }) => {
           if(data){
@@ -82,7 +84,7 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    GET_COURSE_STUDENT_LIST: function({ commit }, request) {
+    GET_COURSE_STUDENT_LIST({ commit }, request) {
       course.getCourseStudents(request)
         .then(({ data }) => {
           if(data){

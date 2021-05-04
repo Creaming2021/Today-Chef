@@ -14,8 +14,8 @@ export default {
     },
   },
   actions: {
-    GET_EVENT_LIST: function({ commit }, request) {
-      event.getEventList(request)
+    GET_EVENT_LIST({ commit }) {
+      event.getEventList()
         .then(({ data }) => {
           if(data){
             commit('SET_EVENT_LIST', data);
@@ -25,7 +25,18 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    GET_EVENT: function({ commit }, request) {
+    POST_EVENT({ dispatch }, request) {
+      event.postEvent(request)
+        .then(({ data }) => {
+          if(data){
+            dispatch('GET_EVENT', data);
+          } else {
+            console.log(data);
+          }
+        })
+        .catch(e => { console.log(e); });
+    },
+    GET_EVENT({ commit }, request) {
       event.getEvent(request)
         .then(({ data }) => {
           if(data){
@@ -36,7 +47,29 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
-    POST_EVENT_IMAGE: function({ commit }, request) {
+    PUT_EVENT({ dispatch }, request) {
+      event.putEvent(request)
+        .then(({ data }) => {
+          if(data){
+            dispatch('GET_EVENT', data);
+          } else {
+            console.log(data);
+          }
+        })
+        .catch(e => { console.log(e); });
+    },
+    DELETE_EVENT({ dispatch }, request) {
+      event.deleteEvent(request)
+        .then(({ data }) => {
+          if(data){
+            dispatch('', data);
+          } else {
+            console.log(data);
+          }
+        })
+        .catch(e => { console.log(e); });
+    },
+    POST_EVENT_IMAGE({ commit }, request) {
       event.postEventImage(request)
         .then(({ data }) => {
           if(data){
