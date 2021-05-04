@@ -3,7 +3,8 @@
     <ItemThumbnail
       :item="item"/>
     <div class="row">
-      <ItemDetailMain/>
+      <ItemDetailMain
+        :item="item"/>
       <ItemRightbar 
         :item="item"
         :courseInfo="courseInfo"

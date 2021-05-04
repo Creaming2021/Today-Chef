@@ -1,14 +1,18 @@
 <template>
   <div class="col-lg-9 course-detail-main-container">
     <div class="tab">
-      <span @click="onChangeType('introduction')">클래스 소개</span> |
+      <span v-if="this.item === 'course'" @click="onChangeType('introduction')">클래스 소개</span> |
       <span @click="onChangeType('kit')">키트 소개</span> |
       <span @click="onChangeType('review')">리뷰</span> |
       <span @click="onChangeType('qna')">QnA</span> |
       <span @click="onChangeType('refund')">한불 정책</span>
     </div>
-    <ItemIntroduction v-if="this.type === 'introduction'"/>
-    <ItemKit v-else-if="this.type === 'kit'"/>
+    <ItemIntroduction 
+      v-if="this.type === 'introduction'"
+      :item="item"/>
+    <ItemKit 
+      v-else-if="this.type === 'kit'"
+      :item="item"/>
     <List 
       v-else-if="this.type === 'review'"
       :type="type"
@@ -40,7 +44,7 @@ export default {
   data() {
     return {
       id: null,
-      type: 'introduction',
+      type: '',
       pageTotal: 8,
       currentPage: 1,
       reviewList: [
@@ -172,6 +176,9 @@ export default {
         }
       ],
     }
+  },
+  props: {
+    item: String,
   },
   computed: {
     ...mapState(['course']),

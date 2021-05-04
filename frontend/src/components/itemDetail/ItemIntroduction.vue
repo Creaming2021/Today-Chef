@@ -13,7 +13,9 @@ export default {
     'viewer': Viewer
   },
   computed: {
-    ...mapState(['course']),
+    ...mapState({
+      course: state => state.course.course,
+    }),
   },
 }
 </script>
