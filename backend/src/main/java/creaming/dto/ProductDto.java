@@ -20,7 +20,7 @@ public class ProductDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class SimpleResponse {
+    public static class ProductSimpleResponse {
         private Long id;
         private String name;
         private Integer price;
@@ -28,7 +28,7 @@ public class ProductDto {
         private Double rating;
         private String image;
 
-        public SimpleResponse(Product product) {
+        public ProductSimpleResponse(Product product) {
             this.id = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();
@@ -44,7 +44,7 @@ public class ProductDto {
 
     @Getter
     @NoArgsConstructor
-    public static class DetailResponse {
+    public static class ProductDetailResponse {
         private Long id;
         private String name;
         private Integer price;
@@ -55,7 +55,7 @@ public class ProductDto {
         private List<Long> courses;
         private Integer like;
 
-        public DetailResponse(Product product) {
+        public ProductDetailResponse(Product product) {
             this.id = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();
@@ -72,7 +72,7 @@ public class ProductDto {
     }
 
     @Getter
-    public static class Request {
+    public static class ProductRequest {
         private String name;
         private Integer price;
         private FoodType category;

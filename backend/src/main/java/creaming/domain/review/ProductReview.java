@@ -1,9 +1,6 @@
 package creaming.domain.review;
 
-import creaming.domain.comment.ReviewComment;
-import creaming.domain.course.Course;
 import creaming.domain.etc.BaseTimeEntity;
-import creaming.domain.file.CourseReviewFile;
 import creaming.domain.file.ProductReviewFile;
 import creaming.domain.member.Member;
 import creaming.domain.product.Product;
@@ -51,7 +48,7 @@ public class ProductReview extends BaseTimeEntity {
         this.member = member;
     }
 
-    public Long update(ProductReviewDto.PutRequest dto) {
+    public Long update(ProductReviewDto.ProductReviewPutRequest dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.rating = dto.getRating();

@@ -19,14 +19,14 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<ProductDto.SimpleResponse> getProductList() {
+    public List<ProductDto.ProductSimpleResponse> getProductList() {
         return productRepository.findAll().stream()
-                .map(ProductDto.SimpleResponse::new)
+                .map(ProductDto.ProductSimpleResponse::new)
                 .collect(Collectors.toList());
     }
 
-    public ProductDto.DetailResponse getProductDetail(Long id) {
-        return new ProductDto.DetailResponse(productRepository.findById(id)
+    public ProductDto.ProductDetailResponse getProductDetail(Long id) {
+        return new ProductDto.ProductDetailResponse(productRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND)));
     }
 
@@ -35,11 +35,11 @@ public class ProductService {
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND)));
     }
 
-    public Long postProduct(ProductDto.Request dto) {
+    public Long postProduct(ProductDto.ProductRequest dto) {
         return productRepository.save(dto.toEntity()).getId();
     }
 
-    public Long putProduct(Long id, ProductDto.Request dto) {
+    public Long putProduct(Long id, ProductDto.ProductRequest dto) {
         Product product = productRepository.findById(id).orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
         product.update(dto);
         return product.getId();

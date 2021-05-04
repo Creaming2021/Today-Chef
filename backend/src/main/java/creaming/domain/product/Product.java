@@ -6,14 +6,10 @@ import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.etc.FoodType;
 import creaming.domain.file.ProductFile;
 import creaming.domain.like.ProductLike;
-import creaming.domain.order.Order;
 import creaming.domain.orderdetail.OrderDetail;
-import creaming.domain.qna.CourseQna;
 import creaming.domain.qna.ProductQna;
-import creaming.domain.review.CourseReview;
 import creaming.domain.review.ProductReview;
 import creaming.dto.ProductDto;
-import creaming.dto.ProductReviewDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -124,7 +120,7 @@ public class Product extends BaseTimeEntity {
         productReview.updateProduct(null);
     }
 
-    public void update(ProductDto.Request dto) {
+    public void update(ProductDto.ProductRequest dto) {
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.category = dto.getCategory();
