@@ -26,21 +26,21 @@ public class CourseController {
 
 //    @Operation(summary = "모든 강의 페이징 처리 후 출력", description = "페이지 설정정보를 받아서 모든 강의를 출력합니다")
 //    @GetMapping("")
-//    public ResponseEntity<Page<CourseDto.SimpleResponse>> getCourseAll(Pageable pageable) {
+//    public ResponseEntity<Page<CourseDto.CourseSimpleResponse>> getCourseAll(Pageable pageable) {
 //        log.info("(Get) getCourseAll - Pageable");
 //        return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourseAll(pageable));
 //    }
 
     @Operation(summary = "모든 강의 페이징 없이 출력", description = "모든 강의를 출력합니다")
     @GetMapping
-    public ResponseEntity<List<CourseDto.SimpleResponse>> getCourseAll() {
+    public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseAll() {
         log.info("(Get) getCourseAll - No Pageable");
         return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourseAll());
     }
 
     @Operation(summary = "강의 하나 출력", description = "courseId에 해당하는 강의 정보를 출력합니다")
     @GetMapping("/{courseId}")
-    public ResponseEntity<CourseDto.DetailResponse> getCourse(@PathVariable("courseId") Long courseId) {
+    public ResponseEntity<CourseDto.CourseDetailResponse> getCourse(@PathVariable("courseId") Long courseId) {
         log.info("(Get) getCourse - courseId: {}", courseId);
         return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourse(courseId));
     }
@@ -55,7 +55,7 @@ public class CourseController {
 
     @Operation(summary = "강의 제작", description = "강의를 제작합니다")
     @PostMapping
-    public ResponseEntity<Long> postCourse(@RequestBody @Valid CourseDto.PostRequest dto) {
+    public ResponseEntity<Long> postCourse(@RequestBody @Valid CourseDto.CoursePostRequest dto) {
         log.info("(Post) postCourse - memberId: {} | name: {} | date: {} | price: {} | category: {}",
                 dto.getMemberId(), dto.getName(), dto.getDate(), dto.getPrice(), dto.getCategory());
         Long result = courseService.postCourse(dto);
@@ -74,7 +74,7 @@ public class CourseController {
     @Operation(summary = "강의 수정", description = "해당 강의를 수정합니다.")
     @PutMapping("/{courseId}")
     public ResponseEntity<Void> putCourse(@PathVariable("courseId") Long courseId,
-                                       @RequestBody @Valid CourseDto.PutRequest dto) {
+                                       @RequestBody @Valid CourseDto.CoursePutRequest dto) {
         log.info("(Put) postCourse - courseId: {} | name: {} | date: {} | price: {} | category: {}",
                 dto.getCourseId(), dto.getName(), dto.getDate(), dto.getPrice(), dto.getCategory());
         courseService.putCourse(courseId, dto);

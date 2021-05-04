@@ -31,20 +31,20 @@ public class CourseReviewService {
     private final CourseRepository courseRepository;
     private final MemberRepository memberRepository;
 
-    public List<CourseReviewDto.SimpleResponse> getReviewAll(Long courseId) {
+    public List<CourseReviewDto.CourseReviewSimpleResponse> getReviewAll(Long courseId) {
         return courseReviewRepository.findAllByCourseId(courseId).stream()
-                .map(CourseReviewDto.SimpleResponse::new)
+                .map(CourseReviewDto.CourseReviewSimpleResponse::new)
                 .collect(Collectors.toList());
     }
 
-    public CourseReviewDto.DetailResponse getReview(Long reviewId) {
+    public CourseReviewDto.CourseReviewDetailResponse getReview(Long reviewId) {
         CourseReview courseReview = courseReviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
-        return new CourseReviewDto.DetailResponse(courseReview);
+        return new CourseReviewDto.CourseReviewDetailResponse(courseReview);
     }
 
     @Transactional
-    public Long postReview(CourseReviewDto.PostRequest dto) {
+    public Long postReview(CourseReviewDto.CourseReviewPostRequest dto) {
         Course course = courseRepository.findById(dto.getCourseId())
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         Member member = memberRepository.findById(dto.getMemberId())
@@ -58,14 +58,14 @@ public class CourseReviewService {
     }
 
     @Transactional
-    public void putReview(Long reviewId, CourseReviewDto.PutRequest dto) {
+    public void putReview(Long reviewId, CourseReviewDto.CourseReviewPostRequest dto) {
         CourseReview courseReview = courseReviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         courseReview.update(dto.getContent());
     }
 
     @Transactional
-    public Long postReviewComment(Long reviewId, ReviewCommentDto.PostRequest dto) {
+    public Long postReviewComment(Long reviewId, ReviewCommentDto.ReviewCommentPostRequest dto) {
         CourseReview courseReview = courseReviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         Member member = memberRepository.findById(dto.getMemberId())
@@ -79,7 +79,7 @@ public class CourseReviewService {
     }
 
     @Transactional
-    public void putReviewComment(Long reviewId, Long commentId, ReviewCommentDto.PutRequest dto) {
+    public void putReviewComment(Long reviewId, Long commentId, ReviewCommentDto.ReviewCommentPutRequest dto) {
         CourseReview courseReview = courseReviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)

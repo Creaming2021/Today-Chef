@@ -1,13 +1,12 @@
 package creaming.dto;
 
-import creaming.domain.etc.Address;
 import creaming.domain.register.Register;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.DayOfWeek;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 
@@ -17,21 +16,21 @@ public class RegisterDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class RegisterResponse {
         private Long registerId;
         private Long courseId;
         private Long memberId;
 
-        private CourseDto.SimpleResponse course;
+        private CourseDto.CourseSimpleResponse course;
 
         private Integer paidPrice; // register 의 price
         private LocalDateTime paidDate; // register 의 createdDate
 
-        public Response(Register register) {
+        public RegisterResponse(Register register) {
             this.registerId = register.getId();
             this.courseId = register.getCourse().getId();
             this.memberId = register.getMember().getId();
-            this.course = new CourseDto.SimpleResponse(register.getCourse());
+            this.course = new CourseDto.CourseSimpleResponse(register.getCourse());
             this.paidPrice = register.getPrice();
             this.paidDate = register.getCreatedDate();
         }
@@ -42,8 +41,10 @@ public class RegisterDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
+    public static class RegisterPostRequest {
+        @NotEmpty
         private Long courseId;
+        @NotEmpty
         private Integer paidPrice;
 
         public Register toEntity() {

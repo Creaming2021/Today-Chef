@@ -82,7 +82,7 @@ public class MemberService {
     }
 
     // 유저의 쿠폰 리스트 가져오기
-    public List<CouponDto.Response> getCouponAll(Long memberId) {
+    public List<CouponDto.CouponResponse> getCouponAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         List<MemberCoupon> memberCoupons = memberCouponRepository.findByMemberId(member.getId());
@@ -92,7 +92,7 @@ public class MemberService {
                 .forEach(MemberCoupon::expireCoupon);
 
         return memberCouponRepository.saveAll(memberCoupons).stream()
-                .map(CouponDto.Response::new)
+                .map(CouponDto.CouponResponse::new)
                 .collect(Collectors.toList());
     }
 
@@ -115,35 +115,35 @@ public class MemberService {
     }
 
     // 유저가 수강한 강의 가져오기
-    public List<CourseDto.SimpleResponse> getCourseStudent(Long memberId) {
+    public List<CourseDto.CourseSimpleResponse> getCourseStudent(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         List<Register> registers = registerRepository.findByMemberId(member.getId());
         return registers.stream().map(Register::getCourse)
-                .map(CourseDto.SimpleResponse::new)
+                .map(CourseDto.CourseSimpleResponse::new)
                 .collect(Collectors.toList());
     }
 
     // 유저가 진행한 강의 가져오기
-    public List<CourseDto.SimpleResponse> getCourseTeacher(Long memberId) {
+    public List<CourseDto.CourseSimpleResponse> getCourseTeacher(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         List<Course> courses = courseRepository.findByMemberId(member.getId());
-        return courses.stream().map(CourseDto.SimpleResponse::new)
+        return courses.stream().map(CourseDto.CourseSimpleResponse::new)
                 .collect(Collectors.toList());
     }
 
     // 유저의 결제 내역 가져오기
-    public List<RegisterDto.Response> getRegisterAll(Long memberId) {
+    public List<RegisterDto.RegisterResponse> getRegisterAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         List<Register> registers = registerRepository.findByMemberId(member.getId());
-        return registers.stream().map(RegisterDto.Response::new)
+        return registers.stream().map(RegisterDto.RegisterResponse::new)
                 .collect(Collectors.toList());
     }
 
     // 결제 내역 상세보기
-    public RegisterDto.Response getRegister(Long memberId, Long registerId) {
+    public RegisterDto.RegisterResponse getRegister(Long memberId, Long registerId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         Register register = registerRepository.findById(registerId)
@@ -152,12 +152,12 @@ public class MemberService {
         if(!register.getMember().getId().equals(member.getId())) {
             throw new BaseException(ErrorCode.ACCESS_DENIED_EXCEPTION);
         }
-        return new RegisterDto.Response(register);
+        return new RegisterDto.RegisterResponse(register);
     }
 
     // 걸제 내역 저장
     @Transactional
-    public Long postRegister(Long memberId, RegisterDto.PostRequest dto) {
+    public Long postRegister(Long memberId, RegisterDto.RegisterPostRequest dto) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         Course course = courseRepository.findById(dto.getCourseId())
@@ -191,13 +191,13 @@ public class MemberService {
     }
 
     // 강의 좋아요 리스트
-    public List<CourseDto.SimpleResponse> getCourseLike(Long memberId) {
+    public List<CourseDto.CourseSimpleResponse> getCourseLike(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         List<Like> likes = likeRepository.findByMemberId(memberId);
 
         return likes.stream().map(Like::getCourse)
-                .map(CourseDto.SimpleResponse::new)
+                .map(CourseDto.CourseSimpleResponse::new)
                 .collect(Collectors.toList());
     }
 
