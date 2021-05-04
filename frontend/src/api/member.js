@@ -1,4 +1,4 @@
-import { basic, image } from '@/api/user.js';
+import { basic, image } from '@/api/instance.js';
 
 export const getMemberInfo = async ( memberId ) => {
 	basic.get(`members/${memberId}`)

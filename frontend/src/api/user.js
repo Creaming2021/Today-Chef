@@ -1,4 +1,4 @@
-import { basic } from '@/api/user.js';
+import { basic } from '@/api/instance.js';
 
 export const signUp = async ( userInfo ) => {
   basic.post('user/signup', userInfo)
