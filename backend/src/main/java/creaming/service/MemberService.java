@@ -202,13 +202,13 @@ public class MemberService {
     }
 
     // 키트 좋아요 리스트
-    public List<ProductDto.SimpleResponse> getProductLike(Long memberId) {
+    public List<ProductDto.ProductSimpleResponse> getProductLike(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         List<ProductLike> productLikes = productLikeRepository.findByMemberId(memberId);
 
         return productLikes.stream().map(ProductLike::getProduct)
-                .map(ProductDto.SimpleResponse::new)
+                .map(ProductDto.ProductSimpleResponse::new)
                 .collect(Collectors.toList());
     }
 }

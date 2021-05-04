@@ -1,11 +1,11 @@
 package creaming.domain.qna;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface CourseQnaRepository extends JpaRepository<CourseQna, Long> {
 
-    Page<CourseQna> findByCourseId(Long courseId, Pageable pageable);
+    List<CourseQna> findByCourseId(Long courseId);
 
 }

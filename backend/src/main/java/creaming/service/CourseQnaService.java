@@ -31,9 +31,10 @@ public class CourseQnaService {
     private final CourseRepository courseRepository;
     private final MemberRepository memberRepository;
 
-    public Page<CourseQnaDto.Response> getQnaAll(Long courseId, Pageable pageable) {
-        return courseQnaRepository.findByCourseId(courseId, pageable)
-                .map(CourseQnaDto.Response::new);
+    public List<CourseQnaDto.Response> getQnaAll(Long courseId) {
+        return courseQnaRepository.findByCourseId(courseId).stream()
+                .map(CourseQnaDto.Response::new)
+                .collect(Collectors.toList());
     }
 
     public CourseQnaDto.Response getQna(Long qnaId) {

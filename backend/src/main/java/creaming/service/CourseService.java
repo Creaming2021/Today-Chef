@@ -29,10 +29,10 @@ public class CourseService {
     private final RegisterRepository registerRepository;
 
     // 모든 강의 페이징 처리 후 출력
-    public Page<CourseDto.SimpleResponse> getCourseAll(Pageable pageable) {
-        return courseRepository.findAll(pageable)
-                .map(CourseDto.SimpleResponse::new);
-    }
+//    public Page<CourseDto.SimpleResponse> getCourseAll(Pageable pageable) {
+//        return courseRepository.findAll(pageable)
+//                .map(CourseDto.SimpleResponse::new);
+//    }
 
     // 모든 강의 페이징 없이 출력
     public List<CourseDto.SimpleResponse> getCourseAll() {

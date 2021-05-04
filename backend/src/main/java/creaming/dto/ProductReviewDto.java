@@ -16,7 +16,7 @@ public class ProductReviewDto {
     @NoArgsConstructor
     public static class ProductReviewResponse {
         private Long productReviewId;
-        private MemberDto.SimpleProfile profile;
+        private MemberDto.MemberSimpleProfile profile;
         private String title;
         private String content;
         private LocalDateTime date;
@@ -24,7 +24,7 @@ public class ProductReviewDto {
 
         public ProductReviewResponse(ProductReview productReview) {
             this.productReviewId = productReview.getId();
-            this.profile = new MemberDto.SimpleProfile(productReview.getMember());
+            this.profile = new MemberDto.MemberSimpleProfile(productReview.getMember());
             this.title = productReview.getTitle();
             this.content = productReview.getContent();
             this.date = productReview.getCreatedDate();
