@@ -162,7 +162,16 @@ public class Member extends BaseTimeEntity {
     public void deleteProductReview(ProductReview productReview) {
         productReviews.remove(productReview);
         productReview.updateMember(null);
+    }
 
+    public void addCart(Cart cart) {
+        carts.add(cart);
+        cart.updateMember(this);
+    }
+
+    public void deleteCart(Cart cart) {
+        carts.remove(cart);
+        cart.updateMember(null);
     }
 
     //////////////////////////////////////

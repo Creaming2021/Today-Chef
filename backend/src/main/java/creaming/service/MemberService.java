@@ -1,5 +1,7 @@
 package creaming.service;
 
+import creaming.domain.cart.Cart;
+import creaming.domain.cart.CartRepository;
 import creaming.domain.coupon.Coupon;
 import creaming.domain.coupon.CouponRepository;
 import creaming.domain.course.Course;
@@ -13,6 +15,8 @@ import creaming.domain.member.MemberRepository;
 import creaming.domain.membercoupon.CouponStatus;
 import creaming.domain.membercoupon.MemberCoupon;
 import creaming.domain.membercoupon.MemberCouponRepository;
+import creaming.domain.product.Product;
+import creaming.domain.product.ProductRepository;
 import creaming.domain.register.Register;
 import creaming.domain.register.RegisterRepository;
 import creaming.dto.*;
@@ -32,13 +36,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final LikeRepository likeRepository;
-    private final ProductLikeRepository productLikeRepository;
-    private final MemberRepository memberRepository;
+    private final CartRepository cartRepository;
     private final CourseRepository courseRepository;
     private final CouponRepository couponRepository;
-    private final RegisterRepository registerRepository;
+    private final LikeRepository likeRepository;
+    private final MemberRepository memberRepository;
     private final MemberCouponRepository memberCouponRepository;
+    private final ProductRepository productRepository;
+    private final ProductLikeRepository productLikeRepository;
+    private final RegisterRepository registerRepository;
 
     // 모든 유저의 정보 가져오기 
     public List<MemberDto.MemberResponse> getMemberAll() {
@@ -194,7 +200,7 @@ public class MemberService {
     public List<CourseDto.CourseSimpleResponse> getCourseLike(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
-        List<Like> likes = likeRepository.findByMemberId(memberId);
+        List<Like> likes = likeRepository.findByMemberId(member.getId());
 
         return likes.stream().map(Like::getCourse)
                 .map(CourseDto.CourseSimpleResponse::new)
@@ -205,10 +211,53 @@ public class MemberService {
     public List<ProductDto.ProductSimpleResponse> getProductLike(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
-        List<ProductLike> productLikes = productLikeRepository.findByMemberId(memberId);
+        List<ProductLike> productLikes = productLikeRepository.findByMemberId(member.getId());
 
         return productLikes.stream().map(ProductLike::getProduct)
                 .map(ProductDto.ProductSimpleResponse::new)
                 .collect(Collectors.toList());
     }
+
+    // 장바구니 목록 불러오기
+    public List<CartDto.CartResponse> getCarts(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+        List<Cart> carts = cartRepository.findByMemberId(member.getId());
+
+        return carts.stream()
+                .map(CartDto.CartResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    // 장바구니 담기
+    @Transactional
+    public Long postCart(Long memberId, CartDto.CartPostRequest dto) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+        Product product = productRepository.findById(dto.getProductId())
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+
+        Cart cart = dto.toEntity();
+        member.addCart(cart);
+        product.addCart(cart);
+
+        return cartRepository.save(cart).getId();
+    }
+
+    // 장바구니 제거
+    @Transactional
+    public void deleteCart(Long memberId, Long productId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+        Cart cart = cartRepository.findByMemberIdAndProductId(memberId, productId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+
+        cart.getMember().deleteCart(cart);
+        product.deleteCart(cart);
+        member.deleteCart(cart);
+        cartRepository.delete(cart);
+    }
+
 }
