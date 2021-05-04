@@ -1,4 +1,6 @@
-import * as course from '@/api/course.js';
+import course from '@/store/courseActions/course.js';
+import courseQna from '@/store/courseActions/courseQna.js';
+import courseReview from '@/store/courseActions/courseReview.js';
 
 export default {
   state: {
@@ -24,6 +26,67 @@ export default {
       kit: '키트 소개',
     },
     studentList: [],
+    qnaList: [
+      {
+        id: 1,
+        profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
+        content: '질문 내용',
+        writer: '작성자 닉네임',
+        date: '2021년 4월 21일',
+        answerList: [
+          {
+            id: 1,
+            writer: '답변 작성자',
+            date: '2021년 4월 21일',
+            profile: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA0MDZfMjg0/MDAxNTg2MTgwNjMxODE1.B22_kATsB4cyKg2yr9x6GoRk8OuBXutbaQdRG2wxbAMg.ZIGXNEYc2xDiH61A18wLGcNeFNl4RsDTCrK1pMY0cnIg.JPEG.b-seol/46858675_511354619382565_4518962982505897027_n(1).jpg?type=w800',
+            content: '답변 내용',
+          }
+        ]
+      },
+      {
+        id: 2,
+        profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
+        content: '질문 내용',
+        writer: '작성자 닉네임',
+        date: '2021년 4월 21일',
+        answerList: [
+          {
+            id: 1,
+            writer: '답변 작성자',
+            date: '2021년 4월 21일',
+            profile: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA0MDZfMjg0/MDAxNTg2MTgwNjMxODE1.B22_kATsB4cyKg2yr9x6GoRk8OuBXutbaQdRG2wxbAMg.ZIGXNEYc2xDiH61A18wLGcNeFNl4RsDTCrK1pMY0cnIg.JPEG.b-seol/46858675_511354619382565_4518962982505897027_n(1).jpg?type=w800',
+            content: '답변 내용',
+          },
+          {
+            id: 2,
+            writer: '답변 작성자',
+            date: '2021년 4월 21일',
+            profile: 'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
+            content: '답변 내용',
+          }
+        ]
+      },
+      {
+        id: 3,
+        profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
+        content: '질문 내용',
+        writer: '작성자 닉네임',
+        date: '2021년 4월 21일',
+        answerList: [
+          {
+            id: 1,
+            writer: '답변 작성자',
+            date: '2021년 4월 21일',
+            profile: 'https://i1.sndcdn.com/artworks-WzFnntNp1E7dHw7y-RqzlrQ-t500x500.jpg',
+            content: '답변 내용',
+          }
+        ]
+      }
+    ],
+    qna: {},
+    reviewList: [],
+    review: {},
+    reviewCommentList: [],
   },
   mutations: {
     SET_COURSE_LIST(state, payload) {
@@ -34,74 +97,29 @@ export default {
     },
     SET_STUDENT_LIST(state, payload) {
       state.studentList = payload;
+    },
+    SET_COURSE_QNA_LIST(state, payload){
+      state.qnaList = payload;
+    },
+    SET_COURSE_QNA(state, payload){
+      state.qna = payload;
+    },
+    // SET_COURSE_COMMENT_LIST(state, payload){
+    //   state.commentList = payload;
+    // },
+    SET_COURSE_REVIEW_LIST(state, payload){
+      state.reviewList = payload;
+    },
+    SET_COURSE_REVIEW(state, payload){
+      state.review = payload;
+    },
+    SET_COURSE_COMMENT_LIST(state, payload){
+      state.reviewCommentList = payload;
     }
   },
   actions: {
-    GET_COURSE({ commit }, request){
-      course.getCourse(request)
-        .then(({ data }) => {
-          if(data){
-            commit('SET_COURSE', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    POST_COURSE({ dispatch }, request) {
-      course.postCourse(request)
-        .then(({ data }) => {
-          if(data){
-            dispatch('GET_COURSE', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    PUT_COURSE({ dispatch }, request) {
-      course.putCourse(request)
-        .then(({ data }) => {
-          if(data){
-            dispatch('GET_COURSE', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    DELETE_COURSE({ dispatch }, request) {
-      course.deleteCourse(request)
-        .then(({ data }) => {
-          if(data){
-            dispatch('', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    POST_COURSE_IMAGE({ dispatch }, request) {
-      course.postCourseImage(request)
-        .then(({ data }) => {
-          if(data){
-            dispatch('GET_COURSE', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    GET_COURSE_STUDENT_LIST({ commit }, request) {
-      course.getCourseStudents(request)
-        .then(({ data }) => {
-          if(data){
-            commit('SET_STUDENT_LIST', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
+    ...course,
+    ...courseQna,
+    ...courseReview,
   }
 }

@@ -1,9 +1,15 @@
-import * as product from '@/api/product.js';
+import product from '@/store/productActions/product.js';
+import productQna from '@/store/productActions/productQna.js';
+import productReview from '@/store/productActions/productReview.js';
 
 export default {
   state: {
     productList: [],
     product: {},
+    qnaList: [],
+    qna: {},
+    reviewList: [],
+    review: {},
   },
   mutations: {
     SET_PRODUCT_LIST(state, payload){
@@ -11,63 +17,23 @@ export default {
     },
     SET_PRODUCT(state, payload){
       state.product = payload;
+    },
+    SET_PRODUCT_QNA_LIST(state, payload){
+      state.qnaList = payload;
+    },
+    SET_PRODUCT_QNA(state, payload){
+      state.qna = payload;
+    },
+    SET_REVIEW_LIST(state, payload){
+      state.reviewList = payload;
+    },
+    SET_REVIEW(state, payload){
+      state.review = payload;
     }
   },
   actions: {
-    GET_PRODUCT_LIST({ commit }) {
-      product.getProductList()
-        .then(({ data }) => {
-          if(data){
-            commit('SET_PRODUCT_LIST', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    POST_PRODUCT({ dispatch }, request) {
-      product.postProduct(request)
-        .then(({ data }) => {
-          if(data){
-            dispatch('GET_PRODUCT', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    GET_PRODUCT({ commit }, request) {
-      product.getProduct(request)
-        .then(({ data }) => {
-          if(data){
-            commit('SET_PRODUCT', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    PUT_PRODUCT({ dispatch }, request) {
-      product.putProduct(request)
-        .then(({ data }) => {
-          if(data){
-            dispatch('GET_PRODUCT', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
-    DELETE_PRODUCT({ commit }, request) {
-      product.deleteProduct(request)
-        .then(({ data }) => {
-          if(data){
-            commit('', data);
-          } else {
-            console.log(data);
-          }
-        })
-        .catch(e => { console.log(e); });
-    },
+    ...product,
+    ...productQna,
+    ...productReview,
   }
 }

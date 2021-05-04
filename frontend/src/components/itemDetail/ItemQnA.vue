@@ -76,8 +76,8 @@ export default {
   },
   computed: {
     ...mapState({
-      course: state => state.courseQna.qnaList,
-      product: state => state.productQna.qnaList,
+      course: state => state.course.qnaList,
+      product: state => state.product.qnaList,
       userId: state => state.user.userId,
     }),
   },
