@@ -1,25 +1,31 @@
 <template>
   <div class="course-detail-container">
-    <ItemThumbnail/>
+    <ItemThumbnail
+      :item="item"/>
     <div class="row">
       <ItemDetailMain/>
       <ItemRightbar 
+        :item="item"
         :courseInfo="courseInfo"
         :role="teacher"
         :state="state"/>
       <ItemRightbar 
+        :item="item"
         :courseInfo="courseInfo"
         :role="student"
         :state="stateBefore"/>
       <ItemRightbar 
+        :item="item"
         :courseInfo="courseInfo"
         :role="student"
         :state="stateWaiting"/>
       <ItemRightbar 
+        :item="item"
         :courseInfo="courseInfo"
         :role="student"
         :state="stateStreaming"/>
       <ItemRightbar 
+        :item="item"
         :courseInfo="courseInfo"
         :role="student"
         :state="stateAfter"/>
@@ -33,14 +39,12 @@ import ItemDetailMain from '@/components/itemDetail/ItemDetailMain.vue';
 import ItemRightbar from '@/components/itemDetail/ItemRightbar.vue';
 
 export default {
-  props : {
-    
-  },
   created () {
-
+    this.checkQuery();
   },
   data(){
     return {
+      item: '',
       courseInfo : {
         id: 1,
         category: '한식',
@@ -63,6 +67,19 @@ export default {
     ItemThumbnail,
     ItemDetailMain,
     ItemRightbar,
+  },
+  methods: {
+    checkQuery() {
+      this.item = this.$route.params.item;
+      this.getCourseDetailInfo();
+    },
+  },
+  watch: { 
+    $route(to, from) { 
+      if (to.path != from.path) { 
+        this.checkQuery();
+      } 
+    } 
   },
 }
 </script>

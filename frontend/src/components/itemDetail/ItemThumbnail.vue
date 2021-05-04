@@ -1,35 +1,34 @@
 <template>
-  <div class="thumbnail-container" v-if="course.thumbnailList">
+  <div class="thumbnail-container" v-if="itemThumbnailList">
     <img 
       id="first-image"
       @click="onOpenThumbnailModal"
-      :src="course.thumbnailList[0]"/>
+      :src="itemThumbnailList[0]"/>
     <img 
       id="second-image"
       @click="onOpenThumbnailModal"
-      :src="course.thumbnailList[1]"/>
+      :src="itemThumbnailList[1]"/>
     <img 
       id="third-image"
       @click="onOpenThumbnailModal"
-      :src="course.thumbnailList[2]"/>
+      :src="itemThumbnailList[2]"/>
     <img 
       id="fourth-image"
       @click="onOpenThumbnailModal"
-      :src="course.thumbnailList[3]"/>
+      :src="itemThumbnailList[3]"/>
     <div 
-      v-if="course.thumbnailList.length > 4"
+      v-if="itemThumbnailList.length > 4"
       class="remain-image-cnt"
       @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
     </div>
     <b-modal v-model="openThumbnailModal" size="lg" hide-footer hide-header>
       <p class="thumbnail-modal-btn" @click="onCloseThumbnailModal">X</p>
       <span class="thumbnail-modal-btn" @click="onClickDecreaseImageIdx">이전</span>
-      <img class="modalImage" :src="course.thumbnailList[currentImage]"/>
+      <img class="modalImage" :src="itemThumbnailList[currentImage]"/>
       <span class="thumbnail-modal-btn" @click="onClickIncreaseImageIdx">다음</span>
     </b-modal>
   </div>
 </template>
-
 
 <script>
 import { mapState } from 'vuex';
@@ -37,22 +36,30 @@ import { mapState } from 'vuex';
 export default {
   data(){
     return {
+      itemThumbnailList: [],
       remainImageCnt: 0,
       openThumbnailModal: false,
       currentImage: 0,
     }
   },
+  props:{
+    item: String,
+  },
   computed: {
     ...mapState({
        course: state => state.course.course,
+       product: state => state.product.product,
       }),
+  },
+  created() {
+    this.settingItemThumbnail();
   },
   mounted() {
     this.setRemainImageCnt();
   },
   methods: {
     setRemainImageCnt(){
-      this.remainImageCnt = this.course.course.thumbnailList.length - 4;
+      this.remainImageCnt = this.itemThumbnailList - 4;
     },
     onOpenThumbnailModal(){
       this.currentImage = 0;
@@ -62,10 +69,13 @@ export default {
       this.openThumbnailModal = false;
     },
     onClickIncreaseImageIdx(){
-      this.currentImage = (this.currentImage + 1) % this.course.course.thumbnailList.length;
+      this.currentImage = (this.currentImage + 1) % this.itemThumbnailList.length;
     },
     onClickDecreaseImageIdx(){
-      this.currentImage = (this.currentImage - 1 + this.course.course.thumbnailList.length) % this.course.course.thumbnailList.length;
+      this.currentImage = (this.currentImage - 1 + this.itemThumbnailList.length) % this.itemThumbnailList.length;
+    },
+    settingItemThumbnail(){
+      this.itemThumbnailList = this.item === 'course' ? this.course.thumbnailList : this.product.thumbnailList;
     },
   }
 }

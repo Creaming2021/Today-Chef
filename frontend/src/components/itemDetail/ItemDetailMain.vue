@@ -198,24 +198,8 @@ export default {
     checkQuery() {
       this.type = this.$route.params.type;
       this.id = this.$route.params.id;
-      this.getCourseDetailInfo();
     },
-    getCourseDetailInfo() {
-      if(this.id) {
-        console.log(`${this.id}로 강의정보 요청 떄림`);
-        this.getCourse(this.id);
-      }else{
-        alert("잘못된 접근 입니다.");
-      }
-    }
   },
-  watch: { 
-    $route(to, from) { 
-      if (to.path != from.path) { 
-        this.checkQuery();
-      } 
-    } 
-  }
 }
 </script>
 
