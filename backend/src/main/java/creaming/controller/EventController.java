@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -25,9 +26,9 @@ public class EventController {
 
     @GetMapping
     @Operation(summary = "이벤트 리스트 조회", description = "이벤트 리스트를 조회합니다.")
-    public ResponseEntity<Page<EventDto.EventSimpleResponse>> getEventList(Pageable pageable) {
+    public ResponseEntity<List<EventDto.EventSimpleResponse>> getEventList() {
         log.info("(Get) getEventList");
-        return ResponseEntity.status(HttpStatus.OK).body(eventService.findEventList(pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.findEventList());
     }
 
     @GetMapping("/{eventId}")
