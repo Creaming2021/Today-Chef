@@ -1,4 +1,4 @@
-import * as qna from '@/api/qna.js';
+import * as courseQna from '@/api/courseQna.js';
 
 export default {
   state: {
@@ -19,7 +19,7 @@ export default {
   },
   actions: {
     GET_QNA_LIST: function({ commit }, request){
-      qna.getQnaList(request)
+      courseQna.getQnaList(request)
        .then(({ data }) => {
          if(data){
           commit('SET_QNA_LIST', data);
@@ -30,7 +30,7 @@ export default {
        .catch(e => { console.log(e); });
     },
     POST_QNA: function({ dispatch }, request){
-      qna.postQna(request)
+      courseQna.postQna(request)
        .then(({ data }) => {
          if(data){
           dispatch('GET_QNA_LIST', request);
@@ -41,7 +41,7 @@ export default {
        .catch(e => { console.log(e); });
     },
     PUT_QNA: function({ dispatch }, request){
-      qna.putQna(request)
+      courseQna.putQna(request)
        .then(({ data }) => {
          if(data){
           dispatch('GET_QNA_LIST', request);
@@ -52,7 +52,7 @@ export default {
        .catch(e => { console.log(e); });
     },
     DELETE_QNA: function({ dispatch }, request){
-      qna.deleteQna(request)
+      courseQna.deleteQna(request)
        .then(({ data }) => {
          if(data){
           dispatch('GET_QNA_LIST', request);
@@ -63,7 +63,7 @@ export default {
        .catch(e => { console.log(e); });
     },
     GET_QNA_COMMENT_LIST: function({ commit }, request){
-      qna.getQnaCommentList(request)
+      courseQna.getQnaCommentList(request)
        .then(({ data }) => {
          if(data){
           commit('SET_COMMENT_LIST', data);
@@ -74,7 +74,7 @@ export default {
        .catch(e => { console.log(e); });
     },
     POST_QNA_COMMENT: function({ dispatch }, request){
-      qna.postQnaComment(request)
+      courseQna.postQnaComment(request)
        .then(({ data }) => {
          if(data){
           dispatch('GET_QNA_LIST', request);
@@ -85,7 +85,7 @@ export default {
        .catch(e => { console.log(e); });
     },
     PUT_QNA_COMMENT: function({ dispatch }, request){
-      qna.putQnaComment(request)
+      courseQna.putQnaComment(request)
        .then(({ data }) => {
          if(data){
           dispatch('GET_QNA_LIST', request);
@@ -96,7 +96,7 @@ export default {
        .catch(e => { console.log(e); });
     },
     DELETE_QNA_COMMENT: function({ dispatch }, request){
-      qna.deleteQnaComment(request)
+      courseQna.deleteQnaComment(request)
        .then(({ data }) => {
          if(data){
           dispatch('GET_QNA_LIST', request);

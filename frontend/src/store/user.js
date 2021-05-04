@@ -51,12 +51,12 @@ export default {
           console.log(e);
         });
     },
-    SIGN_UP({ dispatch }, userInfo) {
+    SIGN_UP({ dispatch, state }, userInfo) {
       user.signUp(userInfo)
         .then(() => {
-          sessionStorage.setItem('access_token', context.state.authObj.auth.access_token);
-          sessionStorage.setItem('refresh_token', context.state.authObj.auth.refresh_token);
-          dispatch('SET_SIGN_IN', context.state.authObj);
+          sessionStorage.setItem('access_token', state.authObj.auth.access_token);
+          sessionStorage.setItem('refresh_token', state.authObj.auth.refresh_token);
+          dispatch('SET_SIGN_IN', state.authObj);
         });
     },
     SIGN_OUT({ commit }) {
