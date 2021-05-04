@@ -37,12 +37,13 @@ public enum ErrorCode {
 
     // Coupon
     COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "07000", "없는 쿠폰"),
+    COUPON_NOT_AVAILABLE(HttpStatus.BAD_REQUEST, "07001", "사용불가능한 쿠폰"),
 
     // MemberCoupon
-    MEMBER_COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "07000", "소유하지 않은 쿠폰"),
+    MEMBER_COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "08001", "소유하지 않은 쿠폰"),
 
     // Register
-    REGISTER_NOT_FOUND(HttpStatus.NOT_FOUND, "08000", "없는 결제 내역"),
+    REGISTER_NOT_FOUND(HttpStatus.NOT_FOUND, "09000", "없는 결제 내역"),
 
     // 서버 에러
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST, "00100"),

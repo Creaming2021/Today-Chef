@@ -1,9 +1,6 @@
 package creaming.controller;
 
-import creaming.dto.CouponDto;
-import creaming.dto.CourseDto;
-import creaming.dto.MemberDto;
-import creaming.dto.RegisterDto;
+import creaming.dto.*;
 import creaming.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -149,8 +146,15 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @GetMapping("/{memberId}/courses/like")
+    @Operation(summary = "좋아요한 강의 가져오기", description = "memberId가 좋아요한 강의들을 가져옵니다.")
+    public ResponseEntity<List<CourseDto.SimpleResponse>> getCourseLike(@PathVariable("memberId") Long memberId) {
+        List<CourseDto.SimpleResponse> result = memberService.getCourseLike(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     // 좋아요 토글
-    @PutMapping("/{memberId}/courses/{courseId}")
+    @PutMapping("/{memberId}/courses/{courseId}/like")
     @Operation(summary = "좋아요 토글", description = "좋아요 상태를 토글합니다.")
     public ResponseEntity<Void> toggleLike(@PathVariable("memberId") Long memberId,
                                         @PathVariable("courseId") Long courseId) {

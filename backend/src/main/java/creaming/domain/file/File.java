@@ -1,15 +1,16 @@
 package creaming.domain.file;
 
 import creaming.domain.etc.BaseTimeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "files")
+@Getter
+@Setter(AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
 @DiscriminatorColumn
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class File extends BaseTimeEntity {
