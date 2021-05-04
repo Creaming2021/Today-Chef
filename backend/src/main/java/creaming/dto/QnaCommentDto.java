@@ -14,9 +14,10 @@ public class QnaCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
+    public static class QnaCommentPostRequest {
         @NotEmpty
         private Long memberId;
+        @NotEmpty
         private String content;
 
         public QnaComment toEntity() {
@@ -30,7 +31,8 @@ public class QnaCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
+    public static class QnaCommentPutRequest {
+        @NotEmpty
         private String content;
     }
 

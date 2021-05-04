@@ -127,7 +127,7 @@ public class Course extends BaseTimeEntity {
         courseFile.updateFK(null);
     }
 
-    public void update(CourseDto.PutRequest dto) {
+    public void update(CourseDto.CoursePutRequest dto) {
         this.name = dto.getName();
         this.date = dto.getDate();
         this.time = dto.getTime();

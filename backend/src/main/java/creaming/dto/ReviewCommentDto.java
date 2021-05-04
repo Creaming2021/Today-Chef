@@ -14,7 +14,7 @@ public class ReviewCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
+    public static class ReviewCommentPostRequest {
         @NotEmpty
         private Long memberId;
         @NotEmpty
@@ -32,7 +32,7 @@ public class ReviewCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
+    public static class ReviewCommentPutRequest {
         @NotEmpty
         private String content;
     }

@@ -65,9 +65,9 @@ public class MemberController {
     // 유저의 쿠폰 리스트
     @GetMapping("/{memberId}/coupons")
     @Operation(summary = "유저의 쿠폰 가져오기", description = "memberId 유저의 쿠폰들을 가져옵니다.")
-    public ResponseEntity<List<CouponDto.Response>> getCouponAll(@PathVariable("memberId") Long memberId) {
+    public ResponseEntity<List<CouponDto.CouponResponse>> getCouponAll(@PathVariable("memberId") Long memberId) {
         log.info("(Get) getCouponAll - memberId : {} ", memberId);
-        List<CouponDto.Response> result = memberService.getCouponAll(memberId);
+        List<CouponDto.CouponResponse> result = memberService.getCouponAll(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -94,37 +94,37 @@ public class MemberController {
     // 내가 수강한 강의
     @GetMapping("/{memberId}/courses/student")
     @Operation(summary = "유저가 수강한 강의 가져오기", description = "memberId 유저가 수강한 강의 리스트를 가져옵니다.")
-    public ResponseEntity<List<CourseDto.SimpleResponse>> getCourseStudent(@PathVariable("memberId") Long memberId) {
+    public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseStudent(@PathVariable("memberId") Long memberId) {
         log.info("(Get) getCourseStudent - memberId : {} ", memberId);
-        List<CourseDto.SimpleResponse> result = memberService.getCourseStudent(memberId);
+        List<CourseDto.CourseSimpleResponse> result = memberService.getCourseStudent(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     // 내가 진행한 강의
     @GetMapping("/{memberId}/courses/teacher")
     @Operation(summary = "유저가 진행한 강의 가져오기", description = "memberId의 유저가 진행한 강의 리스트를 가져옵니다.")
-    public ResponseEntity<List<CourseDto.SimpleResponse>> getCourseTeacher(@PathVariable("memberId") Long memberId) {
+    public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseTeacher(@PathVariable("memberId") Long memberId) {
         log.info("(Get) getCourseTeacher - memberId : {}", memberId);
-        List<CourseDto.SimpleResponse> result = memberService.getCourseTeacher(memberId);
+        List<CourseDto.CourseSimpleResponse> result = memberService.getCourseTeacher(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     // 결제 내역
     @GetMapping("/{memberId}/registers")
     @Operation(summary = "유저의 결제 내역 가져오기", description = "memberId의 유저의 결제 내역을 가져옵니다.")
-    public ResponseEntity<List<RegisterDto.Response>> getRegisterAll(@PathVariable("memberId") Long memberId) {
+    public ResponseEntity<List<RegisterDto.RegisterResponse>> getRegisterAll(@PathVariable("memberId") Long memberId) {
         log.info("(Get) getRegisterAll - memberId : {}", memberId);
-        List<RegisterDto.Response> result = memberService.getRegisterAll(memberId);
+        List<RegisterDto.RegisterResponse> result = memberService.getRegisterAll(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     // 결제 내역 상세 보기
     @GetMapping("/{memberId}/registers/{registerId}")
     @Operation(summary = "결제 내역 상세보기", description = "memberId의 registerId 결제 내역을 가져옵니다.")
-    public ResponseEntity<RegisterDto.Response> getRegister(@PathVariable("memberId") Long memberId,
+    public ResponseEntity<RegisterDto.RegisterResponse> getRegister(@PathVariable("memberId") Long memberId,
                                          @PathVariable("registerId") Long registerId) {
         log.info("(Get) getRegister - memberId : {} | registerId : {}", memberId, registerId);
-        RegisterDto.Response result = memberService.getRegister(memberId, registerId);
+        RegisterDto.RegisterResponse result = memberService.getRegister(memberId, registerId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -132,7 +132,7 @@ public class MemberController {
     @PostMapping("/{memberId}/registers")
     @Operation(summary = "결제 내용 저장", description = "memberId의 강의 결제 내역을 저장합니다.")
     public ResponseEntity<Long> postRegister(@PathVariable("memberId") Long memberId,
-                                          @RequestBody RegisterDto.PostRequest dto) {
+                                          @RequestBody RegisterDto.RegisterPostRequest dto) {
         log.info("(Post) postRegister - memberId : {} | courseId : {}", memberId, dto.getCourseId());
         Long result = memberService.postRegister(memberId, dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
@@ -148,8 +148,8 @@ public class MemberController {
 
     @GetMapping("/{memberId}/courses/like")
     @Operation(summary = "좋아요한 강의 가져오기", description = "memberId가 좋아요한 강의들을 가져옵니다.")
-    public ResponseEntity<List<CourseDto.SimpleResponse>> getCourseLike(@PathVariable("memberId") Long memberId) {
-        List<CourseDto.SimpleResponse> result = memberService.getCourseLike(memberId);
+    public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseLike(@PathVariable("memberId") Long memberId) {
+        List<CourseDto.CourseSimpleResponse> result = memberService.getCourseLike(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

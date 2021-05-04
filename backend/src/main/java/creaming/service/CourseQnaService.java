@@ -31,20 +31,20 @@ public class CourseQnaService {
     private final CourseRepository courseRepository;
     private final MemberRepository memberRepository;
 
-    public List<CourseQnaDto.Response> getQnaAll(Long courseId) {
+    public List<CourseQnaDto.CourseQnaResponse> getQnaAll(Long courseId) {
         return courseQnaRepository.findByCourseId(courseId).stream()
-                .map(CourseQnaDto.Response::new)
+                .map(CourseQnaDto.CourseQnaResponse::new)
                 .collect(Collectors.toList());
     }
 
-    public CourseQnaDto.Response getQna(Long qnaId) {
+    public CourseQnaDto.CourseQnaResponse getQna(Long qnaId) {
         return courseQnaRepository.findById(qnaId)
-                .map(CourseQnaDto.Response::new)
+                .map(CourseQnaDto.CourseQnaResponse::new)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
     }
 
     @Transactional
-    public Long postQna(CourseQnaDto.PostRequest dto) {
+    public Long postQna(CourseQnaDto.CourseQnaPostRequest dto) {
         Course course = courseRepository.findById(dto.getCourseId())
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         Member member = memberRepository.findById(dto.getMemberId())
@@ -57,7 +57,7 @@ public class CourseQnaService {
     }
 
     @Transactional
-    public void putQna(Long qnaId, CourseQnaDto.PostRequest dto) {
+    public void putQna(Long qnaId, CourseQnaDto.CourseQnaPutRequest dto) {
         CourseQna courseQna = courseQnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         courseQna.update(dto.getTitle(), dto.getContent(), dto.isSecret());
@@ -72,16 +72,16 @@ public class CourseQnaService {
         courseQnaRepository.delete(courseQna);
     }
 
-    public List<CourseQnaDto.Comment> getCommentAll(Long qnaId) {
+    public List<CourseQnaDto.CourseQnaComment> getCommentAll(Long qnaId) {
         CourseQna courseQna = courseQnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         return courseQna.getQnaComments().stream()
-                .map(CourseQnaDto.Comment::new)
+                .map(CourseQnaDto.CourseQnaComment::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public Long postComment(Long qnaId, QnaCommentDto.PostRequest dto) {
+    public Long postComment(Long qnaId, QnaCommentDto.QnaCommentPostRequest dto) {
         CourseQna courseQna = courseQnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         Member member = memberRepository.findById(dto.getMemberId())
@@ -93,7 +93,7 @@ public class CourseQnaService {
     }
 
     @Transactional
-    public void putComment(Long qnaId, Long commentId, QnaCommentDto.PutRequest dto) {
+    public void putComment(Long qnaId, Long commentId, QnaCommentDto.QnaCommentPutRequest dto) {
         CourseQna courseQna = courseQnaRepository.findById(qnaId)
                 .orElseThrow(() -> new BaseException(ErrorCode.QNA_NOT_FOUND));
         QnaComment qnaComment = qnaCommentRepository.findById(commentId)

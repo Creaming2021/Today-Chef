@@ -20,7 +20,7 @@ public class CourseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SimpleResponse {
+    public static class CourseSimpleResponse {
         private Long courseId;
         private MemberDto.MemberSimpleProfile profile; // 강사 프로필
         private String name;
@@ -31,7 +31,7 @@ public class CourseDto {
         private String image;
         private FoodType category;
 
-        public SimpleResponse(Course course) {
+        public CourseSimpleResponse(Course course) {
             this.courseId = course.getId();
             this.profile = new MemberDto.MemberSimpleProfile(course.getMember());
             this.name = course.getName();
@@ -52,12 +52,12 @@ public class CourseDto {
 //    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DetailResponse extends SimpleResponse{
+    public static class CourseDetailResponse extends CourseSimpleResponse{
 
         private String materials;
         private String descriptions;
 
-        public DetailResponse(Course course) {
+        public CourseDetailResponse(Course course) {
             super(course);
             this.materials = course.getMaterials();
             this.descriptions = course.getDescriptions();
@@ -68,7 +68,7 @@ public class CourseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
+    public static class CoursePostRequest {
         @NotEmpty
         private Long memberId;
         @NotEmpty
@@ -103,7 +103,7 @@ public class CourseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
+    public static class CoursePutRequest {
         @NotEmpty
         private Long courseId;
         @NotEmpty
