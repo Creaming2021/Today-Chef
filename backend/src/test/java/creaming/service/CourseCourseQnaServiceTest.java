@@ -100,17 +100,17 @@ class CourseCourseQnaServiceTest {
 
         System.out.println("===========================");
 
-        Page<CourseQnaDto.Response> qnaAll = courseQnaService.getQnaAll(id, PageRequest.of(1, 5));
+//        Page<CourseQnaDto.Response> qnaAll = courseQnaService.getQnaAll(id, PageRequest.of(1, 5));
 
         System.out.println("===========================");
 
         System.out.println("오기유니");
 
-        qnaAll.getContent().forEach(response -> {
-            System.out.println("이해가 안가");
-            System.out.println(response.getProfile().getNickname());
-            response.getComments().forEach(comment -> System.out.println("comment.getContent() = " + comment.getContent()));
-        });
+//        qnaAll.getContent().forEach(response -> {
+//            System.out.println("이해가 안가");
+//            System.out.println(response.getProfile().getNickname());
+//            response.getComments().forEach(comment -> System.out.println("comment.getContent() = " + comment.getContent()));
+//        });
 
 //        mockMvc.perform(get("/api/qna")
 //                .param("courseId", "1")

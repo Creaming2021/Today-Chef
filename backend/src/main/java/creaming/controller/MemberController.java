@@ -155,8 +155,8 @@ public class MemberController {
 
     @GetMapping("/{memberId}/products/like")
     @Operation(summary = "좋아요한 키트 가져오기", description = "memberId가 좋아요한 키트들을 가져옵니다.")
-    public ResponseEntity<List<ProductDto.SimpleResponse>> getProductLike(@PathVariable("memberId") Long memberId) {
-        List<ProductDto.SimpleResponse> result = memberService.getProductLike(memberId);
+    public ResponseEntity<List<ProductDto.ProductSimpleResponse>> getProductLike(@PathVariable("memberId") Long memberId) {
+        List<ProductDto.ProductSimpleResponse> result = memberService.getProductLike(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

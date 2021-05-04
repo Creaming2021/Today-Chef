@@ -26,9 +26,9 @@ public class CourseQnaController {
 
     @Operation(summary = "강의 별 모든 질문 조회", description = "courseId에 해당하는 모든 QnA를 페이징 처리해서 출력합니다")
     @GetMapping
-    public ResponseEntity<Page<CourseQnaDto.Response>> getQnaAll(@RequestParam("courseId") Long courseId, Pageable pageable) {
+    public ResponseEntity<List<CourseQnaDto.Response>> getQnaAll(@RequestParam("courseId") Long courseId) {
         log.info("(Get) getQnaAll - courseId: {}", courseId);
-        return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.getQnaAll(courseId, pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.getQnaAll(courseId));
     }
 
     @Operation(summary = "질문 조회", description = "qnaId에 해당하는 QnA를 조회합니다")
