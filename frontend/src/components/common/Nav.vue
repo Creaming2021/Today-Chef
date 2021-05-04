@@ -36,9 +36,11 @@
       <div 
         v-if="user.signStatus === 'signUp'"
         class="sign-up-container">
-          <input v-model="signUpForm.phoneNumber" placeholder="010-1234-5678"/><br/>
-          <input v-model="signUpForm.email" placeholder="이메일을 입력하세요."/>
-          <button @click="onClickSignUp">회원 가입</button>
+          <input class="medium" v-model="signUpForm.nickname" placeholder="닉네임을 입력하세요."/>
+          <button class="small" @click="onClickCheckNickname" @change="initialNicknameState">중복 체크</button><br/>
+          <input class="big" v-model="signUpForm.phoneNumber" placeholder="010-1234-5678"/><br/>
+          <input class="big" v-model="signUpForm.email" placeholder="이메일을 입력하세요."/><br/>
+          <button class="big-btn" @click="onClickSignUp">회원 가입</button>
       </div>
       <div v-else>
         <img 
@@ -58,13 +60,16 @@ export default {
     return {
       openSignModal: false,
       signUpForm : {
+        nickname: '',
         phoneNumber: '',
         email: '',
       },
     }
   },
   computed : {
-    ...mapState(['user']),
+    ...mapState({
+      user: state => state.user,
+    }),
   },
   watch: {
     user : {
@@ -110,14 +115,24 @@ export default {
       this.$store.dispatch('GET_KAKAO_INFO');
     },
     onClickSignUp() {
-      this.$store.dispatch('SET_SIGN_UP', this.signUpForm);
+      if(!this.user.nicknameState){
+        alert("닉네임 중복체크를 해주세요.");
+      } else {
+        this.$store.dispatch('SIGN_UP', this.signUpForm);
+      }
     },
     onClickSignOut() {
-      this.$store.dispatch('SET_SIGN_OUT');
+      this.$store.dispatch('SIGN_OUT');
     },
     joinRoom(){
       window.open("https://k4b2041.p.ssafy.io:5000/", "_blank");
-    }  
+    },
+    onClickCheckNickname(){
+      this.$store.dispatch('CHECK_NICKNAME', this.signUpForm.nickname);
+    },
+    initialNicknameState(){
+      this.$store.dispatch('SET_NICKNAME_STATE', false);
+    },
   }
 }
 </script>
@@ -141,24 +156,29 @@ export default {
 
 .sign-up-container{
   text-align: center;
-  padding-top: 50px;
+  padding: 30px 0px 30px 0px;
 }
 
 .sign-up-container input,
-.sign-up-container button{
+.sign-up-container button {
   margin: 10px 0px 10px 0px;
-  width: 80%;
   height: 50px;
   border-radius: 10px;
   border: 1px solid #f3f2ee;
   padding-left: 10px;
 }
 
-.sign-up-container button{
-  margin: 50px 0px 50px 0px;
-  background-color: #f3f2ee;
-  border: none;
-  font-weight: bold;
+.sign-up-container .small{
+  width: 30%;
+}
+
+.sign-up-container .medium{
+  margin: 10px 3% 10px 0px;
+  width: 47%;
+}
+
+.sign-up-container .big{
+  width: 80%;
 }
 
 .sign-up-container button:hover{

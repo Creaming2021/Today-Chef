@@ -7,6 +7,7 @@ export default {
     userId : '',
     userNickname : '',
     authObj: {},
+    nicknameState: false,
   },
   mutations: {
     SET_AUTH_OBJ(state, payload){
@@ -27,13 +28,16 @@ export default {
       state.userId = null;
       state.userEmail = null;
     },
+    SET_NICKNAME_STATE(state, payload){
+      state.nicknameState = payload;
+    }
   },
   actions: {
     GET_KAKAO_INFO({ commit, dispatch }) {
       kakao.getKakaoLogIn()
         .then(authObj => {
           commit('SET_AUTH_OBJ', authObj);
-          dispatch('SET_SIGN_IN', authObj);
+          dispatch('SIGN_IN', authObj);
         });
     },
     SIGN_IN({ commit }, authObj) {
@@ -56,12 +60,22 @@ export default {
         .then(() => {
           sessionStorage.setItem('access_token', state.authObj.auth.access_token);
           sessionStorage.setItem('refresh_token', state.authObj.auth.refresh_token);
-          dispatch('SET_SIGN_IN', state.authObj);
+          dispatch('SIGN_IN', state.authObj);
         });
     },
     SIGN_OUT({ commit }) {
       sessionStorage.clear();
       commit('SET_SIGN_OUT');
     },
+    CHECK_NICKNAME({ commit }, request) {
+      user.checkNickname(request)
+        .then(() => {
+          commit('SET_NICKNAME_STATE', true);
+        })
+        .catch(e => { console.log(e); });
+    },
+    SET_NICKNAME_STATE({ commit }, request) {
+      commit('SET_NICKNAME_STATE', request);
+    }
   },
 };
