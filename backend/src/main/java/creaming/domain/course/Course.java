@@ -9,14 +9,12 @@ import creaming.domain.product.Product;
 import creaming.domain.qna.CourseQna;
 import creaming.domain.register.Register;
 import creaming.domain.review.CourseReview;
-import creaming.domain.timetable.TimeTable;
+import creaming.dto.CourseDto;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Builder
 @Entity
@@ -32,9 +30,9 @@ public class Course extends BaseTimeEntity {
     private Long id;
 
     private String name;
-    private LocalDate date;
     private Integer price;
-    private Integer rating;
+    private String date; // 강의 날짜
+    private String time; // 강의 시간
 
     @Enumerated(EnumType.STRING)
     private FoodType category;
@@ -44,6 +42,9 @@ public class Course extends BaseTimeEntity {
 
     @Lob // 강의 설명
     private String descriptions;
+
+    @Embedded // 강의 내용...
+    private CourseDescription courseDescription;
 
     // 강의 제작자
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -68,9 +69,6 @@ public class Course extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CourseFile> courseFiles = new ArrayList<>();
-
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<TimeTable> timeTables = new ArrayList<>();
 
     // JPA
     public void updateMember(Member member) {
@@ -129,14 +127,14 @@ public class Course extends BaseTimeEntity {
         courseFile.updateFK(null);
     }
 
-    public void addTimeTable (TimeTable timeTable) {
-        timeTables.add(timeTable);
-        timeTable.updateCourse(this);
-    }
-
-    public void deleteTimeTable (TimeTable timeTable) {
-        timeTables.remove(timeTable);
-        timeTable.updateCourse(null);
+    public void update(CourseDto.PutRequest dto) {
+        this.name = dto.getName();
+        this.date = dto.getDate();
+        this.time = dto.getTime();
+        this.price = dto.getPrice();
+        this.category = dto.getCategory();
+        this.materials = dto.getMaterials();
+        this.descriptions = dto.getDescriptions();
     }
 
     /////////////////////////////////////////////

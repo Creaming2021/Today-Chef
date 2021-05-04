@@ -35,6 +35,7 @@ public class Member extends BaseTimeEntity {
     private String profileImage;
     private String email;
     private String kakaoId;
+    private String phone;
 
     @Embedded
     private Address address;
@@ -150,4 +151,9 @@ public class Member extends BaseTimeEntity {
     }
 
     //////////////////////////////////////
+
+    public void update(String nickname, Address address) {
+        this.nickname = nickname;
+        this.address = address;
+    }
 }

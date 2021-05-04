@@ -22,11 +22,13 @@ public class EventDto {
         private Long id;
         private String title;
         private LocalDateTime date;
+        private String image;
 
         public SimpleResponse(Event event) {
             this.id = event.getId();
             this.title = event.getTitle();
             this.date = event.getCreatedDate();
+            this.image = event.getImage();
         }
     }
 

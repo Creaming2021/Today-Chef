@@ -2,6 +2,7 @@ package creaming.dto;
 
 import creaming.domain.etc.Address;
 import creaming.domain.member.Member;
+import creaming.domain.register.Register;
 import lombok.*;
 
 import java.time.DayOfWeek;
@@ -18,11 +19,13 @@ public class MemberDto {
         private Long memberId;
         private String nickname;
         private String profileImage;
+        private String phone;
 
         public SimpleProfile(Member member) {
             this.memberId = member.getId();
             this.nickname = member.getNickname();
             this.profileImage = member.getProfileImage();
+            this.phone = member.getPhone();
         }
     }
 
@@ -36,7 +39,18 @@ public class MemberDto {
         private String nickname;
         private String profileImage;
         private String email;
+        private String phone;
         private Address address;
+
+        public Response(Member member) {
+            this.memberId = member.getId();
+            this.nickname = member.getNickname();
+            this.profileImage = member.getProfileImage();
+            this.email = member.getEmail();
+            this.phone = member.getPhone();
+            this.address = member.getAddress();
+        }
+
     }
 
     @Getter
@@ -47,6 +61,7 @@ public class MemberDto {
         private String email;
         private String profileImage;
         private String nickname;
+        private String phone;
     }
 
     @Getter
@@ -56,18 +71,26 @@ public class MemberDto {
     public static class PutRequest {
         private String nickname;
         private Address address;
+        private String phone;
     }
 
     @Getter
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DayOfWeekResponse {
+    public static class StudentResponse {
         private Long memberId;
         private String nickname;
         private String profileImage;
-        private String phoneNumber;
-        private DayOfWeek dayOfWeek;
+        private String phone;
+
+        public StudentResponse(Member member) {
+            this.memberId = member.getId();
+            this.nickname = member.getNickname();
+            this.profileImage = member.getProfileImage();
+            this.phone = member.getPhone();
+        }
+
     }
 
 }
