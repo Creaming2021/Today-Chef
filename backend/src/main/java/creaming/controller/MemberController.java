@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,6 +167,34 @@ public class MemberController {
     public ResponseEntity<Void> toggleLike(@PathVariable("memberId") Long memberId,
                                         @PathVariable("courseId") Long courseId) {
         memberService.toggleLike(memberId, courseId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // 장바구니 목록 불러오기
+    @GetMapping("/{memberId}/carts")
+    @Operation(summary = "장바구니 목록 가져오기", description = "memberId의 장바구니 목록을 가져옵니다.")
+    public ResponseEntity<List<CartDto.CartResponse>> getCarts(@PathVariable("memberId") Long memberId) {
+        List<CartDto.CartResponse> result = memberService.getCarts(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    // 장바구니 담기
+    @PostMapping("/{memberId}/carts")
+    @Operation(summary = "장바구니에 담기", description = "memberId의 장바구니에 productId의 제품을 amount 갯수만큼 담는다.")
+    public ResponseEntity<Long> postCart(@PathVariable("memberId") Long memberId,
+                                                               @RequestBody @Valid CartDto.CartPostRequest dto) {
+        log.info("(Post) postCart - memberId : {} | productId : {} | amount : {}", memberId, dto.getProductId(), dto.getAmount());
+        Long result = memberService.postCart(memberId, dto);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    // 장바구니 제거
+    @DeleteMapping("/{memberId}/carts/{productId}")
+    @Operation(summary = "장바구니에서 제거", description = "memberId의 장바구니에 productId의 제품을 제거합니다.")
+    public ResponseEntity<Void> deleteCart(@PathVariable("memberId") Long memberId,
+                                                               @PathVariable("productId") Long productId) {
+        log.info("(Post) postCart - memberId : {} | productId : {} ", memberId, productId);
+        memberService.deleteCart(memberId, productId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
