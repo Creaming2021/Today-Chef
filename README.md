@@ -77,15 +77,15 @@
         <a href="documents/dev_log/20210426_dev_log.md"><li>4/26 - 개발 (FrontEnd: 카카오 로그인, 이미지 제작, OpenVidu 파일 분석, 내 정보 수정, 강의 제작, BackEnd: OpenVidu 소스 분석, CI/CD 구축, 가비아 도메인 적용, mm연동, Swagger3) </li></a>
         <a href="documents/dev_log/20210427_dev_log.md"><li>4/27 - 개발 (FrontEnd: toast UI, image-editor, viewer, CSS, BackEnd: OpenVidu, nginx 설정 변경, 새로운 aws jenkins 적용, mariadb 설치 및 설정) </li></a>
         <a href="documents/dev_log/20210428_dev_log.md"><li>4/28 - 기술 추가 (AR, Unity) & 개발 (API 코드 작성) </li></a>
-        <a href="documents/dev_log/20210428_dev_log.md"><li>4/29 - AR 기능 확정 및 테스트 (홍보 영상 출력, 강의별 썸네일 영상 출력, 요리 도구 안내), 스트리밍 테스트 </li></a>
-        <a href="documents/dev_log/20210428_dev_log.md"><li>4/30 - 개발 (TODO 기반)</li></a>
+        <a href="documents/dev_log/20210429_dev_log.md"><li>4/29 - AR 기능 확정 및 테스트 (홍보 영상 출력, 강의별 썸네일 영상 출력, 요리 도구 안내), 스트리밍 테스트 </li></a>
+        <a href="documents/dev_log/20210430_dev_log.md"><li>4/30 - 개발 (TODO 기반)</li></a>
     </ul>
 </details>
 <details>
     <summary>4주차</summary>
     <ul>
-        <a href="documents/dev_log/20210426_dev_log.md"><li>5/3 - 팀 미팅 의견 반영 및 서비스 추가 / 개발 </li></a>
-        <a href="documents/dev_log/20210427_dev_log.md"><li>5/4 - 개발 (TODO 기반) </li></a>
+        <a href="documents/dev_log/20210503_dev_log.md"><li>5/3 - 팀 미팅 의견 반영 및 서비스 추가 / 개발 </li></a>
+        <a href="documents/dev_log/20210504_dev_log.md"><li>5/4 - 개발 (TODO 기반) </li></a>
     </ul>
 </details>
 
