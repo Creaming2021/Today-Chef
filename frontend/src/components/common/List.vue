@@ -11,22 +11,22 @@
     <div 
       class="list-item" 
       v-for="item in list" 
-      v-bind:key="item.id"
+      v-bind:key="item.reviewId"
       @click="type === 'review' 
-              ? onGoToReviewDetail(item.id)
-              : onGoToNoticeDetail(item.id)">
+              ? onGoToReviewDetail(item.reviewId)
+              : onGoToNoticeDetail(item.reviewId)">
       <div class="list-item-thumbnail" 
         v-if="type === 'notice'">
-          <img :src="item.imageUrl"/>
+          <img :src="item.profile.profileImage"/>
       </div>
       <div class="list-item-left">
         <div class="title">{{item.title}}</div>
         <h6 v-if="type === 'review'">{{item.content}}</h6>
-        <div class="detail">{{item.writer}} | {{item.date}}</div>
+        <div class="detail">{{item.profile.nickname}} | {{item.createdDate}}</div>
       </div>
       <div class="list-item-cnt" 
         v-if="type === 'review'">
-          {{item.commentCnt}}<div>답변</div></div>
+          {{item.commentCount}}<div>답변</div></div>
       <hr/>
     </div>
     <div class="row">
@@ -62,6 +62,7 @@
 
 
 <script>
+import { mapState } from 'vuex';
 import { Editor } from '@toast-ui/vue-editor';
 
 export default {
@@ -75,29 +76,41 @@ export default {
       board: {
         title: '',
         content: '',
+        rating: 0,
       },
+      list: [],
+      type: '',
+      pageTotal: 1,
+      currentPage: 1,
     }
   },
-  props: {
-    type: String,
-    list: Array,
-    pageTotal: Number,
-    currentPage: Number,
+  computed: {
+    ...mapState({
+      course: state => state.course.reviewList,
+      product: state => state.product.reviewList,
+      userId: state => state.user.userId,
+    }),
+  },
+  created() {
+    this.getReviewList();
+    this.settingList();
   },
   methods: {
     onGoToReviewDetail(id){
       this.$router.push({
-        name: 'CourseDetail',
+        name: 'ItemDetail',
         params: { 
+          item: this.$route.params.item,
+          category: this.$route.params.category,
           type: 'reviewDetail', 
-          id: id 
+          id: id,
         }
       });
     },
     onGoToNoticeDetail(id){
       this.$router.push({
 				name: 'NoticeDetail',
-        params: { number: id }
+        params: { number: id },
       });
     },
     onClickOpenModal(){
@@ -106,10 +119,41 @@ export default {
     onClickCloseModal(){
       this.openModal = false;
     },
+    getReviewList(){
+      let item = this.$route.params.item;
+      let id = this.$route.params.id;
+      if(item === 'course'){
+        this.$store.dispatch('GET_COURSE_REVIEW_LIST', id);
+      } else if(item === 'product'){
+        this.$store.dispatch('GET_PRODUCT_REVIEW_LIST', id);
+      }
+    },
     submitReview(){
       this.board.content = this.$refs.content.invoke("getMarkdown");
-      alert("작성요청 던지기");
+
+      let item = this.$route.params.item;
+      if(item === 'course'){
+        this.$store.dispatch('POST_COURSE_REVIEW', 
+          {
+            ...this.board,
+            courseId: this.$route.params.id,
+            memberId: this.userId,
+          });
+      } else if(item === 'product'){
+        this.$store.dispatch('POST_PRODUCT_REVIEW', 
+          {
+            ...this.board,
+            productId: this.$route.params.id,
+            memberId: this.userId,
+          });
+      }
       this.onClickCloseModal();
+    },
+    settingList(){
+      this.type = this.$route.params.type;
+
+      let item = this.$route.params.item;
+      this.list = item === 'course' ? this.course : this.product;
     }
   },
 }

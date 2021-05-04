@@ -43,7 +43,7 @@ export default {
       })
       .catch(e => { console.log(e); });
   },
-  POST_COURSE_REVIEW_COMMENT_LIST({ dispatch }, request){
+  POST_COURSE_REVIEW_COMMENT({ dispatch }, request){
     courseReview.postReviewComment(request)
       .then(({ data }) => {
         dispatch('GET_COURSE_REVIEW_COMMENT_LIST', data);

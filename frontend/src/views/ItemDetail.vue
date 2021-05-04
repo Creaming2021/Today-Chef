@@ -34,6 +34,7 @@ export default {
   data(){
     return {
       item: '',
+      id: '',
       student: 'student',
       teacher: 'teacher',
       stateBefore: 'before',
@@ -50,13 +51,14 @@ export default {
   methods: {
     checkQuery() {
       this.item = this.$route.params.item;
+      this.id = this.$route.params.id;
       // this.getCourseDetailInfo();
     },
     getCourseDetailInfo(){
       if(this.item === 'course'){
-        this.$store.dispatch('GET_COURSE');
+        this.$store.dispatch('GET_COURSE', this.id);
       } else if(this.item === 'product'){
-        this.$store.dispatch('GET_PRODUCT');
+        this.$store.dispatch('GET_PRODUCT', this.id);
       }
     }
   },
