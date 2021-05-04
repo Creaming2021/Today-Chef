@@ -2,6 +2,8 @@ package creaming.domain.like;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductLikeRepository extends JpaRepository<ProductLike, Long> {
+import java.util.List;
 
+public interface ProductLikeRepository extends JpaRepository<ProductLike, Long> {
+    List<ProductLike> findByMemberId(Long memberId);
 }

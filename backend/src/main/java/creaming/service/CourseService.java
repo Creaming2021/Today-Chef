@@ -53,7 +53,7 @@ public class CourseService {
     public List<MemberDto.StudentResponse> getCourseStudents(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
-        List<Register> registers = registerRepository.findByCourse(course);
+        List<Register> registers = registerRepository.findByCourseId(courseId);
         return registers.stream()
                 .map(Register::getMember)
                 .map(MemberDto.StudentResponse::new)

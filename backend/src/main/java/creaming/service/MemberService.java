@@ -6,6 +6,8 @@ import creaming.domain.course.Course;
 import creaming.domain.course.CourseRepository;
 import creaming.domain.like.Like;
 import creaming.domain.like.LikeRepository;
+import creaming.domain.like.ProductLike;
+import creaming.domain.like.ProductLikeRepository;
 import creaming.domain.member.Member;
 import creaming.domain.member.MemberRepository;
 import creaming.domain.membercoupon.CouponStatus;
@@ -13,10 +15,7 @@ import creaming.domain.membercoupon.MemberCoupon;
 import creaming.domain.membercoupon.MemberCouponRepository;
 import creaming.domain.register.Register;
 import creaming.domain.register.RegisterRepository;
-import creaming.dto.CouponDto;
-import creaming.dto.CourseDto;
-import creaming.dto.MemberDto;
-import creaming.dto.RegisterDto;
+import creaming.dto.*;
 import creaming.exception.BaseException;
 import creaming.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +33,7 @@ import java.util.stream.Collectors;
 public class MemberService {
 
     private final LikeRepository likeRepository;
+    private final ProductLikeRepository productLikeRepository;
     private final MemberRepository memberRepository;
     private final CourseRepository courseRepository;
     private final CouponRepository couponRepository;
@@ -190,7 +190,25 @@ public class MemberService {
         }
     }
 
+    // 강의 좋아요 리스트
     public List<CourseDto.SimpleResponse> getCourseLike(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+        List<Like> likes = likeRepository.findByMemberId(memberId);
 
+        return likes.stream().map(Like::getCourse)
+                .map(CourseDto.SimpleResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    // 키트 좋아요 리스트
+    public List<ProductDto.SimpleResponse> getProductLike(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+        List<ProductLike> productLikes = productLikeRepository.findByMemberId(memberId);
+
+        return productLikes.stream().map(ProductLike::getProduct)
+                .map(ProductDto.SimpleResponse::new)
+                .collect(Collectors.toList());
     }
 }

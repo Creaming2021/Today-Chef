@@ -153,6 +153,13 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
+    @GetMapping("/{memberId}/products/like")
+    @Operation(summary = "좋아요한 키트 가져오기", description = "memberId가 좋아요한 키트들을 가져옵니다.")
+    public ResponseEntity<List<ProductDto.SimpleResponse>> getProductLike(@PathVariable("memberId") Long memberId) {
+        List<ProductDto.SimpleResponse> result = memberService.getProductLike(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
     // 좋아요 토글
     @PutMapping("/{memberId}/courses/{courseId}/like")
     @Operation(summary = "좋아요 토글", description = "좋아요 상태를 토글합니다.")
