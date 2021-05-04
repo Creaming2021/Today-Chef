@@ -67,16 +67,25 @@
 export default {
   methods: {
     onClickTab(pathName, paramsType) {
-      pathName === 'Profile'
-      ? this.$router.push({
+      if(pathName === 'Profile'){
+        this.$router.push({
           name: pathName,
           params: {
             type: paramsType,
           }
         })
-      : this.$router.push({
+      } else if(pathName === 'Course'){
+        this.$router.push({
+          name: pathName,
+          params: {
+            category: paramsType,
+          }
+        })
+      } else {
+        this.$router.push({
           name: pathName
         })
+      }
     },
   }
 }

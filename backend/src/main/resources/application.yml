@@ -8,7 +8,8 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+#      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:
@@ -20,6 +21,12 @@ spring:
     url: jdbc:mysql://k4b204.p.ssafy.io/creaming?useUnicode=true&charaterEncoding=utf-8
     username: root
     password: creaming2021^^
+
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/creaming
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
 
 my-app:
   server-url: https://k4b204.p.ssafy.io

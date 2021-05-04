@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id", callSuper = false)
 public class MemberCoupon extends BaseTimeEntity {
@@ -48,6 +49,14 @@ public class MemberCoupon extends BaseTimeEntity {
 
     public void updateMember(Member member) {
         this.member = member;
+    }
+
+    public void useCoupon() {
+        this.couponStatus = CouponStatus.USED;
+    }
+
+    public void expireCoupon() {
+        this.couponStatus = CouponStatus.EXPIRED;
     }
     ///////////////////////////////
 }

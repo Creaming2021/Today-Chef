@@ -1,7 +1,7 @@
 package creaming.domain.comment;
 
 import creaming.domain.member.Member;
-import creaming.domain.review.Review;
+import creaming.domain.review.CourseReview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +20,8 @@ import javax.persistence.ManyToOne;
 public class ReviewComment extends Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id")
-    private Review review;
+    @JoinColumn(name = "course_review_id")
+    private CourseReview courseReview;
 
     @Builder
     public ReviewComment(String content) {
@@ -36,7 +36,7 @@ public class ReviewComment extends Comment {
 
     @Override
     public void updateFK(Object review) {
-        this.review = (Review) review;
+        this.courseReview = (CourseReview) review;
     }
     ////////////////////////////////////////
 

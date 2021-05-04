@@ -14,7 +14,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDto.LoginRequestDto dto) {
-        MemberDto.Response result = new MemberDto.Response();
+        MemberDto.MemberResponse result = new MemberDto.MemberResponse();
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

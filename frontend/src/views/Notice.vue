@@ -35,7 +35,7 @@ export default {
           title: '이벤트 제목',
           writer: '작성자 닉네임',
           date: '2021년 4월 21일',
-          readCnt: 2 
+          imageUrl: 'https://lh3.googleusercontent.com/proxy/Fpk7E8Oc7gPcDsmdsYGN-i48HlRb0FAHdRO5KPQb6jbc9JayNkGtnWOiKDvBBtSYM8YOcWUXHiHP8_66c6nV0XJHeJvyFK7T4OZcqVuM1DGqbelzpVAA',
         },
         {
           id: 2,
@@ -43,7 +43,7 @@ export default {
           title: '이벤트 제목',
           writer: '작성자 닉네임',
           date: '2021년 4월 21일',
-          readCnt: 0
+          imageUrl: 'https://i.pinimg.com/originals/ad/e2/b3/ade2b3d4952f21339792c153b8fea8f0.png',
         },
         {
           id: 3,
@@ -51,7 +51,7 @@ export default {
           title: '이벤트 제목',
           writer: '작성자 닉네임',
           date: '2021년 4월 21일',
-          readCnt: 0
+          imageUrl: 'https://lh3.googleusercontent.com/proxy/UskfKbmMMCFSb1DW1k1QEfckkUZNo4RdqbTfjb7MwUnmUI6Y_cDTvljo8pW0h9S9wu0xeg5TPxtReGQVHBKl9Gch_SPRnf75GY1-oNRt8OfPKRp_7SP6LvHKBCowGo97YIuj53owjtOrRqyjS04HHUpaArq31h-EE97EIP4zA8HPPxWcivQ',
         },
         {
           id: 4,
@@ -59,7 +59,7 @@ export default {
           title: '이벤트 제목',
           writer: '작성자 닉네임',
           date: '2021년 4월 21일',
-          readCnt: 0
+          imageUrl: 'http://imagescdn.gettyimagesbank.com/500/201807/jv11177023.jpg',
         },
         {
           id: 5,
@@ -67,7 +67,7 @@ export default {
           title: '이벤트 제목',
           writer: '작성자 닉네임',
           date: '2021년 4월 21일',
-          readCnt: 0
+          imageUrl: 'https://cdn.imweb.me/upload/S20191001749a3c1500682/2c7eec1aec69e.png',
         }
       ],
       noticeInfo: {
@@ -77,7 +77,7 @@ export default {
         content: '이벤트 내용',
         writer: '작성자 닉네임',
         date: '2021년 4월 21일',
-        readCnt: 2,
+          imageUrl: 'https://www.kyeonggi.com/news/photo/201907/2138026_928105_1930.jpg',
       },
     }
   },

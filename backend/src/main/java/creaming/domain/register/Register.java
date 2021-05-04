@@ -23,13 +23,7 @@ public class Register extends BaseTimeEntity {
     @Column(name = "register_id")
     private Long id;
 
-    private DayOfWeek dayOfWeek;
-
     private int price;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id")
-    private Delivery delivery;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

@@ -34,12 +34,12 @@ const routes = [
     component: Notice,
   },
   {
-    path: "/course",
+    path: "/course/:category",
     name: "Course",
     component: Course,
   },
   {
-    path: "/course/:type",
+    path: "/course/:category/:id/:type",
     name: "CourseDetail",
     component: CourseDetail,
   },

@@ -16,6 +16,8 @@ public enum ErrorCode {
      * !!!!!!!! 에러코드 만들 때 Httpstatus 는 검색을 통해 확인
      */
 
+    NOT_FOUND(HttpStatus.NOT_FOUND, "00000", "NOT FOUND"),
+
     // Member
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "01000", "없는 계정"),
 
@@ -34,6 +36,16 @@ public enum ErrorCode {
 
     // Comment
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "06000", "없는 댓글"),
+
+    // Coupon
+    COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "07000", "없는 쿠폰"),
+    COUPON_NOT_AVAILABLE(HttpStatus.BAD_REQUEST, "07001", "사용불가능한 쿠폰"),
+
+    // MemberCoupon
+    MEMBER_COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "08001", "소유하지 않은 쿠폰"),
+
+    // Register
+    REGISTER_NOT_FOUND(HttpStatus.NOT_FOUND, "09000", "없는 결제 내역"),
 
     // 서버 에러
     RUNTIME_EXCEPTION(HttpStatus.BAD_REQUEST, "00100"),

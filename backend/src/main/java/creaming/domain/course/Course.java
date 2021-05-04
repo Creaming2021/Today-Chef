@@ -5,19 +5,16 @@ import creaming.domain.etc.FoodType;
 import creaming.domain.file.CourseFile;
 import creaming.domain.like.Like;
 import creaming.domain.member.Member;
-import creaming.domain.qna.Qna;
+import creaming.domain.product.Product;
+import creaming.domain.qna.CourseQna;
 import creaming.domain.register.Register;
-import creaming.domain.review.Review;
-import creaming.domain.timetable.TimeTable;
+import creaming.domain.review.CourseReview;
+import creaming.dto.CourseDto;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Builder
 @Entity
@@ -33,9 +30,9 @@ public class Course extends BaseTimeEntity {
     private Long id;
 
     private String name;
-    private LocalDate date;
     private Integer price;
-    private Integer rating;
+    private String date; // 강의 날짜
+    private String time; // 강의 시간
 
     @Enumerated(EnumType.STRING)
     private FoodType category;
@@ -46,10 +43,17 @@ public class Course extends BaseTimeEntity {
     @Lob // 강의 설명
     private String descriptions;
 
+    @Embedded // 강의 내용...
+    private CourseDescription courseDescription;
+
     // 강의 제작자
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Register> registers = new ArrayList<>();
@@ -58,21 +62,20 @@ public class Course extends BaseTimeEntity {
     private final List<Like> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Qna> qnas = new ArrayList<>();
+    private final List<CourseQna> courseQnas = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<Review> reviews = new ArrayList<>();
+    private final List<CourseReview> courseReviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CourseFile> courseFiles = new ArrayList<>();
-
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<TimeTable> timeTables = new ArrayList<>();
 
     // JPA
     public void updateMember(Member member) {
         this.member = member;
     }
+
+    public void updateProduct(Product product) { this.product = product; }
 
     public void addRegister(Register register) {
         registers.add(register);
@@ -94,24 +97,24 @@ public class Course extends BaseTimeEntity {
         like.updateCourse(null);
     }
 
-    public void addQna (Qna qna) {
-        qnas.add(qna);
-        qna.updateCourse(this);
+    public void addQna (CourseQna courseQna) {
+        courseQnas.add(courseQna);
+        courseQna.updateCourse(this);
     }
 
-    public void deleteQna (Qna qna) {
-        qnas.remove(qna);
-        qna.updateCourse(null);
+    public void deleteQna (CourseQna courseQna) {
+        courseQnas.remove(courseQna);
+        courseQna.updateCourse(null);
     }
 
-    public void addReview (Review review) {
-        reviews.add(review);
-        review.updateCourse(this);
+    public void addReview (CourseReview courseReview) {
+        courseReviews.add(courseReview);
+        courseReview.updateCourse(this);
     }
 
-    public void deleteReview (Review review) {
-        reviews.remove(review);
-        review.updateCourse(null);
+    public void deleteReview (CourseReview courseReview) {
+        courseReviews.remove(courseReview);
+        courseReview.updateCourse(null);
     }
 
     public void addCourseFile (CourseFile courseFile) {
@@ -124,14 +127,16 @@ public class Course extends BaseTimeEntity {
         courseFile.updateFK(null);
     }
 
-    public void addTimeTable (TimeTable timeTable) {
-        timeTables.add(timeTable);
-        timeTable.updateCourse(this);
+    public void update(CourseDto.PutRequest dto) {
+        this.name = dto.getName();
+        this.date = dto.getDate();
+        this.time = dto.getTime();
+        this.price = dto.getPrice();
+        this.category = dto.getCategory();
+        this.materials = dto.getMaterials();
+        this.descriptions = dto.getDescriptions();
     }
 
-    public void deleteTimeTable (TimeTable timeTable) {
-        timeTables.remove(timeTable);
-        timeTable.updateCourse(null);
-    }
     /////////////////////////////////////////////
+
 }
