@@ -71,11 +71,12 @@ import Student from '@/components/mypage/Student.vue';
         this.onOpenDetailModal(this.course);
       } else if (this.type === "otherClass") {
         this.$router.push({
-          name: 'CourseDetail',
+          name: 'ItemDetail',
           params: {
             category: this.course.category,
             id: this.course.id,
             type: 'introduction',
+            item: this.$route.params.item,
           }
         })
       }

@@ -6,48 +6,48 @@ export default {
     qna: {},
   },
   mutations: {
-    SET_QNA_LIST(state, payload){
+    SET_PRODUCT_QNA_LIST(state, payload){
       state.qnaList = payload;
     },
-    SET_QNA(state, payload){
+    SET_PRODUCT_QNA(state, payload){
       state.qna = payload;
     },
   },
   actions: {
-    GET_QNA_LIST({ commit }, request){
+    GET_PRODUCT_QNA_LIST({ commit }, request){
       productQna.getQnaList(request)
         .then(({ data }) => {
           if(data){
-            commit('SET_QNA_LIST', data);
+            commit('SET_PRODUCT_QNA_LIST', data);
           } else {
             console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    POST_QNA({ dispatch }, request){
+    POST_PRODUCT_QNA({ dispatch }, request){
       productQna.postQna(request)
         .then(({ data }) => {
           if(data){
-            dispatch('GET_QNA_LIST', data);
+            dispatch('GET_PRODUCT_QNA_LIST', data);
           } else {
             console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    PUT_QNA({ dispatch }, request){
+    PUT_PRODUCT_QNA({ dispatch }, request){
       productQna.putQna(request)
         .then(({ data }) => {
           if(data){
-            dispatch('GET_QNA_LIST', data);
+            dispatch('GET_PRODUCT_QNA_LIST', data);
           } else {
             console.log(data);
           }
         })
         .catch(e => { console.log(e); });
     },
-    DELETE_QNA({ commit }, request){
+    DELETE_PRODUCT_QNA({ commit }, request){
       productQna.deleteQna(request)
         .then(({ data }) => {
           if(data){

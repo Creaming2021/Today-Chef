@@ -1,10 +1,10 @@
 import { basic } from '@/api/instance.js';
 
-export const getQnaList = async (qna) => {
+export const getQnaList = async (courseId) => {
   basic.get('course-qna',
     {
       params: {
-        courseId: qna.courseId,
+        courseId,
       }
     })
     .then(res => res)
@@ -25,13 +25,13 @@ export const postQna = async ( qna ) => {
 
 export const putQna = async ( qna ) => {
   basic.put(
-      `course-qna/${qna.id}`,
+      `course-qna/${qna.qnaId}`,
       {
         content: qna.content,
         isSecret: qna.isSecret,
-        productId: qna.productId,
+        courseId: qna.courseId,
         title: qna.title,
-        userId: qna.userId,
+        memberId: qna.memberId,
       }
     )
     .then(res => res)
@@ -52,13 +52,10 @@ export const deleteQna = async ( qnaId ) => {
 
 export const postQnaComment = async ( qna ) => {
   basic.post(
-    `course-qna/${qna.id}/comments`,
+    `course-qna/${qna.qnaId}/comments`,
     {
       content: qna.content,
-      isSecret: qna.isSecret,
-      productId: qna.productId,
-      title: qna.title,
-      userId: qna.userId,
+      memberId: qna.memberId,
     }
   )
   .then(res => res)
@@ -67,11 +64,9 @@ export const postQnaComment = async ( qna ) => {
 
 export const putQnaComment = async ( qna ) => {
   basic.put(
-    `course-qna/${qna.id}/comments/${qna.commentId}`,
+    `course-qna/${qna.qnaId}/comments/${qna.commentId}`,
     {
       content: qna.content,
-      isSecret: qna.isSecret,
-      title: qna.title,
     }
   )
   .then(res => res)
@@ -79,7 +74,7 @@ export const putQnaComment = async ( qna ) => {
 }
 
 export const deleteQnaComment = async ( qna ) => {
-  basic.delete(`course-qna/${qna.id}/comments/${qna.commentId}`)
+  basic.delete(`course-qna/${qna.qnaId}/comments/${qna.commentId}`)
   .then(res => res)
   .catch(e => { console.log(e); });
 }

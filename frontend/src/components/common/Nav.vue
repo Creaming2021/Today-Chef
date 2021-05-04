@@ -89,6 +89,7 @@ export default {
         this.$router.push({
           name: pathName,
           params: {
+            item: 'course',
             category : paramsType,
           }
         })

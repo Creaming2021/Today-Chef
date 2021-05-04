@@ -16,6 +16,8 @@
             :courseFilterList="courseFilterList"
             :currentSortValue="currentSortValue"
             :currentSortId="currentSortId"
+            :item="item"
+            :category="currentCategory"
             @setSortValue="setSortValue"/>
         </div>
       </div>
@@ -46,6 +48,7 @@ export default {
   },
   data() {
     return {
+      item: '',
       searchKeyword: '',
       currentCategory: 'all',
       currentFilter: 'all',
@@ -264,8 +267,8 @@ export default {
       console.log('currentCategory', this.currentCategory);
     },
     checkQuery() {
-      this.currentCategory = 
-        this.$route.params.category ? this.$route.params.category : 'all';
+      this.currentCategory = this.$route.params.category;
+      this.item = this.$route.params.item;
     },
     setKeyword(newKeyword) {
       this.searchKeyword = newKeyword;

@@ -8,11 +8,9 @@
       <span @click="onChangeType('refund')">한불 정책</span>
     </div>
     <ItemIntroduction 
-      v-if="this.type === 'introduction'"
-      :item="item"/>
+      v-if="this.type === 'introduction'"/>
     <ItemKit 
-      v-else-if="this.type === 'kit'"
-      :item="item"/>
+      v-else-if="this.type === 'kit'"/>
     <List 
       v-else-if="this.type === 'review'"
       :type="type"
@@ -24,8 +22,7 @@
       :type="type"
       :item="reviewInfo"/>
     <ItemQnA 
-      v-else-if="this.type === 'qna'"
-      :qnaList="qnaList"/>
+      v-else-if="this.type === 'qna'"/>
     <ItemRefund 
       v-else-if="this.type === 'refund'"/>
   </div>
@@ -43,142 +40,83 @@ import ItemRefund from '@/components/itemDetail/ItemRefund.vue';
 export default {
   data() {
     return {
-      id: null,
+      id: '',
+      item: '',
       type: '',
-      pageTotal: 8,
-      currentPage: 1,
-      reviewList: [
-        {
-          id: 1,
-          profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-          title: '리뷰 제목',
-          content: '리뷰 내용',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          commentCnt: 2 
-        },
-        {
-          id: 2,
-          profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
-          title: '리뷰 제목',
-          content: '리뷰 내용',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          commentCnt: 0
-        },
-        {
-          id: 3,
-          profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
-          title: '리뷰 제목',
-          content: '리뷰 내용',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          commentCnt: 0
-        },
-        {
-          id: 4,
-          profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
-          title: '리뷰 제목',
-          content: '리뷰 내용',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          commentCnt: 0
-        },
-        {
-          id: 5,
-          profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
-          title: '리뷰 제목',
-          content: '리뷰 내용',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          commentCnt: 0
-        }
-      ],
-      reviewInfo: {
-        id: 1,
-        profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-        title: '리뷰 제목',
-        content: '리뷰 내용',
-        writer: '작성자 닉네임',
-        date: '2021년 4월 21일',
-        commentList: [
-          {
-            id: 1,
-            writer: '댓글 작성자',
-            date: '2021년 4월 21일',
-            profile: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA0MDZfMjg0/MDAxNTg2MTgwNjMxODE1.B22_kATsB4cyKg2yr9x6GoRk8OuBXutbaQdRG2wxbAMg.ZIGXNEYc2xDiH61A18wLGcNeFNl4RsDTCrK1pMY0cnIg.JPEG.b-seol/46858675_511354619382565_4518962982505897027_n(1).jpg?type=w800',
-            content: '댓글 내용',
-          },
-          {
-            id: 2,
-            writer: '댓글 작성자',
-            date: '2021년 4월 21일',
-            profile: 'https://i1.sndcdn.com/artworks-WzFnntNp1E7dHw7y-RqzlrQ-t500x500.jpg',
-            content: '댓글 내용',
-          }
-        ],
-      },
-      qnaList: [
-        {
-          id: 1,
-          profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-          content: '질문 내용',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          answerList: [
-            {
-              id: 1,
-              writer: '답변 작성자',
-              date: '2021년 4월 21일',
-              profile: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA0MDZfMjg0/MDAxNTg2MTgwNjMxODE1.B22_kATsB4cyKg2yr9x6GoRk8OuBXutbaQdRG2wxbAMg.ZIGXNEYc2xDiH61A18wLGcNeFNl4RsDTCrK1pMY0cnIg.JPEG.b-seol/46858675_511354619382565_4518962982505897027_n(1).jpg?type=w800',
-              content: '답변 내용',
-            }
-          ]
-        },
-        {
-          id: 2,
-          profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-          content: '질문 내용',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          answerList: [
-            {
-              id: 1,
-              writer: '답변 작성자',
-              date: '2021년 4월 21일',
-              profile: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA0MDZfMjg0/MDAxNTg2MTgwNjMxODE1.B22_kATsB4cyKg2yr9x6GoRk8OuBXutbaQdRG2wxbAMg.ZIGXNEYc2xDiH61A18wLGcNeFNl4RsDTCrK1pMY0cnIg.JPEG.b-seol/46858675_511354619382565_4518962982505897027_n(1).jpg?type=w800',
-              content: '답변 내용',
-            },
-            {
-              id: 2,
-              writer: '답변 작성자',
-              date: '2021년 4월 21일',
-              profile: 'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-              content: '답변 내용',
-            }
-          ]
-        },
-        {
-          id: 3,
-          profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-          content: '질문 내용',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          answerList: [
-            {
-              id: 1,
-              writer: '답변 작성자',
-              date: '2021년 4월 21일',
-              profile: 'https://i1.sndcdn.com/artworks-WzFnntNp1E7dHw7y-RqzlrQ-t500x500.jpg',
-              content: '답변 내용',
-            }
-          ]
-        }
-      ],
+      // pageTotal: 8,
+      // currentPage: 1,
+      // reviewList: [
+      //   {
+      //     id: 1,
+      //     profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
+      //     title: '리뷰 제목',
+      //     content: '리뷰 내용',
+      //     writer: '작성자 닉네임',
+      //     date: '2021년 4월 21일',
+      //     commentCnt: 2 
+      //   },
+      //   {
+      //     id: 2,
+      //     profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
+      //     title: '리뷰 제목',
+      //     content: '리뷰 내용',
+      //     writer: '작성자 닉네임',
+      //     date: '2021년 4월 21일',
+      //     commentCnt: 0
+      //   },
+      //   {
+      //     id: 3,
+      //     profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
+      //     title: '리뷰 제목',
+      //     content: '리뷰 내용',
+      //     writer: '작성자 닉네임',
+      //     date: '2021년 4월 21일',
+      //     commentCnt: 0
+      //   },
+      //   {
+      //     id: 4,
+      //     profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
+      //     title: '리뷰 제목',
+      //     content: '리뷰 내용',
+      //     writer: '작성자 닉네임',
+      //     date: '2021년 4월 21일',
+      //     commentCnt: 0
+      //   },
+      //   {
+      //     id: 5,
+      //     profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
+      //     title: '리뷰 제목',
+      //     content: '리뷰 내용',
+      //     writer: '작성자 닉네임',
+      //     date: '2021년 4월 21일',
+      //     commentCnt: 0
+      //   }
+      // ],
+      // reviewInfo: {
+      //   id: 1,
+      //   profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
+      //   title: '리뷰 제목',
+      //   content: '리뷰 내용',
+      //   writer: '작성자 닉네임',
+      //   date: '2021년 4월 21일',
+      //   commentList: [
+      //     {
+      //       id: 1,
+      //       writer: '댓글 작성자',
+      //       date: '2021년 4월 21일',
+      //       profile: 'https://mblogthumb-phinf.pstatic.net/MjAyMDA0MDZfMjg0/MDAxNTg2MTgwNjMxODE1.B22_kATsB4cyKg2yr9x6GoRk8OuBXutbaQdRG2wxbAMg.ZIGXNEYc2xDiH61A18wLGcNeFNl4RsDTCrK1pMY0cnIg.JPEG.b-seol/46858675_511354619382565_4518962982505897027_n(1).jpg?type=w800',
+      //       content: '댓글 내용',
+      //     },
+      //     {
+      //       id: 2,
+      //       writer: '댓글 작성자',
+      //       date: '2021년 4월 21일',
+      //       profile: 'https://i1.sndcdn.com/artworks-WzFnntNp1E7dHw7y-RqzlrQ-t500x500.jpg',
+      //       content: '댓글 내용',
+      //     }
+      //   ],
+      // },
     }
-  },
-  props: {
-    item: String,
   },
   computed: {
     ...mapState(['course']),
@@ -198,14 +136,27 @@ export default {
     ...mapActions(['getCourse']),
     onChangeType( clickType ){
       this.$router.push({
-        name: 'CourseDetail',
-        params: { type: clickType }
+        name: 'ItemDetail',
+        params: { 
+          item: this.$route.params.item,
+          categoty: this.$route.params.category,
+          id: this.id,
+          type: clickType,
+        }
       });
     },
     checkQuery() {
+      this.item = this.$route.params.item;
       this.type = this.$route.params.type;
       this.id = this.$route.params.id;
     },
+  },
+  watch: { 
+    $route(to, from) { 
+      if (to.path != from.path) { 
+        this.checkQuery();
+      } 
+    } 
   },
 }
 </script>

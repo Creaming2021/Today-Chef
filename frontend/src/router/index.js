@@ -34,7 +34,7 @@ const routes = [
     component: Notice,
   },
   {
-    path: "/course/:category",
+    path: "/:item/:category",
     name: "Course",
     component: Course,
   },

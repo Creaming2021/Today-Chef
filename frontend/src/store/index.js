@@ -5,8 +5,10 @@ import user from './user.js';
 import event from './event.js';
 import review from './review.js';
 import course from './course.js';
-import member from './member.js';
 import courseQna from './courseQna.js';
+import member from './member.js';
+import product from './product.js';
+import productQna from './productQna.js';
 
 Vue.use(Vuex);
 
@@ -17,7 +19,9 @@ export default new Vuex.Store({
     event,
     review,
     course,
-    member,
     courseQna,
+    member,
+    product,
+    productQna,
   }
 });

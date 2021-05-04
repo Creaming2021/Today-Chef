@@ -1,19 +1,19 @@
 <template>
   <div class="col-lg-3 course-right-bar-container">
     <div class="course-detail-header">
-      <b-badge variant="primary">{{courseInfo.category}}</b-badge>
-      {{courseInfo.date}}</div>
-    <h4>{{courseInfo.name}}</h4>
+      <b-badge variant="primary">{{itemInfo.category}}</b-badge>
+      {{itemInfo.date}}</div>
+    <h4>{{itemInfo.name}}</h4>
     <div class="row detail-info">
-      <h5 class="teacher">{{courseInfo.teacher}}</h5>
-      <h5 class="price">{{courseInfo.price}}원</h5>
+      <h5 class="teacher">{{itemInfo.teacher}}</h5>
+      <h5 class="price">{{itemInfo.price}}원</h5>
     </div>
     <div class="row">
       <div class="like-btn" @click="setLike">
         <b-icon v-if="likeState" icon="heart-fill"/> 
         <b-icon v-else icon="heart"/> 
-        <div>{{courseInfo.likeCnt}}</div></div>
-      <b-form-rating v-model="courseInfo.rate" readonly no-border/>
+        <div>{{itemInfo.likeCnt}}</div></div>
+      <b-form-rating v-model="itemInfo.rate" readonly no-border/>
     </div>
     <div v-if="role=='student'">
       <button v-if="state=='before'">클래스 신청하기</button>
@@ -31,17 +31,27 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   data() {
     return {
       likeState: false,
+      itemInfo: {}
     }
   },
   props: {
-    courseInfo: Object,
     state: String,
     role: String,
+  },
+  created() {
+    this.settingItemInfo();
+  },
+  computed: {
+    ...mapState({
+      course: state => state.course.course,
+      product: state => state.product.product,
+    }),
   },
   methods: {
     setLike() {
@@ -52,6 +62,10 @@ export default {
     },
     startStreaming(){
       alert("수업 방송 시작");
+    },
+    settingItemInfo(){
+      let item = this.$route.params.item;
+      this.itemInfo = item === 'course' ? this.course : this.product ;
     }
   }
 }

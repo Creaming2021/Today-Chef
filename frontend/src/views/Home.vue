@@ -37,20 +37,20 @@ export default {
     // api 요청 때리기
   },
   mounted() {
-    this.setCurrentArrivalHomeState(this.arrivalList.new);
-    this.setCurrentCategotyHomeState(this.categoryList.korea);
-    this.setRandomListState(this.randomList);
+    this.$store.dispatch('SET_CURRENT_ARRIVAL_HOME_STATE', this.arrivalList.new);
+    this.$store.dispatch('SET_CURRENT_CATEGORY_HOME_STATE', this.categoryList.korea);
+    this.$store.dispatch('SET_RANDOM_LIST_STATE', this.randomList);
   },
   computed: {
     ...mapState(['home']),
   },
   methods: {
     ...mapActions([
-      "setArrivalHomeState",
-      "setCurrentArrivalHomeState",
-      "setCategoryHomeState",
-      "setCurrentCategotyHomeState",
-      "setRandomListState",
+      "SET_ARRIVAL_HOME_STATE",
+      "SET_CURRENT_ARRIVAL_HOME_STATE",
+      "SET_CATEGORY_HOME_STATE",
+      "SET_CURRENT_CATEGORY_HOME_STATE",
+      "SET_RANDOM_LIST_STATE",
     ]),
   },
   data() {

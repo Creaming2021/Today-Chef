@@ -27,7 +27,10 @@
             {{answer.content}}
           </div>
         </div>
-        <input placeholder="답변을 입력하세요."/> 
+        <input 
+          @keyup.enter="submitComment(qna.id)"
+          v-model="comment"
+          placeholder="답변을 입력하세요."/> 
       </div>
       <hr/>
     </div>
@@ -45,23 +48,20 @@
         previewStyle="tab"
       />
       <button 
-        @click="submitReview"
-        class="write-btn board-submit">
-          {{type === 'review' ? '리뷰 작성 완료' : '공지사항 작성 완료'}}</button>
+        @click="submitQna"
+        class="write-btn board-submit">QnA 작성 완료</button>
     </b-modal>
 
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { Editor } from '@toast-ui/vue-editor';
 
 export default {
   components: {
     editor: Editor,
-  },
-  props: {
-    qnaList: Array,
   },
   data() {
     return {
@@ -70,7 +70,20 @@ export default {
         title: '',
         content: '',
       },
+      comment: '',
+      qnaList: [],
     }
+  },
+  computed: {
+    ...mapState({
+      course: state => state.courseQna.qnaList,
+      product: state => state.productQna.qnaList,
+      userId: state => state.user.userId,
+    }),
+  },
+  created() {
+    this.getQnaList();
+    this.settingQnaList();
   },
   methods: {
     onClickOpenModal(){
@@ -79,12 +92,62 @@ export default {
     onClickCloseModal(){
       this.openModal = false;
     },
-    submitReview(){
+    settingQnaList(){
+      let item = this.$route.params.item;
+      this.qnaList = item === 'course' ? this.course : this.product;
+    },
+    getQnaList(){
+      let item = this.$route.params.item;
+      let id = this.$route.params.id;
+      if(item === 'course'){
+        this.$store.dispatch('GET_COURSE_QNA_LIST', id);
+      } else if(item === 'product'){
+        this.$store.dispatch('GET_PRODUCT_QNA_LIST', id);
+      }
+    },
+    submitQna(){
       this.board.content = this.$refs.content.invoke("getMarkdown");
-      alert("작성요청 던지기");
+      
+      let item = this.$route.params.item;
+      let id = this.$route.params.id;
+      if(item === 'course'){
+        this.$store.dispatch('POST_COURSE_QNA', 
+          {
+            ...this.board,
+            memberId: this.userId,
+            courseId: id,
+          });
+      } else if(item === 'product'){
+        this.$store.dispatch('POST_PRODUCT_QNA', 
+          {
+            ...this.board,
+            memberId: this.userId,
+            productId: id,
+          });
+      }
+      this.settingQnaList();
       this.onClickCloseModal();
-    }
-  }
+    },
+    submitComment( qnaId ){
+      let item = this.$route.params.item;
+      if(item === 'course'){
+        this.$store.dispatch('POST_COURSE_QNA_COMMENT', 
+          {
+            qnaId,
+            memberId: this.userId,
+            content: this.comment,
+          });
+      } else if(item === 'product'){
+        this.$store.dispatch('POST_PRODUCT_QNA_COMMENT', 
+          {
+            qnaId,
+            memberId: this.userId,
+            content: this.comment,
+          });
+      }
+      this.settingQnaList();
+    },
+  },
 }
 </script>
 

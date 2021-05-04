@@ -42,9 +42,6 @@ export default {
       currentImage: 0,
     }
   },
-  props:{
-    item: String,
-  },
   computed: {
     ...mapState({
        course: state => state.course.course,
@@ -75,7 +72,8 @@ export default {
       this.currentImage = (this.currentImage - 1 + this.itemThumbnailList.length) % this.itemThumbnailList.length;
     },
     settingItemThumbnail(){
-      this.itemThumbnailList = this.item === 'course' ? this.course.thumbnailList : this.product.thumbnailList;
+      let item = this.$route.params.item;
+      this.itemThumbnailList = item === 'course' ? this.course.thumbnailList : this.product.thumbnailList;
     },
   }
 }

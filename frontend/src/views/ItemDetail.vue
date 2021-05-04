@@ -1,33 +1,21 @@
 <template>
   <div class="course-detail-container">
-    <ItemThumbnail
-      :item="item"/>
+    <ItemThumbnail/>
     <div class="row">
-      <ItemDetailMain
-        :item="item"/>
+      <ItemDetailMain/>
       <ItemRightbar 
-        :item="item"
-        :courseInfo="courseInfo"
         :role="teacher"
         :state="state"/>
       <ItemRightbar 
-        :item="item"
-        :courseInfo="courseInfo"
         :role="student"
         :state="stateBefore"/>
       <ItemRightbar 
-        :item="item"
-        :courseInfo="courseInfo"
         :role="student"
         :state="stateWaiting"/>
       <ItemRightbar 
-        :item="item"
-        :courseInfo="courseInfo"
         :role="student"
         :state="stateStreaming"/>
       <ItemRightbar 
-        :item="item"
-        :courseInfo="courseInfo"
         :role="student"
         :state="stateAfter"/>
     </div>
@@ -46,16 +34,6 @@ export default {
   data(){
     return {
       item: '',
-      courseInfo : {
-        id: 1,
-        category: '한식',
-        date: '2021.04.16',
-        name: '쉽게 배워보는 갈비찜',
-        teacher: '김한식',
-        price: '50000',
-        likeCnt: '123',
-        rate: '3.5',
-      },
       student: 'student',
       teacher: 'teacher',
       stateBefore: 'before',
@@ -72,8 +50,15 @@ export default {
   methods: {
     checkQuery() {
       this.item = this.$route.params.item;
-      this.getCourseDetailInfo();
+      // this.getCourseDetailInfo();
     },
+    getCourseDetailInfo(){
+      if(this.item === 'course'){
+        this.$store.dispatch('GET_COURSE');
+      } else if(this.item === 'product'){
+        this.$store.dispatch('GET_PRODUCT');
+      }
+    }
   },
   watch: { 
     $route(to, from) { 
