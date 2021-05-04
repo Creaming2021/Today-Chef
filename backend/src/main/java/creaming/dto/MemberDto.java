@@ -2,10 +2,9 @@ package creaming.dto;
 
 import creaming.domain.etc.Address;
 import creaming.domain.member.Member;
-import creaming.domain.register.Register;
 import lombok.*;
 
-import java.time.DayOfWeek;
+import javax.validation.constraints.NotEmpty;
 
 
 public class MemberDto {
@@ -58,9 +57,13 @@ public class MemberDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostRequest {
+        @NotEmpty
         private String email;
+        @NotEmpty
         private String profileImage;
+        @NotEmpty
         private String nickname;
+        @NotEmpty
         private String phone;
     }
 
@@ -69,8 +72,11 @@ public class MemberDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PutRequest {
+        @NotEmpty
         private String nickname;
+        @NotEmpty
         private Address address;
+        @NotEmpty
         private String phone;
     }
 

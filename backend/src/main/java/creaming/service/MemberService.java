@@ -31,12 +31,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MemberService {
 
+    private final LikeRepository likeRepository;
     private final MemberRepository memberRepository;
     private final CourseRepository courseRepository;
-    private final MemberCouponRepository memberCouponRepository;
     private final CouponRepository couponRepository;
     private final RegisterRepository registerRepository;
-    private final LikeRepository likeRepository;
+    private final MemberCouponRepository memberCouponRepository;
 
     // 모든 유저의 정보 가져오기 
     public List<MemberDto.Response> getMemberAll() {
@@ -58,12 +58,22 @@ public class MemberService {
     public void putMember(Long memberId, MemberDto.PutRequest dto) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
-        member.update(dto.getNickname(), dto.getAddress());
+        member.update(dto.getNickname(), dto.getAddress(), dto.getPhone());
     }
 
     // TODO : 유저에게 쿠폰 발급하기
+    public void postCoupon(Long memberId, Long couponId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> new BaseException(ErrorCode.COUPON_NOT_FOUND));
+        // expiredDate = 멤버쿠폰의 생성날짜 (지금의 날짜) + expiredDay
 
-    // 유저의 쿠폰 리스트 가져오기
+
+
+    }
+
+    // TODO : 유저의 쿠폰 리스트 가져오기
     public List<CouponDto.Response> getCouponAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
@@ -126,7 +136,7 @@ public class MemberService {
         Register register = registerRepository.findById(registerId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REGISTER_NOT_FOUND));
         // memberId와 regiter.getMember().getId가 같은지의 여부
-        if(register.getMember().getId() != member.getId()) {
+        if(!register.getMember().getId().equals(member.getId())) {
             throw new BaseException(ErrorCode.ACCESS_DENIED_EXCEPTION);
         }
         return new RegisterDto.Response(register);
@@ -146,7 +156,7 @@ public class MemberService {
         return registerRepository.save(register).getId();
     }
 
-    // TODO : 좋아요 토글
+    // 좋아요 토글
     @Transactional
     public void toggleLike(Long memberId, Long courseId) {
         Member member = memberRepository.findById(memberId)

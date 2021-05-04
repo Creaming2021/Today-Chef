@@ -65,9 +65,6 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    // TODO : 유저에게 쿠폰 발급하기?
-    // expiredDate = 멤버쿠폰의 생성날짜 + expiredDay
-
     // 유저의 쿠폰 리스트
     @GetMapping("/{memberId}/coupons")
     @Operation(summary = "유저의 쿠폰 가져오기", description = "memberId 유저의 쿠폰들을 가져옵니다.")
@@ -76,7 +73,17 @@ public class MemberController {
         List<CouponDto.Response> result = memberService.getCouponAll(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
-    
+
+    // TODO : 유저에게 쿠폰 발급하기
+    @PostMapping("/{memberId}/coupons/{couponId}")
+    @Operation(summary = "쿠폰 발급하기", description = "memberId 유저에게 couponsId의 쿠폰을 발급합니다.")
+    public ResponseEntity<Void> postCoupon(@PathVariable("memberId") Long memberId,
+                                          @PathVariable("couponId") Long couponId) {
+        log.info("(Post) postCoupon - memberId : {} | couponId : {}", memberId, couponId);
+        memberService.postCoupon(memberId, couponId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     // 유저의 쿠폰 사용하기
     @PutMapping("/{memberId}/coupons/{couponId}")
     @Operation(summary = "쿠폰 사용하기", description = "memberId 유저의 쿠폰을 사용합니다.")
