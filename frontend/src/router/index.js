@@ -34,6 +34,16 @@ const routes = [
     component: Notice,
   },
   {
+    path: "/me/:type",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "/creator/:type",
+    name: "Creator",
+    component: Creator,
+  },
+  {
     path: "/:item/:category",
     name: "Course",
     component: Course,
@@ -42,16 +52,6 @@ const routes = [
     path: "/:item/:category/:id/:type",
     name: "ItemDetail",
     component: ItemDetail,
-  },
-  {
-    path: "/creator/:type",
-    name: "Creator",
-    component: Creator,
-  },
-  {
-    path: "/me/:type",
-    name: "Profile",
-    component: Profile,
   },
   {
     path: "/class",

@@ -24,15 +24,12 @@
 
 <script>
 
-	export default {
-		data(){
-			return {
+  export default {
+    data(){
+      return {
       }
-		},
-		props: {
-      personalData : Object,
-		},
-		methods : {
+    },
+    methods : {
       onClickChange(type) {
         if (type === 'img') {
           alert("이미지 관리")
@@ -44,8 +41,8 @@
           alert('배송지 관리')
         }
       }
-		},
-	}
+    },
+  }
 </script>
 
 <style scoped>

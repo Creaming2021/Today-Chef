@@ -6,34 +6,32 @@
                 <Sidebar/>
 
                 <div 
-                  v-show="currentAtiveFilter === 'info'" 
+                  v-show="type === 'info'" 
                   class="col-lg-9">
                     <div class="row">
-                      <Personal :personalData="personalData"/>
+                      <Personal/>
                     </div>
                 </div>
 
                 <MyCoupon 
-                  v-if="currentAtiveFilter === 'coupon'"
-                  class="col-lg-9"
-                  :couponList="couponList"/>
+                  v-if="type === 'coupon'"
+                  class="col-lg-9"/>
 
                 <MyCourseList
-                  v-else-if="currentAtiveFilter === 'student'"
+                  v-else-if="type === 'student'"
                   class="col-lg-9"
                   :type="'otherClass'"
                   :myCourseList="myCourseList"/>
 
                 <MyCourseList
-                  v-else-if="currentAtiveFilter === 'teacher'"
+                  v-else-if="type === 'teacher'"
                   class="col-lg-9"
                   :type="'myClass'"
                   :myCourseList="myCourseList"/>
 
                 <MyPayment 
-                  v-else-if="currentAtiveFilter === 'payment'" 
-                  class="col-lg-9"
-                  :myPaymentList="myPaymentList"/>
+                  v-else-if="type === 'payment'" 
+                  class="col-lg-9"/>
             </div>
         </div>
     </section>
@@ -61,12 +59,12 @@ export default {
   },
   methods : {
     checkQuery() {
-      this.currentAtiveFilter = this.$route.params.type ? this.$route.params.type : 'info';
+      this.type = this.$route.params.type ? this.$route.params.type : 'info';
     },
   },
   data() {
     return {
-      currentAtiveFilter : '',
+      type : '',
       personalData : {
         name : "이병훈",
         img : "https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg",
@@ -356,13 +354,13 @@ export default {
   -khtml-user-select: none;    /* Konqueror */
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* Internet Explorer/Edge*/
-   user-select: none;          /* Non-prefixed version, currently 
+  user-select: none;          /* Non-prefixed version, currently 
                                   not supported by any browser */
 }
 
 .active {
-	color: #111111;
-	font-weight: 700;
+  color: #111111;
+  font-weight: 700;
 }
 
 #mypage-filter li:hover, .coupon-nav li:hover {
