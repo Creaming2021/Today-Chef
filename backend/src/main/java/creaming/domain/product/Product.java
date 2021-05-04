@@ -2,6 +2,7 @@ package creaming.domain.product;
 
 import creaming.domain.cart.Cart;
 import creaming.domain.course.Course;
+import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.etc.FoodType;
 import creaming.domain.file.ProductFile;
 import creaming.domain.like.ProductLike;
@@ -11,6 +12,7 @@ import creaming.domain.qna.CourseQna;
 import creaming.domain.qna.ProductQna;
 import creaming.domain.review.CourseReview;
 import creaming.domain.review.ProductReview;
+import creaming.dto.ProductDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +26,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Table(name = "products")
 @Entity
-public class Product {
+public class Product extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -101,6 +103,21 @@ public class Product {
         productLike.updateProduct(null);
     }
 
-    // TODO : 언젠간 넣기
+    public void addProductQna(ProductQna productQna) {
+        productQnas.add(productQna);
+        productQna.updateProduct(this);
+    }
 
+    public void deleteProductQna(ProductQna productQna) {
+        productQnas.remove(productQna);
+        productQna.updateProduct(null);
+    }
+
+
+    public void update(ProductDto.Request dto) {
+        this.name = dto.getName();
+        this.price = dto.getPrice();
+        this.category = dto.getCategory();
+        this.description = dto.getDescription();
+    }
 }

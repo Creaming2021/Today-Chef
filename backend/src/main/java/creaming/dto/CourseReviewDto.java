@@ -114,7 +114,11 @@ public class CourseReviewDto {
     @AllArgsConstructor
     public static class PutRequest {
         @NotEmpty
+        private String title;
+        @NotEmpty
         private String content;
+        @NotEmpty
+        private String rating;
     }
 
 }

@@ -2,8 +2,10 @@ package creaming.domain.qna;
 
 import creaming.domain.comment.QnaComment;
 import creaming.domain.course.Course;
+import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.member.Member;
 import creaming.domain.product.Product;
+import creaming.dto.ProductQnaDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "product_qnas")
 @EqualsAndHashCode(of = "id", callSuper = false)
-public class ProductQna {
+public class ProductQna extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,4 +51,9 @@ public class ProductQna {
         this.member = member;
     }
 
+    public void update(ProductQnaDto.PutRequest dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.isSecret = dto.getIsSecret();
+    }
 }
