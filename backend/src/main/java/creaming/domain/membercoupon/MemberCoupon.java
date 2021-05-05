@@ -35,7 +35,7 @@ public class MemberCoupon extends BaseTimeEntity {
     private LocalDateTime expiredDate;
 
     @Enumerated(EnumType.STRING)
-    private CouponStatus couponStatus = CouponStatus.AVAILABLE;
+    private CouponStatus couponStatus;
 
     private void updateExpiredDate() {
         expiredDate =  LocalDateTime.now().plusDays(coupon.getExpiredDay());
