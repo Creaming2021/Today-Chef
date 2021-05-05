@@ -44,13 +44,6 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.CREATED).body(eventService.saveEvent(dto));
     }
 
-    @PostMapping("/{eventId}/image")
-//    @Operation(summary = "이벤트 이미지 저장", description = "이벤트 이미지를 저장합니다.")
-    public ResponseEntity<Void> postEventImage(@PathVariable("eventId") Long eventId, MultipartFile file) {
-        // TODO S3 이미지 넣기
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
     @PutMapping("/{eventId}")
     @Operation(summary = "이벤트 수정", description = "이벤트를 수정합니다.")
     public ResponseEntity<Void> putEvent(@PathVariable("eventId") Long eventId, @RequestBody EventDto.EventRequest dto) {

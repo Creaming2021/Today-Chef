@@ -1,7 +1,6 @@
 package creaming.controller;
 
 import creaming.dto.UserDto;
-import creaming.dto.MemberDto;
 import creaming.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
