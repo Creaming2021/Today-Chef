@@ -7,21 +7,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ProductQnaDto {
 
     @Getter
     public static class ProductQnaPostRequest {
-        @NotEmpty
+        @NotNull
         private Long productId;
-        @NotEmpty
+        @NotNull
         private Long userId;
         @NotEmpty
         private String title;
         @NotEmpty
         private String content;
-        @NotEmpty
+        @NotNull
         private Boolean isSecret;
 
         public ProductQna toEntity() {
@@ -39,7 +40,7 @@ public class ProductQnaDto {
         private String title;
         @NotEmpty
         private String content;
-        @NotEmpty
+        @NotNull
         private Boolean isSecret;
     }
 

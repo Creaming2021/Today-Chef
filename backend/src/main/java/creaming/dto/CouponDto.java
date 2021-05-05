@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
@@ -44,9 +45,9 @@ public class CouponDto {
         private String name;
         @NotEmpty
         private String content;
-        @NotEmpty
+        @NotNull
         private Integer discount;
-        @NotEmpty
+        @NotNull
         private Long expiredDay;
     }
 

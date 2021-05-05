@@ -5,6 +5,7 @@ import creaming.domain.review.CourseReview;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,15 +89,15 @@ public class CourseReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CourseReviewPostRequest {
-        @NotEmpty
+        @NotNull
         private Long memberId;
-        @NotEmpty
+        @NotNull
         private Long courseId;
         @NotEmpty
         private String title;
         @NotEmpty
         private String content;
-        @NotEmpty
+        @NotNull
         private Integer rating;
 
         public CourseReview toEntity() {

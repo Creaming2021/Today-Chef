@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +70,7 @@ public class CourseDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CoursePostRequest {
-        @NotEmpty
+        @NotNull
         private Long memberId;
         @NotEmpty
         private String name;
@@ -77,9 +78,9 @@ public class CourseDto {
         private String date;
         @NotEmpty
         private String time;
-        @NotEmpty
+        @NotNull
         private Integer price;
-        @NotEmpty
+        @NotNull
         private FoodType category;
         @NotEmpty
         private String materials;
