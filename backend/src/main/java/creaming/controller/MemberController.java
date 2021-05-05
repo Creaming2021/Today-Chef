@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "*")@Slf4j
+@Slf4j
 @RestController
 @RequestMapping("members")
 @RequiredArgsConstructor
