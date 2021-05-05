@@ -80,6 +80,7 @@ public class CourseQnaController {
         return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.postComment(qnaId, dto));
     }
 
+    @Operation(summary = "해당 QnA의 댓글 수정", description = "해당 QnA의 댓글을 수정합니다")
     @PutMapping("/{qnaId}/comments/{commentId}")
     public ResponseEntity<Void> putComment(@PathVariable Long qnaId,
                                            @PathVariable Long commentId,
@@ -89,6 +90,7 @@ public class CourseQnaController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @Operation(summary = "해당 QnA의 댓글 삭제", description = "해당 QnA의 댓글을 삭제합니다")
     @DeleteMapping("/{qnaId}/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long qnaId,
                                            @PathVariable Long commentId) {
