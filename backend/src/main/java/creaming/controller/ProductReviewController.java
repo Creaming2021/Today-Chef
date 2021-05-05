@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @Slf4j
 @RestController
 @RequestMapping("product-reviews")
