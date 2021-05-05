@@ -89,6 +89,7 @@ public class MemberService {
     }
 
     // 유저의 쿠폰 리스트 가져오기
+    @Transactional
     public List<CouponDto.CouponResponse> getCouponAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
@@ -105,19 +106,23 @@ public class MemberService {
 
     // 유저의 쿠폰 사용하기
     @Transactional
-    public void useCoupon(Long memberId, Long couponId) {
+    public void useCoupon(Long memberId, Long memberCouponId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
-        Coupon coupon = couponRepository.findById(couponId)
-                .orElseThrow(() -> new BaseException(ErrorCode.COUPON_NOT_FOUND));
-        MemberCoupon memberCoupon = memberCouponRepository.findByMemberIdAndCouponId(member.getId(), coupon.getId())
+        MemberCoupon memberCoupon = memberCouponRepository.findById(memberCouponId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_COUPON_NOT_FOUND));
+
+        // 쿠폰 주인이 아니면 에러 출력
+        if(!memberCoupon.getMember().getId().equals(member.getId())) {
+            throw new BaseException(ErrorCode.ACCESS_DENIED_EXCEPTION);
+        }
 
         // 만료되었거나 사용한 쿠폰
         if(LocalDateTime.now().isAfter(memberCoupon.getExpiredDate())
                 || memberCoupon.getCouponStatus().equals(CouponStatus.USED)) {
             throw new BaseException(ErrorCode.MEMBER_COUPON_NOT_FOUND);
         }
+
         memberCoupon.useCoupon();
     }
 

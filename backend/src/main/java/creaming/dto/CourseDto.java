@@ -95,6 +95,7 @@ public class CourseDto {
                     .category(this.category)
                     .materials(this.materials)
                     .descriptions(this.descriptions)
+                    .time(this.time)
                     .build();
         }
 

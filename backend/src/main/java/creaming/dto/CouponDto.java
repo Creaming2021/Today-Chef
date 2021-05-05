@@ -19,7 +19,7 @@ public class CouponDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CouponResponse {
-        private Long couponId;
+        private Long memberCouponId;
         private String name;
         private String content;
         private Integer discount;
@@ -27,7 +27,7 @@ public class CouponDto {
         private CouponStatus couponStatus;
 
         public CouponResponse(MemberCoupon memberCoupon) {
-            this.couponId = memberCoupon.getCoupon().getId();
+            this.memberCouponId = memberCoupon.getId();
             this.name = memberCoupon.getCoupon().getName();
             this.content = memberCoupon.getCoupon().getContent();
             this.discount = memberCoupon.getCoupon().getDiscount();

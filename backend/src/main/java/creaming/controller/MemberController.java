@@ -80,12 +80,12 @@ public class MemberController {
     }
 
     // 유저의 쿠폰 사용하기
-    @PutMapping("/{memberId}/coupons/{couponId}")
+    @PutMapping("/{memberId}/coupons/{memberCouponId}")
     @Operation(summary = "쿠폰 사용하기", description = "memberId 유저의 쿠폰을 사용합니다.")
     public ResponseEntity<Void> useCoupon(@PathVariable("memberId") Long memberId,
-                                       @PathVariable("couponId") Long couponId) {
-        log.info("(Put) useCoupon - memberId : {} | couponId : {}", memberId, couponId);
-        memberService.useCoupon(memberId, couponId);
+                                       @PathVariable("memberCouponId") Long memberCouponId) {
+        log.info("(Put) useCoupon - memberId : {} | memberCouponId : {}", memberId, memberCouponId);
+        memberService.useCoupon(memberId, memberCouponId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
