@@ -63,6 +63,7 @@ public class CourseReviewController {
     public ResponseEntity<Void> putReview(@PathVariable("reviewId") Long reviewId,
                                        @RequestBody @Valid CourseReviewDto.CourseReviewPostRequest dto) {
         log.info("(Put) putReview - content : {}", dto.getContent());
+        validator.ratingValidator(dto.getRating());
         courseReviewService.putReview(reviewId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
