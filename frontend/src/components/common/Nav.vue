@@ -36,10 +36,14 @@
       <div 
         v-if="user.signStatus === 'signUp'"
         class="sign-up-container">
-          <input class="medium" v-model="signUpForm.nickname" placeholder="닉네임을 입력하세요."/>
-          <button class="small" @click="onClickCheckNickname" @change="initialNicknameState">중복 체크</button><br/>
+          <input class="big" v-model="signUpForm.nickname" placeholder="닉네임을 입력하세요."/><br/>
           <input class="big" v-model="signUpForm.phone" placeholder="010-1234-5678"/><br/>
-          <input class="big" v-model="signUpForm.email" placeholder="이메일을 입력하세요."/><br/>
+          <input 
+            class="medium" 
+            v-model="signUpForm.email" 
+            @change="initialEmailState"
+            placeholder="이메일을 입력하세요."/>
+          <button class="small" @click="onClickCheckEmail">중복 체크</button><br/>
           <button class="big-btn" @click="onClickSignUp">회원 가입</button>
       </div>
       <div v-else>
@@ -124,10 +128,10 @@ export default {
     onClickSignOut() {
       this.$store.dispatch('SIGN_OUT');
     },
-    onClickCheckNickname(){
-      this.$store.dispatch('CHECK_EMAIL', this.signUpForm.nickname);
+    onClickCheckEmail(){
+      this.$store.dispatch('CHECK_EMAIL', this.signUpForm.email);
     },
-    initialNicknameState(){
+    initialEmailState(){
       this.$store.dispatch('SET_EMAIL_STATE', false);
     },
   }

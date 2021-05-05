@@ -1,7 +1,7 @@
 import { basic } from '@/api/instance.js';
 
 export const signUp = async ( userInfo ) => {
-  basic.post('user/signup', userInfo)
+  return await basic.post('users/signup', userInfo)
     .then(res => res)
     .catch(e => { console.log(e); });
 
@@ -11,7 +11,7 @@ export const signUp = async ( userInfo ) => {
 }
 
 export const signIn = async ( kakaoId ) => {
-  basic.post('user/login', kakaoId)
+  return await basic.post('users/login', { kakaoId })
     .then(res => res)
     .catch(e => { console.log(e); });
 
@@ -20,8 +20,8 @@ export const signIn = async ( kakaoId ) => {
 }
 
 export const checkEmail = async ( email ) => {
-  basic.get(
-    'user/check', 
+  return await basic.get(
+    'users/check', 
     {
       params : { 
         email 
