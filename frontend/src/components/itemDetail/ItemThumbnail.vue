@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     setRemainImageCnt(){
-      this.remainImageCnt = this.itemThumbnailList - 4;
+      this.remainImageCnt = this.itemThumbnailList.length - 4;
     },
     onOpenThumbnailModal(){
       this.currentImage = 0;
