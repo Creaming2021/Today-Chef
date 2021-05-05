@@ -3,7 +3,7 @@
   <header class="header">
     <div class="sign-container">
       <div v-if="user.signStatus === 'signIn'" @click="onClickSignOut">
-        {{user.userNickname}}님 안녕하세요! SIGN OUT</div>
+        {{user.nickname}}님 안녕하세요! SIGN OUT</div>
       <div v-else @click="onOpenSign">SIGN IN</div>
     </div>
     <div class="container">
@@ -23,8 +23,8 @@
                       <li @click="onClickNav('Notice')">공지사항</li>
                       <li @click="onClickNav('Course', 'all')">강의</li>
                       <li @click="onClickNav('Creator', 'info')">강사</li>
-                      <li @click="onClickNav('Profile', 'info')">마이프로필</li>
-                      <li @click="joinRoom">채팅창 열기</li>
+                      <li v-if="this.user.memberId != ''" @click="onClickNav('Profile', 'info')">마이프로필</li>
+                      <li @click="onClickNav('Profile', 'info')">마이프로필 테스트용</li>
                   </ul>
               </nav>
           </div>
@@ -38,7 +38,7 @@
         class="sign-up-container">
           <input class="medium" v-model="signUpForm.nickname" placeholder="닉네임을 입력하세요."/>
           <button class="small" @click="onClickCheckNickname" @change="initialNicknameState">중복 체크</button><br/>
-          <input class="big" v-model="signUpForm.phoneNumber" placeholder="010-1234-5678"/><br/>
+          <input class="big" v-model="signUpForm.phone" placeholder="010-1234-5678"/><br/>
           <input class="big" v-model="signUpForm.email" placeholder="이메일을 입력하세요."/><br/>
           <button class="big-btn" @click="onClickSignUp">회원 가입</button>
       </div>
@@ -61,7 +61,7 @@ export default {
       openSignModal: false,
       signUpForm : {
         nickname: '',
-        phoneNumber: '',
+        phone: '',
         email: '',
       },
     }
@@ -115,8 +115,8 @@ export default {
       this.$store.dispatch('GET_KAKAO_INFO');
     },
     onClickSignUp() {
-      if(!this.user.nicknameState){
-        alert("닉네임 중복체크를 해주세요.");
+      if(!this.user.emailState){
+        alert("이메일 중복체크를 해주세요.");
       } else {
         this.$store.dispatch('SIGN_UP', this.signUpForm);
       }
@@ -124,14 +124,11 @@ export default {
     onClickSignOut() {
       this.$store.dispatch('SIGN_OUT');
     },
-    joinRoom(){
-      window.open("https://k4b2041.p.ssafy.io:5000/", "_blank");
-    },
     onClickCheckNickname(){
-      this.$store.dispatch('CHECK_NICKNAME', this.signUpForm.nickname);
+      this.$store.dispatch('CHECK_EMAIL', this.signUpForm.nickname);
     },
     initialNicknameState(){
-      this.$store.dispatch('SET_NICKNAME_STATE', false);
+      this.$store.dispatch('SET_EMAIL_STATE', false);
     },
   }
 }

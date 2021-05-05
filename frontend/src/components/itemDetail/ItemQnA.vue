@@ -78,7 +78,7 @@ export default {
     ...mapState({
       course: state => state.course.qnaList,
       product: state => state.product.qnaList,
-      userId: state => state.user.userId,
+      memberId: state => state.user.memberId,
     }),
   },
   created() {
@@ -114,14 +114,14 @@ export default {
         this.$store.dispatch('POST_COURSE_QNA', 
           {
             ...this.board,
-            memberId: this.userId,
+            memberId: this.memberId,
             courseId: id,
           });
       } else if(item === 'product'){
         this.$store.dispatch('POST_PRODUCT_QNA', 
           {
             ...this.board,
-            memberId: this.userId,
+            memberId: this.memberId,
             productId: id,
           });
       }
@@ -134,14 +134,14 @@ export default {
         this.$store.dispatch('POST_COURSE_QNA_COMMENT', 
           {
             qnaId,
-            memberId: this.userId,
+            memberId: this.memberId,
             content: this.comment,
           });
       } else if(item === 'product'){
         this.$store.dispatch('POST_PRODUCT_QNA_COMMENT', 
           {
             qnaId,
-            memberId: this.userId,
+            memberId: this.memberId,
             content: this.comment,
           });
       }

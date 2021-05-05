@@ -19,12 +19,12 @@ export const signIn = async ( kakaoId ) => {
   // return await true;
 }
 
-export const checkNickname = async ( nickname ) => {
+export const checkEmail = async ( email ) => {
   basic.get(
     'user/check', 
     {
       params : { 
-        nickname 
+        email 
       }
     })
     .then(res => res)

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 import ItemIntroduction from '@/components/itemDetail/ItemIntroduction.vue';
 import ItemKit from '@/components/itemDetail/ItemKit.vue';
 import List from '@/components/common/List.vue';
@@ -42,7 +42,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['course']),
+    ...mapState({
+      course: state => state.course,
+    }),
   },
   created() {
     this.checkQuery();
@@ -56,7 +58,6 @@ export default {
     ItemRefund
   },
   methods: {
-    ...mapActions(['getCourse']),
     onChangeType( clickType ){
       this.$router.push({
         name: 'ItemDetail',
