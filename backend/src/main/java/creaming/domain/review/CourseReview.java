@@ -62,6 +62,11 @@ public class CourseReview extends BaseTimeEntity {
         reviewComments.remove(reviewComment);
         reviewComment.updateFK(null);
     }
+
+    public void addCourseReviewFile(CourseReviewFile courseReviewFile) {
+        courseReviewFiles.add(courseReviewFile);
+        courseReviewFile.updateFK(this);
+    }
     /////////////////////////////////////////
 
     public CourseReview(CourseReviewDto.CourseReviewPostRequest dto, Member member, Course course) {

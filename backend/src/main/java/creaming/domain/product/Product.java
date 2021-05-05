@@ -127,5 +127,4 @@ public class Product extends BaseTimeEntity {
         this.description = dto.getDescription();
     }
 
-
 }

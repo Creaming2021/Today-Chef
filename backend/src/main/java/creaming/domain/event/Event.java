@@ -30,4 +30,8 @@ public class Event extends BaseTimeEntity {
         this.title = title;
         this.content = content;
     }
+
+    public void updateImage(String image) {
+        this.image = image;
+    }
 }
