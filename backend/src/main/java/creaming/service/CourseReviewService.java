@@ -61,7 +61,7 @@ public class CourseReviewService {
     public void putReview(Long reviewId, CourseReviewDto.CourseReviewPostRequest dto) {
         CourseReview courseReview = courseReviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
-        courseReview.update(dto.getContent());
+        courseReview.update(dto.getTitle(), dto.getContent(), dto.getRating());
     }
 
     @Transactional

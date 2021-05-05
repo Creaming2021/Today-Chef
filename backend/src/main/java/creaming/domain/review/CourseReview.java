@@ -72,8 +72,10 @@ public class CourseReview extends BaseTimeEntity {
         course.addReview(this);
     }
 
-    public void update(String content) {
+    public void update(String title, String content, Integer rating) {
+        this.title = title;
         this.content = content;
+        this.rating = rating;
     }
 
 }
