@@ -70,6 +70,7 @@ public class MemberService {
     }
 
     // 유저에게 쿠폰 발급하기
+    @Transactional
     public void postCoupon(Long memberId, Long couponId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
