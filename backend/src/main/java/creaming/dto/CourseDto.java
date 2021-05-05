@@ -71,6 +71,8 @@ public class CourseDto {
     @AllArgsConstructor
     public static class CoursePostRequest {
         @NotNull
+        private Long productId;
+        @NotNull
         private Long memberId;
         @NotEmpty
         private String name;
@@ -107,16 +109,14 @@ public class CourseDto {
     @AllArgsConstructor
     public static class CoursePutRequest {
         @NotEmpty
-        private Long courseId;
-        @NotEmpty
         private String name;
         @NotEmpty
         private String date;
         @NotEmpty
         private String time;
-        @NotEmpty
+        @NotNull
         private Integer price;
-        @NotEmpty
+        @NotNull
         private FoodType category;
         @NotEmpty
         private String materials;
