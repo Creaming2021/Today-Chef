@@ -52,4 +52,9 @@ public class ProductQna extends BaseTimeEntity {
         this.content = dto.getContent();
         this.isSecret = dto.getIsSecret();
     }
+
+    public void answerQna(String answer) {
+        this.answer = answer;
+        this.answerDate = LocalDateTime.now();
+    }
 }
