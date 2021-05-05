@@ -6,12 +6,9 @@ import creaming.service.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -60,15 +57,6 @@ public class CourseController {
                 dto.getMemberId(), dto.getName(), dto.getDate(), dto.getPrice(), dto.getCategory());
         Long result = courseService.postCourse(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
-    }
-
-    // TODO: 강의 이미지 추가 여부 확인
-    @Operation(summary = "(미완성) 강의 이미지 추가", description = "강의 이미지를 수정, 삽입합니다.")
-    @PostMapping("/{courseId}/image")
-    public ResponseEntity<?> postCourseImage(@PathVariable("courseId") Long courseId,
-                                             @RequestPart MultipartFile file) {
-        log.info("(Post) postCourseImage - courseId: {}", courseId);
-        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @Operation(summary = "강의 수정", description = "해당 강의를 수정합니다.")

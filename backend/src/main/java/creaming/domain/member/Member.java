@@ -191,9 +191,12 @@ public class Member extends BaseTimeEntity {
     //////////////////////////////////////
 
     public void update(String nickname, Address address, String phone) {
-        System.out.println("다윤아 여기 보여?");
         this.nickname = nickname;
         this.address = address;
         this.phone = phone;
+    }
+
+    public void updateImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }

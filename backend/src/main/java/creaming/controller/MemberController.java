@@ -51,14 +51,6 @@ public class MemberController {
         memberService.putMember(memberId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-    
-    // TODO : 이미지
-    @PostMapping("/{memberId}/image")
-    @Operation(summary = "(미완성) 회원 이미지", description = "회원 이미지")
-    public ResponseEntity<?> postMemberImage(@PathVariable("memberId") Long memberId,
-                                             @RequestPart MultipartFile file) {
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
 
     // 유저의 쿠폰 리스트
     @GetMapping("/{memberId}/coupons")

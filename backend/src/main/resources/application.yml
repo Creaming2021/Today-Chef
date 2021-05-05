@@ -28,5 +28,20 @@ spring:
 #    password:
 #    driver-class-name: org.h2.Driver
 
+cloud:
+  aws:
+    credentials:
+      access-key: AKIATO7XDVM2BFKFQC6M
+      secret-key: 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
+    s3:
+      bucket: creaming-bucket-b204
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+
 my-app:
   server-url: https://k4b204.p.ssafy.io
+
+
