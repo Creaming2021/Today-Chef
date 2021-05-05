@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RootController {
 
     public String homeRedirect() {
-        return "redirect:/swagger-ui.html";
+        return "redirect:/swagger-ui/index.html";
     }
 
 }

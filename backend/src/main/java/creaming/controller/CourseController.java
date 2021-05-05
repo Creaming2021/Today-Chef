@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "*")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
