@@ -109,7 +109,7 @@ public class MemberController {
 
     // 결제 내역
     @GetMapping("/{memberId}/registers")
-    @Operation(summary = "유저의 결제 내역 가져오기", description = "memberId의 유저의 결제 내역을 가져옵니다.")
+    @Operation(summary = "유저의 강의 수강 내역 가져오기", description = "memberId의 유저의 강의 수강 내역을 가져옵니다.")
     public ResponseEntity<List<RegisterDto.RegisterResponse>> getRegisterAll(@PathVariable("memberId") Long memberId) {
         log.info("(Get) getRegisterAll - memberId : {}", memberId);
         List<RegisterDto.RegisterResponse> result = memberService.getRegisterAll(memberId);
@@ -118,7 +118,7 @@ public class MemberController {
 
     // 결제 내역 상세 보기
     @GetMapping("/{memberId}/registers/{registerId}")
-    @Operation(summary = "결제 내역 상세보기", description = "memberId의 registerId 결제 내역을 가져옵니다.")
+    @Operation(summary = "강의 수강 내역 상세보기", description = "memberId의 registerId 강의 수강 내역을 가져옵니다.")
     public ResponseEntity<RegisterDto.RegisterResponse> getRegister(@PathVariable("memberId") Long memberId,
                                          @PathVariable("registerId") Long registerId) {
         log.info("(Get) getRegister - memberId : {} | registerId : {}", memberId, registerId);
@@ -128,7 +128,7 @@ public class MemberController {
 
     // 강의 수강 등록 = 결제하기
     @PostMapping("/{memberId}/registers")
-    @Operation(summary = "결제 내용 저장", description = "memberId의 강의 결제 내역을 저장합니다.")
+    @Operation(summary = "강의 수강", description = "해당 강의를 수강 신청합니다.")
     public ResponseEntity<Long> postRegister(@PathVariable("memberId") Long memberId,
                                           @RequestBody RegisterDto.RegisterPostRequest dto) {
         log.info("(Post) postRegister - memberId : {} | courseId : {}", memberId, dto.getCourseId());
@@ -160,13 +160,23 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    // 좋아요 토글
+    // 강의 좋아요 토글
     @PutMapping("/{memberId}/courses/{courseId}/like")
-    @Operation(summary = "좋아요 토글", description = "좋아요 상태를 토글합니다.")
-    public ResponseEntity<Void> toggleLike(@PathVariable("memberId") Long memberId,
+    @Operation(summary = "강의 좋아요 토글", description = "강의 좋아요 상태를 토글합니다.")
+    public ResponseEntity<Void> toggleCourseLike(@PathVariable("memberId") Long memberId,
                                         @PathVariable("courseId") Long courseId) {
-        log.info("(Put) toggleLike - memberId : {}, courseId : {}", memberId, courseId);
-        memberService.toggleLike(memberId, courseId);
+        log.info("(Put) toggleCourseLike - memberId : {}, courseId : {}", memberId, courseId);
+        memberService.toggleCourseLike(memberId, courseId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // 상품 좋아요 토글
+    @PutMapping("/{memberId}/products/{productId}/like")
+    @Operation(summary = "상품좋아요 토글", description = "상품 좋아요 상태를 토글합니다.")
+    public ResponseEntity<Void> toggleProductLike(@PathVariable("memberId") Long memberId,
+                                           @PathVariable("productId") Long productId) {
+        log.info("(Put) toggleProductLike - memberId : {}, productId : {}", memberId, productId);
+        memberService.toggleProductLike(memberId, productId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

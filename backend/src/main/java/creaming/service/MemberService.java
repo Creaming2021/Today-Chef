@@ -181,9 +181,9 @@ public class MemberService {
         return registerRepository.save(register).getId();
     }
 
-    // 좋아요 토글
+    // 강의 좋아요 토글
     @Transactional
-    public void toggleLike(Long memberId, Long courseId) {
+    public void toggleCourseLike(Long memberId, Long courseId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         Course course = courseRepository.findById(courseId)
@@ -200,6 +200,28 @@ public class MemberService {
             course.deleteLike(likeOpt.get());
             likeRepository.delete(likeOpt.get());
         }
+    }
+
+    // 상품 좋아요 토글
+    @Transactional
+    public void toggleProductLike(Long memberId, Long productId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+
+        Optional<ProductLike> productLikeOpt = productLikeRepository.findByMemberIdAndProductId(memberId, productId);
+        if(productLikeOpt.isEmpty()){ // 좋아요가 없으면 추가
+            ProductLike productLike = ProductLike.builder().member(member).product(product).build();
+            productLikeRepository.save(productLike);
+            member.addProductLike(productLike);
+            product.addProductLike(productLike);
+        }else { // 좋아요가 있으면 제거
+            productLikeOpt.get().getMember().deleteProductLike(productLikeOpt.get());
+            product.deleteProductLike(productLikeOpt.get());
+            productLikeRepository.delete(productLikeOpt.get());
+        }
+
     }
 
     // 강의 좋아요 리스트

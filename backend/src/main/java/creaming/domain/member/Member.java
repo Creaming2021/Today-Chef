@@ -6,6 +6,7 @@ import creaming.domain.course.Course;
 import creaming.domain.etc.Address;
 import creaming.domain.etc.BaseTimeEntity;
 import creaming.domain.like.Like;
+import creaming.domain.like.ProductLike;
 import creaming.domain.membercoupon.MemberCoupon;
 import creaming.domain.qna.CourseQna;
 import creaming.domain.qna.ProductQna;
@@ -51,6 +52,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Like> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ProductLike> productLikes = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CourseQna> courseQnas = new ArrayList<>();
@@ -172,6 +176,16 @@ public class Member extends BaseTimeEntity {
     public void deleteCart(Cart cart) {
         carts.remove(cart);
         cart.updateMember(null);
+    }
+
+    public void addProductLike(ProductLike productLike) {
+        productLikes.add(productLike);
+        productLike.updateMember(this);
+    }
+
+    public void deleteProductLike(ProductLike productLike) {
+        productLikes.remove(productLike);
+        productLike.updateMember(null);
     }
 
     //////////////////////////////////////
