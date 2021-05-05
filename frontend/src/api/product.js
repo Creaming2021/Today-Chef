@@ -1,25 +1,25 @@
 import { basic } from '@/api/instance.js';
 
 export const getProductList = async () => {
-  basic.get('products')
+  return await basic.get('products')
     .then(res => res)
     .catch(e => { console.log(e); });
 }
 
 export const postProduct = async ( product ) => {
-  basic.post('products', product)
+  return await basic.post('products', product)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
 
 export const getProduct = async ( productId ) => {
-  basic.get(`products/${productId}`)
+  return await basic.get(`products/${productId}`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
 
 export const putProduct = async ( product ) => {
-  basic.put(`products/${product.id}`,
+  return await basic.put(`products/${product.id}`,
     {
       category: product.category,
       description: product.description,
@@ -31,7 +31,7 @@ export const putProduct = async ( product ) => {
 }
 
 export const deleteProduct = async ( productId ) => {
-  basic.delete(`products/${productId}`)
+  return await basic.delete(`products/${productId}`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }

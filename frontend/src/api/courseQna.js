@@ -1,7 +1,7 @@
 import { basic } from '@/api/instance.js';
 
 export const getQnaList = async (courseId) => {
-  basic.get('course-qna',
+  return await basic.get('course-qna',
     {
       params: {
         courseId,
@@ -12,19 +12,19 @@ export const getQnaList = async (courseId) => {
 }
 
 export const postQna = async ( qna ) => {
-  basic.post('course-qna', qna)
+  return await basic.post('course-qna', qna)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
 
 // export const getQna = async ( qnaId ) => {
-//   basic.get(`course-qna/${qnaId}`)
+//   return await basic.get(`course-qna/${qnaId}`)
 //     .then(res => res)
 //     .catch(e => { console.log(e); });
 // }
 
 export const putQna = async ( qna ) => {
-  basic.put(
+  return await basic.put(
       `course-qna/${qna.qnaId}`,
       {
         content: qna.content,
@@ -39,7 +39,7 @@ export const putQna = async ( qna ) => {
 }
 
 export const deleteQna = async ( qnaId ) => {
-  basic.delete(`course-qna/${qnaId}`)
+  return await basic.delete(`course-qna/${qnaId}`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
@@ -51,31 +51,31 @@ export const deleteQna = async ( qnaId ) => {
 // }
 
 export const postQnaComment = async ( qna ) => {
-  basic.post(
+  return await basic.post(
     `course-qna/${qna.qnaId}/comments`,
     {
       content: qna.content,
       memberId: qna.memberId,
     }
   )
-  .then(res => res)
-  .catch(e => { console.log(e); });
+    .then(res => res)
+    .catch(e => { console.log(e); });
 }
 
 export const putQnaComment = async ( qna ) => {
-  basic.put(
+  return await basic.put(
     `course-qna/${qna.qnaId}/comments/${qna.commentId}`,
     {
       content: qna.content,
     }
   )
-  .then(res => res)
-  .catch(e => { console.log(e); });
+    .then(res => res)
+    .catch(e => { console.log(e); });
 }
 
 export const deleteQnaComment = async ( qna ) => {
-  basic.delete(`course-qna/${qna.qnaId}/comments/${qna.commentId}`)
-  .then(res => res)
-  .catch(e => { console.log(e); });
+  return await basic.delete(`course-qna/${qna.qnaId}/comments/${qna.commentId}`)
+    .then(res => res)
+    .catch(e => { console.log(e); });
 }
 

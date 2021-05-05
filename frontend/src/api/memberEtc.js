@@ -8,7 +8,7 @@ export const getMemberInfo = async ( memberId ) => {
 
 export const putMemberInfo = async ( member ) => {
   return await basic.put(
-      `members/${member.id}`, 
+      `members/${member.memberId}`, 
       {
         address: member.address,
         nickname: member.nickname,

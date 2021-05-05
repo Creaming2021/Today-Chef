@@ -1,7 +1,7 @@
 import { basic } from '@/api/instance.js';
 
 export const getReviewList = async ( review ) => {
-  basic.get('course-reviews',
+  return await basic.get('course-reviews',
     {
       params: {
         courseId: review.courseId,
@@ -12,7 +12,7 @@ export const getReviewList = async ( review ) => {
 }
 
 export const postReview = async ( review ) => {
-  basic.post('course-reviews',
+  return await basic.post('course-reviews',
     {
       content: review.content,
       isSecret: review.isSecret,
@@ -25,13 +25,13 @@ export const postReview = async ( review ) => {
 }
 
 export const getReview = async ( reviewId ) => {
-  basic.get(`course-reviews/${reviewId}`)
+  return await basic.get(`course-reviews/${reviewId}`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
 
 export const putReview = async ( review ) => {
-  basic.put(`course-reviews/${review.reviewId}`,
+  return await basic.put(`course-reviews/${review.reviewId}`,
     {
       content: review.content,
       isSecret: review.isSecret,
@@ -42,13 +42,13 @@ export const putReview = async ( review ) => {
 }
 
 export const getReviewComment = async ( reviewId ) => {
-  basic.post(`course-reviews/${reviewId}/comments`)
+  return await basic.post(`course-reviews/${reviewId}/comments`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
 
 export const postReviewComment = async ( review ) => {
-  basic.post(`course-reviews/${review.reviewId}/comments`,
+  return await basic.post(`course-reviews/${review.reviewId}/comments`,
     {
       content: review.content,
       isSecret: review.isSecret,
@@ -61,7 +61,7 @@ export const postReviewComment = async ( review ) => {
 }
 
 export const putReviewComment = async ( review ) => {
-  basic.put(`course-reviews/${review.reviewId}/comments/${review.comentId}`,
+  return await basic.put(`course-reviews/${review.reviewId}/comments/${review.comentId}`,
     {
       content: review.content,
       isSecret: review.isSecret,
@@ -72,7 +72,7 @@ export const putReviewComment = async ( review ) => {
 }
 
 export const deleteReviewComment = async ( review ) => {
-  basic.delete(`course-reviews/${review.reviewId}/comments/${review.comentId}`)
+  return await basic.delete(`course-reviews/${review.reviewId}/comments/${review.comentId}`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }

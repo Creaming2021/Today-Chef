@@ -1,7 +1,7 @@
 import { basic } from '@/api/instance.js';
 
 export const getReviewList = async ( productId ) => {
-	basic.get('product-reviews', {
+	return await basic.get('product-reviews', {
 			params: {
 				productId,
 			}
@@ -11,13 +11,13 @@ export const getReviewList = async ( productId ) => {
 }
 
 export const postReview = async ( review ) => {
-	basic.post('product-reviews', review)
+	return await basic.post('product-reviews', review)
 		.then(res => res)
 		.catch(e => { console.log(e); });
 }
 
 export const putReview = async ( review ) => {
-	basic.put(`product-reviews/${review.productReviewId}`, 
+	return await basic.put(`product-reviews/${review.productReviewId}`, 
 			{
 				content: review.content,
 				rating: review.rating,
@@ -28,7 +28,7 @@ export const putReview = async ( review ) => {
 }
 
 export const deleteReview = async ( review ) => {
-	basic.delete(`product-reviews/${review.productReviewId}`)
+	return await basic.delete(`product-reviews/${review.productReviewId}`)
 		.then(res => res)
 		.catch(e => { console.log(e); });
 }

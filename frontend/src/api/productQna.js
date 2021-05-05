@@ -1,7 +1,7 @@
 import { basic } from '@/api/instance.js';
 
 export const getQnaList = async ( productId ) => {
-  basic.get('product-qna',
+  return await basic.get('product-qna',
       {
         params: {
           productId
@@ -13,13 +13,13 @@ export const getQnaList = async ( productId ) => {
 }
 
 export const postQna = async ( qna ) => {
-  basic.post('product-qna', qna)
+  return await basic.post('product-qna', qna)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
 
 export const putQna = async ( qna ) => {
-  basic.put(`product-qna/${qna.id}`, {
+  return await basic.put(`product-qna/${qna.id}`, {
       content: qna.content,
       isSecret: qna.isSecret,
       title: qna.title,
@@ -29,7 +29,7 @@ export const putQna = async ( qna ) => {
 }
 
 export const deleteQna = async ( id ) => {
-  basic.delete(`product-qna/${id}`)
+  return await basic.delete(`product-qna/${id}`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
