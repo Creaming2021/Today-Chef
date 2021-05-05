@@ -89,6 +89,7 @@ public class MemberService {
     }
 
     // 유저의 쿠폰 리스트 가져오기
+    @Transactional
     public List<CouponDto.CouponResponse> getCouponAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
@@ -105,19 +106,23 @@ public class MemberService {
 
     // 유저의 쿠폰 사용하기
     @Transactional
-    public void useCoupon(Long memberId, Long couponId) {
+    public void useCoupon(Long memberId, Long memberCouponId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
-        Coupon coupon = couponRepository.findById(couponId)
-                .orElseThrow(() -> new BaseException(ErrorCode.COUPON_NOT_FOUND));
-        MemberCoupon memberCoupon = memberCouponRepository.findByMemberIdAndCouponId(member.getId(), coupon.getId())
+        MemberCoupon memberCoupon = memberCouponRepository.findById(memberCouponId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_COUPON_NOT_FOUND));
+
+        // 쿠폰 주인이 아니면 에러 출력
+        if(!memberCoupon.getMember().getId().equals(member.getId())) {
+            throw new BaseException(ErrorCode.ACCESS_DENIED_EXCEPTION);
+        }
 
         // 만료되었거나 사용한 쿠폰
         if(LocalDateTime.now().isAfter(memberCoupon.getExpiredDate())
                 || memberCoupon.getCouponStatus().equals(CouponStatus.USED)) {
             throw new BaseException(ErrorCode.MEMBER_COUPON_NOT_FOUND);
         }
+
         memberCoupon.useCoupon();
     }
 
@@ -176,9 +181,9 @@ public class MemberService {
         return registerRepository.save(register).getId();
     }
 
-    // 좋아요 토글
+    // 강의 좋아요 토글
     @Transactional
-    public void toggleLike(Long memberId, Long courseId) {
+    public void toggleCourseLike(Long memberId, Long courseId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         Course course = courseRepository.findById(courseId)
@@ -195,6 +200,28 @@ public class MemberService {
             course.deleteLike(likeOpt.get());
             likeRepository.delete(likeOpt.get());
         }
+    }
+
+    // 상품 좋아요 토글
+    @Transactional
+    public void toggleProductLike(Long memberId, Long productId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+
+        Optional<ProductLike> productLikeOpt = productLikeRepository.findByMemberIdAndProductId(memberId, productId);
+        if(productLikeOpt.isEmpty()){ // 좋아요가 없으면 추가
+            ProductLike productLike = ProductLike.builder().member(member).product(product).build();
+            productLikeRepository.save(productLike);
+            member.addProductLike(productLike);
+            product.addProductLike(productLike);
+        }else { // 좋아요가 있으면 제거
+            productLikeOpt.get().getMember().deleteProductLike(productLikeOpt.get());
+            product.deleteProductLike(productLikeOpt.get());
+            productLikeRepository.delete(productLikeOpt.get());
+        }
+
     }
 
     // 강의 좋아요 리스트

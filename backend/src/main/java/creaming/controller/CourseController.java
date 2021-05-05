@@ -75,8 +75,8 @@ public class CourseController {
     @PutMapping("/{courseId}")
     public ResponseEntity<Void> putCourse(@PathVariable("courseId") Long courseId,
                                        @RequestBody @Valid CourseDto.CoursePutRequest dto) {
-        log.info("(Put) postCourse - courseId: {} | name: {} | date: {} | price: {} | category: {}",
-                dto.getCourseId(), dto.getName(), dto.getDate(), dto.getPrice(), dto.getCategory());
+        log.info("(Put) postCourse - name: {} | date: {} | price: {} | category: {}",
+                dto.getName(), dto.getDate(), dto.getPrice(), dto.getCategory());
         courseService.putCourse(courseId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

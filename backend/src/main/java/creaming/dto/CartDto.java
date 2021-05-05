@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class CartDto {
@@ -40,9 +41,9 @@ public class CartDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CartPostRequest {
-        @NotEmpty
+        @NotNull
         private Long productId;
-        @NotEmpty
+        @NotNull
         private Integer amount;
 
         public Cart toEntity() {
