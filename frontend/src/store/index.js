@@ -7,6 +7,7 @@ import review from './review.js';
 import course from './course.js';
 import member from './member.js';
 import product from './product.js';
+import order from './order.js';
 
 Vue.use(Vuex);
 
@@ -19,5 +20,6 @@ export default new Vuex.Store({
     course,
     member,
     product,
+    order,
   }
 });

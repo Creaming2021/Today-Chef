@@ -50,11 +50,9 @@ export default {
     },
     getCourseList(){
       if(this.type === 'student'){
-        // this.$store.dispatch('GET_REGISTERED_COURSE_LIST', this.user.memberId);
-        this.$store.dispatch('GET_REGISTERED_COURSE_LIST', 4);
+        this.$store.dispatch('GET_REGISTERED_COURSE_LIST', this.user.memberId);
       }else if(this.type === 'teacher'){
-        // this.$store.dispatch('GET_TEACHED_COURSE_LIST', this.user.memberId);
-        this.$store.dispatch('GET_TEACHED_COURSE_LIST', 6);
+        this.$store.dispatch('GET_TEACHED_COURSE_LIST', this.user.memberId);
       }
     },
   },
