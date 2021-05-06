@@ -208,6 +208,7 @@ public class Member extends BaseTimeEntity {
     public void deleteOrder(Order order) {
         orders.remove(order);
         order.updateMember(null);
+    }
 
     public void updateImage(String profileImage) {
         this.profileImage = profileImage;
