@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class CourseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SimpleResponse {
+    public static class CourseSimpleResponse {
         private Long courseId;
         private MemberDto.MemberSimpleProfile profile; // 강사 프로필
         private String name;
@@ -31,7 +32,7 @@ public class CourseDto {
         private String image;
         private FoodType category;
 
-        public SimpleResponse(Course course) {
+        public CourseSimpleResponse(Course course) {
             this.courseId = course.getId();
             this.profile = new MemberDto.MemberSimpleProfile(course.getMember());
             this.name = course.getName();
@@ -52,12 +53,12 @@ public class CourseDto {
 //    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DetailResponse extends SimpleResponse{
+    public static class CourseDetailResponse extends CourseSimpleResponse{
 
         private String materials;
         private String descriptions;
 
-        public DetailResponse(Course course) {
+        public CourseDetailResponse(Course course) {
             super(course);
             this.materials = course.getMaterials();
             this.descriptions = course.getDescriptions();
@@ -68,8 +69,10 @@ public class CourseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
-        @NotEmpty
+    public static class CoursePostRequest {
+        @NotNull
+        private Long productId;
+        @NotNull
         private Long memberId;
         @NotEmpty
         private String name;
@@ -77,9 +80,9 @@ public class CourseDto {
         private String date;
         @NotEmpty
         private String time;
-        @NotEmpty
+        @NotNull
         private Integer price;
-        @NotEmpty
+        @NotNull
         private FoodType category;
         @NotEmpty
         private String materials;
@@ -94,6 +97,7 @@ public class CourseDto {
                     .category(this.category)
                     .materials(this.materials)
                     .descriptions(this.descriptions)
+                    .time(this.time)
                     .build();
         }
 
@@ -103,18 +107,16 @@ public class CourseDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
-        @NotEmpty
-        private Long courseId;
+    public static class CoursePutRequest {
         @NotEmpty
         private String name;
         @NotEmpty
         private String date;
         @NotEmpty
         private String time;
-        @NotEmpty
+        @NotNull
         private Integer price;
-        @NotEmpty
+        @NotNull
         private FoodType category;
         @NotEmpty
         private String materials;

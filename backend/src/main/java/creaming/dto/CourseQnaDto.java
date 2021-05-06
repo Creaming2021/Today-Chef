@@ -5,6 +5,7 @@ import creaming.domain.qna.CourseQna;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,16 +16,16 @@ public class CourseQnaDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class CourseQnaResponse {
         private Long qnaId;
         private MemberDto.MemberSimpleProfile profile;
         private String title;
         private LocalDateTime date;
         private String content;
-        private boolean isSecret;
-        private List<Comment> comments;
+        private Boolean isSecret;
+        private List<CourseQnaComment> comments;
 
-        public Response(CourseQna courseQna) {
+        public CourseQnaResponse(CourseQna courseQna) {
             this.qnaId = courseQna.getId();
             this.profile = new MemberDto.MemberSimpleProfile(courseQna.getMember());
             this.title = courseQna.getTitle();
@@ -32,7 +33,7 @@ public class CourseQnaDto {
             this.content = courseQna.getContent();
             this.isSecret = courseQna.getIsSecret();
             this.comments = courseQna.getQnaComments().stream()
-                    .map(Comment::new).collect(Collectors.toList());
+                    .map(CourseQnaComment::new).collect(Collectors.toList());
         }
     }
 
@@ -40,16 +41,18 @@ public class CourseQnaDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
+    public static class CourseQnaPostRequest {
 
-        @NotEmpty
+        @NotNull
         private Long memberId;
-        @NotEmpty
+        @NotNull
         private Long courseId;
         @NotEmpty
         private String title;
+        @NotEmpty
         private String content; // TODO editor 로 작업시 수정
-        private boolean isSecret;
+        @NotNull
+        private Boolean isSecret;
 
         public CourseQna toEntity() {
             return CourseQna.builder()
@@ -64,10 +67,13 @@ public class CourseQnaDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
+    public static class CourseQnaPutRequest {
+        @NotEmpty
         private String title;
+        @NotEmpty
         private String content;
-        private boolean isSecret;
+        @NotNull
+        private Boolean isSecret;
     }
 
     @Getter
@@ -75,13 +81,13 @@ public class CourseQnaDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Comment {
+    public static class CourseQnaComment {
         private Long commentId;
         private MemberDto.MemberSimpleProfile profile;
         private String content;
         private LocalDateTime date;
 
-        public Comment(QnaComment qnaComment) {
+        public CourseQnaComment(QnaComment qnaComment) {
             this.commentId = qnaComment.getId();
             this.profile = new MemberDto.MemberSimpleProfile(qnaComment.getMember());
             this.content = qnaComment.getContent();

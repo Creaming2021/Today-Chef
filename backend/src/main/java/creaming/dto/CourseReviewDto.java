@@ -5,6 +5,7 @@ import creaming.domain.review.CourseReview;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ public class CourseReviewDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SimpleResponse {
+    public static class CourseReviewSimpleResponse {
         private Long reviewId;
         private MemberDto.MemberSimpleProfile profile;
         private int rating;
@@ -24,7 +25,7 @@ public class CourseReviewDto {
         private LocalDateTime createdDate;
         private int commentCount;
 
-        public SimpleResponse(CourseReview courseReview) {
+        public CourseReviewSimpleResponse(CourseReview courseReview) {
             this.reviewId = courseReview.getId();
             this.profile = new MemberDto.MemberSimpleProfile(courseReview.getMember());
             this.rating = courseReview.getRating();
@@ -39,7 +40,7 @@ public class CourseReviewDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DetailResponse {
+    public static class CourseReviewDetailResponse {
         private Long reviewId;
         private MemberDto.MemberSimpleProfile profile;
         private int rating;
@@ -47,9 +48,9 @@ public class CourseReviewDto {
         private String content;
         private LocalDateTime date;
         private int commentCount;
-        private List<Comment> comments;
+        private List<CourseReviewComment> comments;
 
-        public DetailResponse(CourseReview courseReview) {
+        public CourseReviewDetailResponse(CourseReview courseReview) {
             this.reviewId = courseReview.getId();
             this.profile = new MemberDto.MemberSimpleProfile(courseReview.getMember());
             this.rating = courseReview.getRating();
@@ -58,7 +59,7 @@ public class CourseReviewDto {
             this.date = courseReview.getLastModifiedDate();
             this.commentCount = courseReview.getReviewComments().size();
             this.comments = courseReview.getReviewComments().stream()
-                    .map(Comment::new).collect(Collectors.toList());
+                    .map(CourseReviewComment::new).collect(Collectors.toList());
         }
 
     }
@@ -68,13 +69,13 @@ public class CourseReviewDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Comment {
+    public static class CourseReviewComment {
         private Long commentId;
         private MemberDto.MemberSimpleProfile profile;
         private String content;
         private LocalDateTime date;
 
-        public Comment(ReviewComment reviewComment) {
+        public CourseReviewComment(ReviewComment reviewComment) {
             this.commentId = reviewComment.getId();
             this.profile = new MemberDto.MemberSimpleProfile(reviewComment.getMember());
             this.content = reviewComment.getContent();
@@ -87,16 +88,16 @@ public class CourseReviewDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
-        @NotEmpty
+    public static class CourseReviewPostRequest {
+        @NotNull
         private Long memberId;
-        @NotEmpty
+        @NotNull
         private Long courseId;
         @NotEmpty
         private String title;
         @NotEmpty
         private String content;
-        @NotEmpty
+        @NotNull
         private Integer rating;
 
         public CourseReview toEntity() {
@@ -112,7 +113,7 @@ public class CourseReviewDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
+    public static class CourseReviewPutRequest {
         @NotEmpty
         private String title;
         @NotEmpty

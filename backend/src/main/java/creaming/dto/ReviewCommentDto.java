@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class ReviewCommentDto {
 
@@ -14,8 +15,8 @@ public class ReviewCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
-        @NotEmpty
+    public static class ReviewCommentPostRequest {
+        @NotNull
         private Long memberId;
         @NotEmpty
         private String content;
@@ -32,7 +33,7 @@ public class ReviewCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
+    public static class ReviewCommentPutRequest {
         @NotEmpty
         private String content;
     }

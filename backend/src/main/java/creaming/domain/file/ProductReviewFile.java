@@ -1,6 +1,5 @@
 package creaming.domain.file;
 
-import creaming.domain.review.CourseReview;
 import creaming.domain.review.ProductReview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Builder
 @Entity
 @Getter
 @NoArgsConstructor
@@ -22,6 +20,9 @@ public class ProductReviewFile extends File{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_review_id")
     private ProductReview productReview;
+
+    @Builder
+    public ProductReviewFile(String fileName) { super(fileName); }
 
     // JPA
     @Override

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class QnaCommentDto {
 
@@ -14,9 +15,10 @@ public class QnaCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
-        @NotEmpty
+    public static class QnaCommentPostRequest {
+        @NotNull
         private Long memberId;
+        @NotEmpty
         private String content;
 
         public QnaComment toEntity() {
@@ -30,7 +32,8 @@ public class QnaCommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PutRequest {
+    public static class QnaCommentPutRequest {
+        @NotEmpty
         private String content;
     }
 

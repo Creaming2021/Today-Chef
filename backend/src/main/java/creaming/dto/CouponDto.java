@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
@@ -17,16 +18,16 @@ public class CouponDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
-        private Long couponId;
+    public static class CouponResponse {
+        private Long memberCouponId;
         private String name;
         private String content;
         private Integer discount;
         private LocalDateTime expiredDate;
         private CouponStatus couponStatus;
 
-        public Response(MemberCoupon memberCoupon) {
-            this.couponId = memberCoupon.getCoupon().getId();
+        public CouponResponse(MemberCoupon memberCoupon) {
+            this.memberCouponId = memberCoupon.getId();
             this.name = memberCoupon.getCoupon().getName();
             this.content = memberCoupon.getCoupon().getContent();
             this.discount = memberCoupon.getCoupon().getDiscount();
@@ -39,14 +40,14 @@ public class CouponDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PostRequest {
+    public static class CouponPostRequest {
         @NotEmpty
         private String name;
         @NotEmpty
         private String content;
-        @NotEmpty
+        @NotNull
         private Integer discount;
-        @NotEmpty
+        @NotNull
         private Long expiredDay;
     }
 

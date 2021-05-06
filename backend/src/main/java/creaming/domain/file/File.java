@@ -17,9 +17,13 @@ public abstract class File extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
-    private Long id;
+    protected Long id;
 
-    private String fileName;
+    protected String fileName;
+
+    public File(String fileName) {
+        this.fileName = fileName;
+    }
 
     public abstract void updateFK(Object o);
 }

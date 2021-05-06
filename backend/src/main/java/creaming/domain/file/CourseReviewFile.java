@@ -11,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Builder
 @Entity
 @Getter
 @NoArgsConstructor
@@ -21,6 +20,9 @@ public class CourseReviewFile extends File{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_review_id")
     private CourseReview courseReview;
+
+    @Builder
+    public CourseReviewFile(String fileName) { super(fileName); }
 
     // JPA
     @Override

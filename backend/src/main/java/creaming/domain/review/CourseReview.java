@@ -62,9 +62,14 @@ public class CourseReview extends BaseTimeEntity {
         reviewComments.remove(reviewComment);
         reviewComment.updateFK(null);
     }
+
+    public void addCourseReviewFile(CourseReviewFile courseReviewFile) {
+        courseReviewFiles.add(courseReviewFile);
+        courseReviewFile.updateFK(this);
+    }
     /////////////////////////////////////////
 
-    public CourseReview(CourseReviewDto.PostRequest dto, Member member, Course course) {
+    public CourseReview(CourseReviewDto.CourseReviewPostRequest dto, Member member, Course course) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.rating = dto.getRating();
@@ -72,8 +77,10 @@ public class CourseReview extends BaseTimeEntity {
         course.addReview(this);
     }
 
-    public void update(String content) {
+    public void update(String title, String content, Integer rating) {
+        this.title = title;
         this.content = content;
+        this.rating = rating;
     }
 
 }

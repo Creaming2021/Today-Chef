@@ -100,7 +100,7 @@ class CourseCourseQnaServiceTest {
 
         System.out.println("===========================");
 
-//        Page<CourseQnaDto.Response> qnaAll = courseQnaService.getQnaAll(id, PageRequest.of(1, 5));
+//        Page<CourseQnaDto.CourseQnaResponse> qnaAll = courseQnaService.getQnaAll(id, PageRequest.of(1, 5));
 
         System.out.println("===========================");
 

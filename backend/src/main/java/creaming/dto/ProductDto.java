@@ -10,8 +10,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ProductDto {
@@ -73,9 +74,13 @@ public class ProductDto {
 
     @Getter
     public static class ProductRequest {
+        @NotEmpty
         private String name;
+        @NotNull
         private Integer price;
+        @NotNull
         private FoodType category;
+        @NotEmpty
         private String description;
 
         public Product toEntity() {
