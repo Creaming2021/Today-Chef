@@ -22,8 +22,16 @@ class VideoRoomComponent extends Component {
         this.OPENVIDU_SERVER_SECRET = this.props.openviduSecret ? this.props.openviduSecret : 'MY_SECRET';
         this.hasBeenUpdated = false;
         this.layout = new OpenViduLayout();
-        let sessionName = this.props.sessionName ? this.props.sessionName : 'SessionA';
-        let userName = this.props.user ? this.props.user : 'OpenVidu_User' + Math.floor(Math.random() * 100);
+        
+        // props로 sessionName, username을 받아온다!!!
+        // console.log("this 뭐니", this);
+        // let sessionName ='';
+        // let userName = '';
+        let sessionName = this.props.match.params.sessionName ? this.props.match.params.sessionName : 'SessionA'; 
+        let userName = this.props.match.params.memberId ? this.props.match.params.memberId : 'OpenVidu_User' + Math.floor(Math.random() * 100);
+
+        console.log("파라미터 정보 : ", sessionName, userName);
+
         this.remotes = [];
         this.localUserAccessAllowed = false;
         this.state = {
@@ -444,7 +452,8 @@ class VideoRoomComponent extends Component {
     }
     checkSize() {
         if (document.getElementById('layout').offsetWidth <= 700 && !this.hasBeenUpdated) {
-            this.toggleChat('none');
+            // 화면이 작아도 채팅이 나오도록
+            // this.toggleChat('none');
             this.hasBeenUpdated = true;
         }
         if (document.getElementById('layout').offsetWidth > 700 && this.hasBeenUpdated) {
