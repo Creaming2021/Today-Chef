@@ -28,7 +28,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class ImageService {
 
-    // 클라우드 프론트 사용을 위한 도메인 이름 지정
     private final S3Util s3Util;
 
     private final MemberRepository memberRepository;
@@ -61,6 +60,22 @@ public class ImageService {
         product.addProductFile(productFile);
         productFileRepository.save(productFile);
     }
+
+    // product 이미지 삭제
+    public void deleteProductFile(Long productId, Long productImageId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+        ProductFile productFile = productFileRepository.findById(productImageId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+
+        if(!productId.equals(productFile.getProduct().getId())) {
+            throw new BaseException(ErrorCode.ACCESS_DENIED_EXCEPTION);
+        }
+
+        productFile.getProduct().deleteProductFile(productFile);
+        product.deleteProductFile(productFile);
+        productFileRepository.delete(productFile);
+    }
     
     // product review 이미지
     public void postProductReviewFile(Long productReviewId, MultipartFile file) throws IOException {
@@ -78,6 +93,22 @@ public class ImageService {
         CourseFile courseFile = new CourseFile(s3Util.uploadFile(file));
         course.addCourseFile(courseFile);
         courseFileRepository.save(courseFile);
+    }
+
+    // course 이미지 삭제
+    public void deleteCourseFile(Long courseId, Long courseImageId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
+        CourseFile courseFile = courseFileRepository.findById(courseImageId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+
+        if(courseId.equals(courseFile.getCourse().getId())) {
+            throw new BaseException(ErrorCode.ACCESS_DENIED_EXCEPTION);
+        }
+
+        courseFile.getCourse().deleteCourseFile(courseFile);
+        course.deleteCourseFile(courseFile);
+        courseFileRepository.delete(courseFile);
     }
 
     // course review 이미지

@@ -61,7 +61,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    // TODO : 유저에게 쿠폰 발급하기
+    // 유저에게 쿠폰 발급하기
     @PostMapping("/{memberId}/coupons/{couponId}")
     @Operation(summary = "쿠폰 발급하기", description = "memberId 유저에게 couponsId의 쿠폰을 발급합니다.")
     public ResponseEntity<Void> postCoupon(@PathVariable("memberId") Long memberId,

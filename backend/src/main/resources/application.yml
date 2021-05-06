@@ -15,6 +15,10 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 1000
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -39,7 +43,6 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
-
 
 my-app:
   server-url: https://k4b204.p.ssafy.io

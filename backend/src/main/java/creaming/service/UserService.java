@@ -28,7 +28,7 @@ public class UserService {
         return memberRepository.findByEmail(email).isEmpty();
     }
 
-    // todo : 회원가입
+    // 회원가입
     public UserDto.LoginResponseDto signUp(UserDto.SignupRequestDto dto) {
         Member member = memberRepository.save(dto.toEntity());
         return new UserDto.LoginResponseDto(member);
