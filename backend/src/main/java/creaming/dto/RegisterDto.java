@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
@@ -42,9 +43,9 @@ public class RegisterDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RegisterPostRequest {
-        @NotEmpty
+        @NotNull
         private Long courseId;
-        @NotEmpty
+        @NotNull
         private Integer paidPrice;
 
         public Register toEntity() {

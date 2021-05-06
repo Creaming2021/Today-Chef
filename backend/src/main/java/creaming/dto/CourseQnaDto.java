@@ -5,6 +5,7 @@ import creaming.domain.qna.CourseQna;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class CourseQnaDto {
         private String title;
         private LocalDateTime date;
         private String content;
-        private boolean isSecret;
+        private Boolean isSecret;
         private List<CourseQnaComment> comments;
 
         public CourseQnaResponse(CourseQna courseQna) {
@@ -42,16 +43,16 @@ public class CourseQnaDto {
     @AllArgsConstructor
     public static class CourseQnaPostRequest {
 
-        @NotEmpty
+        @NotNull
         private Long memberId;
-        @NotEmpty
+        @NotNull
         private Long courseId;
         @NotEmpty
         private String title;
         @NotEmpty
         private String content; // TODO editor 로 작업시 수정
-        @NotEmpty
-        private boolean isSecret;
+        @NotNull
+        private Boolean isSecret;
 
         public CourseQna toEntity() {
             return CourseQna.builder()
@@ -71,8 +72,8 @@ public class CourseQnaDto {
         private String title;
         @NotEmpty
         private String content;
-        @NotEmpty
-        private boolean isSecret;
+        @NotNull
+        private Boolean isSecret;
     }
 
     @Getter

@@ -7,8 +7,6 @@ import creaming.service.CourseReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +61,7 @@ public class CourseReviewController {
     public ResponseEntity<Void> putReview(@PathVariable("reviewId") Long reviewId,
                                        @RequestBody @Valid CourseReviewDto.CourseReviewPostRequest dto) {
         log.info("(Put) putReview - content : {}", dto.getContent());
+        validator.ratingValidator(dto.getRating());
         courseReviewService.putReview(reviewId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

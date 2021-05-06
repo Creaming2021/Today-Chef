@@ -1,10 +1,8 @@
 package creaming.domain.orderdetail;
 
-import creaming.domain.member.Member;
 import creaming.domain.order.Order;
 import creaming.domain.product.Product;
 import lombok.*;
-import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 

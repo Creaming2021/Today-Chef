@@ -6,15 +6,12 @@ import creaming.service.CourseQnaService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
 
 @Slf4j
 @RestController
@@ -42,7 +39,7 @@ public class CourseQnaController {
     @PostMapping
     public ResponseEntity<Long> postQna(@RequestBody @Valid CourseQnaDto.CourseQnaPostRequest dto) {
         log.info("(Post) postQna - memberId: {} | courseId: {} | title: {} | content: {} | isSecret: {}",
-                dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.isSecret());
+                dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.getIsSecret());
         return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.postQna(dto));
     }
 
@@ -51,7 +48,7 @@ public class CourseQnaController {
     public ResponseEntity<Void> putQna(@PathVariable Long qnaId,
                                     @RequestBody @Valid CourseQnaDto.CourseQnaPutRequest dto) {
         log.info("(Put) putQna - qnaId: {} | title: {} | content: {} | isSecret: {}",
-                qnaId, dto.getTitle(), dto.getContent(), dto.isSecret());
+                qnaId, dto.getTitle(), dto.getContent(), dto.getIsSecret());
         courseQnaService.putQna(qnaId, dto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -81,6 +78,7 @@ public class CourseQnaController {
         return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.postComment(qnaId, dto));
     }
 
+    @Operation(summary = "해당 QnA의 댓글 수정", description = "해당 QnA의 댓글을 수정합니다")
     @PutMapping("/{qnaId}/comments/{commentId}")
     public ResponseEntity<Void> putComment(@PathVariable Long qnaId,
                                            @PathVariable Long commentId,
@@ -90,6 +88,7 @@ public class CourseQnaController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    @Operation(summary = "해당 QnA의 댓글 삭제", description = "해당 QnA의 댓글을 삭제합니다")
     @DeleteMapping("/{qnaId}/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long qnaId,
                                            @PathVariable Long commentId) {

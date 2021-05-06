@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,18 +50,37 @@ public class CourseDto {
     }
 
     @Getter
-//    @Builder
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CourseDetailResponse extends CourseSimpleResponse{
+    public static class CourseDetailResponse {
 
-        private String materials;
+        private Long courseId;
+        private MemberDto.MemberSimpleProfile profile; // 강사 프로필
+        private String name;
+        private String date;
+        private String time;
+        private Integer price;
+        private Double rating;
+        private FoodType category;
         private String descriptions;
+        private List<ImageDto> images;
+        private ProductDto.ProductDetailResponse product;
 
         public CourseDetailResponse(Course course) {
-            super(course);
-            this.materials = course.getMaterials();
+            this.courseId = course.getId();
+            this.profile = new MemberDto.MemberSimpleProfile(course.getMember());
+            this.name = course.getName();
+            this.date = course.getDate();
+            this.time = course.getTime();
+            this.price = course.getPrice();
+            this.rating = course.getCourseReviews().stream()
+                    .collect(Collectors.averagingInt(CourseReview::getRating));
             this.descriptions = course.getDescriptions();
+            this.images = course.getCourseFiles().stream()
+                    .map(courseFile -> new ImageDto(courseFile.getId(), courseFile.getFileName()))
+                    .collect(Collectors.toList());
+            this.product = new ProductDto.ProductDetailResponse(course.getProduct());
         }
     }
 
@@ -69,7 +89,9 @@ public class CourseDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CoursePostRequest {
-        @NotEmpty
+        @NotNull
+        private Long productId;
+        @NotNull
         private Long memberId;
         @NotEmpty
         private String name;
@@ -77,12 +99,10 @@ public class CourseDto {
         private String date;
         @NotEmpty
         private String time;
-        @NotEmpty
+        @NotNull
         private Integer price;
-        @NotEmpty
+        @NotNull
         private FoodType category;
-        @NotEmpty
-        private String materials;
         @NotEmpty
         private String descriptions;
 
@@ -92,8 +112,8 @@ public class CourseDto {
                     .date(this.date)
                     .price(this.price)
                     .category(this.category)
-                    .materials(this.materials)
                     .descriptions(this.descriptions)
+                    .time(this.time)
                     .build();
         }
 
@@ -105,16 +125,14 @@ public class CourseDto {
     @AllArgsConstructor
     public static class CoursePutRequest {
         @NotEmpty
-        private Long courseId;
-        @NotEmpty
         private String name;
         @NotEmpty
         private String date;
         @NotEmpty
         private String time;
-        @NotEmpty
+        @NotNull
         private Integer price;
-        @NotEmpty
+        @NotNull
         private FoodType category;
         @NotEmpty
         private String materials;

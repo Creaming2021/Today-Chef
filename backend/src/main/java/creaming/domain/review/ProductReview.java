@@ -40,6 +40,11 @@ public class ProductReview extends BaseTimeEntity {
     private final List<ProductReviewFile> productReviewFiles = new ArrayList<>();
 
     // JPA
+    public void addProductReviewFile(ProductReviewFile productReviewFile) {
+        productReviewFiles.add(productReviewFile);
+        productReviewFile.updateFK(this);
+    }
+
     public void updateProduct(Product product) {
         this.product = product;
     }
@@ -54,4 +59,5 @@ public class ProductReview extends BaseTimeEntity {
         this.rating = dto.getRating();
         return id;
     }
+
 }

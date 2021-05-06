@@ -127,5 +127,13 @@ public class Product extends BaseTimeEntity {
         this.description = dto.getDescription();
     }
 
+    public void addOrderDetail(OrderDetail orderDetail) {
+        orderDetails.add(orderDetail);
+        orderDetail.updateProduct(this);
+    }
 
+    public void deleteOrderDetail(OrderDetail orderDetail) {
+        orderDetails.remove(orderDetail);
+        orderDetail.updateProduct(null);
+    }
 }

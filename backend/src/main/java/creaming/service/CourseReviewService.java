@@ -61,7 +61,7 @@ public class CourseReviewService {
     public void putReview(Long reviewId, CourseReviewDto.CourseReviewPostRequest dto) {
         CourseReview courseReview = courseReviewRepository.findById(reviewId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
-        courseReview.update(dto.getContent());
+        courseReview.update(dto.getTitle(), dto.getContent(), dto.getRating());
     }
 
     @Transactional
@@ -84,6 +84,11 @@ public class CourseReviewService {
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_NOT_FOUND));
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_COMMENT_NOT_FOUND));
+
+        if (!courseReview.getId().equals(reviewComment.getCourseReview().getId())) {
+            throw new BaseException(ErrorCode.ACCESS_DENIED_EXCEPTION);
+        }
+
         reviewComment.update(dto.getContent());
     }
 
@@ -94,10 +99,9 @@ public class CourseReviewService {
         ReviewComment reviewComment = reviewCommentRepository.findById(commentId)
                 .orElseThrow(() -> new BaseException(ErrorCode.REVIEW_COMMENT_NOT_FOUND));
 
-        courseReview.getMember().deleteReview(courseReview);
-        courseReview.getCourse().deleteReview(courseReview);
-
+        reviewComment.getMember().deleteComment(reviewComment);
         courseReview.deleteComment(reviewComment);
+
         reviewCommentRepository.delete(reviewComment);
     }
 

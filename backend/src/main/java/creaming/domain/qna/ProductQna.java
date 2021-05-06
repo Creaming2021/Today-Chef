@@ -39,7 +39,6 @@ public class ProductQna extends BaseTimeEntity {
     
     // comments 없음
     
-    // TODO : JPA 추가
     // JPA
     public void updateProduct(Product product) { this.product = product; }
 
@@ -51,5 +50,10 @@ public class ProductQna extends BaseTimeEntity {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.isSecret = dto.getIsSecret();
+    }
+
+    public void answerQna(String answer) {
+        this.answer = answer;
+        this.answerDate = LocalDateTime.now();
     }
 }

@@ -15,10 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 @RequestMapping("events")
 public class EventController {
 
@@ -43,13 +42,6 @@ public class EventController {
     public ResponseEntity<Long> postEvent(@RequestBody @Valid EventDto.EventRequest dto) {
         log.info("(Post) postEvent - title : {} | content : {}", dto.getTitle(), dto.getContent());
         return ResponseEntity.status(HttpStatus.CREATED).body(eventService.saveEvent(dto));
-    }
-
-    @PostMapping("/{eventId}/image")
-//    @Operation(summary = "이벤트 이미지 저장", description = "이벤트 이미지를 저장합니다.")
-    public ResponseEntity<Void> postEventImage(@PathVariable("eventId") Long eventId, MultipartFile file) {
-        // TODO S3 이미지 넣기
-        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/{eventId}")
