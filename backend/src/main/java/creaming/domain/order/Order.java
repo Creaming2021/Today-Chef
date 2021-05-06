@@ -31,11 +31,10 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "delivery_id")
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Delivery delivery;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<OrderDetail> orderDetails = new ArrayList<>();
 
     public void updateMember(Member member) { this.member = member; }
@@ -50,4 +49,13 @@ public class Order {
         orderDetail.updateOrder(this);
     }
 
+    public void addDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.updateOrder(this);
+    }
+
+    public void deleteDelivery(Delivery delivery) {
+        this.delivery = null;
+        delivery.updateOrder(null);
+    }
 }

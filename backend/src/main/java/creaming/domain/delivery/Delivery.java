@@ -28,7 +28,8 @@ public class Delivery extends BaseTimeEntity {
     private String company; // 택배회사
     private String number; // 송장번호
 
-    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
     public Delivery(Address address, String orderNotes) {
