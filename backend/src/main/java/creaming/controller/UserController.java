@@ -18,8 +18,9 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    
+    // TODO : jwt 추가
 
-    // 로그인 응답값 : memberId, nickname
     @PostMapping("/login")
     @Operation(summary = "로그인")
     public ResponseEntity<UserDto.LoginResponseDto> login(@RequestBody @Valid UserDto.LoginRequestDto dto) {

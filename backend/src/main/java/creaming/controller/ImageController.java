@@ -39,13 +39,13 @@ public class ImageController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    // product review 사진
-    @PostMapping("/product-reviews/{productReviewId}")
-    @Operation(summary = "상품 리뷰 이미지 삽입 & 수정", description = "상품 리뷰 이미지를 저장 & 수정합니다.")
-    public ResponseEntity<Void> postProductReviewFile(@PathVariable("productReviewId") Long productReviewId,
-                                                @RequestPart MultipartFile file) throws IOException {
-        log.info("(Post) postProductReviewFile - productReviewId : {} ", productReviewId);
-        imageService.postProductReviewFile(productReviewId, file);
+    // product 사진 삭제 - fileId 필요 => [ fileId = imageId ]
+    @DeleteMapping("/products/{productId}/{productImageId}")
+    @Operation(summary = "상품 이미지 삭제", description = "상품 이미지를 삭제합니다.")
+    public ResponseEntity<Void> deleteProductFile(@PathVariable("productId") Long productId,
+                                                  @PathVariable("productImageId") Long productImageId) {
+        log.info("(Delete) deleteProductFile - productId : {} | productImageId : {}", productId, productImageId);
+        imageService.deleteProductFile(productId, productImageId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -59,13 +59,13 @@ public class ImageController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    // course review 사진
-    @PostMapping("/course-reviews/{courseReviewId}")
-    @Operation(summary = "강의 리뷰 이미지 삽입 & 수정", description = "강의 리뷰 이미지를 저장 & 수정합니다.")
-    public ResponseEntity<Void> postCourseReviewFile(@PathVariable("courseReviewId") Long courseReviewId,
-                                                      @RequestPart MultipartFile file) throws IOException {
-        log.info("(Post) postCourseReviewFile - courseReviewId : {} ", courseReviewId);
-        imageService.postCourseReviewFile(courseReviewId, file);
+    // course 사진 삭제
+    @DeleteMapping("/courses/{courseId}/{courseImageId}")
+    @Operation(summary = "강의 이미지 삭제", description = "강의 이미지를 삭제합니다.")
+    public ResponseEntity<Void> deleteCourseFile(@PathVariable("courseId") Long courseId,
+                                                  @PathVariable("courseImageId") Long courseImageId) {
+        log.info("(Delete) deleteCourseFile - courseId : {} | courseImageId : {}", courseId, courseImageId);
+        imageService.deleteCourseFile(courseId, courseImageId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

@@ -52,7 +52,7 @@ public class ProductDto {
         private FoodType category;
         private Double rating;
         private String description;
-        private List<String> image;
+        private List<ImageDto> image;
         private List<Long> courses;
         private Integer like;
 
@@ -65,7 +65,8 @@ public class ProductDto {
             this.courses = product.getCourses().stream()
                     .map(Course::getId).collect(Collectors.toList());
             this.image = product.getProductFiles().stream()
-                    .map(ProductFile::getFileName).collect(Collectors.toList());
+                    .map(productFile -> new ImageDto(productFile.getId(), productFile.getFileName()))
+                    .collect(Collectors.toList());
             this.rating = product.getProductReviews().stream()
                     .collect(Collectors.averagingDouble(ProductReview::getRating));
             this.like = product.getProductLikes().size();

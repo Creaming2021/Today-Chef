@@ -51,5 +51,4 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    // TODO S3 이미지 넣기
 }
