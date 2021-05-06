@@ -8,10 +8,11 @@ export default{
 			})
 			.catch(e => { console.log(e); });
 	},
-	PUT_MEMBER_INFO({ dispatch }, request ) {
+	PUT_MEMBER_INFO({ commit, dispatch }, request ) {
 		memberEtc.putMemberInfo(request)
-			.then(({ data }) => {
-				dispatch('GET_MEMBER_INFO', data);
+			.then(() => {
+				dispatch('GET_MEMBER_INFO', request.memberId);
+				commit('SET_NICKNAME', request.nickname);
 			})
 			.catch(e => { console.log(e); });
 	},
@@ -24,15 +25,15 @@ export default{
 	},
 	POST_CART_LIST({ dispatch }, request ) {
 		memberEtc.postCartList(request)
-			.then(({ data }) => {
-				dispatch('', data);
+			.then(() => {
+				dispatch('', request);
 			})
 			.catch(e => { console.log(e); });
 	},
 	DELETE_CART_LIST({ dispatch }, request ) {
 		memberEtc.deleteCartList(request)
-			.then(({ data }) => {
-				dispatch('GET_CART_LIST', data);
+			.then(() => {
+				dispatch('GET_CART_LIST', request);
 			})
 			.catch(e => { console.log(e); });
 	},
@@ -50,7 +51,7 @@ export default{
 			})
 			.catch(e => { console.log(e); });
 	},
-	SET_COUPONE({ commit }, request ) {
+	SET_COUPON({ commit }, request ) {
 		memberEtc.setCoupon(request)
 			.then(({ data }) => {
 				commit('', data);

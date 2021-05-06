@@ -3,7 +3,18 @@ import memberItem from '@/store/memberActions/memberItem.js';
 
 export default {
   state: {
-    memberInfo: {},
+    memberInfo: {
+      address: {
+        address: "",
+        name: "",
+        phoneNumber: "",
+      },
+      email: "",
+      memberId: 0,
+      nickname: "",
+      phone: "",
+      profileImage: ""
+    },
     cartList: [],
     couponList: [],
     courseList: [],

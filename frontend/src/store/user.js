@@ -30,6 +30,9 @@ export default {
     },
     SET_EMAIL_STATE(state, payload){
       state.emailState = payload;
+    },
+    SET_NICKNAME(state, payload){
+      state.nickname = payload;
     }
   },
   actions: {

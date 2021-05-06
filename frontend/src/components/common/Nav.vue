@@ -85,12 +85,20 @@ export default {
       deep: true,
     }
   },
-  methods : {
+  methods: {
     onClickNav(pathName, paramsType) {
-      if(pathName === "Profile" || pathName === "Creator"){
+      if(pathName === "Profile"){
         this.$router.push({
           name: pathName,
           params: {
+            type : paramsType,
+          }
+        })
+      } else if(pathName === 'Creator') {
+        this.$router.push({
+          name: pathName,
+          params: {
+            mode: 'create',
             type : paramsType,
           }
         })
@@ -115,7 +123,6 @@ export default {
       this.openSignModal = false;
     },
     onClickKakaoSignIn() {
-      // this.onCloseSign();
       this.$store.dispatch('GET_KAKAO_INFO');
     },
     onClickSignUp() {

@@ -20,14 +20,12 @@
                 <MyCourseList
                   v-else-if="type === 'student'"
                   class="col-lg-9"
-                  :type="'otherClass'"
-                  :myCourseList="myCourseList"/>
+                  :type="type"/>
 
                 <MyCourseList
                   v-else-if="type === 'teacher'"
                   class="col-lg-9"
-                  :type="'myClass'"
-                  :myCourseList="myCourseList"/>
+                  :type="type"/>
 
                 <MyPayment 
                   v-else-if="type === 'payment'" 
@@ -40,6 +38,8 @@
 
 
 <script>
+import { mapState } from 'vuex';
+
 import Sidebar from '@/components/mypage/Sidebar.vue';
 import Personal from '@/components/mypage/Personal.vue';
 import MyCoupon from '@/components/mypage/MyCoupon.vue';
@@ -54,24 +54,18 @@ export default {
     MyCourseList,
     MyPayment,
   },
+  computed : {
+    ...mapState({
+      user: state => state.user,
+    }),
+  },
   created() {
     this.checkQuery();
-  },
-  methods : {
-    checkQuery() {
-      this.type = this.$route.params.type ? this.$route.params.type : 'info';
-    },
+    this.getMemberInfo();
   },
   data() {
     return {
       type : '',
-      personalData : {
-        name : "이병훈",
-        img : "https://blog.kakaocdn.net/dn/cyOIpg/btqx7JTDRTq/1fs7MnKMK7nSbrM9QTIbE1/img.jpg",
-        email : "er******@n*******.com",
-        phone : "+82 10-4***-8***",
-        address : "경기도 수원시 영통구 청명로 100 (영통동, 건영1차아파트) 000동 0000호",
-      },
       enrolledCourseList: [
         {
           id: 1,
@@ -335,6 +329,14 @@ export default {
           deliveryReq : '상온에 두면 안됩니다.'
         },
       ]
+    }
+  },
+  methods : {
+    checkQuery() {
+      this.type = this.$route.params.type ? this.$route.params.type : 'info';
+    },
+    getMemberInfo(){
+      this.$store.dispatch('GET_MEMBER_INFO', this.user.memberId);
     }
   },
   watch: { 

@@ -1,10 +1,10 @@
 <template>
     <div class="blog__item">
-      <img class="blog__item__pic set-bg" :src="course.thumbnail"/>
+      <img class="blog__item__pic set-bg" :src="course.image"/>
       <div class="blog__item__text">
-          <!-- <span>{{course.category}} <img src="@/assets/img/icon/calendar.png" alt="">{{course.date}} / 좋아요 수 : {{course.likeCnt}}</span> -->
+          <span>{{course.category}} <img src="@/assets/img/icon/calendar.png" alt="">{{course.date}}</span>
           <h6>{{course.name}}</h6>
-          <span href="#">{{course.teacher}} / 별점 : {{course.rate}}</span>
+          <span href="#">{{course.profile.nickname}} / 별점 : {{course.rating}}</span>
           <h6>{{course.price}}원</h6>
           <a @click="onClickDetail">자세히 보기</a>
       </div>
@@ -18,31 +18,23 @@
             <p class="modal-btn" @click="onClickUpdateClass">강의 정보 수정</p>
             <p class="modal-btn" @click="onClickReopenClass">강의 재오픈</p>
           </div>
-          <div v-if="modalCourse">
-            <div style="text-align : center; font-weight : 700; font-size : 20px">{{modalCourse.name}}</div>
-            <div class="row" style="justify-content : center" id="day-filter">
-              <span class="active" @click="onClickDay(0, $event)">월</span>
-              <span @click="onClickDay(1, $event)">화</span>
-              <span @click="onClickDay(2, $event)">수</span>
-              <span @click="onClickDay(3, $event)">목</span>
-              <span @click="onClickDay(4, $event)">금</span>
-              <span @click="onClickDay(5, $event)">토</span>
-              <span @click="onClickDay(6, $event)">일</span>
-            </div>
-            <div class="row" style="justify-content : center; height: 60vh;">
-              <Student :day="currentDay"/>
-            </div>
+          <div style="text-align : center; font-weight : 700; font-size : 20px">{{this.course.name}}</div>
+          <div class="row" style="justify-content : center; height: 60vh;"
+            v-for="student in studentList" :key="student.memberId">
+              <Student :student="student"/>
           </div>
         </div>
-        </b-modal>
+      </b-modal>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Student from '@/components/mypage/Student.vue';
-  export default {
-    components: {
-      Student,
+
+export default {
+  components: {
+    Student,
   },
   data(){
     return {
@@ -51,32 +43,44 @@ import Student from '@/components/mypage/Student.vue';
       currentDay : 0,
     }
   },
+  computed : {
+    ...mapState({
+      studentList: state => state.course.studentList,
+    }),
+  },
   props: {
     course: {
-      id: Number,
-      thumbnail: String,
+      courseId: Number,
+      image: String,
       category: String,
       date: String,
       name: String,
-      teacher: String,
       price: Number,
-      likeCnt: Number,
-      rate: Number,
+      profile: {
+        memberId: Number,
+        nickname: String,
+        phone: String,
+        profileImage: String,
+      },
+      rating: Number,
+      time: String,
     },
     type : String,
   },
   methods : {
     onClickDetail() {
-      if (this.type === "myClass") {
+      if (this.type === "teacher") {
+        this.$store.dispatch('GET_COURSE', this.course.courseId);
+        this.$store.dispatch('GET_COURSE_STUDENT_LIST', this.course.courseId);
         this.onOpenDetailModal(this.course);
-      } else if (this.type === "otherClass") {
+      } else if (this.type === "student") {
         this.$router.push({
           name: 'ItemDetail',
           params: {
-            category: this.course.category,
-            id: this.course.id,
+            item: 'course',
+            category: this.course.category.toLowerCase(),
+            id: this.course.courseId,
             type: 'introduction',
-            item: this.$route.params.item,
           }
         })
       }
@@ -88,17 +92,27 @@ import Student from '@/components/mypage/Student.vue';
     },
     onCloseDetailModal() {
       this.modalState = false;
-      this.modalState = null;
     },
-    onOpenDetailModal(course) {
+    onOpenDetailModal() {
       this.modalState = true;
-      this.modalCourse = course;
     },
     onClickUpdateClass() {
-      alert('강의 수정');
+      this.$router.push({
+        name: 'Creator',
+        params: {
+          mode: 'update',
+          type: 'info',
+        }
+      });
     },
     onClickReopenClass() {
-      alert('강의 재오픈');
+      this.$router.push({
+        name: 'Creator',
+        params: {
+          mode: 'reopen',
+          type: 'info',
+        }
+      });
     }
   }
 }

@@ -57,7 +57,7 @@ export default {
       .catch(e => { console.log(e); });
   },
   GET_COURSE_STUDENT_LIST({ commit }, request) {
-    course.getCourseStudents(request)
+    course.getCourseStudentList(request)
       .then(({ data }) => {
         if(data){
           commit('SET_STUDENT_LIST', data);

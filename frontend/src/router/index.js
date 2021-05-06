@@ -39,7 +39,7 @@ const routes = [
     component: Profile,
   },
   {
-    path: "/creator/:type",
+    path: "/creator/:mode/:type",
     name: "Creator",
     component: Creator,
   },
