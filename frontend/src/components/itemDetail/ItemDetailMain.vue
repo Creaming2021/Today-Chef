@@ -2,15 +2,15 @@
   <div class="col-lg-9 course-detail-main-container">
     <div class="tab">
       <span v-if="this.item === 'course'" @click="onChangeType('introduction')">클래스 소개</span> |
-      <span @click="onChangeType('kit')">키트 소개</span> |
+      <span @click="item === 'course' ? onChangeType('kit') : onChangeType('introduction')">키트 소개</span> |
       <span @click="onChangeType('review')">리뷰</span> |
       <span @click="onChangeType('qna')">QnA</span> |
       <span @click="onChangeType('refund')">한불 정책</span>
     </div>
-    <ItemIntroduction 
+    <ItemViewer 
       v-if="this.type === 'introduction'"/>
     <ItemKit 
-      v-else-if="this.type === 'kit'"/>
+      v-if="this.type === 'kit'"/>
     <List 
       v-else-if="this.type === 'review'"/>
     <ListDetail
@@ -24,7 +24,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import ItemIntroduction from '@/components/itemDetail/ItemIntroduction.vue';
+import ItemViewer from '@/components/itemDetail/ItemViewer.vue';
 import ItemKit from '@/components/itemDetail/ItemKit.vue';
 import List from '@/components/common/List.vue';
 import ListDetail from '@/components/common/ListDetail.vue';
@@ -37,20 +37,23 @@ export default {
       id: '',
       item: '',
       type: '',
-      // pageTotal: 8,
-      // currentPage: 1,
     }
   },
   computed: {
     ...mapState({
-      course: state => state.course,
+      course: state => state.course.course,
+      product: state => state.course.product,
     }),
+    itemDetail: function(){
+      console.log(this.setItemDetail());
+      return this.setItemDetail();
+    }
   },
   created() {
     this.checkQuery();
   },
   components: {
-    ItemIntroduction,
+    ItemViewer,
     ItemKit,
     List,
     ListDetail,
@@ -74,13 +77,21 @@ export default {
       this.type = this.$route.params.type;
       this.id = this.$route.params.id;
     },
+    setItemDetail() {
+      if(this.item === 'course'){
+        return this.course;
+      } else if(this.item === 'product'){
+        return this.product;
+      }
+      return [];
+    }
   },
   watch: { 
     $route(to, from) { 
       if (to.path != from.path) { 
         this.checkQuery();
       } 
-    } 
+    },
   },
 }
 </script>

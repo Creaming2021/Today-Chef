@@ -7,7 +7,6 @@ import ItemList from "@/views/ItemList.vue";
 import ItemDetail from "@/views/ItemDetail.vue";
 import Creator from "@/views/Creator.vue";
 import Profile from "@/views/Profile.vue";
-import Streaming from "@/views/Streaming.vue";
 import Payment from "@/views/Payment.vue";
 import VueDaumPostcode from "vue-daum-postcode"
 import Sign from "@/views/Sign.vue";
@@ -52,11 +51,6 @@ const routes = [
     path: "/:item/:category/:id/:type",
     name: "ItemDetail",
     component: ItemDetail,
-  },
-  {
-    path: "/class",
-    name: "Streaming",
-    component: Streaming,
   },
   {
     path: "/payment",

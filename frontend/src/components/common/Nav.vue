@@ -57,8 +57,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   data(){
     return {
@@ -71,18 +69,11 @@ export default {
     }
   },
   computed : {
-    ...mapState({
-      user: state => state.user,
-    }),
-  },
-  watch: {
-    user : {
-      handler: function () {
-        if(this.user.signStatus == 'signIn'){
-          this.onCloseSign();
-        }
-      },
-      deep: true,
+    user: function(){
+      if(this.$store.state.user.signStatus === 'signIn'){
+        this.onCloseSign();
+      }
+      return this.$store.state.user;
     }
   },
   methods: {

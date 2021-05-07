@@ -5,7 +5,16 @@ import productReview from '@/store/productActions/productReview.js';
 export default {
   state: {
     productList: [],
-    product: {},
+    product: {
+      category: '',
+      courses: [],
+      descriptions: '',
+      productId: '',
+      images: [],
+      name: '',
+      price: '',
+      rating: '',
+    },
     qnaList: [],
     qna: {},
     reviewList: [],

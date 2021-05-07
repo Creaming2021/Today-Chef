@@ -61,20 +61,6 @@ export default {
   },
   methods : {
     searchCourse() {
-      console.log('Search Value', this.searchKeyword);
-      console.log('currentFilter', this.currentFilter);
-      console.log('currentCategory', this.currentCategory);
-
-      // sortCourseList: [
-      //   { id: 'review', value: '리뷰 많은 순'},
-      //   { id: 'rank', value: '별점 높은 순'},
-      //   { id: 'arrival', value: '최신순'}
-      // ],
-      // sortProductList: [
-      //   { id: 'review', value: '리뷰 많은 순'},
-      //   { id: 'rank', value: '별점 높은 순'},
-      //   { id: 'price', value: '가격 낮은 순'},
-      // ],
       this.filteredItemList = this.itemList.filter( item => {
         if(!item.name.includes(this.searchKeyword)) // 키워드 검색
           return false;
@@ -99,7 +85,7 @@ export default {
         return true;
       });
       
-      this.filteredItemList.sort((itemA, itemB) => {
+      this.filteredItemList.sort((itemA, itemB) => { // 정렬
         if(this.currentSortId === 'review'){
           return itemA.reviewCnt - itemB.reviewCnt;
         } else if(this.currentSortId === 'rank') {
@@ -110,7 +96,6 @@ export default {
           return itemA.price - itemB.price;
         }
       })
-
     },
     checkQuery() {
       this.currentCategory = this.$route.params.category;
