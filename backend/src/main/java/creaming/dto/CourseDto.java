@@ -79,6 +79,7 @@ public class CourseDto {
             this.rating = course.getCourseReviews().stream()
                     .collect(Collectors.averagingInt(CourseReview::getRating));
             this.descriptions = course.getDescriptions();
+            this.category = course.getCategory();
             this.images = course.getCourseFiles().stream()
                     .map(courseFile -> new ImageDto(courseFile.getId(), courseFile.getFileName()))
                     .collect(Collectors.toList());
