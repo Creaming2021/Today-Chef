@@ -80,8 +80,18 @@ export default {
           name: 'ItemDetail',
           params: {
             item: 'course',
-            category: this.course.category.toLowerCase(),
-            id: this.course.courseId,
+            category: this.itemDetail.category.toLowerCase(),
+            id: this.itemDetail.courseId,
+            type: 'introduction',
+          }
+        })
+      } else {
+        this.$router.push({
+          name: 'ItemDetail',
+          params: {
+            item: this.item,
+            category: this.itemDetail.category.toLowerCase(),
+            id: this.item === 'course' ? this.itemDetail.courseId : this.itemDetail.id,
             type: 'introduction',
           }
         })
