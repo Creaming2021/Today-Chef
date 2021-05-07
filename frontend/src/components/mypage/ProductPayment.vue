@@ -29,52 +29,35 @@
       hide-footer hide-header>
       <div class="container" style="min-height : 300px">
         <p @click="onCloseDetailModal" class="btn" style="display : flex;justify-content : flex-end">X</p>
-        <div class="shopping__cart__table">
-          <div>{{payment.date}} 주문 ({{payment.date}}-{{payment.orderId}})</div>
-          <div>주문 상세</div>
-          <div class="quantity">
-              <div class="pro-qty-2" v-for="detail in payment.orderDetails" :key="detail.product.id">
-                <h5>{{detail.product.category}}</h5>
-                <img :src="detail.product.image" />
-                <h5>{{detail.product.name}}</h5>
-                <h5>{{detail.product.price}}원</h5>
-                <h5>{{detail.amount}}개</h5>
-              </div>
-          </div>
-
-          <div>배송지 정보</div>
-          <table>
-            <thead>
-              <tr>
-                <th>받는 사람</th>
-                <th>연락처</th>
-                <th>받는 주소</th>
-                <th>운송장 번호</th>
-                <th>배송요청사항</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{payment.delivery.address.name}}</td>
-                <td>{{payment.delivery.address.phoneNumber}}</td>
-                <td>{{payment.delivery.address.address}}</td>
-                <td @click="deliveryDetail" class="delivery-detail">{{payment.delivery.number}}</td>
-                <td>{{payment.delivery.note}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <DeliveryDetail 
+          v-if="modalType === 'detail'"
+          :payment="payment"
+          :deliveryDetail="deliveryDetail"/>
+        <DeliveryTracker 
+          v-else-if="modalType === 'delivery'" 
+          :changeModalType="changeModalType"
+          :deliveryTrack="deliveryTrackList"/>
       </div>
     </b-modal>
   </tr>
 </template>
 
 <script>
+import * as delivery from '@/api/delivery.js';
+import DeliveryDetail from '@/components/mypage/DeliveryDetail.vue';
+import DeliveryTracker from '@/components/mypage/DeliveryTracker.vue';
+
   export default {
     data(){
       return {
         modalState : false,
+        deliveryTrackList: [],
+        modalType: '',
       }
+    },
+    components: {
+      DeliveryDetail,
+      DeliveryTracker,
     },
     props: {
       payment : Object,
@@ -89,10 +72,24 @@
       },
       onOpenDetailModal() {
         this.modalState = true;
+        this.changeModalType('detail');
       },
       deliveryDetail() {
-        alert('배송조회')
-      }
+        delivery.getDeliveryTracker({
+            carrierId: 'kr.epost',
+            trackId: this.payment.delivery.number,
+            // trackId: '1111111111111',
+          }
+        ).then(({ data }) => {
+          this.deliveryTrackList = data;
+        })
+        .finally(() => { 
+          this.changeModalType('delivery');
+        });
+      },
+      changeModalType(newType){
+        this.modalType = newType;
+      },
     }
   }
 </script>
@@ -105,11 +102,5 @@
 }
 .payment-detail {
   cursor: pointer;
-}
-.delivery-detail {
-  cursor: pointer;
-}
-.delivery-detail:hover {
-  text-decoration: underline;
 }
 </style>

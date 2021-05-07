@@ -73,13 +73,11 @@ export default {
       }
     },
     getCoursePaymentList() {
-        // this.$store.dispatch('GET_REGISTER_LIST', user.memberId);
-        this.$store.dispatch('GET_REGISTER_LIST', 4);
+        this.$store.dispatch('GET_REGISTER_LIST', this.user.memberId);
         this.paymentList = this.coursePaymentList;
     },
     getProductPaymentList() {
-        // this.$store.dispatch('GET_ORDER_LIST', user.memberId);
-        this.$store.dispatch('GET_ORDER_LIST', 6);
+        this.$store.dispatch('GET_ORDER_LIST', this.user.memberId);
         this.paymentList = this.productPaymentList;
     },
   },
