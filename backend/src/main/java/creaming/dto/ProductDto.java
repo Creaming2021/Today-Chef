@@ -22,7 +22,7 @@ public class ProductDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ProductSimpleResponse {
-        private Long id;
+        private Long productId;
         private String name;
         private Integer price;
         private FoodType category;
@@ -31,7 +31,7 @@ public class ProductDto {
         private Integer reviewCnt;
 
         public ProductSimpleResponse(Product product) {
-            this.id = product.getId();
+            this.productId = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();
             this.category = product.getCategory();
@@ -48,25 +48,25 @@ public class ProductDto {
     @Getter
     @NoArgsConstructor
     public static class ProductDetailResponse {
-        private Long id;
+        private Long productId;
         private String name;
         private Integer price;
         private FoodType category;
         private Double rating;
         private String description;
-        private List<ImageDto> image;
+        private List<ImageDto> images;
         private List<Long> courses;
         private Integer like;
 
         public ProductDetailResponse(Product product) {
-            this.id = product.getId();
+            this.productId = product.getId();
             this.name = product.getName();
             this.price = product.getPrice();
             this.category = product.getCategory();
             this.description = product.getDescription();
             this.courses = product.getCourses().stream()
                     .map(Course::getId).collect(Collectors.toList());
-            this.image = product.getProductFiles().stream()
+            this.images = product.getProductFiles().stream()
                     .map(productFile -> new ImageDto(productFile.getId(), productFile.getFileName()))
                     .collect(Collectors.toList());
             this.rating = product.getProductReviews().stream()

@@ -82,7 +82,9 @@ public class CourseDto {
             this.images = course.getCourseFiles().stream()
                     .map(courseFile -> new ImageDto(courseFile.getId(), courseFile.getFileName()))
                     .collect(Collectors.toList());
-            this.product = new ProductDto.ProductDetailResponse(course.getProduct());
+            if(course.getProduct() != null) {
+                this.product = new ProductDto.ProductDetailResponse(course.getProduct());
+            }
         }
     }
 
