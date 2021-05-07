@@ -1,11 +1,12 @@
 <template>
     <div class="blog__item">
-      <img class="blog__item__pic set-bg" :src="course.image"/>
+      <img class="blog__item__pic set-bg" :src="itemDetail.image"/>
       <div class="blog__item__text">
-          <span>{{course.category}} <img src="@/assets/img/icon/calendar.png" alt="">{{course.date}}</span>
-          <h6>{{course.name}}</h6>
-          <span href="#">{{course.profile.nickname}} / 별점 : {{course.rating}}</span>
-          <h6>{{course.price}}원</h6>
+          <span>{{itemDetail.category}}</span>
+          <span v-if="item === 'course'"><img src="@/assets/img/icon/calendar.png" alt="">{{itemDetail.date}}</span>
+          <h6>{{itemDetail.name}}</h6>
+          <span v-if="item === 'course'" href="#">{{itemDetail.profile.nickname}} </span><span> 별점 : {{itemDetail.rating}}</span>
+          <h6>{{itemDetail.price}}원</h6>
           <a @click="onClickDetail">자세히 보기</a>
       </div>
       <b-modal 
@@ -18,7 +19,7 @@
             <p class="modal-btn" @click="onClickUpdateClass">강의 정보 수정</p>
             <p class="modal-btn" @click="onClickReopenClass">강의 재오픈</p>
           </div>
-          <div style="text-align : center; font-weight : 700; font-size : 20px">{{this.course.name}}</div>
+          <div style="text-align : center; font-weight : 700; font-size : 20px">{{this.itemDetail.name}}</div>
           <div class="row" style="justify-content : center; height: 60vh;"
             v-for="student in studentList" :key="student.memberId">
               <Student :student="student"/>
@@ -49,7 +50,8 @@ export default {
     }),
   },
   props: {
-    course: {
+    item: String,
+    itemDetail: {
       courseId: Number,
       image: String,
       category: String,

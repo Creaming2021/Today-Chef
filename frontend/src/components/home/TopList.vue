@@ -19,7 +19,7 @@
                   v-for="course in itemList" 
                   v-bind:key="course.id" 
                   :course="course"/> -->
-                <CourseItem :course="course" :idx="idx" />
+                <ItemCard :course="course" :idx="idx" />
             </div>
         </div>
       </div>
@@ -29,12 +29,12 @@
 
 
 <script>
-import CourseItem from '@/components/common/CourseItem.vue';
+import ItemCard from '@/components/common/ItemCard.vue';
 
 export default {
   name: "TopList",
   components: {
-    CourseItem,
+    ItemCard,
   },
   data() {
     return {

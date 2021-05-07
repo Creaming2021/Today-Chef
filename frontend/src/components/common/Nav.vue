@@ -8,26 +8,26 @@
     </div>
     <div class="container">
       <div class="row">
-          <div class="col-lg-3 col-md-3">
-              <div 
-                class="header__logo"
-                @click="onClickNav('Home')">
-                  <img src="@/assets/img/logo/logo_col.png"/>
-                  <!-- <a href="./index.html"><img src="@/assets/CREAMING-logo-white.png" alt=""></a> -->
-              </div>
+        <div class="col-lg-3 col-md-3">
+          <div 
+            class="header__logo"
+            @click="onClickNav('Home')">
+              <img src="@/assets/img/logo/logo_col.png"/>
+              <!-- <a href="./index.html"><img src="@/assets/CREAMING-logo-white.png" alt=""></a> -->
           </div>
-          <div class="col-lg-6 col-md-6">
-              <nav class="header__menu mobile-menu">
-                  <ul>
-                      <li class="active" @click="onClickNav('Home')">홈</li>
-                      <li @click="onClickNav('Notice')">공지사항</li>
-                      <li @click="onClickNav('Course', 'all')">강의</li>
-                      <li @click="onClickNav('Creator', 'info')">강사</li>
-                      <li v-if="this.user.memberId != ''" @click="onClickNav('Profile', 'info')">마이프로필</li>
-                      <li @click="onClickNav('Profile', 'info')">마이프로필 테스트용</li>
-                  </ul>
-              </nav>
-          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <nav class="header__menu mobile-menu">
+            <ul>
+              <li class="active" @click="onClickNav('Home')">홈</li>
+              <li @click="onClickNav('Notice')">공지사항</li>
+              <li @click="onClickNav('product', 'all')">밀키트</li>
+              <li @click="onClickNav('course', 'all')">강의</li>
+              <li @click="onClickNav('Creator', 'info')">강사</li>
+              <li v-if="this.user.memberId != ''" @click="onClickNav('Profile', 'info')">마이프로필</li>
+            </ul>
+          </nav>
+        </div>
       </div>
       <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
@@ -102,11 +102,19 @@ export default {
             type : paramsType,
           }
         })
-      } else if(pathName === 'Course') {
+      } else if(pathName === 'product') {
         this.$router.push({
-          name: pathName,
+          name: 'ItemList',
           params: {
-            item: 'course',
+            item: pathName,
+            category : paramsType,
+          }
+        })
+      } else if(pathName === 'course') {
+        this.$router.push({
+          name: 'ItemList',
+          params: {
+            item: pathName,
             category : paramsType,
           }
         })

@@ -23,6 +23,7 @@
             :currentFilter="currentCategory"
             @setCategory="setCategory"/>
           <Category
+            v-if="item === 'course'"
             :type="'filter'"
             :categoryTitle="'Filter'"
             :categoryList="filterList"
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import Category from '@/components/course/category.vue';
+import Category from '@/components/itemList/category.vue';
 
 export default {
   components: {
@@ -67,6 +68,7 @@ export default {
     searchCourse: Function,
     currentCategory: String,
     currentFilter: String,
+    item: String,
   },
   methods: {
     setFilter(filter){

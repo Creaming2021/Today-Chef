@@ -5,7 +5,7 @@
         <div 
           class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
           v-for="course in courseList" :key="course.courseId">
-            <CourseItem :course="course" :type="type" />
+            <ItemCard :item="course" :type="type" />
         </div>
       </div>
       <div class="row">
@@ -25,11 +25,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import CourseItem from '@/components/common/CourseItem.vue';
+import ItemCard from '@/components/common/ItemCard.vue';
 
 export default {
   components: {
-    CourseItem,
+    ItemCard,
   },
   props: {
     type: String

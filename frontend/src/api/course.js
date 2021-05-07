@@ -1,5 +1,11 @@
 import { basic, image } from '@/api/instance.js';
 
+export const getCourseList = async () => {
+  return await basic.get('courses')
+    .then(res => res)
+    .catch(e => { console.log(e); });
+}
+
 export const postCourse = async ( course ) => {
   return await basic.post('courses', course)
     .then(res => res)
