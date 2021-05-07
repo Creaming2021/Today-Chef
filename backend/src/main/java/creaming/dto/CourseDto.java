@@ -31,6 +31,7 @@ public class CourseDto {
         private Double rating;
         private String image;
         private FoodType category;
+        private Integer reviewCnt;
 
         public CourseSimpleResponse(Course course) {
             this.courseId = course.getId();
@@ -46,6 +47,7 @@ public class CourseDto {
                 this.image = courseFiles.get(0).getFileName();
             }
             this.category = course.getCategory();
+            this.reviewCnt = course.getCourseReviews().size();
         }
     }
 
