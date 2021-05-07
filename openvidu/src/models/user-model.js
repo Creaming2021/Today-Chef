@@ -9,7 +9,7 @@ class UserModel {
 
     constructor() {
         this.connectionId = '';
-        this.audioActive = true;
+        this.audioActive = false; // 처음 입장시 음소거 상태 
         this.videoActive = true;
         this.screenShareActive = false;
         this.nickname = '';
