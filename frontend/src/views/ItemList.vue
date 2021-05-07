@@ -14,7 +14,7 @@
             @setCategory="setCategory"
             @setFilter="setFilter"/>
           <ItemList
-            :itemList="itemList"
+            :itemList="filteredItemList"
             :currentSortValue="currentSortValue"
             :currentSortId="currentSortId"
             :item="item"
@@ -55,15 +55,62 @@ export default {
       currentFilter: 'all',
       currentSortId: 'review',
       currentSortValue: '리뷰 많은 순',
+      filteredItemList: [],
       itemList: [],
     }
   },
   methods : {
     searchCourse() {
       console.log('Search Value', this.searchKeyword);
-      console.log('currentSortValue', this.currentSortValue);
       console.log('currentFilter', this.currentFilter);
       console.log('currentCategory', this.currentCategory);
+
+      // sortCourseList: [
+      //   { id: 'review', value: '리뷰 많은 순'},
+      //   { id: 'rank', value: '별점 높은 순'},
+      //   { id: 'arrival', value: '최신순'}
+      // ],
+      // sortProductList: [
+      //   { id: 'review', value: '리뷰 많은 순'},
+      //   { id: 'rank', value: '별점 높은 순'},
+      //   { id: 'price', value: '가격 낮은 순'},
+      // ],
+      this.filteredItemList = this.itemList.filter( item => {
+        if(!item.name.includes(this.searchKeyword)) // 키워드 검색
+          return false;
+
+        if(this.currentCategory != 'all' 
+          && item.category.toLowerCase() !== this.currentCategory){ // 카테고리 검색
+          return false;
+        }
+        
+        if(this.item === 'course' && this.currentFilter != 'all'){ // 필터 검색
+          let date = new Date();
+          let today = '' + date.getFullYear() 
+                      + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1))
+                      + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+
+          if(this.currentFilter === 'done' && today < item.date){
+            return false;
+          } else if(this.currentFilter === 'before' && today > item.date){
+            return false;
+          }
+        }
+        return true;
+      });
+      
+      this.filteredItemList.sort((itemA, itemB) => {
+        if(this.currentSortId === 'review'){
+          return itemA.reviewCnt - itemB.reviewCnt;
+        } else if(this.currentSortId === 'rank') {
+          return itemB.rating - itemA.rating;
+        } else if(this.currentSortId === 'arrival') {
+          return itemB.date - itemA.date;
+        } else if(this.currentSortId === 'price') {
+          return itemA.price - itemB.price;
+        }
+      })
+
     },
     checkQuery() {
       this.currentCategory = this.$route.params.category;
@@ -79,9 +126,11 @@ export default {
     },
     setCourseList() {
       this.itemList = this.courseList;
+      this.searchCourse();
     },
     setProductList() {
       this.itemList = this.productList;
+      this.searchCourse();
     },
     setKeyword(newKeyword) {
       this.searchKeyword = newKeyword;

@@ -1243,11 +1243,11 @@ ol {
   display: block;
 }
 
-.shop__sidebar__categories ul,
+/* .shop__sidebar__categories ul,
 .shop__sidebar__price ul,
 .shop__sidebar__brand ul {
   height: 225px;
-}
+} */
 
 .shop__sidebar__categories ul li,
 .shop__sidebar__price ul li,
