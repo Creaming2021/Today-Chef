@@ -28,6 +28,7 @@ public class ProductDto {
         private FoodType category;
         private Double rating;
         private String image;
+        private Integer reviewCnt;
 
         public ProductSimpleResponse(Product product) {
             this.id = product.getId();
@@ -40,6 +41,7 @@ public class ProductDto {
             }
             this.rating = product.getProductReviews().stream()
                     .collect(Collectors.averagingDouble(ProductReview::getRating));
+            this.reviewCnt = product.getProductReviews().size();
         }
     }
 
