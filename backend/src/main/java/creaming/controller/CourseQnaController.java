@@ -37,7 +37,7 @@ public class CourseQnaController {
 
     @Operation(summary = "질문 작성", description = "사용자가 특정 강의에 질문을 작성합니다")
     @PostMapping
-    public ResponseEntity<Long> postQna(@RequestBody @Valid CourseQnaDto.CourseQnaPostRequest dto) {
+    public ResponseEntity<Long> postQna(@RequestBody CourseQnaDto.CourseQnaPostRequest dto) {
         log.info("(Post) postQna - memberId: {} | courseId: {} | title: {} | content: {} | isSecret: {}",
                 dto.getMemberId(), dto.getCourseId(), dto.getTitle(), dto.getContent(), dto.getIsSecret());
         return ResponseEntity.status(HttpStatus.OK).body(courseQnaService.postQna(dto));
