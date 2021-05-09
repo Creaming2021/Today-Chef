@@ -21,6 +21,7 @@
     "vue": "^2.6.12",
     "vue-daum-postcode": "^0.9.0",
     "vue-router": "^3.2.0",
+    "vue-sweetalert2": "^4.3.1",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

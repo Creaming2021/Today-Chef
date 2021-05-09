@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import * as kakao from '@/api/kakao.js';
 import * as user from '@/api/user.js';
 
@@ -62,6 +63,10 @@ export default {
           email: memberInfo.email,
         })
         .then(() => {
+          Swal.fire({
+            icon: 'success',
+            text: '성공적으로 회원가입을 완료했습니다.',
+          });
           dispatch('SIGN_IN', state.authObj);
         });
     },
@@ -73,8 +78,16 @@ export default {
       user.checkEmail(request)
         .then(({ data }) => {
           if(data) {
+            Swal.fire({
+              icon: 'success',
+              text: '사용 가능한 이메일 입니다.',
+            });
             commit('SET_EMAIL_STATE', true);
           } else {
+            Swal.fire({
+              icon: 'error',
+              text: '이미 사용중인 이메일 입니다.',
+            });
             commit('SET_EMAIL_STATE', false);
           }
         })
