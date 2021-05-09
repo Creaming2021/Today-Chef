@@ -6,20 +6,22 @@
             <div class="col-lg-12">
                 <ul class='filter__controls'>
                     <li 
-                      v-for="(tab, index) in tabList"
-                      v-bind:key="index">{{tab}}
+                      v-for="tab in tabList"
+                      :key="tab.value"
+                      :class="currentTab === tab.value && 'active'"
+                      @click="() => setCurrentTab(tab.value)">{{tab.name}}
                     </li>
                 </ul>
             </div>
         </div>
         <div class="row product__filter">
           <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
-            v-for="(course,idx) in itemList" :key="idx">
-              <!-- <course-item 
-                  v-for="course in itemList" 
-                  v-bind:key="course.id" 
-                  :course="course"/> -->
-                <ItemCard :course="course" :idx="idx" />
+            v-for="item in itemList" :key="item === 'course' ? item.courseId : item.productId">
+                <ItemCard 
+                  :item="item"
+                  :itemDetail="item" 
+                  :id="item === 'course' ? item.courseId : item.productId" 
+                  :type="'home'"/>
             </div>
         </div>
       </div>
@@ -38,47 +40,26 @@ export default {
   },
   data() {
     return {
-      currentActive: '',
+      currentTab: 'KOREA',
     }
-  },
-  mounted() {
-    this.setChangeTabEvent();
   },
   props: {
-    tabList: [Array, Object],
-    itemList: [Array, Object],
-    type: String,
-  },
-  watch: {
-    currentActive: function () {
-      this.$emit("currentActiveChanged", { 
-        tab: this.currentActive.innerText,
-        type: this.type,
-      });
-    }
+    item: String,
+    tabList: Array,
+    itemList: Array,
   },
   methods : {
-    setChangeTabEvent() {
-      let tab = null;
-      const tabs = document.querySelectorAll('.filter__controls');
-      tab = this.type === 'arrival' ? tabs[0] : tabs[1];
-
-      tab.childNodes.forEach((node,idx) => {
-        if (idx === 0) {
-          node.setAttribute('class','active');
-          this.currentActive = node;
-        }
-        node.addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.currentActive.classList.remove('active');
-          node.classList.add('active');
-          this.currentActive = node;
-
-          alert("요청 때립니다");
-        })
-      },
-      );
+    setCurrentTab(newTab) {
+      this.currentTab = newTab;
     }
+  },
+  watch: {
+    currentTab: function () {
+      this.$emit("changeTab", { 
+        tab: this.currentTab,
+        item: this.item,
+      });
+    },
   }
 }
 </script>

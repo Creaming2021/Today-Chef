@@ -4,6 +4,16 @@ import productReview from '@/store/productActions/productReview.js';
 
 export default {
   state: {
+    topList: {
+      korea: [],
+      japan: [],
+      western: [],
+      china: [],
+      drink: [],
+      dessert: [],
+      world: [],
+      etc: [],
+    },
     productList: [],
     product: {
       category: '',
@@ -21,6 +31,9 @@ export default {
     review: {},
   },
   mutations: {
+    SET_PRODUCT_TOP_LIST(state, payload){
+      state.topList = payload;
+    },
     SET_PRODUCT_LIST(state, payload){
       state.productList = payload;
     },

@@ -1,5 +1,15 @@
 import { basic, image } from '@/api/instance.js';
 
+export const getTopList = async ( count ) => {
+  return await basic.get('courses/rank', {
+    params: {
+      count
+    }
+  })
+    .then(res => res)
+    .catch(e => { console.log(e); });
+}
+
 export const getCourseList = async () => {
   return await basic.get('courses')
     .then(res => res)

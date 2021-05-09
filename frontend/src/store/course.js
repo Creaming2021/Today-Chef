@@ -4,6 +4,16 @@ import courseReview from '@/store/courseActions/courseReview.js';
 
 export default {
   state: {
+    topList: {
+      korea: [],
+      japan: [],
+      western: [],
+      china: [],
+      drink: [],
+      dessert: [],
+      world: [],
+      etc: [],
+    },
     courseList: [],
     course: {
       category: '',
@@ -39,6 +49,9 @@ export default {
     reviewCommentList: [],
   },
   mutations: {
+    SET_COURSE_TOP_LIST(state, payload){
+      state.topList = payload;
+    },
     SET_COURSE_LIST(state, payload) {
       state.courseList = payload;
     },
