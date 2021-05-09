@@ -17,7 +17,7 @@ public class ProductQnaDto {
         @NotNull
         private Long productId;
         @NotNull
-        private Long userId;
+        private Long memberId;
         @NotEmpty
         private String title;
         @NotEmpty

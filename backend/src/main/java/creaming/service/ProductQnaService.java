@@ -34,7 +34,7 @@ public class ProductQnaService {
     public Long postProductQna(ProductQnaDto.ProductQnaPostRequest dto) {
         ProductQna productQna = productQnaRepository.save(dto.toEntity());
 
-        memberRepository.findById(dto.getUserId())
+        memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND)).addProductQna(productQna);
 
         productRepository.findById(dto.getProductId())
