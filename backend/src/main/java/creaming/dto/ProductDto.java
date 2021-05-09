@@ -53,7 +53,7 @@ public class ProductDto {
         private Integer price;
         private FoodType category;
         private Double rating;
-        private String description;
+        private String descriptions;
         private List<ImageDto> images;
         private List<Long> courses;
         private Integer like;
@@ -63,7 +63,7 @@ public class ProductDto {
             this.name = product.getName();
             this.price = product.getPrice();
             this.category = product.getCategory();
-            this.description = product.getDescription();
+            this.descriptions = product.getDescription();
             this.courses = product.getCourses().stream()
                     .map(Course::getId).collect(Collectors.toList());
             this.images = product.getProductFiles().stream()
@@ -84,14 +84,14 @@ public class ProductDto {
         @NotNull
         private FoodType category;
         @NotEmpty
-        private String description;
+        private String descriptions;
 
         public Product toEntity() {
             return Product.builder()
                     .name(this.name)
                     .price(this.price)
                     .category(this.category)
-                    .description(this.description)
+                    .description(this.descriptions)
                     .build();
         }
     }
