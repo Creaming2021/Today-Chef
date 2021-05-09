@@ -1,6 +1,7 @@
 <template>
     <div class="blog__item">
-      <img class="blog__item__pic set-bg" :src="itemDetail.image"/>
+      <img class="blog__item__pic set-bg" 
+        :src="itemDetail.image || itemDetail.images[0].imageUrl"/>
       <div class="blog__item__text">
           <span>{{itemDetail.category}}</span>
           <span v-if="item === 'course'"><img src="@/assets/img/icon/calendar.png" alt="">{{itemDetail.date}}</span>
@@ -91,7 +92,7 @@ export default {
           params: {
             item: this.item,
             category: this.itemDetail.category.toLowerCase(),
-            id: this.item === 'course' ? this.itemDetail.courseId : this.itemDetail.id,
+            id: this.item === 'course' ? this.itemDetail.courseId : this.itemDetail.productId,
             type: 'introduction',
           }
         })

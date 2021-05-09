@@ -1,6 +1,6 @@
 <template>
   <div>
-    <viewer :initialValue="content"/>
+    <viewer ref="viewer"/>
   </div>
 </template>
 
@@ -12,13 +12,15 @@ export default {
   components: {
     'viewer': Viewer
   },
+  mounted(){
+    this.settingViewerValue();
+  },
   computed:{
     ...mapState({
       course: state => state.course.course.descriptions,
       product: state => state.product.product.descriptions,
     }),
     content: function(){
-      console.log(this.settingContent());
       return this.settingContent();
     }
   },
@@ -26,6 +28,14 @@ export default {
     settingContent() {
       let item = this.$route.params.item;
       return item === 'course' ? this.course : this.product;
+    },
+    settingViewerValue(){
+      this.$refs.viewer.invoke('setMarkdown', this.content);
+    }
+  },
+  watch: {
+    content: function(){
+      this.settingViewerValue();
     }
   }
 }
