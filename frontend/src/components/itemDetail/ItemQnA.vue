@@ -3,35 +3,26 @@
     <button 
       class="write-btn"
       @click="onClickOpenModal">QnA 작성하기</button>
-    <div class="qna-container" v-for="qna in qnaList" v-bind:key="qna.id">
+    <div class="qna-container" v-for="qna in computedQnaList" v-bind:key="qna.id">
       <div class="user-info">
-        <img :src="qna.profile"/>
+        <img :src="qna.profile.profileImage"/>
         <div>
-          <div class="writer">{{qna.writer}}</div>
+          <div class="writer">제목: {{qna.title}} </div>
+          <div class="writer">작성자: {{qna.profile.nickname}}</div>
           <div class="date">{{qna.date}}</div>
         </div>
       </div>
       <div class="content">
         {{qna.content}}
       </div>
-      <div class="answer-list-container">
-        <div class="answer-container" v-for="answer in qna.answerList" v-bind:key="answer.id">
-          <div class="user-info">
-            <img :src="answer.profile"/>
-            <div>
-              <div class="writer">{{answer.writer}}</div>
-              <div class="date">{{answer.date}}</div>
-            </div>
-          </div>
-          <div class="content">
-            {{answer.content}}
-          </div>
-        </div>
-        <input 
-          @keyup.enter="submitComment(qna.id)"
-          v-model="comment"
-          placeholder="답변을 입력하세요."/> 
-      </div>
+      <template v-if="$route.params.item === 'course'">
+        <ItemQnaAnswer 
+          :comments="qna.comments"
+          :qnaId="qna.courseQnaId"
+          :courseId="Number($route.params.id)"
+          :memberId="memberId || 0"
+        />        
+      </template>
       <hr/>
     </div>
     <b-modal v-model="openModal" size="xl" centered hide-footer hide-header>
@@ -58,10 +49,12 @@
 <script>
 import { mapState } from 'vuex';
 import { Editor } from '@toast-ui/vue-editor';
+import ItemQnaAnswer from '@/components/itemDetail/ItemQnaAnswer.vue';
 
 export default {
   components: {
     editor: Editor,
+    ItemQnaAnswer, 
   },
   data() {
     return {
@@ -80,6 +73,9 @@ export default {
       product: state => state.product.qnaList,
       memberId: state => state.user.memberId,
     }),
+    computedQnaList() {
+      return this.settingQnaList();
+    }
   },
   created() {
     this.getQnaList();
@@ -94,7 +90,7 @@ export default {
     },
     settingQnaList(){
       let item = this.$route.params.item;
-      this.qnaList = item === 'course' ? this.course : this.product;
+      return item === 'course' ? this.course : this.product;
     },
     getQnaList(){
       let item = this.$route.params.item;
@@ -109,13 +105,15 @@ export default {
       this.board.content = this.$refs.content.invoke("getMarkdown");
       
       let item = this.$route.params.item;
-      let id = this.$route.params.id;
+      let id = Number(this.$route.params.id);
       if(item === 'course'){
+
         this.$store.dispatch('POST_COURSE_QNA', 
           {
             ...this.board,
             memberId: this.memberId,
             courseId: id,
+            isSecret: false,
           });
       } else if(item === 'product'){
         this.$store.dispatch('POST_PRODUCT_QNA', 
@@ -123,29 +121,11 @@ export default {
             ...this.board,
             memberId: this.memberId,
             productId: id,
+            isSecret: false,
           });
       }
       this.settingQnaList();
       this.onClickCloseModal();
-    },
-    submitComment( qnaId ){
-      let item = this.$route.params.item;
-      if(item === 'course'){
-        this.$store.dispatch('POST_COURSE_QNA_COMMENT', 
-          {
-            qnaId,
-            memberId: this.memberId,
-            content: this.comment,
-          });
-      } else if(item === 'product'){
-        this.$store.dispatch('POST_PRODUCT_QNA_COMMENT', 
-          {
-            qnaId,
-            memberId: this.memberId,
-            content: this.comment,
-          });
-      }
-      this.settingQnaList();
     },
   },
 }
