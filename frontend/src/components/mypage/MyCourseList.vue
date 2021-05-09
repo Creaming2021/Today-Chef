@@ -1,35 +1,68 @@
 <template>
   <div>
-    <div class="row">
-      <div 
-        class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
-        v-for="(course,idx) in myCourseList" :key="idx">
-          <CourseItem :course="course" :idx="idx" :type="type" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="product__pagination">
-          <a class="active" href="#">1</a>
-          <a href="#">2</a>
+    <div v-if="courseList.length > 0">
+      <div class="row">
+        <div 
+          class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
+          v-for="course in courseList" :key="course.courseId">
+            <ItemCard :item="course" :type="type" />
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="product__pagination">
+            <a class="active" href="#">1</a>
+            <a href="#">2</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      강의가 없습니다.
     </div>
   </div>
 </template>
 
-
 <script>
-import CourseItem from '@/components/common/CourseItem.vue';
+import { mapState } from 'vuex';
+import ItemCard from '@/components/common/ItemCard.vue';
 
 export default {
   components: {
-    CourseItem,
+    ItemCard,
   },
   props: {
-    myCourseList: Array,
     type: String
-  }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user,
+      courseList: state => state.member.courseList,
+    }),
+  },
+  created() {
+    this.checkQuery();
+  },
+  methods: {
+    checkQuery() {
+      this.type = this.$route.params.type || this.type;
+      this.getCourseList();
+    },
+    getCourseList(){
+      if(this.type === 'student'){
+        this.$store.dispatch('GET_REGISTERED_COURSE_LIST', this.user.memberId);
+      }else if(this.type === 'teacher'){
+        this.$store.dispatch('GET_TEACHED_COURSE_LIST', this.user.memberId);
+      }
+    },
+  },
+  watch: { 
+    $route(to, from) { 
+      if (to.path != from.path) { 
+        this.checkQuery();
+      } 
+    } 
+  },
 }
 </script>
 

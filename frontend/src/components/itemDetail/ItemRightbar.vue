@@ -1,29 +1,20 @@
 <template>
   <div class="col-lg-3 course-right-bar-container">
     <div class="course-detail-header">
-      <b-badge variant="primary">{{courseInfo.category}}</b-badge>
-      {{courseInfo.date}}</div>
-    <h4>{{courseInfo.name}}</h4>
+      <b-badge variant="primary">{{itemInfo.category}}</b-badge>
+      <span  v-if="item === 'course'">{{itemInfo.time}}</span>
+    </div>
+    <h4>{{itemInfo.name}}</h4>
     <div class="row detail-info">
-      <h5 class="teacher">{{courseInfo.teacher}}</h5>
-      <h5 class="price">{{courseInfo.price}}원</h5>
+      <h5 v-if="item === 'course'" class="teacher">{{itemInfo.profile.nickname}}</h5>
+      <h5 class="price">{{itemInfo.price}}원</h5>
     </div>
-    <div class="row">
-      <div class="like-btn" @click="setLike">
-        <b-icon v-if="likeState" icon="heart-fill"/> 
-        <b-icon v-else icon="heart"/> 
-        <div>{{courseInfo.likeCnt}}</div></div>
-      <b-form-rating v-model="courseInfo.rate" readonly no-border/>
+    <b-form-rating v-model="itemInfo.rating" readonly no-border/>
+    <div class="cart-btn" @click="addCart">
+      <b-icon icon="cart4"/> 
+      <div>장바구니에 추가하기</div>
     </div>
-    <div v-if="role=='student'">
-      <button v-if="state=='before'">클래스 신청하기</button>
-      <button v-if="state=='waiting'">클래스 준비중</button>
-      <button v-if="state=='streaming'">클래스 참여하기</button>
-      <button v-if="state=='after'">리뷰 작성하기</button>
-      <br/>
-    </div>
-    <div v-else>
-      <br/>
+    <div v-if="item === 'course' && user === 'item.profile.memberId'">
       <button @click="goToManageCourse">강의 정보 관리</button><br/>
       <button @click="startStreaming">수업 시작하기</button><br/>
     </div>
@@ -31,29 +22,37 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
   data() {
     return {
+      item: '',
       likeState: false,
     }
   },
-  props: {
-    courseInfo: Object,
-    state: String,
-    role: String,
+  created() {
+    this.settingItemInfo();
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user.memberId,
+      course: state => state.course.course,
+      product: state => state.product.product,
+    }),
+    itemInfo: function(){
+      return this.settingItemInfo();
+    }
   },
   methods: {
-    setLike() {
-      this.likeState = !this.likeState;
+    addCart() {
+      alert("장바구니 이동");
     },
-    goToManageCourse(){
-      alert("강의 관리 페이지 이동");
-    },
-    startStreaming(){
-      alert("수업 방송 시작");
+    settingItemInfo(){
+      this.item = this.$route.params.item;
+      return this.item === 'course' ? this.course : this.product;
     }
-  }
+  },
 }
 </script>
 
@@ -92,12 +91,12 @@ export default {
   padding-right: 5%;
 }
 
-.course-right-bar-container .like-btn{
-  width: 30%;
+.course-right-bar-container .cart-btn{
+  width: 100%;
 }
 
 .course-right-bar-container button,
-.course-right-bar-container .like-btn{
+.course-right-bar-container .cart-btn{
   cursor: pointer;
 }
 
@@ -122,7 +121,7 @@ export default {
 }
 
 .course-right-bar-container .b-rating{
-  width: 70%;
+  width: 100%;
   background: none;
 }
 </style>

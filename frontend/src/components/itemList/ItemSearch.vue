@@ -23,6 +23,7 @@
             :currentFilter="currentCategory"
             @setCategory="setCategory"/>
           <Category
+            v-if="item === 'course'"
             :type="'filter'"
             :categoryTitle="'Filter'"
             :categoryList="filterList"
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import Category from '@/components/course/category.vue';
+import Category from '@/components/itemList/category.vue';
 
 export default {
   components: {
@@ -48,10 +49,10 @@ export default {
         {id: 'all', value: '모두'}, 
         {id: 'korea', value: '한식'}, 
         {id: 'japan', value: '일식'},
-        {id: 'usa', value: '양식'}, 
+        {id: 'western', value: '양식'}, 
         {id: 'china', value: '중식'}, 
         {id: 'dessert', value: '디저트'}, 
-        {id: 'drinks', value: '음료'}, 
+        {id: 'drink', value: '음료'}, 
         {id: 'world', value: '세계 음식'}, 
         {id: 'etc', value: '기타'},
       ],
@@ -67,6 +68,7 @@ export default {
     searchCourse: Function,
     currentCategory: String,
     currentFilter: String,
+    item: String,
   },
   methods: {
     setFilter(filter){

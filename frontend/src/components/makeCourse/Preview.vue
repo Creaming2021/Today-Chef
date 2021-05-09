@@ -1,14 +1,14 @@
 <template>
   <div>
-    <CourseDetail :creatorData="creatorData"/>
+    <ItemDetail :creatorData="creatorData"/>
   </div>
 </template>
 
 <script>
-import CourseDetail from '@/views/CourseDetail.vue';
+import ItemDetail from '@/views/ItemDetail.vue';
 	export default {
 		components: {
-			CourseDetail
+			ItemDetail
 	},
 	data(){
 		return {

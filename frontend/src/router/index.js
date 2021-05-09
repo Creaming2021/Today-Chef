@@ -3,11 +3,10 @@ import VueRouter from "vue-router";
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import Home from "@/views/Home.vue";
 import Notice from "@/views/Notice.vue";
-import Course from "@/views/Course.vue";
-import CourseDetail from "@/views/CourseDetail.vue";
+import ItemList from "@/views/ItemList.vue";
+import ItemDetail from "@/views/ItemDetail.vue";
 import Creator from "@/views/Creator.vue";
 import Profile from "@/views/Profile.vue";
-import Streaming from "@/views/Streaming.vue";
 import Payment from "@/views/Payment.vue";
 import VueDaumPostcode from "vue-daum-postcode"
 import Sign from "@/views/Sign.vue";
@@ -34,29 +33,24 @@ const routes = [
     component: Notice,
   },
   {
-    path: "/course/:category",
-    name: "Course",
-    component: Course,
-  },
-  {
-    path: "/course/:category/:id/:type",
-    name: "CourseDetail",
-    component: CourseDetail,
-  },
-  {
-    path: "/creator/:type",
-    name: "Creator",
-    component: Creator,
-  },
-  {
     path: "/me/:type",
     name: "Profile",
     component: Profile,
   },
   {
-    path: "/class",
-    name: "Streaming",
-    component: Streaming,
+    path: "/creator/:mode/:type",
+    name: "Creator",
+    component: Creator,
+  },
+  {
+    path: "/:item/:category",
+    name: "ItemList",
+    component: ItemList,
+  },
+  {
+    path: "/:item/:category/:id/:type",
+    name: "ItemDetail",
+    component: ItemDetail,
   },
   {
     path: "/payment",

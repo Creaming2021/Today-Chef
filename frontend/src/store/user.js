@@ -3,65 +3,85 @@ import * as user from '@/api/user.js';
 
 export default {
   state: {
-    signStatus : null,
-    userId : null,
-    userNickname : null,
-    authObj: null,
+    signStatus : '',
+    memberId : '',
+    nickname : '',
+    authObj: {},
+    emailState: false,
   },
   mutations: {
-    setAuthObj(state, payload){
+    SET_AUTH_OBJ(state, payload){
       state.authObj = payload;
     },
-    setSignStatus(state, payload){
+    SET_SIGN_STATUS(state, payload){
       state.signStatus = payload;
     },
-    setSignIn(state, payload) {
-      console.log(payload);
-
+    SET_SIGN_IN(state, payload) {
       state.signStatus = 'signIn';
-      // state.userId = payload.id;
-      state.userNickname = payload.profile.nickname;
+      state.memberId = payload.memberId;
+      state.nickname = payload.nickname;
     },
-    setSignOut(state){
-      state.signStatus = null;
-      state.userId = null;
-      state.userEmail = null;
+    SET_SIGN_OUT(state){
+      state.signStatus = '';
+      state.memberId = '';
+      state.nickname = '';
+      state.authObj = {};
+      state.emailState = false;
     },
+    SET_EMAIL_STATE(state, payload){
+      state.emailState = payload;
+    },
+    SET_NICKNAME(state, payload){
+      state.nickname = payload;
+    }
   },
   actions: {
-    setSignIn : function(context, authObj) {
-      user.checkUserDB(authObj.id)
-        .then((dbResult) => {
-          if(dbResult){
-            sessionStorage.setItem('access_token', authObj.auth.access_token);
-            sessionStorage.setItem('refresh_token', authObj.auth.refresh_token);
-            context.commit('setSignIn', authObj.account);
-          } else {
-            context.commit('setSignStatus', 'signUp');
-          }
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    getKakaoInfo : function(context) {
+    GET_KAKAO_INFO({ commit, dispatch }) {
       kakao.getKakaoLogIn()
         .then(authObj => {
-          context.commit('setAuthObj', authObj);
-          context.dispatch('setSignIn', authObj);
+          commit('SET_AUTH_OBJ', authObj);
+          dispatch('SIGN_IN', authObj);
         });
     },
-    setSignUp : function(context, userInfo) {
-      user.signUp(userInfo)
+    SIGN_IN({ commit }, authObj) {
+      user.signIn(authObj.id)
+        .then(({ data }) => {
+          sessionStorage.setItem('access_token', authObj.auth.access_token);
+          sessionStorage.setItem('refresh_token', authObj.auth.refresh_token);
+          commit('SET_SIGN_IN', data);
+        })
+        .catch(() => {
+          commit('SET_SIGN_STATUS', 'signUp');
+        });
+    },
+    SIGN_UP({ dispatch, state }, memberInfo) {
+      user.signUp({
+          kakaoId: state.authObj.id,
+          nickname: memberInfo.nickname,
+          phone: memberInfo.phone,
+          email: memberInfo.email,
+        })
         .then(() => {
-          sessionStorage.setItem('access_token', context.state.authObj.auth.access_token);
-          sessionStorage.setItem('refresh_token', context.state.authObj.auth.refresh_token);
-          context.dispatch('setSignIn', context.state.authObj);
+          dispatch('SIGN_IN', state.authObj);
         });
     },
-    setSignOut : function(context) {
+    SIGN_OUT({ commit }) {
       sessionStorage.clear();
-      context.commit('setSignOut');
+      commit('SET_SIGN_OUT');
     },
+    CHECK_EMAIL({ commit }, request) {
+      user.checkEmail(request)
+        .then(({ data }) => {
+          if(data) {
+            commit('SET_EMAIL_STATE', true);
+          } else {
+            commit('SET_EMAIL_STATE', false);
+          }
+        })
+        .catch(e => { console.log(e); });
+    },
+    SET_EMAIL_STATE({ commit }, request) {
+      commit('SET_EMAIL_STATE', request);
+    }
   },
 };

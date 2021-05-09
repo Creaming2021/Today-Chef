@@ -1,37 +1,38 @@
 <template>
-  <div class="thumbnail-container" v-if="thumbnailList">
+  <div class="thumbnail-container" v-if="imageList">
     <img 
       id="first-image"
       @click="onOpenThumbnailModal"
-      :src="thumbnailList[0]"/>
+      :src="imageList[0].imageUrl"/>
     <img 
       id="second-image"
       @click="onOpenThumbnailModal"
-      :src="thumbnailList[1]"/>
+      :src="imageList[1].imageUrl"/>
     <img 
       id="third-image"
       @click="onOpenThumbnailModal"
-      :src="thumbnailList[2]"/>
+      :src="imageList[2].imageUrl"/>
     <img 
       id="fourth-image"
       @click="onOpenThumbnailModal"
-      :src="thumbnailList[3]"/>
+      :src="imageList[3].imageUrl"/>
     <div 
-      v-if="thumbnailList.length > 4"
+      v-if="imageList.length > 4"
       class="remain-image-cnt"
       @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
     </div>
     <b-modal v-model="openThumbnailModal" size="lg" hide-footer hide-header>
       <p class="thumbnail-modal-btn" @click="onCloseThumbnailModal">X</p>
       <span class="thumbnail-modal-btn" @click="onClickDecreaseImageIdx">이전</span>
-      <img class="modalImage" :src="thumbnailList[currentImage]"/>
+      <img class="modalImage" :src="imageList[currentImage].imageUrl"/>
       <span class="thumbnail-modal-btn" @click="onClickIncreaseImageIdx">다음</span>
     </b-modal>
   </div>
 </template>
 
-
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data(){
     return {
@@ -40,15 +41,24 @@ export default {
       currentImage: 0,
     }
   },
+  computed: {
+    ...mapState({
+       courseImageList: state => state.course.course.images,
+       productImageList: state => state.product.product.images,
+      }),
+    imageList: function(){
+      return this.settingItemList();
+    },
+  },
+  created() {
+    this.settingItemList();
+  },
   mounted() {
     this.setRemainImageCnt();
   },
-  props: {
-    thumbnailList: Array,
-  },
   methods: {
     setRemainImageCnt(){
-      this.remainImageCnt = this.thumbnailList.length - 4;
+      this.remainImageCnt = this.imageList.length - 4;
     },
     onOpenThumbnailModal(){
       this.currentImage = 0;
@@ -58,12 +68,21 @@ export default {
       this.openThumbnailModal = false;
     },
     onClickIncreaseImageIdx(){
-      this.currentImage = (this.currentImage + 1) % this.thumbnailList.length;
+      this.currentImage = (this.currentImage + 1) % this.imageList.length;
     },
     onClickDecreaseImageIdx(){
-      this.currentImage = (this.currentImage - 1 + this.thumbnailList.length) % this.thumbnailList.length;
+      this.currentImage = (this.currentImage - 1 + this.imageList.length) % this.imageList.length;
     },
-  }
+    settingItemList(){
+      let item = this.$route.params.item;
+      return item === 'course' ? this.courseImageList : this.productImageList;
+    },
+  },
+  watch: {
+    imageList: function(){
+      this.setRemainImageCnt();
+    }
+  },
 }
 </script>
 
