@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class ProductReviewDto {
@@ -19,7 +21,7 @@ public class ProductReviewDto {
         private MemberDto.MemberSimpleProfile profile;
         private String title;
         private String content;
-        private LocalDateTime date;
+        private LocalDateTime createdDate;
         private Integer rating;
 
         public ProductReviewResponse(ProductReview productReview) {
@@ -27,7 +29,7 @@ public class ProductReviewDto {
             this.profile = new MemberDto.MemberSimpleProfile(productReview.getMember());
             this.title = productReview.getTitle();
             this.content = productReview.getContent();
-            this.date = productReview.getCreatedDate();
+            this.createdDate = productReview.getCreatedDate();
             this.rating = productReview.getRating();
         }
     }
@@ -37,10 +39,16 @@ public class ProductReviewDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ProductReviewPostRequest {
+
+        @NotNull
         private Long memberId;
+        @NotNull
         private Long productId;
+        @NotEmpty
         private String title;
+        @NotEmpty
         private String content;
+        @NotNull
         private Integer rating;
 
         public ProductReview toEntity() {
@@ -57,8 +65,11 @@ public class ProductReviewDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ProductReviewPutRequest {
+        @NotEmpty
         private String title;
+        @NotEmpty
         private String content;
+        @NotNull
         private Integer rating;
     }
 }

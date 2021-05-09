@@ -124,7 +124,7 @@ public class Product extends BaseTimeEntity {
         this.name = dto.getName();
         this.price = dto.getPrice();
         this.category = dto.getCategory();
-        this.description = dto.getDescription();
+        this.description = dto.getDescriptions();
     }
 
     public void addOrderDetail(OrderDetail orderDetail) {

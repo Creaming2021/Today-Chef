@@ -17,7 +17,7 @@ public class CourseReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CourseReviewSimpleResponse {
-        private Long reviewId;
+        private Long courseReviewId;
         private MemberDto.MemberSimpleProfile profile;
         private int rating;
         private String title;
@@ -26,7 +26,7 @@ public class CourseReviewDto {
         private int commentCount;
 
         public CourseReviewSimpleResponse(CourseReview courseReview) {
-            this.reviewId = courseReview.getId();
+            this.courseReviewId = courseReview.getId();
             this.profile = new MemberDto.MemberSimpleProfile(courseReview.getMember());
             this.rating = courseReview.getRating();
             this.title = courseReview.getTitle();
@@ -41,7 +41,7 @@ public class CourseReviewDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CourseReviewDetailResponse {
-        private Long reviewId;
+        private Long courseReviewId;
         private MemberDto.MemberSimpleProfile profile;
         private int rating;
         private String title;
@@ -51,7 +51,7 @@ public class CourseReviewDto {
         private List<CourseReviewComment> comments;
 
         public CourseReviewDetailResponse(CourseReview courseReview) {
-            this.reviewId = courseReview.getId();
+            this.courseReviewId = courseReview.getId();
             this.profile = new MemberDto.MemberSimpleProfile(courseReview.getMember());
             this.rating = courseReview.getRating();
             this.title = courseReview.getTitle();
