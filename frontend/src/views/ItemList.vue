@@ -43,6 +43,9 @@ export default {
       courseList: state => state.course.courseList,
       productList: state => state.product.productList,
     }),
+    itemList: function(){
+      return this.setItemList();
+    }
   },
   created() {
     this.checkQuery();
@@ -56,7 +59,6 @@ export default {
       currentSortId: 'review',
       currentSortValue: '리뷰 많은 순',
       filteredItemList: [],
-      itemList: [],
     }
   },
   methods : {
@@ -109,13 +111,8 @@ export default {
         this.$store.dispatch('GET_PRODUCT_LIST');
       }
     },
-    setCourseList() {
-      this.itemList = this.courseList;
-      this.searchCourse();
-    },
-    setProductList() {
-      this.itemList = this.productList;
-      this.searchCourse();
+    setItemList() {
+      return this.item === 'course' ? this.courseList : this.productList;
     },
     setKeyword(newKeyword) {
       this.searchKeyword = newKeyword;
@@ -140,12 +137,9 @@ export default {
         this.checkQuery();
       } 
     },
-    productList: function(){
-      this.setProductList();
+    itemList: function(){
+      this.searchCourse();
     },
-    courseList: function(){
-      this.setCourseList();
-    }
   }
 }
 </script>

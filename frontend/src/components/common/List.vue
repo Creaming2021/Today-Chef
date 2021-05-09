@@ -109,7 +109,7 @@ export default {
     },
     onGoToNoticeDetail(id){
       this.$router.push({
-				name: 'NoticeDetail',
+        name: 'NoticeDetail',
         params: { number: id },
       });
     },

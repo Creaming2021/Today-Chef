@@ -45,7 +45,6 @@ export default {
       product: state => state.course.product,
     }),
     itemDetail: function(){
-      console.log(this.setItemDetail());
       return this.setItemDetail();
     }
   },

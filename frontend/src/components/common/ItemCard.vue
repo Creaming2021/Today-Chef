@@ -1,14 +1,14 @@
 <template>
     <div class="blog__item">
       <img class="blog__item__pic set-bg" 
-        :src="itemDetail.image || itemDetail.images[0].imageUrl"/>
+        :src="itemDetail.image || (itemDetail.images && itemDetail.images[0].imageUrl) || 'https://imgix.kotaku.com.au/content/uploads/sites/3/2016/02/17/whey2gwjqbx21xu023qo.gif?ar=16%3A9&auto=format&fit=crop&q=65&w=720&nrs=40&fm=gif'"/>
       <div class="blog__item__text">
-          <span>{{itemDetail.category}}</span>
-          <span v-if="item === 'course'"><img src="@/assets/img/icon/calendar.png" alt="">{{itemDetail.date}}</span>
-          <h6>{{itemDetail.name}}</h6>
-          <span v-if="item === 'course'" href="#">{{itemDetail.profile.nickname}} </span><span> 별점 : {{itemDetail.rating}}</span>
-          <h6>{{itemDetail.price}}원</h6>
-          <a @click="onClickDetail">자세히 보기</a>
+        <span>{{itemDetail.category}}</span>
+        <span v-if="item === 'course'"><img src="@/assets/img/icon/calendar.png" alt="">{{itemDetail.date}}</span>
+        <h6>{{itemDetail.name}}</h6>
+        <span v-if="item === 'course'" href="#">{{itemDetail.profile.nickname}} </span><span> 별점 : {{itemDetail.rating}}</span>
+        <h6>{{itemDetail.price}}원</h6>
+        <a @click="onClickDetail">자세히 보기</a>
       </div>
       <b-modal 
         size="lg" 
