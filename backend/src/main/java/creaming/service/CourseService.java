@@ -2,6 +2,7 @@ package creaming.service;
 
 import creaming.domain.course.Course;
 import creaming.domain.course.CourseRepository;
+import creaming.domain.etc.FoodType;
 import creaming.domain.member.Member;
 import creaming.domain.member.MemberRepository;
 import creaming.domain.product.Product;
@@ -13,8 +14,6 @@ import creaming.dto.MemberDto;
 import creaming.exception.BaseException;
 import creaming.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,6 +90,16 @@ public class CourseService {
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         course.getMember().deleteCourse(course);
         courseRepository.delete(course);
+    }
+
+    public List<CourseDto.CourseSimpleResponse> getCourseRankByRating(int count, FoodType category) {
+        return courseRepository.findAll()
+                .stream()
+                .filter(course -> course.getCategory().equals(category))
+                .map(CourseDto.CourseSimpleResponse::new)
+                .sorted((o1, o2) -> (int) (o2.getRating() - o1.getRating()))
+                .limit(count)
+                .collect(Collectors.toList());
     }
 
 }
