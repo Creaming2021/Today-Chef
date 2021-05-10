@@ -1,6 +1,13 @@
 import * as product from '@/api/product.js';
 
 export default {
+  GET_PRODUCT_TOP_LIST({ commit }, request){
+    product.getTopList( request )
+      .then(({ data }) => {
+        commit('SET_PRODUCT_TOP_LIST', data);
+      })
+      .catch(e => { console.log(e); });
+  },
 	GET_PRODUCT_LIST({ commit }) {
 		product.getProductList()
 			.then(({ data }) => {
