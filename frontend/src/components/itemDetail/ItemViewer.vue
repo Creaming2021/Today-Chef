@@ -31,7 +31,7 @@ export default {
     },
     settingViewerValue(){
       this.$refs.viewer.invoke('setMarkdown', this.content);
-    }
+    },
   },
   watch: {
     content: function(){

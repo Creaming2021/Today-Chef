@@ -1,6 +1,13 @@
 import * as course from '@/api/course.js';
 
 export default {
+  GET_COURSE_TOP_LIST({ commit }, request){
+    course.getTopList( request )
+      .then(({ data }) => {
+        commit('SET_COURSE_TOP_LIST', data);
+      })
+      .catch(e => { console.log(e); });
+  },
   GET_COURSE_LIST({ commit }){
     course.getCourseList()
       .then(({ data }) => {

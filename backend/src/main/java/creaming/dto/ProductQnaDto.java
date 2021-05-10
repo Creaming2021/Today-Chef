@@ -14,15 +14,10 @@ public class ProductQnaDto {
 
     @Getter
     public static class ProductQnaPostRequest {
-        @NotNull
         private Long productId;
-        @NotNull
-        private Long userId;
-        @NotEmpty
+        private Long memberId;
         private String title;
-        @NotEmpty
         private String content;
-        @NotNull
         private Boolean isSecret;
 
         public ProductQna toEntity() {

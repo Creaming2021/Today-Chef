@@ -37,6 +37,7 @@ export default {
       id: '',
       item: '',
       type: '',
+      reviewId: null,
     }
   },
   computed: {
@@ -57,7 +58,7 @@ export default {
     List,
     ListDetail,
     ItemQnA,
-    ItemRefund
+    ItemRefund,
   },
   methods: {
     onChangeType( clickType ){
@@ -75,6 +76,7 @@ export default {
       this.item = this.$route.params.item;
       this.type = this.$route.params.type;
       this.id = this.$route.params.id;
+      this.reviewId = this.$route.params.reviewId;
     },
     setItemDetail() {
       if(this.item === 'course'){

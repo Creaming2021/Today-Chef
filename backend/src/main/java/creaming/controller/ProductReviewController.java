@@ -28,6 +28,13 @@ public class ProductReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(productReviewService.getProductReviewList(id));
     }
 
+    @Operation(summary = "상품 리뷰 하나 조회", description = "상품 하나를 조회합니다.")
+    @GetMapping("/{productReviewId}")
+    public ResponseEntity<ProductReviewDto.ProductReviewResponse> getProductReview(@PathVariable("productReviewId") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(productReviewService.getProductReview(id));
+    }
+
+
     @Operation(summary = "상품 리뷰 등록", description = "상품 리뷰를 등록합니다.")
     @PostMapping
     public ResponseEntity<Long> postProductReview(@RequestBody @Valid ProductReviewDto.ProductReviewPostRequest dto) {

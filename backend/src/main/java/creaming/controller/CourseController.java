@@ -1,5 +1,6 @@
 package creaming.controller;
 
+import creaming.domain.etc.FoodType;
 import creaming.dto.CourseDto;
 import creaming.dto.MemberDto;
 import creaming.service.CourseService;
@@ -75,6 +76,14 @@ public class CourseController {
         log.info("(Delete) deleteCourse - courseId: {}", courseId);
         courseService.deleteCourse(courseId);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @Operation(summary = "카테고리별 top (count) 강의 리스트 요청", description = "카테고리별 상위권 강의를 count 개수만큼 가져옵니다.")
+    @GetMapping("/rank")
+    public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseRankByRating(@RequestParam("count") int count,
+                                                                                      @RequestParam("category") FoodType category)  {
+        log.info("(Get) getCourseRankByRating - count : {} | category : {}", count, category);
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourseRankByRating(count, category));
     }
 
 }

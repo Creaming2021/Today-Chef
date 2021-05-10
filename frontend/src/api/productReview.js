@@ -16,6 +16,12 @@ export const postReview = async ( review ) => {
 		.catch(e => { console.log(e); });
 }
 
+export const getReview = async ( reviewId ) => {
+	return await basic.get(`product-reviews/${reviewId}`)
+		.then(res => res)
+		.catch(e => { console.log(e); });
+}
+
 export const putReview = async ( review ) => {
 	return await basic.put(`product-reviews/${review.productReviewId}`, 
 			{
