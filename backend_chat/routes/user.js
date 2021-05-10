@@ -1,23 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const passport = require('passport');
-
 const { User } = require('../models/User');
 
 const { checkEditProfileFields } = require('../middleware/authenticate');
 
 /**
- * @description  GET /api/user/users
- * @param  {Middleware} passport.authenticate
+ * @description  GET /chat/user/users
  * @param  {false} session
  * @param  {Object} request
  * @param  {Object} response
  * @access private
  */
 
-router.get('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const users = await User.find({}, 'image email username location').exec();
+router.get('/users', async (req, res) => {
+    const users = await User.find({}, 'image email username').exec();
 
     if (users) {
         return res
@@ -30,16 +27,15 @@ router.get('/users', passport.authenticate('jwt', { session: false }), async (re
 });
 
 /**
- * @description PUT /api/user/current
+ * @description PUT /chat/user/current
  * @param  {String} id
- * @param  {Middleware} passport.authenticate
  * @param  {false} session
  * @param  {Object} request
  * @param  {Object} response
  */
 router.put(
     '/current',
-    [passport.authenticate('jwt', { session: false }), checkEditProfileFields],
+    [checkEditProfileFields],
     async (req, res) => {
         const updateFields = {};
 
@@ -57,26 +53,24 @@ router.put(
 );
 
 /**
- * @description GET api/user/current
+ * @description GET chat/user/current
  * @param  {String} id
- * @param  {Middleware} passport.authenticate
  * @param  {false} session
  * @param  {Object} request
  * @param  {Object} response
  */
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/current', (req, res) => {
     res.json(req.user);
 });
 
 /**
- * @description DELETE api/user/current
+ * @description DELETE chat/user/current
  * @param  {String} id
- * @param  {Middleware} passport.authenticate
  * @param  {false} session
  * @param  {Object} request
  * @param  {Object} response
  */
-router.delete('/current', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.delete('/current', async (req, res) => {
     /** Delete the user */
     await User.findOneAndDelete({ _id: req.user.id });
 

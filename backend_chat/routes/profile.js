@@ -1,19 +1,15 @@
 const express = require('express');
 const router = express.Router();
-
-const passport = require('passport');
-
 const { User } = require('../models/User');
 
 /**
- * @description GET api/profile/:handle
+ * @description GET /chat/profile/:handle
  * @param  {String} id
- * @param  {Middleware} passport.authenticate
  * @param  {false} session
  * @param  {Object} request
  * @param  {Object} response
  */
-router.get('/:handle', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get('/:handle', async (req, res) => {
     const user = await User.findOne({ handle: req.params.handle })
         .select('-password -session_id')
         .exec();

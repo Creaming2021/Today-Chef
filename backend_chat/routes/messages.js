@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
-const passport = require('passport');
-
 const { Message } = require('../models/Message');
-
 const { createErrorObject } = require('../middleware/authenticate');
 
 /**
- * @description GET /api/messages/:room_id
+ * @description GET /chat/messages/:room_id
  */
-router.get('/:room_id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get('/:room_id', async (req, res) => {
     const messages = await Message.find({ room: req.params.room_id });
 
     if (messages) {
@@ -21,9 +17,9 @@ router.get('/:room_id', passport.authenticate('jwt', { session: false }), async 
 });
 
 /**
- * @description POST /api/messages/
+ * @description POST /chat/messages/
  */
-router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post('/', async (req, res) => {
     let errors = [];
 
     if (!req.body.content) {

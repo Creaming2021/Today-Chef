@@ -1,18 +1,13 @@
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const { User } = require('../models/User');
 const gravatar = require('gravatar');
-const socialAuthActions = require('../actions/socialAuthActions');
 
 /** Middleware */
 const {
     checkRegistrationFields,
     checkLoginFields,
-    createErrorObject,
-    customSocialAuthenticate
 } = require('../middleware/authenticate');
 
 /**
@@ -26,17 +21,7 @@ router.post('/register', [checkRegistrationFields], (req, res) => {
     let errors = [];
 
     User.findOne({ email: req.body.email }).then(user => {
-        if (user) {
-            errors.push({ param: 'email', msg: 'Email is already taken' });
-
-            if (user.username === req.body.username) {
-                errors.push({ param: 'username', msg: 'Username is already taken' });
-            }
-
-            res.send({
-                errors: createErrorObject(errors)
-            }).end();
-        } else {
+        if (user === null) {
             /** Assign Gravatar */
             const avatar = gravatar.url(req.body.email, {
                 s: '220',
@@ -48,23 +33,15 @@ router.post('/register', [checkRegistrationFields], (req, res) => {
                 handle: req.body.handle,
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password,
                 image: avatar
             });
 
             newUser
                 .save()
                 .then(userData => {
-                    const user = _.omit(userData.toObject(), ['password']);
-
-                    const token = jwt.sign(user, process.env.JWT_SECRET, {
-                        expiresIn: 18000
-                    });
-
                     res.status(200).send({
-                        auth: true,
-                        token: `Bearer ${token}`,
-                        user
+                        // Here : 회원가입이므로 안보내도됨.
+                        userData
                     });
                 })
                 .catch(err => {
@@ -84,18 +61,17 @@ router.post('/register', [checkRegistrationFields], (req, res) => {
  * @param  {} response
  * @access public
  */
+// 로그인 => 채팅 자동 로그인
 router.post('/login', checkLoginFields, async (req, res) => {
-    const user = await User.findOne({ email: req.body.email }).select('-password');
+    const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
         return res.status(404).send({
-            error: 'No User Found'
+            error: 'No Chat User Found'
         });
     }
-
-    const token = jwt.sign(user.toObject(), process.env.JWT_SECRET, { expiresIn: 18000 });
-
-    res.status(200).send({ auth: true, token: `Bearer ${token}`, user });
+    
+    res.status(200).send({ user });
 });
 
 /**
@@ -105,7 +81,7 @@ router.post('/login', checkLoginFields, async (req, res) => {
  * @access public
  */
 router.post('/logout', async (req, res) => {
-    const user = await User.findOne({ username: req.body.username }).select('-password');
+    const user = await User.findOne({ username: req.body.username });
 
     if (!user) {
         return res.status(404).send({
@@ -115,11 +91,5 @@ router.post('/logout', async (req, res) => {
 
     res.status(200).send({ success: true });
 });
-
-/** Social Auth Routes */
-router.get('/google', customSocialAuthenticate('google'));
-
-/** Social Auth Callbacks */
-router.get('/google/redirect', passport.authenticate('google'), socialAuthActions.google);
 
 module.exports = router;

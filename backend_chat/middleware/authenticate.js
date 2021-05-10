@@ -1,4 +1,3 @@
-const passport = require('passport');
 const { User } = require('../models/User');
 
 const createErrorObject = errors => {
@@ -13,23 +12,20 @@ const createErrorObject = errors => {
     return errorObject;
 };
 
+// 회원가입 => user 정보 mongoDB 넣기
 const checkRegistrationFields = async (req, res, next) => {
+
+    // Here : nickname 으로 옴
+
     req.check('email').isEmail();
-    req.check('username')
-        .isString()
-        .isLength({ min: 5, max: 15 })
-        .withMessage('Username must be between 5 and 15 characters');
-    req.check('password')
-        .isString()
-        .isLength({ min: 5, max: 15 })
-        .withMessage('Password must be between 5 and 15 characters');
+    req.check('username').isString();
 
     let errors = req.validationErrors() || [];
 
     const user = await User.findOne({ username: req.body.username });
 
     if (user) {
-        errors.push({ param: 'username', msg: 'Username already taken' });
+        errors.push({ param: 'username', msg: 'Nickname already taken' });
     }
 
     if (errors.length > 0) {
@@ -41,15 +37,16 @@ const checkRegistrationFields = async (req, res, next) => {
     }
 };
 
+// 로그인 체크 !!!
 const checkLoginFields = async (req, res, next) => {
     let errors = [];
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
         errors.push({ param: 'email', msg: 'Invalid Details Entered' });
     } else {
-        if (req.body.password !== null && !(await user.isValidPassword(req.body.password))) {
-            errors.push({ param: 'password', msg: 'Invalid Details Entered' });
-        }
+        // if (req.body.password !== null && !(await user.isValidPassword(req.body.password))) {
+        //     errors.push({ param: 'password', msg: 'Invalid Details Entered' });
+        // }
     }
 
     if (errors.length !== 0) {
@@ -61,6 +58,7 @@ const checkLoginFields = async (req, res, next) => {
     }
 };
 
+// 채팅 회원 정보 수정 => Here : 되게 버튼 하나 생성하기
 const checkEditProfileFields = async (req, res, next) => {
     let errors = [];
 
@@ -116,19 +114,10 @@ const checkCreateRoomFields = async (req, res, next) => {
     }
 };
 
-const customSocialAuthenticate = socialAuth => {
-    return (req, res, next) => {
-        passport.authenticate(socialAuth, {
-            state: JSON.stringify({ _socket: req.query.socketId })
-        })(req, res, next);
-    };
-};
-
 module.exports = {
     checkLoginFields,
     checkRegistrationFields,
     checkEditProfileFields,
     checkCreateRoomFields,
-    customSocialAuthenticate,
     createErrorObject
 };

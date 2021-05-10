@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 
 const { Room } = require('../models/Room');
 
 const { createErrorObject, checkCreateRoomFields } = require('../middleware/authenticate');
 
 /**
- * @description GET /api/room
+ * @description GET /chat/room
  */
-router.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get('/', async (req, res) => {
     const rooms = await Room.find({})
         .populate('user', ['handle'])
         .populate('users.lookup', ['handle'])
@@ -24,14 +23,15 @@ router.get('/', passport.authenticate('jwt', { session: false }), async (req, re
 });
 
 /**
- * @description GET /api/room/:room_id
+ * @description GET /chat/room/:room_id
  */
-router.get('/:room_id', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const room = await Room.findById(req.params.room_id)
-        .populate('user', ['username', 'social', 'image', 'handle'])
-        .populate('users.lookup', ['username', 'social', 'image', 'handle'])
-        .exec();
+router.get('/:room_id', async (req, res) => {
 
+    const room = await Room.findById(req.params.room_id)
+        .populate('user', ['username', 'image', 'handle'])
+        .populate('users.lookup', ['username', 'image', 'handle'])
+        .exec();
+    
     if (room) {
         return res.status(200).json(room);
     } else {
@@ -40,12 +40,12 @@ router.get('/:room_id', passport.authenticate('jwt', { session: false }), async 
 });
 
 /**
- * @description POST /api/room
+ * @description POST /chat/room
  */
 router.post(
-    '/',
-    [passport.authenticate('jwt', { session: false }), checkCreateRoomFields],
+    '/', checkCreateRoomFields,
     async (req, res) => {
+
         let errors = [];
 
         const room = await Room.findOne({ name: req.body.room_name }).exec();
@@ -57,13 +57,13 @@ router.post(
         } else {
             const newRoom = new Room({
                 name: req.body.room_name,
-                user: req.user.id,
+                user: req.body.user._id,
                 access: req.body.password ? false : true,
                 password: req.body.password
             });
 
             if (newRoom.access === false) {
-                newRoom.accessIds.push(req.user.id);
+                newRoom.accessIds.push(req.body.user._id);
             }
 
             newRoom
@@ -84,9 +84,9 @@ router.post(
 );
 
 /**
- * @description POST /api/room/verify
+ * @description POST /chat/room/verify
  */
-router.post('/verify', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post('/verify', async (req, res) => {
     if (!req.body.password === true) {
         return res.json({
             errors: createErrorObject([
@@ -104,7 +104,7 @@ router.post('/verify', passport.authenticate('jwt', { session: false }), async (
         const verified = await room.isValidPassword(req.body.password);
 
         if (verified === true) {
-            room.accessIds.push(req.user.id);
+            room.accessIds.push(req.body.user._id);
             await room.save();
             return res.status(200).json({ success: true });
         } else {
@@ -123,9 +123,9 @@ router.post('/verify', passport.authenticate('jwt', { session: false }), async (
 });
 
 /**
- * @description DELETE /api/room/:room_name
+ * @description DELETE /chat/room/:room_name
  */
-router.delete('/:room_name', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.delete('/:room_name', async (req, res) => {
     try {
         const room = await Room.findOneAndDelete({ name: req.params.room_name })
             .populate('user', ['username'])
@@ -145,9 +145,9 @@ router.delete('/:room_name', passport.authenticate('jwt', { session: false }), a
 });
 
 /**
- * @description PUT /api/room/update/name
+ * @description PUT /chat/room/update/name
  */
-router.post('/update/name', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post('/update/name', async (req, res) => {
     req.check('new_room_name')
         .isString()
         .isLength({ min: 3, max: 20 })
@@ -177,19 +177,19 @@ router.post('/update/name', passport.authenticate('jwt', { session: false }), as
 });
 
 /**
- * @description PUT /api/room/remove/users
+ * @description PUT /chat/room/remove/users
  */
-router.post('/remove/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post('/remove/users', async (req, res) => {
     const room = await Room.findOne({ name: req.body.room_name });
 
     if (room) {
-        if (room.users.find(user => user.lookup.toString() === req.user.id)) {
-            room.users = room.users.filter(user => user.lookup.toString() !== req.user.id);
+        if (room.users.find(user => user.lookup.toString() === req.body.user._id)) {
+            room.users = room.users.filter(user => user.lookup.toString() !== req.body.user._id);
             await room.save();
         }
         const returnRoom = await Room.populate(room, {
             path: 'user users.lookup',
-            select: 'username social image handle'
+            select: 'username image handle'
         });
         return res.status(200).json(returnRoom);
     } else {
@@ -198,11 +198,10 @@ router.post('/remove/users', passport.authenticate('jwt', { session: false }), a
 });
 
 /**
- * @description PUT /api/room/remove/users/:id/all
+ * @description PUT /chat/room/remove/users/:id/all
  */
 router.put(
     '/remove/users/all',
-    passport.authenticate('jwt', { session: false }),
     async (req, res) => {
         await Room.updateMany({ $pull: { users: { $in: [req.body.user_id] } } });
 

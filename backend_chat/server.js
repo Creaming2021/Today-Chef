@@ -17,10 +17,6 @@ const morgan = require('morgan');
 const winston = require('winston');
 const { logger } = require('./config/logModule');
 
-/** Passport Configuration */
-const passport = require('passport');
-require('./config/passport')(passport);
-
 /** Express */
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -83,7 +79,6 @@ app.use(compression());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(passport.initialize());
 app.use(expressValidator());
 app.use(cors());
 app.set('io', io);

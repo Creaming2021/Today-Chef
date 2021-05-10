@@ -1,3 +1,4 @@
+const { contentSecurityPolicy } = require('helmet');
 const mongoose = require('mongoose');
 const { Message } = require('../models/Message');
 const { Room } = require('../models/Room');
@@ -13,18 +14,18 @@ module.exports = {
 
         return Message.populate(newMessage, {
             path: 'user',
-            select: 'username social handle image'
+            select: 'username handle image'
         });
     },
     GET_MESSAGES: async data => {
         return await Message.find({ room: data.room._id }).populate('user', [
             'username',
-            'social',
             'handle',
             'image'
         ]);
     },
     CREATE_MESSAGE_CONTENT: (room, socketId) => {
+        // Here 
         const user = room.previous.users.find(user => user.socketId === socketId);
 
         return user && user.lookup.handle
@@ -33,18 +34,19 @@ module.exports = {
     },
     GET_ROOMS: async () => {
         return await Room.find({})
-            .populate('user users.lookup', ['username', 'social', 'handle', 'image'])
+            .populate('user users.lookup', ['username', 'handle', 'image'])
             .select('-password');
     },
     GET_ROOM_USERS: async data => {
         return await Room.findById(data.room._id)
-            .populate('user users.lookup', ['username', 'social', 'handle', 'image'])
+            .populate('user users.lookup', ['username', 'handle', 'image'])
             .select('-password');
     },
     UPDATE_ROOM_USERS: async data => {
+
         const room = await Room.findOne({ name: data.room.name })
             .select('-password')
-            .populate('users.lookup', ['username', 'social', 'handle', 'image']);
+            .populate('users.lookup', ['username', 'handle', 'image']);
 
         if (room) {
             if (
@@ -58,7 +60,7 @@ module.exports = {
                 const updatedRoom = await room.save();
                 return await Room.populate(updatedRoom, {
                     path: 'user users.lookup',
-                    select: 'username social image handle'
+                    select: 'username image handle'
                 });
             } else {
                 // Update user socket id if the user already exists
@@ -66,12 +68,13 @@ module.exports = {
                     user => user.lookup._id.toString() === data.user._id
                 );
                 if (existingUser.socketId != data.socketId) {
+                    
                     existingUser.socketId = data.socketId;
                     await room.save();
                 }
                 return await Room.populate(room, {
                     path: 'user users.lookup',
-                    select: 'username social image handle'
+                    select: 'username image handle'
                 });
             }
         } else {
@@ -81,7 +84,7 @@ module.exports = {
     FILTER_ROOM_USERS: async data => {
         const room = await Room.findById(mongoose.Types.ObjectId(data.roomId))
             .select('-password')
-            .populate('users.lookup', ['username', 'social', 'handle', 'image']);
+            .populate('users.lookup', ['username', 'handle', 'image']);
         if (room) {
             let previousUserState = Object.assign({}, room._doc);
             room.users = room.users.filter(user => user.socketId !== data.socketId);
@@ -90,7 +93,7 @@ module.exports = {
                 previous: previousUserState,
                 updated: await Room.populate(updatedRoom, {
                     path: 'user users.lookup',
-                    select: 'username social image handle'
+                    select: 'username image handle'
                 })
             };
         }
