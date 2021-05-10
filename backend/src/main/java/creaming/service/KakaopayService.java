@@ -58,9 +58,9 @@ public class KakaopayService {
         params.add("quantity", amount + "");
         params.add("total_amount", amount + "");
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "https://j4b106.p.ssafy.io/api/kakao-pay/success/" + kakaopay.getId()); // 프론트 페이지 주소로 보내기
-        params.add("cancel_url", "https://j4b106.p.ssafy.io/api/kakao-pay/cancel");
-        params.add("fail_url", "https://j4b106.p.ssafy.io/api/kakao-pay/fail");
+        params.add("approval_url", "https://k4b204.p.ssafy.io/api/kakao-pay/success/" + kakaopay.getId()); // 프론트 페이지 주소로 보내기
+        params.add("cancel_url", "https://k4b204.p.ssafy.io/api/kakao-pay/cancel");
+        params.add("fail_url", "https://k4b204.p.ssafy.io/api/kakao-pay/fail");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
 
