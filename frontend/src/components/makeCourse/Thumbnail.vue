@@ -18,7 +18,7 @@
 
     <div class="row" style="margin-bottom : 30px">
       <div class="col-lg-6 thumbnail-img" @click="onClickAddImg(0)">
-        <img :src="courseInfo.imageUrl[0] || '../../assets/img/add-photo-portrait.png'" alt="add-img">
+        <img :src="courseInfo.images[0] || '../../assets/img/add-photo-portrait.png'" alt="add-img">
       </div>
       <div v-show="imgEditorActivate" class="thumbnail-image-editor-bg">
         <div class="thumbnail-image-editor-container">
@@ -42,7 +42,7 @@
       <div v-for="i in [1,2,3,4,5,6,7,8,9]" :key="i" 
         class="col-lg-2 thumbnail-img" 
         @click="onClickAddImg(i)">
-        <img :src="courseInfo.imageUrl[i] || '../../assets/img/add-photo-portrait.png'" alt="add-img"/>
+        <img :src="courseInfo.images[i] || '../../assets/img/add-photo-portrait.png'" alt="add-img"/>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@ import 'tui-image-editor/dist/tui-image-editor.css'
   methods : {
     onClickAddImg(idx) {
       this.imgEditorActivate = true;
-      const imgSrc = this.courseInfo.imageUrl[idx] ? this.courseInfo.imageUrl[idx] : ''
+      const imgSrc = this.courseInfo.images[idx] ? this.courseInfo.images[idx] : ''
       const currentImgEditor = new ImageEditor(document.querySelector('#thumbnail-image-editor'), {
         includeUI: {
           initMenu: 'crop',
@@ -101,7 +101,7 @@ import 'tui-image-editor/dist/tui-image-editor.css'
         .addEventListener('click', () => {
           if (currentImgEditor.toDataURL().length > 2000) {
             console.log(currentImgEditor);
-            this.courseInfo.imageUrl[idx] = currentImgEditor.toDataURL();
+            this.courseInfo.images[idx] = currentImgEditor.toDataURL();
             document.querySelectorAll('.thumbnail-img img')[idx].setAttribute('src',currentImgEditor.toDataURL());
           }
           this.imgEditorActivate = false;

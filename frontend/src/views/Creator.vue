@@ -97,8 +97,7 @@ export default {
         price: '',
         name: '',
         descriptions: '',
-        images: [],
-        imageUrl: ['','','','','','','','','',''],
+        images: ['','','','','','','','','',''],
         productId: '',
       },
       typeList: ['info', 'thumbnail', 'course', 'kit'],
@@ -137,10 +136,11 @@ export default {
           price: this.courseInfo.price,
           productId: 1,
           time: this.courseInfo.startTime + "-" + this.courseInfo.endTime,
+          images: this.courseInfo.images,
         })
         .then((res) => {
           this.$router.push({
-            nmae: "ItemDetail",
+            name: "ItemDetail",
             params: {
               item: 'course',
               category: this.courseInfo.category,

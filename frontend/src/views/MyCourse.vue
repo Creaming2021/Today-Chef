@@ -2,7 +2,7 @@
   <div>
     <button @click="goToCreator">강의 제작하기</button>
     <MyCourseList
-      class="col-lg-9"
+      class="col-lg-9 my-course-list"
       :type="'teacher'"/>
   </div>	
 </template>
@@ -47,6 +47,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.my-course-list{
+  margin: auto;
+}
 </style>
