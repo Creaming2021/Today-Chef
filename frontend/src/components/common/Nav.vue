@@ -104,7 +104,7 @@ export default {
         this.$router.push({
           name: 'ItemList',
           params: {
-            item: pathName,
+            item: 'product',
             category : paramsType,
           }
         })
@@ -112,7 +112,7 @@ export default {
         this.$router.push({
           name: 'ItemList',
           params: {
-            item: pathName,
+            item: 'course',
             category : paramsType,
           }
         })

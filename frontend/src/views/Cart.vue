@@ -23,8 +23,8 @@
           </div>
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
-              <div class="continue__btn">
-                <div @click="goToProductList">Continue Shopping</div>
+              <div click="goToProductList" class="continue__btn">
+                쇼핑 계속하기
               </div>
             </div>
           </div>
@@ -74,14 +74,14 @@ export default{
   methods:{
     goToPayment(){
       this.$router.push({
-        name: 'Payment',
+        name: 'PaymentProduct',
       })
     },
     goToProductList(){
       this.$router.push({
         name: 'ItemList',
         params: {
-          item: 'Product',
+          item: 'product',
           category : 'all',
         }
       })
@@ -91,6 +91,7 @@ export default{
 </script>
 
 <style>
+.continue__btn,
 .go-to-payment{
   cursor: pointer;
 }

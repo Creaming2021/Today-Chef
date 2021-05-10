@@ -8,7 +8,8 @@ import ItemDetail from "@/views/ItemDetail.vue";
 import MyCourse from "@/views/MyCourse.vue";
 import Creator from "@/views/Creator.vue";
 import Profile from "@/views/Profile.vue";
-import Payment from "@/views/Payment.vue";
+import PaymentCourse from "@/views/PaymentCourse.vue";
+import PaymentProduct from "@/views/PaymentProduct.vue";
 import VueDaumPostcode from "vue-daum-postcode"
 import Cart from "@/views/Cart.vue";
 import Sign from "@/views/Sign.vue";
@@ -74,9 +75,14 @@ const routes = [
     component: ItemDetail,
   },
   {
-    path: "/payment",
-    name: "Payment",
-    component: Payment,
+    path: "/payment/course",
+    name: "PaymentCourse",
+    component: PaymentCourse,
+  },
+  {
+    path: "/payment/product",
+    name: "PaymentProduct",
+    component: PaymentProduct,
   },
   {
     path: "/cart",
