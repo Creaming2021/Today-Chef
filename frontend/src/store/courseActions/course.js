@@ -12,13 +12,17 @@ export default {
     course.getCourse(request)
       .then(({ data }) => {
         commit('SET_COURSE', data);
+        return data;
       })
       .catch(e => { console.log(e); });
   },
   POST_COURSE({ dispatch }, request) {
     course.postCourse(request)
       .then(({ data }) => {
-        dispatch('GET_COURSE', data);
+        dispatch('POST_COURSE_IMAGE', {
+          ...request,
+          courseId: data,
+        });
       })
       .catch(e => { console.log(e); });
   },
@@ -38,8 +42,8 @@ export default {
   },
   POST_COURSE_IMAGE({ dispatch }, request) {
     course.postCourseImage(request)
-      .then(({ data }) => {
-        dispatch('GET_COURSE', data);
+      .then(() => {
+        dispatch('GET_COURSE', request.courseId);
       })
       .catch(e => { console.log(e); });
   },

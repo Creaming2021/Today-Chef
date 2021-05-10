@@ -93,7 +93,7 @@ export default {
         } else if(this.currentSortId === 'rank') {
           return itemB.rating - itemA.rating;
         } else if(this.currentSortId === 'arrival') {
-          return itemB.date - itemA.date;
+          return itemA.date - itemB.date;
         } else if(this.currentSortId === 'price') {
           return itemA.price - itemB.price;
         }

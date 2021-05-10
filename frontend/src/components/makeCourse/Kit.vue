@@ -2,140 +2,84 @@
   <div>
     <div class="info-header">
       <div class="info-header-main">
-        어떤 걸 제공해 주시나요?
+        어떤 걸 사용 하시나요?
       </div>
     
       <div class="info-header-sub">
-        클래스를 신청하면 제공해주는 키트를 설명해 주세요. 
+        클래스에서 사용하는 밀키트를 선택해 주세요. 
       </div>
     </div>
 
-    <div class="row" style="display : flex; justify-content : center; height : 100vh">
-      <div style="height: 100% ; width : 95%;">
-        <div id="editor"></div>
-      </div>
-      <div v-show="imgEditorActivate" id="image-editor-container" style="position : fixed; top:0; left:0; height: 100vh ; width : 100vw; z-index:99999">
+    <ProductCard 
+      :itemDetail="product"
+      :setProductItem="setProductItem"/>
+
+    <input 
+      class="search-product-name"
+      v-model="keyword"
+      @keyup.enter="setFilteredList"
+      placeholder="밀키트 이름을 검색하세요."/><br/>
+    
+    <div class="row selected-product">
+      <div 
+        class="col-lg-3 col-md-4 col-sm-4" 
+        v-for="item in filteredList" 
+        :key="item.productId">
+          <ProductCard 
+            :itemDetail="item" 
+            :setProductItem="setProductItem"/>
       </div>
     </div>
-    <!-- <div id="viewer"></div> -->
+
   </div>
 </template>
 
 <script>
-// TOAST UI Editor import
-import Editor from '@toast-ui/editor';
-// import _Editor from '@toast-ui/editor/dist/toastui-editor.js';
-import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
-import ImageEditor from 'tui-image-editor';
-// TOAST UI Editor Plugins
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
-import 'tui-color-picker/dist/tui-color-picker.css';
-import 'tui-image-editor/dist/tui-image-editor.css'
-	export default {
+import { mapState } from 'vuex';
+import ProductCard from '@/components/makeCourse/productCard.vue';
+  
+export default {
   components: {
-	},
-  props: {
-    creatorData : Object,
+    ProductCard,
   },
-	data(){
-		return {
-      myEditor : '',
-      imgEditor : '',
-      imgEditorActivate : false,
-      images : [],
-      image_length : 0,
-      currentEditImg : '',
-		}
-	},
-  watch : {
-    image_length : function() {
-      const imageTags = document.querySelectorAll('.tui-editor-contents img')
-      const cmp = this.images[this.images.length-1]
-      for (let i=0; i<imageTags.length;i++) {
-        if (imageTags[i].getAttribute('src') === cmp) {
-          imageTags[i].addEventListener('dblclick', () => {
-            this.imgEditorActivate = true
-            this.currentEditImg = imageTags[i]
-            const imgEditorContainer = document.querySelector("#image-editor-container")
-            imgEditorContainer.innerHTML = ''
-
-            const imgEditorDiv = document.createElement('div')
-            imgEditorDiv.setAttribute('id','tui-image-editor')
-            imgEditorContainer.appendChild(imgEditorDiv)
-            this.imgEditor = new ImageEditor(document.querySelector('#tui-image-editor'), {
-              includeUI: {
-                loadImage : {
-                  path : imageTags[i].getAttribute('src'),
-                  name : 'Blank'
-                },
-                menuBarPosition: 'right',
-              },
-              cssMaxWidth: '1000',
-              cssMaxHeight: '800',
-              usageStatistics: false,
-            });
-            document.querySelector('.tui-image-editor-header-logo').remove()
-            document.querySelector('.tui-image-editor-header-buttons div').remove()
-            const saveBtn = document.querySelector('.tui-image-editor-header-buttons .tui-image-editor-download-btn')
-            saveBtn.innerText = 'Save'
-            saveBtn.replaceWith(saveBtn.cloneNode(true))
-            document.querySelector('.tui-image-editor-header-buttons .tui-image-editor-download-btn').addEventListener('click', () => {
-              this.currentEditImg.setAttribute('src',this.imgEditor.toDataURL())
-              this.imgEditorActivate = false
-              imgEditorContainer.innerHTML = ''
-            })
-          })
-        }        
-      }
+  data(){
+    return {
+      keyword: '',
+      filteredList: [],
     }
   },
-  mounted() {
-		const editorInitialValue = this.creatorData[this.$route.params.type] ?  this.creatorData[this.$route.params.type].editor : '글과 사진을 통해 클래스를 소개해주세요'
-    const _this = this
-    const editor = new Editor({
-      el: document.querySelector("#editor"),
-      initialEditType: "wysiwyg",
-      initialValue : editorInitialValue,
-      previewStyle: "tab",
-      height: "100%",
-      plugins: [colorSyntax],
-      hooks: {
-        addImageBlobHook: function (blob,callback) {
-          const reader = new FileReader();
-          reader.onload = event => {
-            _this.images.push(event.target.result)
-            _this.image_length += 1
-            callback(event.target.result);
-          };
-          reader.readAsDataURL(blob);
-          return false
-        }
-      }
-    });
-    this.myEditor = editor
-    document.querySelectorAll('.te-tab')[1].setAttribute('style','display : none')
+  created(){
+    this.getProductList();
   },
-	methods : {
-		onClickSaveBtn() {
-			const type = this.$route.params.type
-			const data = {
-        editor : this.myEditor.getMarkdown()
-			}
-			this.$emit('data',{type,data})
-		},
-    getViewer() {
-      new Viewer({
-        el: document.querySelector('#viewer'),
-        initialValue: this.editContent,
-      });
+  computed : {
+    ...mapState({
+      productList: state => state.product.productList,
+      product: state => state.product.product,
+    }),
+  },
+  props: {
+    courseInfo : Object,
+  },
+  methods: {
+    getProductList(){
+      this.$store.dispatch('GET_PRODUCT_LIST');
     },
-    onClickSubmit() {
-      this.editContent = this.myEditor.getMarkdown()
-      this.getViewer()
+    getProduct(){
+      this.$store.dispatch('GET_PRODUCT', this.courseInfo.productId);
     },
-	}
+    setFilteredList(){
+      this.filteredList = this.productList.filter(item => item.name.includes(this.keyword));
+    },
+    setProductItem(id){
+      this.courseInfo.productId = id;
+      this.getProduct();
+    }
+  },
+  watch: {
+    productList: function(){
+      this.setFilteredList();
+    },
+  },
 }
 </script>
 
@@ -154,5 +98,18 @@ import 'tui-image-editor/dist/tui-image-editor.css'
     width: 100%;
     cursor: pointer;
     opacity: 1;
+}
+.search-product-name{
+  display: block;
+  margin-bottom: 30px;
+  border-radius: 25px;
+  border: 1px solid darkgray;
+  width: 100%;
+  height: 50px;
+  padding-left: 20px;
+}
+.selected-product{
+  max-height: 1500px;
+  overflow: auto;
 }
 </style>

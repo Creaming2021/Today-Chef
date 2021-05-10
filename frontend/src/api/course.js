@@ -1,4 +1,4 @@
-import { basic, image } from '@/api/instance.js';
+import { basic } from '@/api/instance.js';
 
 export const getCourseList = async () => {
   return await basic.get('courses')
@@ -41,11 +41,16 @@ export const deleteCourse = async ( courseId ) => {
 }
 
 export const postCourseImage = async ( course ) => {
-  return await image.post(
-    `courses/${course.courseId}/image`, 
-    { file : course.image })
-    .then(res => res)
-    .catch(e => { console.log(e); });
+  // const formData = new FormData();
+  console.log("이미지 추가하러 왔어요 ", course);
+  // for(let imageFile in course.images){
+  //   if(!imageFile) break;
+
+  //   formData.append('file', imageFile);
+
+  //   await image.post(
+  //     `courses/${course.courseId}`, formData);
+  // }
 }
 
 export const getCourseStudentList = async ( courseId ) => {

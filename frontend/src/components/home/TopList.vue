@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="row product__filter">
-          <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
+          <div class="col-lg-4 col-md-6 col-sm-6 mix new-arrivals" 
             v-for="(course,idx) in itemList" :key="idx">
               <!-- <course-item 
                   v-for="course in itemList" 

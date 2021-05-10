@@ -15,7 +15,7 @@ export const basic = axios.create({
 });
 
 export const image = axios.create({
-  baseURL: 'https://k4b204.p.ssafy.io/api/',
+  baseURL: 'https://k4b204.p.ssafy.io/api/images/',
   headers: {
     'Content-Type': 'multipart/form-data',
   },

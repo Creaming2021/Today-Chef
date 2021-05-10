@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ItemDetail :creatorData="creatorData"/>
+    <ItemDetail :courseInfo="courseInfo"/>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import ItemDetail from '@/views/ItemDetail.vue';
   mounted () {
   },
 	props: {
-		 creatorData : Object,
+		 courseInfo : Object,
 	},
 	methods : {
 

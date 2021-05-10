@@ -68,7 +68,7 @@ export default {
       sortCourseList: [
         { id: 'review', value: '리뷰 많은 순'},
         { id: 'rank', value: '별점 높은 순'},
-        { id: 'arrival', value: '최신순'}
+        { id: 'arrival', value: '마감 임박 순'}
       ],
       sortProductList: [
         { id: 'review', value: '리뷰 많은 순'},
