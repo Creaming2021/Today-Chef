@@ -4,30 +4,34 @@
       <div class="row">
         
         <div class="col-lg-3">
-          <Sidebar ref="sidebar" :type="type" :creatorData="creatorData"/>
+          <Sidebar 
+            ref="sidebar" 
+            :type="type" 
+            :courseInfo="courseInfo"/>
         </div>
 
         <div v-if="type === 'info'" class="col-lg-9">
-          <Info ref="info" @data="onReceiveData" :creatorData="creatorData"/>
+          <Info 
+            ref="info" 
+            :courseInfo="courseInfo"/>
         </div>
 
         <div v-else-if="type === 'thumbnail'" class="col-lg-9">
-          <Thumbnail ref="thumbnail" @data="onReceiveData" :creatorData="creatorData"/>
+          <Thumbnail 
+            ref="thumbnail" 
+            :courseInfo="courseInfo"/>
         </div>
 
         <div v-else-if="type === 'course'" class="col-lg-9">
-          <Class ref="course" @data="onReceiveData" :creatorData="creatorData"/>
+          <Class 
+            ref="course" 
+            :courseInfo="courseInfo"/>
         </div>
 
         <div v-else-if="type === 'kit'" class="col-lg-9">
-          <Kit ref="kit" @data="onReceiveData" :creatorData="creatorData"/>
-        </div>
-
-        <div v-else-if="type === 'preview'">
-          <b-modal v-model="modalState" size="xl" hide-footer hide-header>
-          <p @click="onClickCloseModal" class="btn" style="display : flex;justify-content : flex-end">X</p>
-            <Preview ref="preview" @data="onReceiveData" :creatorData="creatorData"/> 
-          </b-modal>
+          <Kit 
+            ref="kit" 
+            :courseInfo="courseInfo"/>
         </div>
       </div>
     </div>
@@ -37,12 +41,27 @@
         <div class="col-lg-3"></div>
         <div class="col-lg-9">
           <div style="display : flex; justify-content : center;">
-            <button v-if="type !== 'preview'" @click="onClickTempSave">임시저장</button>
-            <button @click="onClickSave">클래스 개설하기</button>
+            <button 
+              v-if="this.step !== 0" 
+              @click="goToBefore">이전 단계 넘어가기</button>
+            <button 
+              v-if="this.step !== 3"
+              @click="goToNext">다음 단계 넘어가기</button>
+            <button 
+              v-if="this.step === 3"
+              @click="onClickSave">클래스 개설하기</button>
+            <button @click="onClickOpenModal">미리보기</button>
           </div>
         </div>
       </div>
     </div>
+
+    <b-modal v-model="modalState" size="xl" hide-footer hide-header>
+    <p @click="onClickCloseModal" class="btn" style="display : flex;justify-content : flex-end">X</p>
+      <Preview 
+        ref="preview"
+        :courseInfo="courseInfo"/> 
+    </b-modal>
   </div>
 </template>
 
@@ -67,14 +86,22 @@ export default {
   data() {
     return {
       modalState : false,
+      step: 0,
       mode: '',
       type : '',
-      creatorData : {
-        info : '',
-        thumbnail : '',
-        course : '',
-        kit : '',
-      }
+      courseInfo : {
+        category: null,
+        date: '',
+        startTime: '',
+        endTime: '',
+        price: '',
+        name: '',
+        descriptions: '',
+        images: [],
+        imageUrl: ['','','','','','','','','',''],
+        productId: '',
+      },
+      typeList: ['info', 'thumbnail', 'course', 'kit'],
     }
   },
   watch : {
@@ -87,26 +114,61 @@ export default {
   created () {
     this.checkQuery();
   },
-  mounted() {
-  },
   methods : {
+    onClickOpenModal(){
+      this.modalState = true;
+    },
     onClickCloseModal() {
-      this.modalState = false
+      this.modalState = false;
     },
     checkQuery() {
       this.mode = this.$route.params.mode;
-      this.type = this.$route.params.type ? this.$route.params.type : 'info';
-      if (this.type === 'preview') this.modalState = true;
-    },
-    onClickTempSave() {
-      this.$refs['sidebar'].onClickSaveBtn();
-      this.$refs[this.$route.params.type].onClickSaveBtn();
+      this.type = this.$route.params.type;
+      this.step = this.typeList.indexOf(this.type);
     },
     onClickSave() {
-      alert('클래스 개설');
+      console.log(this.courseInfo);
+      this.$store.dispatch("POST_COURSE", {
+          category: this.courseInfo.category,
+          date: this.courseInfo.date,
+          descriptions: this.courseInfo.descriptions,
+          memberId: this.$store.state.user.memberId,
+          name: this.courseInfo.name,
+          price: this.courseInfo.price,
+          productId: 1,
+          time: this.courseInfo.startTime + "-" + this.courseInfo.endTime,
+        })
+        .then((res) => {
+          this.$router.push({
+            nmae: "ItemDetail",
+            params: {
+              item: 'course',
+              category: this.courseInfo.category,
+              id: res,
+              type: 'introduction',
+            }
+          });
+        });
     },
-    onReceiveData(res) {
-      this.creatorData[res.type] = res.data;
+    goToBefore(){
+      this.step = this.step === 0 ? 0 : this.step - 1;
+      this.$router.push({
+        name: 'Creator',
+        params: {
+          mode: this.$route.params.mode,
+          type: this.typeList[this.step],
+        }
+      });
+    },
+    goToNext(){
+      this.step = this.step === 3 ? 3 : this.step + 1;
+      this.$router.push({
+        name: 'Creator',
+        params: {
+          mode: this.$route.params.mode,
+          type: this.typeList[this.step],
+        }
+      });
     }
   }
 }

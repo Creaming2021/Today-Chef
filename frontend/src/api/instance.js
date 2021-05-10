@@ -8,6 +8,7 @@ import axios from "axios";
 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 const baseURL = 'https://k4b204.p.ssafy.io/api/';
+const baseURLImage = 'https://k4b204.p.ssafy.io/api/images/';
 
 export const basic = axios.create({
   baseURL,
@@ -17,7 +18,7 @@ export const basic = axios.create({
 });
 
 export const image = axios.create({
-  baseURL,
+  baseURLImage,
   headers: {
     'Content-Type': 'multipart/form-data',
   },

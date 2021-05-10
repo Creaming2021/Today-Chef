@@ -14,7 +14,6 @@
                   <li id="thumbnail" @click="changeFilter('thumbnail')">2. 제목 및 커버</li>
                   <li id="course" @click="changeFilter('course')">3. 클래스 소개</li>
                   <li id="kit" @click="changeFilter('kit')">4. 키트 소개</li>
-                  <li id="preview" @click="changeFilter('preview')">5. 클래스 미리보기</li>
                 </ul>
               </div>
             </div>
