@@ -57,6 +57,11 @@ const routes = [
     component: ItemList,
   },
   {
+    path: "/:item/:category/:id/:type/:reviewId",
+    name: "ItemDetail1",
+    component: ItemDetail,
+  },
+  {
     path: "/:item/:category/:id/:type",
     name: "ItemDetail",
     component: ItemDetail,

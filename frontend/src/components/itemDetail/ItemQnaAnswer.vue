@@ -2,7 +2,7 @@
   <div class="answer-list-container">
     <div class="answer-container" v-for="comment in comments" v-bind:key="comment.commentId">
       <div class="user-info">
-        <img :src="comment.profile.profileImage"/>
+        <img :src="comment.profile.profileImage || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
         <div>
           <div class="writer">{{comment.profile.nickname}}</div>
           <div class="date">{{comment.date}}</div>
@@ -13,6 +13,7 @@
       </div>
     </div>
     <input 
+      v-if="memberId !== ''"
       @keyup.enter="submitComment"
       v-model="comment"
       placeholder="답변을 입력하세요."/> 
@@ -20,17 +21,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default{
   props: {
     comments: Array,
     qnaId: Number,
     courseId: Number,
-    memberId: Number,
   },
   data() {
     return {
       comment: '',
     };
+  },
+  computed: {
+    ...mapState({
+      memberId: state => state.user.memberId,
+    }),
   },
   methods: {
     submitComment(){
@@ -52,6 +59,7 @@ export default{
             courseId: this.courseId,
           });
       }
+      this.comment = '';
     },
   }
 }

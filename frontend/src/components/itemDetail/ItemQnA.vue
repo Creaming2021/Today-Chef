@@ -4,25 +4,7 @@
       class="write-btn"
       @click="onClickOpenModal">QnA 작성하기</button>
     <div class="qna-container" v-for="qna in computedQnaList" v-bind:key="qna.id">
-      <div class="user-info">
-        <img :src="qna.profile.profileImage"/>
-        <div>
-          <div class="writer">제목: {{qna.title}} </div>
-          <div class="writer">작성자: {{qna.profile.nickname}}</div>
-          <div class="date">{{qna.date}}</div>
-        </div>
-      </div>
-      <div class="content">
-        {{qna.content}}
-      </div>
-      <template v-if="$route.params.item === 'course'">
-        <ItemQnaAnswer 
-          :comments="qna.comments"
-          :qnaId="qna.courseQnaId"
-          :courseId="Number($route.params.id)"
-          :memberId="memberId || 0"
-        />        
-      </template>
+      <ItemQnaDetail :qna="qna"/>
       <hr/>
     </div>
     <b-modal v-model="openModal" size="xl" centered hide-footer hide-header>
@@ -49,12 +31,12 @@
 <script>
 import { mapState } from 'vuex';
 import { Editor } from '@toast-ui/vue-editor';
-import ItemQnaAnswer from '@/components/itemDetail/ItemQnaAnswer.vue';
+import ItemQnaDetail from '@/components/itemDetail/ItemQnaDetail.vue';
 
 export default {
   components: {
     editor: Editor,
-    ItemQnaAnswer, 
+    ItemQnaDetail,
   },
   data() {
     return {
@@ -140,12 +122,20 @@ export default {
   margin-bottom: 10px;
 }
 
+.course-qna-container .user-info .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #474747;
+}
+
 .course-qna-container .user-info .writer {
+  font-size: 1rem;
   font-weight: bold;
   color: #474747;
 }
 
 .course-qna-container .user-info .date {
+  font-size: 0.8rem;
   color: #666666;
 }
 

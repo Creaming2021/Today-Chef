@@ -5,36 +5,41 @@
       <div class="item-info">
         <img 
           class="profile"
-          :src="detail.profile.profileImage"/>
+          :src="computedDetail.profile.profileImage || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
         <div>
-          <div class="writer">{{detail.profile.nickname}}</div><br/>
-          <div class="date">{{detail.date}}</div>
+          <div class="writer">{{computedDetail.profile.nickname}}</div><br/>
+          <div class="date">{{computedDetail.date}}</div>
         </div>
       </div>
-      <div class="title">{{detail.title}}</div>
-      <div v-if="type === 'reviewDetail'" class="comment-size">
+      <div class="title">{{computedDetail.title}}</div>
+      <div v-if="type === 'reviewDetail' && item === 'course'" class="comment-size">
         <b-icon icon="chat-square"/>
-          {{commentList.length}}
+          {{computedComments.length}}
       </div>
     </div>
+
+    <br>
     <hr/>
-    <viewer 
-      :initialValue="detail.content" 
-      height="500px"/>
-    <div v-if="type === 'reviewDetail'" class="comment-container">
+    <viewer ref="viewer"/>
+
+    <div v-if="type === 'reviewDetail' && item === 'course'" class="comment-container">
       <hr/>
-      <div>댓글 {{commentList.length}}개</div>
-      <div v-for="comment in commentList" v-bind:key="comment.commentId">
+      <div>댓글 {{computedComments.length}}개</div>
+      <div v-for="comment in computedComments" v-bind:key="comment.commentId">
         <img 
           class="profile"
-          :src="comment.profile.profileImage"/>
+          :src="comment.profile.profileImage  || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
         <div>
           <div class="writer">{{comment.profile.nickname}}</div><br/>
           <div class="date">{{comment.date}}</div>
         </div>
         <div class="content">{{comment.content}}</div>
       </div>
-      <input v-model="comment" placeholder="댓글을 입력하세요."/>
+      <input 
+        v-if="memberId !== ''"
+        @keyup.enter="submitComment"
+        v-model="comment"
+        placeholder="댓글을 입력하세요."/> 
     </div>
   </div>
 </template>
@@ -46,16 +51,16 @@ import { Viewer } from '@toast-ui/vue-editor';
 
 export default {
   components: {
-    // Viewer,
-    'viewer': Viewer
+    Viewer,
   },
   data() {
     return {
       item: '',
       type: '',
       detail: {},
-      commentList: [],
+      comments: [],
       comment: '',
+      content: '',
     }
   },
   computed: {
@@ -63,37 +68,82 @@ export default {
       course: state => state.course.review,
       courseComment: state => state.course.reviewCommentList,
       product: state => state.product.review,
-      productComment: state => state.product.reviewCommentList,
-      userId: state => state.user.userId,
+      // productComment: state => state.product.reviewCommentList,
+      memberId: state => state.user.memberId,
     }),
+    computedDetail() {
+      return this.settingDetail();
+    },
+    computedComments() {
+      return this.settingComments();
+    },
   },
   created() {
     this.getReview();
-    this.settingItem();
+    
+  },
+  mounted() {
+    this.settingDetail();
+    this.settingComments();
+    this.settingViewerValue();
   },
   methods: {
     goBack(){
       this.$router.go(-1);
     },
     getReview(){
-      let item = this.$route.params.item;
-      let id = this.$route.params.id;
-      if(item === 'course'){
+      this.item = this.$route.params.item;
+      let id = this.$route.params.reviewId;
+      if(this.item === 'course'){
         this.$store.dispatch('GET_COURSE_REVIEW', id);
-        this.$store.dispatch('GET_COURSE_REVIEW_COMMENT_LIST', id);
-      } else if(item === 'product'){
+        // this.$store.dispatch('GET_COURSE_REVIEW_COMMENT_LIST', id);
+      } else if(this.item === 'product'){
         this.$store.dispatch('GET_PRODUCT_REVIEW', id);
-        this.$store.dispatch('GET_PRODUCT_REVIEW_COMMENT_LIST', id);
+        // this.$store.dispatch('GET_PRODUCT_REVIEW_COMMENT_LIST', id);
       }
     },
-    settingItem(){
+    settingDetail(){
       this.type = this.$route.params.type;
-
       let item = this.$route.params.item;
-      this.detail = item === 'course' ? this.course : this.product;
-      this.commentList = item === 'course' ? this.courseComment : this.productComment;
+      const result = item === 'course' ? this.course : this.product;
+      this.content = result.content;
+      return result;
+    },
+    settingComments() {
+      this.type = this.$route.params.type;
+      let item = this.$route.params.item;
+      return item === 'course' && this.courseComment;
+    },
+    submitComment() {
+      let item = this.$route.params.item;
+      if(item === 'course'){
+        this.$store.dispatch('POST_COURSE_REVIEW_COMMENT', 
+          {
+            reviewId: this.$route.params.reviewId,
+            memberId: this.memberId,
+            content: this.comment,
+            courseId: this.courseId,
+          });
+      } else if(item === 'product'){
+        this.$store.dispatch('POST_PRODUCT_REVIEW_COMMENT', 
+          {
+            reviewId: this.$route.params.reviewId,
+            memberId: this.memberId,
+            content: this.comment,
+            courseId: this.courseId,
+          });
+      }
+      this.comment = '';
+    },
+    settingViewerValue() {
+      this.$refs.viewer && this.$refs.viewer.invoke('setMarkdown', this.computedDetail.content);
+    },
+    watch: {
+      computedDetail: function(){
+        this.settingViewerValue();
+      }
     }
-  }
+  },
 }
 </script>
 
