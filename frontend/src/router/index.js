@@ -16,6 +16,15 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VueRouter, VueDaumPostcode);
 
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+	return originalPush.call(this, location)
+    .catch(err => {
+      if (err.name !== 'NavigationDuplicated') throw err;
+    });
+};
+
+
 const routes = [
   {
     path: "/",
@@ -46,6 +55,11 @@ const routes = [
     path: "/:item/:category",
     name: "ItemList",
     component: ItemList,
+  },
+  {
+    path: "/:item/:category/:id/:type/:reviewId",
+    name: "ItemDetail1",
+    component: ItemDetail,
   },
   {
     path: "/:item/:category/:id/:type",

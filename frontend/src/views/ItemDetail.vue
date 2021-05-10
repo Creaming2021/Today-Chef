@@ -35,19 +35,23 @@ export default {
       this.getItemDetailInfo();
     },
     getItemDetailInfo(){
-      if(this.item === 'course'){
+      if(this.item === 'course') {
         this.$store.dispatch('GET_COURSE', this.id);
-      } else if(this.item === 'product'){
+      } else if(this.item === 'product') {
         this.$store.dispatch('GET_PRODUCT', this.id);
+      } else if (this.item === 'review') {
+        this.$store.dispatch('GET_REVIEW_LIST', this.id);
+      } else if (this.item === 'qna') {
+        this.$store.dispatch('GET_COURSE_QNA_LIST', this.id);
       }
     }
   },
   watch: { 
-    $route(to, from) { 
-      if (to.path != from.path) { 
+    $route(to, from) {
+      if (to.path != from.path) {
         this.checkQuery();
-      } 
-    } 
+      }
+    }
   },
 }
 </script>

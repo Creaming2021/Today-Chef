@@ -10,17 +10,17 @@
       @click="onClickOpenModal">공지사항 작성하기</button>
     <div 
       class="list-item" 
-      v-for="item in list" 
-      v-bind:key="item.reviewId"
+      v-for="(item, idx) in computedList" 
+      v-bind:key="idx"
       @click="type === 'review' 
-              ? onGoToReviewDetail(item.reviewId)
+              ? onGoToReviewDetail(item)
               : onGoToNoticeDetail(item.reviewId)">
       <div class="list-item-thumbnail" 
         v-if="type === 'notice'">
           <img :src="item.profile.profileImage"/>
       </div>
       <div class="list-item-left">
-        <div class="title">{{item.title}}</div>
+        <div class="title">제목: {{item.title}} | 별점: {{ item.rating }}</div>
         <h6 v-if="type === 'review'">{{item.content}}</h6>
         <div class="detail">{{item.profile.nickname}} | {{item.createdDate}}</div>
       </div>
@@ -45,6 +45,11 @@
         class="board-title"
         v-model="board.title" 
         placeholder="제목을 입력하세요."/>
+      <input 
+        type="number"
+        class="board-title"
+        v-model="board.rating" 
+        placeholder="별점을 입력하세요."/>
       <editor
         ref="content"
         height="650px"
@@ -88,22 +93,27 @@ export default {
     ...mapState({
       course: state => state.course.reviewList,
       product: state => state.product.reviewList,
-      userId: state => state.user.userId,
+      memberId: state => state.user.memberId,
     }),
+    computedList() {
+      return this.settingList();
+    },
   },
   created() {
     this.getReviewList();
     this.settingList();
   },
   methods: {
-    onGoToReviewDetail(id){
+    onGoToReviewDetail(item){
+      const id = this.$route.params.item === 'course' ? item.courseReviewId : item.productReviewId;
       this.$router.push({
-        name: 'ItemDetail',
+        name: 'ItemDetail1',
         params: { 
           item: this.$route.params.item,
           category: this.$route.params.category,
           type: 'reviewDetail', 
-          id: id,
+          id: this.$route.params.id,
+          reviewId: id,
         }
       });
     },
@@ -137,23 +147,22 @@ export default {
           {
             ...this.board,
             courseId: this.$route.params.id,
-            memberId: this.userId,
+            memberId: this.memberId,
           });
       } else if(item === 'product'){
         this.$store.dispatch('POST_PRODUCT_REVIEW', 
           {
             ...this.board,
             productId: this.$route.params.id,
-            memberId: this.userId,
+            memberId: this.memberId,
           });
       }
       this.onClickCloseModal();
     },
     settingList(){
       this.type = this.$route.params.type;
-
       let item = this.$route.params.item;
-      this.list = item === 'course' ? this.course : this.product;
+      return item === 'course' ? this.course : this.product;
     }
   },
 }

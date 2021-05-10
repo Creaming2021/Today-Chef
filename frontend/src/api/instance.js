@@ -7,15 +7,17 @@ import axios from "axios";
 // axios.defaults.validateStatus = (status) => status >= 200 && status < 300;
 // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
+const baseURL = 'https://k4b204.p.ssafy.io/api/';
+
 export const basic = axios.create({
-  baseURL: 'https://k4b204.p.ssafy.io/api/',
+  baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const image = axios.create({
-  baseURL: 'https://k4b204.p.ssafy.io/api/',
+  baseURL,
   headers: {
     'Content-Type': 'multipart/form-data',
   },

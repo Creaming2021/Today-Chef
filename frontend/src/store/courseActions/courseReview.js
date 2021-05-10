@@ -10,8 +10,10 @@ export default {
   },
   POST_COURSE_REVIEW({ dispatch }, request) {
     courseReview.postReview(request)
-      .then(({ data }) => {
-        dispatch('GET_COURSE_REVIEW', data);
+      .then(( data ) => {
+        if (data) {
+          dispatch('GET_COURSE_REVIEW_LIST', request.courseId);
+        }
       })
       .catch(e => { console.log(e); });
   },
@@ -19,48 +21,59 @@ export default {
     courseReview.getReview(request)
       .then(({ data }) => {
         commit('SET_COURSE_REVIEW', data);
+        commit('SET_COURSE_COMMENT_LIST', data.comments);
       })
       .catch(e => { console.log(e); });
   },  
-  PUT_COURSE_REVIEW({ commit }, request){
+  PUT_COURSE_REVIEW({ dispatch }, request){
     courseReview.putReview(request)
-      .then(({ data }) => {
-        commit('SET_COURSE_REVIEW', data);
+      .then(( data ) => {
+        if (data) {
+          dispatch('GET_COURSE_REVIEW', request.courseId);
+        }
       })
       .catch(e => { console.log(e); });
   },  
   DELETE_COURSE_REVIEW({ dispatch }, request){
     courseReview.deleteReview(request)
-      .then(({ data }) => {
-        dispatch('GET_COURSE_REVIEW_LIST', data);
+      .then(( data ) => {
+        if (data) {
+          dispatch('GET_COURSE_REVIEW', request.courseId);
+        }
       })
       .catch(e => { console.log(e); });
   }, 
-  GET_COURSE_REVIEW_COMMENT_LIST({ dispatch }, request){
+  GET_COURSE_REVIEW_COMMENT_LIST({ commit }, request){
     courseReview.getReviewCommentList(request)
       .then(({ data }) => {
-        dispatch('SET_COURSE_COMMENT_LIST', data);
+        commit('SET_COURSE_COMMENT_LIST', data.comments);
       })
       .catch(e => { console.log(e); });
   },
   POST_COURSE_REVIEW_COMMENT({ dispatch }, request){
     courseReview.postReviewComment(request)
       .then(({ data }) => {
-        dispatch('GET_COURSE_REVIEW_COMMENT_LIST', data);
+        if (data) {
+          dispatch('GET_COURSE_REVIEW_COMMENT_LIST', request.reviewId);
+        }
       })
       .catch(e => { console.log(e); });
   },
   PUT_COURSE_REVIEW_COMMENT({ dispatch }, request){
     courseReview.putReviewComment(request)
       .then(({ data }) => {
-        dispatch('GET_COURSE_REVIEW_COMMENT_LIST', data);
+        if (data) {
+          dispatch('GET_COURSE_REVIEW_COMMENT_LIST', request.reviewId);
+        }
       })
       .catch(e => { console.log(e); });
   }, 
   DELETE_COURSE_REVIEW_COMMENT({ dispatch }, request){
     courseReview.deleteReviewComment(request)
       .then(({ data }) => {
-        dispatch('GET_COURSE_REVIEW_COMMENT_LIST', data);
+        if (data) {
+          dispatch('GET_COURSE_REVIEW_COMMENT_LIST', request.reviewId);
+        }
       })
       .catch(e => { console.log(e); });
   },

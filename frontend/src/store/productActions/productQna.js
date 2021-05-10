@@ -16,7 +16,7 @@ export default {
     productQna.postQna(request)
       .then(({ data }) => {
         if(data){
-          dispatch('GET_PRODUCT_QNA_LIST', data);
+          dispatch('GET_PRODUCT_QNA_LIST', request.productId);
         } else {
           console.log(data);
         }
@@ -27,7 +27,7 @@ export default {
     productQna.putQna(request)
       .then(({ data }) => {
         if(data){
-          dispatch('GET_PRODUCT_QNA_LIST', data);
+          dispatch('GET_PRODUCT_QNA_LIST', request.productId);
         } else {
           console.log(data);
         }

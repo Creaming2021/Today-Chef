@@ -4,7 +4,7 @@ export default {
   GET_PRODUCT_REVIEW_LIST({ commit }, request) {
     productReview.getReviewList(request)
       .then(({ data }) => {
-        commit('SET_COURSE_REVIEW_LIST', data);
+        commit('SET_PRODUCT_REVIEW_LIST', data);
       })
       .catch(e => { console.log(e); });
   },
@@ -15,6 +15,13 @@ export default {
       })
       .catch(e => { console.log(e); });
   },  
+  GET_PRODUCT_REVIEW({ commit }, request) {
+    productReview.getReview(request)
+      .then(({ data }) => {
+        commit('SET_PRODUCT_REVIEW', data);
+      })
+      .catch(e => { console.log(e); });
+  },
   PUT_PRODUCT_REVIEW({ commit }, request){
     productReview.putReview(request)
       .then(({ data }) => {

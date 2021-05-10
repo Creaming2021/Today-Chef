@@ -41,8 +41,8 @@ export const deleteReview = async ( review ) => {
     .catch(e => { console.log(e); });
 }
 
-export const getReviewCommentList = async ( review ) => {
-  return await basic.get(`course-reviews/${review.reviewId}/comments`)
+export const getReviewCommentList = async ( reviewId ) => {
+  return await basic.get(`course-reviews/${reviewId}`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
