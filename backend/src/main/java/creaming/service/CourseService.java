@@ -3,6 +3,7 @@ package creaming.service;
 import creaming.domain.course.Course;
 import creaming.domain.course.CourseRepository;
 import creaming.domain.etc.FoodType;
+import creaming.domain.file.CourseFile;
 import creaming.domain.member.Member;
 import creaming.domain.member.MemberRepository;
 import creaming.domain.product.Product;
@@ -68,6 +69,12 @@ public class CourseService {
         Member member = memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         Course course = dto.toEntity();
+
+        // 이미지
+        List<String> images = dto.getImages();
+        images.stream().filter(image -> !image.equals(""))
+                .forEach(image -> course.addCourseFile(new CourseFile((image))));
+
         Product product = productRepository.findById(dto.getProductId())
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
         product.addCourse(course);
