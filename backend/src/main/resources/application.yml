@@ -3,7 +3,6 @@ server:
     context-path: /api
   error:
     include-message: always
-  port: 9999
 
 spring:
   jpa:
