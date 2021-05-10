@@ -110,6 +110,8 @@ public class CourseDto {
         private FoodType category;
         @NotEmpty
         private String descriptions;
+        // 이미지 리스트 저장
+        private List<String> images;
 
         public Course toEntity() {
             return Course.builder()
