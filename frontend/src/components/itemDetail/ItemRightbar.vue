@@ -10,7 +10,11 @@
       <h5 class="price">{{itemInfo.price}}원</h5>
     </div>
     <b-form-rating v-model="itemInfo.rating" readonly no-border/>
-    <div class="cart-btn" @click="addCart">
+    <div v-if="item === 'course'" class="cart-btn" @click="goToPayment">
+      <b-icon icon="cart4"/> 
+      <div>결제하기</div>
+    </div>
+    <div v-else-if="item === 'product'" class="cart-btn" @click="goToCart">
       <b-icon icon="cart4"/> 
       <div>장바구니에 추가하기</div>
     </div>
@@ -45,12 +49,20 @@ export default {
     }
   },
   methods: {
-    addCart() {
-      alert("장바구니 이동");
+    goToCart() {
+      alert("장바구니 추가 요청");
+      this.$router.push({
+        name: 'Cart',
+      })
     },
     settingItemInfo(){
       this.item = this.$route.params.item;
       return this.item === 'course' ? this.course : this.product;
+    },
+    goToPayment(){
+      this.$router.push({
+        name: 'PaymentCourse',
+      })
     }
   },
 }

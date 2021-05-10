@@ -28,6 +28,9 @@
                 @click="onClickNav('MyCourse', 'list')">강사</li>
               <li 
                 v-if="this.user.memberId != ''" 
+                @click="onClickNav('Cart')">장바구니</li>
+              <li 
+                v-if="this.user.memberId != ''" 
                 @click="onClickNav('Profile', 'info')">마이프로필</li>
             </ul>
           </nav>
@@ -101,7 +104,7 @@ export default {
         this.$router.push({
           name: 'ItemList',
           params: {
-            item: pathName,
+            item: 'product',
             category : paramsType,
           }
         })
@@ -109,7 +112,7 @@ export default {
         this.$router.push({
           name: 'ItemList',
           params: {
-            item: pathName,
+            item: 'course',
             category : paramsType,
           }
         })
