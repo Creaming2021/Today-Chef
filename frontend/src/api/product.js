@@ -1,9 +1,10 @@
 import { basic } from '@/api/instance.js';
 
-export const getTopList = async ( count ) => {
+export const getTopList = async ( params ) => {
   return await basic.get('products/rank', {
     params: {
-      count
+      count: params.count,
+      category: params.category,
     }
   })
     .then(res => res)

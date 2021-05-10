@@ -4,16 +4,7 @@ import courseReview from '@/store/courseActions/courseReview.js';
 
 export default {
   state: {
-    topList: {
-      korea: [],
-      japan: [],
-      western: [],
-      china: [],
-      drink: [],
-      dessert: [],
-      world: [],
-      etc: [],
-    },
+    topList: [],
     courseList: [],
     course: {
       category: '',

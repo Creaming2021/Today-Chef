@@ -4,18 +4,18 @@
         <div class="loader"></div>
     </div> -->
     <Event/>
-    <h4>밀키트</h4>
+    <div class="home-sub-title">밀키트 TOP 6</div>
     <TopList
       :item="'product'"
       :tabList="categoryTab" 
-      :itemList="filteredProductTopList"
+      :itemList="productTopList"
       @changeTab="changeList"/>
     <!-- <Sale/> -->
-    <h4>실시간 강의</h4>
+    <div class="home-sub-title">강의 TOP 6</div>
     <TopList 
       :item="'course'"
       :tabList="categoryTab" 
-      :itemList="filteredCourseTopList"
+      :itemList="courseTopList"
       @changeTab="changeList"/>
     <!-- <Recommend
       :list="home.randomListState"/> -->
@@ -49,14 +49,26 @@ export default {
   methods: {
     changeList({ tab, item }){
       if(item === 'course'){
-        this.filteredCourseTopList = this.courseTopList[tab.toLowerCase()];
+        this.$store.dispatch('GET_COURSE_TOP_LIST', {
+          count: 6,
+          category: tab,
+        });
       } else if(item === 'product'){
-        this.filteredProductTopList = this.productTopList[tab.toLowerCase()];
+        this.$store.dispatch('GET_PRODUCT_TOP_LIST', {
+          count: 6,
+          category: tab,
+        });
       }
     },
     getTopList(){
-      this.$store.dispatch('GET_COURSE_TOP_LIST', 6);
-      this.$store.dispatch('GET_PRODUCT_TOP_LIST', 6);
+      this.$store.dispatch('GET_COURSE_TOP_LIST', {
+        count: 6,
+        category: 'KOREA',
+      });
+      this.$store.dispatch('GET_PRODUCT_TOP_LIST', {
+        count: 6,
+        category: 'KOREA',
+      });;
     },
   },
   data() {
@@ -71,9 +83,17 @@ export default {
         { name: "세계음식", value: 'WORLD' }, 
         { name: "기타", value: 'ETC' }, 
       ],
-      filteredProductTopList: [],
-      filteredCourseTopList: [],
     }
   }
 };
 </script>
+
+<style>
+.home-sub-title{
+  width: 100%;
+  text-align: center;
+  size: 1.25rem;
+  font-weight: bold;
+  margin-top: 30px;
+}
+</style>
