@@ -9,6 +9,7 @@ import Creator from "@/views/Creator.vue";
 import Profile from "@/views/Profile.vue";
 import Payment from "@/views/Payment.vue";
 import VueDaumPostcode from "vue-daum-postcode"
+import Cart from "@/views/Cart.vue";
 import Sign from "@/views/Sign.vue";
 import ErrorPage from "@/views/Error.vue";
 
@@ -70,6 +71,11 @@ const routes = [
     path: "/payment",
     name: "Payment",
     component: Payment,
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: Cart,
   },
   {
     path: "/auth",

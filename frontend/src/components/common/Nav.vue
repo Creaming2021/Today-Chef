@@ -24,6 +24,7 @@
               <li @click="onClickNav('product', 'all')">밀키트</li>
               <li @click="onClickNav('course', 'all')">강의</li>
               <li @click="onClickNav('Creator', 'info')">강사</li>
+              <li v-if="this.user.memberId != ''" @click="onClickNav('Cart')">장바구니</li>
               <li v-if="this.user.memberId != ''" @click="onClickNav('Profile', 'info')">마이프로필</li>
             </ul>
           </nav>
