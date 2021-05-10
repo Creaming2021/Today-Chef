@@ -5,6 +5,7 @@ import Home from "@/views/Home.vue";
 import Notice from "@/views/Notice.vue";
 import ItemList from "@/views/ItemList.vue";
 import ItemDetail from "@/views/ItemDetail.vue";
+import MyCourse from "@/views/MyCourse.vue";
 import Creator from "@/views/Creator.vue";
 import Profile from "@/views/Profile.vue";
 import Payment from "@/views/Payment.vue";
@@ -45,6 +46,11 @@ const routes = [
     path: "/me/:type",
     name: "Profile",
     component: Profile,
+  },
+  {
+    path: "/creator/list",
+    name: "MyCourse",
+    component: MyCourse,
   },
   {
     path: "/creator/:mode/:type",

@@ -21,10 +21,14 @@
             <ul>
               <li class="active" @click="onClickNav('Home')">홈</li>
               <li @click="onClickNav('Notice')">공지사항</li>
-              <li @click="onClickNav('product', 'all')">밀키트</li>
-              <li @click="onClickNav('course', 'all')">강의</li>
-              <li @click="onClickNav('Creator', 'info')">강사</li>
-              <li v-if="this.user.memberId != ''" @click="onClickNav('Profile', 'info')">마이프로필</li>
+              <li @click="onClickNav('Product', 'all')">밀키트</li>
+              <li @click="onClickNav('Course', 'all')">강의</li>
+              <li  
+                v-if="this.user.memberId != ''"
+                @click="onClickNav('MyCourse', 'list')">강사</li>
+              <li 
+                v-if="this.user.memberId != ''" 
+                @click="onClickNav('Profile', 'info')">마이프로필</li>
             </ul>
           </nav>
         </div>
@@ -93,7 +97,7 @@ export default {
             type : paramsType,
           }
         })
-      } else if(pathName === 'product') {
+      } else if(pathName === 'Product') {
         this.$router.push({
           name: 'ItemList',
           params: {
@@ -101,7 +105,7 @@ export default {
             category : paramsType,
           }
         })
-      } else if(pathName === 'course') {
+      } else if(pathName === 'Course') {
         this.$router.push({
           name: 'ItemList',
           params: {
