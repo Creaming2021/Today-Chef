@@ -51,19 +51,6 @@ export const deleteCourse = async ( courseId ) => {
     .catch(e => { console.log(e); });
 }
 
-export const postCourseImage = async ( course ) => {
-  // const formData = new FormData();
-  console.log("이미지 추가하러 왔어요 ", course);
-  // for(let imageFile in course.images){
-  //   if(!imageFile) break;
-
-  //   formData.append('file', imageFile);
-
-  //   await image.post(
-  //     `courses/${course.courseId}`, formData);
-  // }
-}
-
 export const getCourseStudentList = async ( courseId ) => {
   return await basic.get(`courses/${courseId}/students`)
     .then(res => res)

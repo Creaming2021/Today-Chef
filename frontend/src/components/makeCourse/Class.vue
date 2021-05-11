@@ -54,6 +54,7 @@ export default {
   },
   beforeDestroy(){
     this.courseInfo.descriptions = this.myEditor.getMarkdown();
+    console.log(this.courseInfo);
   },
   watch : {
     image_length : function() {
@@ -99,7 +100,7 @@ export default {
     }
   },
   mounted() {
-    const editorInitialValue = this.courseInfo.desciptions;
+    const editorInitialValue = this.courseInfo.descriptions;
     const _this = this;
     const editor = new Editor({
       el: document.querySelector("#editor"),

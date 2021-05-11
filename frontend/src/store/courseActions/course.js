@@ -19,17 +19,14 @@ export default {
     course.getCourse(request)
       .then(({ data }) => {
         commit('SET_COURSE', data);
-        return data;
       })
       .catch(e => { console.log(e); });
   },
   POST_COURSE({ dispatch }, request) {
     course.postCourse(request)
       .then(({ data }) => {
-        dispatch('POST_COURSE_IMAGE', {
-          ...request,
-          courseId: data,
-        });
+        dispatch('GET_COURSE', data);
+        return data;
       })
       .catch(e => { console.log(e); });
   },
@@ -44,13 +41,6 @@ export default {
     course.deleteCourse(request)
       .then(({ data }) => {
         dispatch('', data);
-      })
-      .catch(e => { console.log(e); });
-  },
-  POST_COURSE_IMAGE({ dispatch }, request) {
-    course.postCourseImage(request)
-      .then(() => {
-        dispatch('GET_COURSE', request.courseId);
       })
       .catch(e => { console.log(e); });
   },

@@ -16,20 +16,23 @@
               <!-- <a href="./index.html"><img src="@/assets/CREAMING-logo-white.png" alt=""></a> -->
           </div>
         </div>
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-9 col-md-9">
           <nav class="header__menu mobile-menu">
             <ul>
-              <li class="active" @click="onClickNav('Home')">홈</li>
-              <li @click="onClickNav('Notice')">공지사항</li>
-              <li @click="onClickNav('Product', 'all')">밀키트</li>
-              <li @click="onClickNav('Course', 'all')">강의</li>
-              <li  
+              <li :class="currentTab === 'Home' && 'active'" @click="onClickNav('Home')">홈</li>
+              <li :class="currentTab === 'Notice' && 'active'" @click="onClickNav('Notice')">공지사항</li>
+              <li :class="currentTab === 'Product' && 'active'" @click="onClickNav('Product', 'all')">밀키트</li>
+              <li :class="currentTab === 'Course' && 'active'" @click="onClickNav('Course', 'all')">강의</li>
+              <li
+                :class="currentTab === 'MyCourse' && 'active'"  
                 v-if="this.user.memberId != ''"
                 @click="onClickNav('MyCourse', 'list')">강사</li>
               <li 
+                :class="currentTab === 'Cart' && 'active'"
                 v-if="this.user.memberId != ''" 
                 @click="onClickNav('Cart')">장바구니</li>
               <li 
+                :class="currentTab === 'Profile' && 'active'"
                 v-if="this.user.memberId != ''" 
                 @click="onClickNav('Profile', 'info')">마이프로필</li>
             </ul>
@@ -73,6 +76,7 @@ export default {
         phone: '',
         email: '',
       },
+      currentTab: 'Home'
     }
   },
   computed : {
@@ -85,6 +89,7 @@ export default {
   },
   methods: {
     onClickNav(pathName, paramsType) {
+      this.currentTab = pathName;
       if(pathName === "Profile"){
         this.$router.push({
           name: pathName,

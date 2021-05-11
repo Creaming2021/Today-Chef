@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- Shop Section Begin -->
-    <section class="shop spad disableselect" >
+    <div class="body-header">{{ item === 'course' ? '강의 찾아보기': '밀키트 찾아보기'}}</div>
+    <section class="shop disableselect item-list-container" >
       <div class="container">
         <div class="row">
           <ItemSearch
@@ -23,7 +23,6 @@
         </div>
       </div>
     </section>
-    <!-- Shop Section End -->
   </div>
 </template>
 
@@ -145,6 +144,10 @@ export default {
 </script>
 
 <style scoped>
+.item-list-container{
+  margin-bottom: 50px;
+}
+
 .disableselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */

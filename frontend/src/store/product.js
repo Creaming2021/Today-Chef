@@ -4,16 +4,7 @@ import productReview from '@/store/productActions/productReview.js';
 
 export default {
   state: {
-    topList: {
-      korea: [],
-      japan: [],
-      western: [],
-      china: [],
-      drink: [],
-      dessert: [],
-      world: [],
-      etc: [],
-    },
+    topList: [],
     productList: [],
     product: {
       category: '',

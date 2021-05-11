@@ -1,8 +1,8 @@
 <template>
   <div class="notice-container">
+    <div class="body-header">공지사항</div>
     <div class="body">
       <div v-if="view === 'list'">
-      <div class="body-header">공지사항</div>
         <List
           :type="type"
           :list="noticeList"
@@ -110,16 +110,6 @@ export default {
 </script>
 
 <style>
-.notice-container .body-header{
-  text-align: center;
-  width: 100%;
-  height: 200px;
-  background-color: #f3f2ee;
-  font-weight: bold;
-  font-size: 2rem;
-  line-height: 200px;
-  margin-bottom: 50px;
-}
 
 .notice-container .body{
   width: 60%;

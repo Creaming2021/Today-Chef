@@ -16,11 +16,11 @@
     <div class="container" v-if="itemList.length > 0">  
       <div class="row product__filter">
         <div class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
-          v-for="item in itemList" :key="item === 'course' ? item.courseId : item.productId">
+          v-for="itemDetail in itemList" :key="item === 'course' ? itemDetail.courseId : itemDetail.productId">
             <ItemCard 
               :item="item"
-              :itemDetail="item" 
-              :id="item === 'course' ? item.courseId : item.productId" 
+              :itemDetail="itemDetail" 
+              :id="item === 'course' ? itemDetail.courseId : itemDetail.productId" 
               :type="'home'"/>
         </div>
       </div>

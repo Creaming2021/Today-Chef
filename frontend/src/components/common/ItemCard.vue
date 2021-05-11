@@ -1,14 +1,16 @@
 <template>
-    <div class="blog__item">
+    <div class="blog__item" >
       <img class="blog__item__pic set-bg" 
+        @click="onClickDetail"
         :src="itemDetail.image || (itemDetail.images && itemDetail.images[0].imageUrl) || 'https://imgix.kotaku.com.au/content/uploads/sites/3/2016/02/17/whey2gwjqbx21xu023qo.gif?ar=16%3A9&auto=format&fit=crop&q=65&w=720&nrs=40&fm=gif'"/>
-      <div class="blog__item__text">
-        <span>{{itemDetail.category}}</span>
-        <span v-if="item === 'course'"><img src="@/assets/img/icon/calendar.png" alt="">{{itemDetail.date}}</span>
-        <h6>{{itemDetail.name}}</h6>
-        <span v-if="item === 'course'" href="#">{{itemDetail.profile.nickname}} </span><span> 별점 : {{itemDetail.rating}}</span>
-        <h6>{{itemDetail.price}}원</h6>
-        <a @click="onClickDetail">자세히 보기</a>
+      <div 
+        class="blog__item__text"
+        @click="onClickDetail">
+          <span>{{itemDetail.category}}</span>
+          <span v-if="item === 'course'"><img src="@/assets/img/icon/calendar.png" alt="">{{itemDetail.date}}</span>
+          <h6>{{itemDetail.name}}</h6>
+          <span v-if="item === 'course'" href="#">{{itemDetail.profile.nickname}} </span><span> 별점 : {{itemDetail.rating}}</span>
+          <h6>{{itemDetail.price}}원</h6>
       </div>
       <b-modal 
         size="lg" 
@@ -136,7 +138,8 @@ export default {
   color: #0d0d0d;
   font-weight: 700;
 }
-.blog__item__text a {
+.set-bg,
+.blog__item__text {
   cursor: pointer;
 }
 .modal-btn {
