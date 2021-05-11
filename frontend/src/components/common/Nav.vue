@@ -47,12 +47,17 @@
       <div 
         v-if="user.signStatus === 'signUp'"
         class="sign-up-container">
-          <input class="big" v-model="signUpForm.nickname" placeholder="닉네임을 입력하세요."/><br/>
+          <input 
+            class="medium" 
+            v-model="signUpForm.nickname" 
+            @keyup="initialNicknameState"
+            placeholder="닉네임을 입력하세요."/>
+          <button class="small" @click="onClickCheckNickname">중복 체크</button><br/>
           <input class="big" v-model="signUpForm.phone" placeholder="010-1234-5678"/><br/>
           <input 
             class="medium" 
             v-model="signUpForm.email" 
-            @change="initialEmailState"
+            @keyup="initialEmailState"
             placeholder="이메일을 입력하세요."/>
           <button class="small" @click="onClickCheckEmail">중복 체크</button><br/>
           <button class="big-btn" @click="onClickSignUp">회원 가입</button>
@@ -77,7 +82,7 @@ export default {
         phone: '',
         email: '',
       },
-      currentTab: 'Home'
+      currentTab: 'Home',
     }
   },
   computed : {
@@ -129,6 +134,11 @@ export default {
       }
     },
     onOpenSign() {
+      this.signUpForm = {
+        nickname: '',
+        phone: '',
+        email: '',
+      };
       this.openSignModal = true;
     },
     onCloseSign() {
@@ -138,8 +148,16 @@ export default {
       this.$store.dispatch('GET_KAKAO_INFO');
     },
     onClickSignUp() {
-      if(!this.user.emailState){
-        alert("이메일 중복체크를 해주세요.");
+      if(!this.user.nicknameState){
+        this.$swal.fire({
+          icon: 'error',
+          text: '닉네임 중복체크를 해주세요.',
+        });
+      } else if(!this.user.emailState){
+        this.$swal.fire({
+          icon: 'error',
+          text: '이메일 중복체크를 해주세요.',
+        });
       } else {
         this.$store.dispatch('SIGN_UP', this.signUpForm);
       }
@@ -150,8 +168,14 @@ export default {
     onClickCheckEmail(){
       this.$store.dispatch('CHECK_EMAIL', this.signUpForm.email);
     },
+    onClickCheckNickname(){
+      this.$store.dispatch('CHECK_NICKNAME', this.signUpForm.nickname);
+    },
     initialEmailState(){
       this.$store.dispatch('SET_EMAIL_STATE', false);
+    },
+    initialNicknameState(){
+      this.$store.dispatch('SET_NICKNAME_STATE', false);
     },
   }
 }
@@ -198,8 +222,13 @@ export default {
   width: 47%;
 }
 
-.sign-up-container .big{
+.sign-up-container .big,
+.sign-up-container .big-btn{
   width: 80%;
+}
+
+.sign-up-container .big-btn{
+  margin-top: 50px;
 }
 
 .sign-up-container button:hover{

@@ -18,7 +18,7 @@ export const basic = axios.create({
 });
 
 export const image = axios.create({
-  baseURLImage,
+  baseURL: baseURLImage,
   headers: {
     'Content-Type': 'multipart/form-data',
   },

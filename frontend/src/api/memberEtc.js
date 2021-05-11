@@ -59,9 +59,10 @@ export const setCoupon = async ( coupon ) => {
 }
 
 export const postProfileImage = async ( member ) => {
-  return await image.post(`members/${member.memberId}/image`, {
-      image: member.profileImage,
-    })
+  let imageFile = new FormData();
+  imageFile.append('file', member.profileImage);
+
+  return await image.post(`members/${member.memberId}`, imageFile)
     .then(res => res)
     .catch(e => { console.log(e); });
 }
