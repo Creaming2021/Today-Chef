@@ -8,6 +8,7 @@ import course from './course.js';
 import member from './member.js';
 import product from './product.js';
 import order from './order.js';
+import chat from './chat.js';
 
 Vue.use(Vuex);
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     member,
     product,
     order,
+    chat,
   }
 });
