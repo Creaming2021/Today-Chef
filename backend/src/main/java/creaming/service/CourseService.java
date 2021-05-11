@@ -10,10 +10,13 @@ import creaming.domain.product.Product;
 import creaming.domain.product.ProductRepository;
 import creaming.domain.register.Register;
 import creaming.domain.register.RegisterRepository;
+import creaming.domain.room.CourseRoom;
+import creaming.domain.room.CourseRoomRepository;
 import creaming.dto.CourseDto;
 import creaming.dto.MemberDto;
 import creaming.exception.BaseException;
 import creaming.exception.ErrorCode;
+import creaming.utils.MakeToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +33,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final RegisterRepository registerRepository;
     private final ProductRepository productRepository;
+    private final CourseRoomRepository courseRoomRepository;
 
     // 모든 강의 페이징 처리 후 출력
 //    public Page<CourseDto.CourseSimpleResponse> getCourseAll(Pageable pageable) {
@@ -79,6 +83,10 @@ public class CourseService {
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
         product.addCourse(course);
         member.addCourse(course);
+
+        CourseRoom courseRoom = courseRoomRepository.save(new CourseRoom(MakeToken.makeToken()));
+        course.addRoom(courseRoom);
+
         return courseRepository.save(course).getId();
     }
 

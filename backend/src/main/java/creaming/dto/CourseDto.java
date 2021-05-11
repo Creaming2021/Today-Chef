@@ -68,6 +68,7 @@ public class CourseDto {
         private String descriptions;
         private List<ImageDto> images;
         private ProductDto.ProductDetailResponse product;
+        private String liveToken;
 
         public CourseDetailResponse(Course course) {
             this.courseId = course.getId();
@@ -86,6 +87,7 @@ public class CourseDto {
             if(course.getProduct() != null) {
                 this.product = new ProductDto.ProductDetailResponse(course.getProduct());
             }
+            this.liveToken = course.getCourseRoom().getToken();
         }
     }
 
