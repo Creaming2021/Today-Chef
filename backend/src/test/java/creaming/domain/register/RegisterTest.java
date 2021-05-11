@@ -63,11 +63,11 @@ class RegisterTest {
 
         // when
         Course findCourse = courseRepository.findAll().get(0);
-        Member findMember = memberRepository.findByNickname("student").get();
+//        Member findMember = memberRepository.findByNickname("student").get();
 
         Register register = Register.builder()
                 .course(findCourse)
-                .member(findMember)
+//                .member(findMember)
                 .price(findCourse.getPrice())
                 .build();
         registerRepository.save(register);
@@ -78,8 +78,8 @@ class RegisterTest {
         System.out.println("등록 강의 강사 이름 = " + findRegister.getCourse().getMember().getNickname());
         System.out.println("등록 학생 이름 = " + findRegister.getMember().getNickname());
 
-        Member member2 = memberRepository.findByNickname("student").get();
-        assertThat(member2.getRegisters().size()).isEqualTo(1);
+//        Member member2 = memberRepository.findByNickname("student").get();
+//        assertThat(member2.getRegisters().size()).isEqualTo(1);
 
     }
 
@@ -112,7 +112,7 @@ class RegisterTest {
         em.clear();
 
         // when
-        Member findMember = memberRepository.findByNickname("student").get();
+//        Member findMember = memberRepository.findByNickname("student").get();
 
         // then
     }
