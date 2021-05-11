@@ -28,10 +28,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/check")
+    @GetMapping("/email")
     @Operation(summary = "이메일 중복 확인")
     public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
         Boolean result = userService.checkEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/nickname")
+    @Operation(summary = "닉네임 중복 확인")
+    public ResponseEntity<Boolean> checkNickname(@RequestParam String nickname) {
+        Boolean result = userService.checkNickname(nickname);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
