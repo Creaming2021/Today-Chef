@@ -2,9 +2,10 @@
   <!-- Header Section Begin -->
   <header class="header">
     <div class="sign-container">
-      <div v-if="user.signStatus === 'signIn'" @click="onClickSignOut">
-        {{user.nickname}}님 안녕하세요! SIGN OUT</div>
-      <div v-else @click="onOpenSign">SIGN IN</div>
+      <div v-if="user.signStatus === 'signIn'">
+        {{user.nickname}}님 안녕하세요!
+        <span class="sign" @click="onClickSignOut">SIGN OUT</span></div>
+      <div class="sign" v-else @click="onOpenSign">SIGN IN</div>
     </div>
     <div class="container">
       <div class="row">
@@ -166,7 +167,8 @@ export default {
   padding: 10px 50px 10px 0px;
 }
 
-.header .sign-container > div{
+.header .sign-container .sign{
+  margin-left: 8px;
   cursor: pointer;
   /* color: black; */
   color: white;

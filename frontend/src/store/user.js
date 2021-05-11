@@ -62,12 +62,16 @@ export default {
           phone: memberInfo.phone,
           email: memberInfo.email,
         })
-        .then(() => {
+        .then(({ data }) => {
           Swal.fire({
             icon: 'success',
             text: '성공적으로 회원가입을 완료했습니다.',
           });
           dispatch('SIGN_IN', state.authObj);
+          dispatch('SET_COUPON', {
+            memberId: data.memberId,
+            couponId: 1
+          });
         });
     },
     SIGN_OUT({ commit }) {
