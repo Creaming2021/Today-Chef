@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="body-header">장바구니</div>
     <div class="container">
       <div class="row">
         
@@ -97,8 +98,7 @@ export default {
         price: '',
         name: '',
         descriptions: '',
-        images: [],
-        imageUrl: ['','','','','','','','','',''],
+        images: ['','','','','','','','','',''],
         productId: '',
       },
       typeList: ['info', 'thumbnail', 'course', 'kit'],
@@ -112,6 +112,11 @@ export default {
     }
   },
   created () {
+    if(this.$store.state.user.memberId === ''){
+      this.$router.push({
+        name: "Error",
+      })
+    }
     this.checkQuery();
   },
   methods : {
@@ -127,7 +132,7 @@ export default {
       this.step = this.typeList.indexOf(this.type);
     },
     onClickSave() {
-      console.log(this.courseInfo);
+      // console.log(this.courseInfo);
       this.$store.dispatch("POST_COURSE", {
           category: this.courseInfo.category,
           date: this.courseInfo.date,
@@ -137,10 +142,11 @@ export default {
           price: this.courseInfo.price,
           productId: 1,
           time: this.courseInfo.startTime + "-" + this.courseInfo.endTime,
+          images: this.courseInfo.images,
         })
         .then((res) => {
           this.$router.push({
-            nmae: "ItemDetail",
+            name: "ItemDetail",
             params: {
               item: 'course',
               category: this.courseInfo.category,
@@ -174,8 +180,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .modal-lg {
   max-width: 80%,!important;
+}
+
+.container button{
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #f3f2ee;
+  font-weight: bold;
+}
+
+.container button:hover{
+  cursor: pointer;
+  background: #e53637;
+  color: white;
 }
 </style>

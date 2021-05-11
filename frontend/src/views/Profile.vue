@@ -1,37 +1,38 @@
 <template>
   <div>
-    <section class="shop spad disableselect" >
-        <div class="container">
-            <div class="row">
-                <Sidebar/>
+    <div class="body-header">내 정보</div>
+    <section class="shop disableselect" >
+      <div class="container">
+        <div class="row">
+          <Sidebar/>
 
-                <div 
-                  v-show="type === 'info'" 
-                  class="col-lg-9">
-                    <div class="row">
-                      <Personal/>
-                    </div>
-                </div>
+          <div 
+            v-show="type === 'info'" 
+            class="col-lg-9">
+              <div class="row">
+                <Personal/>
+              </div>
+          </div>
 
-                <MyCoupon 
-                  v-if="type === 'coupon'"
-                  class="col-lg-9"/>
+          <MyCoupon 
+            v-if="type === 'coupon'"
+            class="col-lg-9"/>
 
-                <MyCourseList
-                  v-else-if="type === 'student'"
-                  class="col-lg-9"
-                  :type="type"/>
+          <MyCourseList
+            v-else-if="type === 'student'"
+            class="col-lg-9"
+            :type="type"/>
 
-                <MyCourseList
-                  v-else-if="type === 'teacher'"
-                  class="col-lg-9"
-                  :type="type"/>
+          <MyCourseList
+            v-else-if="type === 'teacher'"
+            class="col-lg-9"
+            :type="type"/>
 
-                <MyPayment 
-                  v-else-if="type === 'payment'" 
-                  class="col-lg-9"/>
-            </div>
+          <MyPayment 
+            v-else-if="type === 'payment'" 
+            class="col-lg-9"/>
         </div>
+      </div>
     </section>
   </div>
 </template>
@@ -59,6 +60,11 @@ export default {
     }),
   },
   created() {
+    if(this.$store.state.user.memberId === ''){
+      this.$router.push({
+        name: "Error",
+      })
+    }
     this.checkQuery();
     this.getMemberInfo();
   },
@@ -99,6 +105,10 @@ export default {
 .active {
   color: #111111;
   font-weight: 700;
+}
+
+section {
+  margin-bottom: 50px;
 }
 
 #mypage-filter li:hover, .coupon-nav li:hover {

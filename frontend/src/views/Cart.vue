@@ -1,6 +1,7 @@
 <template>
   <!-- Shopping Cart Section Begin -->
-  <section class="shopping-cart spad">
+  <section class="shopping-cart shopping-cart-container">
+    <div class="body-header">장바구니</div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
@@ -86,6 +87,13 @@ export default{
     CartItem,
     CouponList,
   },
+  created(){
+    if(this.$store.state.user.memberId === ''){
+      this.$router.push({
+        name: "Error",
+      })
+    }
+  },
   methods:{
     goToPayment(){
       this.$router.push({
@@ -117,7 +125,10 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
+.shopping-cart-container{
+  margin-bottom: 50px;
+}
 .continue__btn,
 .go-to-payment{
   cursor: pointer;

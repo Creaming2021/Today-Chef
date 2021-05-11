@@ -35,6 +35,9 @@ export default {
       likeState: false,
     }
   },
+  props: {
+    itemDetail: Object,
+  },
   created() {
     this.settingItemInfo();
   },
@@ -76,7 +79,7 @@ export default {
     },
     settingItemInfo(){
       this.item = this.$route.params.item;
-      return this.item === 'course' ? this.course : this.product;
+      return this.itemDetail || ( this.item === 'course' ? this.course : this.product );
     },
     goToPayment(){
       this.$router.push({

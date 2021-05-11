@@ -53,8 +53,8 @@ export default{
   },
   SET_COUPON({ commit }, request ) {
     memberEtc.setCoupon(request)
-      .then(({ data }) => {
-        commit('', data);
+      .then(() => {
+        console.log(commit);
       })
       .catch(e => { console.log(e); });
   },

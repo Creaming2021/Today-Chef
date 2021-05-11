@@ -2,9 +2,10 @@
   <!-- Header Section Begin -->
   <header class="header">
     <div class="sign-container">
-      <div v-if="user.signStatus === 'signIn'" @click="onClickSignOut">
-        {{user.nickname}}님 안녕하세요! SIGN OUT</div>
-      <div v-else @click="onOpenSign">SIGN IN</div>
+      <div v-if="user.signStatus === 'signIn'">
+        {{user.nickname}}님 안녕하세요!
+        <span class="sign" @click="onClickSignOut">SIGN OUT</span></div>
+      <div class="sign" v-else @click="onOpenSign">SIGN IN</div>
     </div>
     <div class="container">
       <div class="row">
@@ -16,20 +17,23 @@
               <!-- <a href="./index.html"><img src="@/assets/CREAMING-logo-white.png" alt=""></a> -->
           </div>
         </div>
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-9 col-md-9">
           <nav class="header__menu mobile-menu">
             <ul>
-              <li class="active" @click="onClickNav('Home')">홈</li>
-              <li @click="onClickNav('Notice')">공지사항</li>
-              <li @click="onClickNav('Product', 'all')">밀키트</li>
-              <li @click="onClickNav('Course', 'all')">강의</li>
-              <li  
+              <li :class="currentTab === 'Home' && 'active'" @click="onClickNav('Home')">홈</li>
+              <li :class="currentTab === 'Notice' && 'active'" @click="onClickNav('Notice')">공지사항</li>
+              <li :class="currentTab === 'Product' && 'active'" @click="onClickNav('Product', 'all')">밀키트</li>
+              <li :class="currentTab === 'Course' && 'active'" @click="onClickNav('Course', 'all')">강의</li>
+              <li
+                :class="currentTab === 'MyCourse' && 'active'"  
                 v-if="this.user.memberId != ''"
                 @click="onClickNav('MyCourse', 'list')">강사</li>
               <li 
+                :class="currentTab === 'Cart' && 'active'"
                 v-if="this.user.memberId != ''" 
                 @click="onClickNav('Cart')">장바구니</li>
               <li 
+                :class="currentTab === 'Profile' && 'active'"
                 v-if="this.user.memberId != ''" 
                 @click="onClickNav('Profile', 'info')">마이프로필</li>
             </ul>
@@ -73,6 +77,7 @@ export default {
         phone: '',
         email: '',
       },
+      currentTab: 'Home'
     }
   },
   computed : {
@@ -85,6 +90,7 @@ export default {
   },
   methods: {
     onClickNav(pathName, paramsType) {
+      this.currentTab = pathName;
       if(pathName === "Profile"){
         this.$router.push({
           name: pathName,
@@ -161,7 +167,8 @@ export default {
   padding: 10px 50px 10px 0px;
 }
 
-.header .sign-container > div{
+.header .sign-container .sign{
+  margin-left: 8px;
   cursor: pointer;
   /* color: black; */
   color: white;

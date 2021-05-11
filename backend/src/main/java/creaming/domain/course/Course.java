@@ -9,6 +9,8 @@ import creaming.domain.product.Product;
 import creaming.domain.qna.CourseQna;
 import creaming.domain.register.Register;
 import creaming.domain.review.CourseReview;
+import creaming.domain.room.CourseRoom;
+import creaming.domain.room.Room;
 import creaming.dto.CourseDto;
 import lombok.*;
 
@@ -70,6 +72,9 @@ public class Course extends BaseTimeEntity {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<CourseFile> courseFiles = new ArrayList<>();
 
+    @OneToOne(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private CourseRoom courseRoom;
+
     // JPA
     public void updateMember(Member member) {
         this.member = member;
@@ -115,6 +120,16 @@ public class Course extends BaseTimeEntity {
     public void deleteReview (CourseReview courseReview) {
         courseReviews.remove(courseReview);
         courseReview.updateCourse(null);
+    }
+
+    public void addRoom(CourseRoom courseRoom) {
+        this.courseRoom = courseRoom;
+        courseRoom.updateCourse(this);
+    }
+
+    public void deleteRoom(CourseRoom courseRoom) {
+        this.courseRoom = null;
+        courseRoom.updateCourse(this);
     }
 
     public void addCourseFile (CourseFile courseFile) {
