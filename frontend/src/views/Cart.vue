@@ -30,20 +30,21 @@
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="cart__discount">
-            <h6>쿠폰 사용</h6>
-            <form action="#">
-              <input type="text" placeholder="Coupon code">
-              <button type="submit">Apply</button>
-            </form>
-          </div>
+          <CouponList
+            :couponList="couponList"
+            :selectedCoupon="selectedCoupon"
+            @setCoupon="setCoupon"/>
           <div class="cart__total">
             <h6>Cart total</h6>
             <ul>
-              <li>Total 
-                <span>{{cartList.reduce((acc, curr) => (
-                 acc + (curr.price * curr.amount)), 0)}} 원
-                </span>
+              <li>전체 금액
+                <span>{{totalPrice}} 원</span>
+              </li>
+              <li>할인 금액
+                <span>- {{discountPrice}} 원</span>
+              </li>
+              <li>결제 예상 금액
+                <span>{{totalPrice - discountPrice}}원</span>
               </li>
             </ul>
             <div @click="goToPayment" class="primary-btn go-to-payment">결제 하러 가기</div>
@@ -56,26 +57,44 @@
 
 <script>
 import { mapState } from 'vuex';
-import CartItem from '@/components/cart/cartItem.vue';
+import CartItem from '@/components/cart/CartItem.vue';
+import CouponList from '@/components/cart/CouponList.vue';
 
 export default{
+  data(){
+    return {
+      selectedCoupon: {
+        memberCouponId: '',
+        name: '사용 가능한 쿠폰 확인하기',
+        discount: 0,
+      },
+      discountPrice: 0,
+    }
+  },
   mounted(){
     this.$store.dispatch("GET_CART_LIST", this.memberId);
+    this.$store.dispatch("GET_COUPON_LIST", this.memberId);
   },
   computed: {
     ...mapState({
       cartList: state => state.member.cartList,
       memberId: state => state.user.memberId,
+      couponList: state => state.member.couponList,
     }),
+    totalPrice: function(){
+      return this.cartList.reduce((acc, curr) => 
+        (acc + (curr.price * curr.amount)), 0);
+    },
   },
   components: {
     CartItem,
+    CouponList,
   },
   methods:{
     goToPayment(){
       this.$router.push({
         name: 'PaymentProduct',
-      })
+      });
     },
     goToProductList(){
       this.$router.push({
@@ -84,8 +103,20 @@ export default{
           item: 'product',
           category : 'all',
         }
-      })
+      });
+    },
+    setCoupon( coupon ){
+      this.selectedCoupon = {
+        memberCouponId: coupon.id,
+        name: coupon.name,
+        discount: coupon.discount,
+      }
     }
+  },
+  watch: {
+    selectedCoupon: function(){
+      this.discountPrice = this.totalPrice * this.selectedCoupon.discount * 0.01;
+    },
   }
 }
 </script>
@@ -94,5 +125,8 @@ export default{
 .continue__btn,
 .go-to-payment{
   cursor: pointer;
+}
+.cart__total h6{
+  font-weight: bold;
 }
 </style>
