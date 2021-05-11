@@ -21,12 +21,8 @@
               </tbody>
             </table>
           </div>
-          <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
-              <div click="goToProductList" class="continue__btn">
-                쇼핑 계속하기
-              </div>
-            </div>
+          <div @click="goToProductList" class="continue__btn">
+            쇼핑 계속하기
           </div>
         </div>
         <div class="col-lg-4">
@@ -110,7 +106,7 @@ export default{
         memberCouponId: coupon.id,
         name: coupon.name,
         discount: coupon.discount,
-      }
+      };
     }
   },
   watch: {
