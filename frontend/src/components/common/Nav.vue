@@ -26,6 +26,7 @@
               <li  
                 v-if="this.user.memberId != ''"
                 @click="onClickNav('MyCourse', 'list')">강사</li>
+              <li @click="onClickNav('Chat')">채팅</li>
               <li 
                 v-if="this.user.memberId != ''" 
                 @click="onClickNav('Cart')">장바구니</li>
