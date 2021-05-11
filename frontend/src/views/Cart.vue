@@ -91,11 +91,17 @@ export default{
     if(this.$store.state.user.memberId === ''){
       this.$router.push({
         name: "Error",
-      })
+      });
     }
   },
   methods:{
     goToPayment(){
+      this.$store.dispatch('SET_CART', {
+        selectedCoupon: this.selectedCoupon,
+        discountPrice: this.discountPrice,
+        totalPrice: this.totalPrice,
+      });
+
       this.$router.push({
         name: 'PaymentProduct',
       });

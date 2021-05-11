@@ -2672,6 +2672,7 @@ ol {
   color: #111111;
   overflow: hidden;
   margin-bottom: 18px;
+  font-weight: bold;
 }
 
 .checkout__order__products span {
