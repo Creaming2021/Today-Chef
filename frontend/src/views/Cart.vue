@@ -71,6 +71,13 @@ export default{
   components: {
     CartItem,
   },
+  created(){
+    if(this.$store.state.user.memberId === ''){
+      this.$router.push({
+        name: "Error",
+      })
+    }
+  },
   methods:{
     goToPayment(){
       this.$router.push({

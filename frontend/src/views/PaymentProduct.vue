@@ -116,6 +116,13 @@ export default {
       isSettingAddressOpen: false,
     }
   },
+  created(){
+    if(this.$store.state.user.memberId === ''){
+      this.$router.push({
+        name: "Error",
+      })
+    }
+  },
   methods: {
     // 주소 및 우편번호 설정 관련 함수
     onCompleteSettingAddress(result) {

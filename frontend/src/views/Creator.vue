@@ -111,6 +111,11 @@ export default {
     }
   },
   created () {
+    if(this.$store.state.user.memberId === ''){
+      this.$router.push({
+        name: "Error",
+      })
+    }
     this.checkQuery();
   },
   methods : {
@@ -126,7 +131,7 @@ export default {
       this.step = this.typeList.indexOf(this.type);
     },
     onClickSave() {
-      console.log(this.courseInfo);
+      // console.log(this.courseInfo);
       this.$store.dispatch("POST_COURSE", {
           category: this.courseInfo.category,
           date: this.courseInfo.date,
