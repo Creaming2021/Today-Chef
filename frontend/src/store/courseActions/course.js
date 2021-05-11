@@ -19,14 +19,14 @@ export default {
     course.getCourse(request)
       .then(({ data }) => {
         commit('SET_COURSE', data);
-        return data;
       })
       .catch(e => { console.log(e); });
   },
-  POST_COURSE({ commit }, request) {
+  POST_COURSE({ dispatch }, request) {
     course.postCourse(request)
       .then(({ data }) => {
-        commit('GET_COURSE', data);
+        dispatch('GET_COURSE', data);
+        return data;
       })
       .catch(e => { console.log(e); });
   },
