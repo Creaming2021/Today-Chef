@@ -2419,7 +2419,7 @@ ol {
 }
 
 .cart__discount {
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
 
 .cart__discount h6 {
@@ -2672,6 +2672,7 @@ ol {
   color: #111111;
   overflow: hidden;
   margin-bottom: 18px;
+  font-weight: bold;
 }
 
 .checkout__order__products span {
