@@ -8,11 +8,14 @@ export default{
       })
       .catch(e => { console.log(e); });
   },
-  PUT_MEMBER_INFO({ commit, dispatch }, request ) {
+  PUT_MEMBER_INFO({ dispatch }, request ) {
     memberEtc.putMemberInfo(request)
       .then(() => {
-        dispatch('GET_MEMBER_INFO', request.memberId);
-        commit('SET_NICKNAME', request.nickname);
+        if(typeof(request.profileImage) === 'string'){
+          dispatch('GET_MEMBER_INFO', request.memberId);
+        }else{
+          dispatch('POST_PROFILE_IMAGE', request);
+        }
       })
       .catch(e => { console.log(e); });
   },
@@ -58,13 +61,10 @@ export default{
       })
       .catch(e => { console.log(e); });
   },
-  POST_PROFILE_IMAGE({ commit, store }, request ) {
+  POST_PROFILE_IMAGE({ dispatch }, request ) {
     memberEtc.postProfileImage(request)
-      .then(({ data }) => {
-        commit('SET_MEMBER_INFO', {
-          ...store.memberInfo,
-          profileImage: data,
-        });
+      .then(() => {
+        dispatch('GET_MEMBER_INFO', request.memberId);
       })
       .catch(e => { console.log(e); });
   },
