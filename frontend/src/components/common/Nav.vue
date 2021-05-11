@@ -50,14 +50,14 @@
           <input 
             class="medium" 
             v-model="signUpForm.nickname" 
-            @change="initialNicknameState"
+            @keyup="initialNicknameState"
             placeholder="닉네임을 입력하세요."/>
           <button class="small" @click="onClickCheckNickname">중복 체크</button><br/>
           <input class="big" v-model="signUpForm.phone" placeholder="010-1234-5678"/><br/>
           <input 
             class="medium" 
             v-model="signUpForm.email" 
-            @change="initialEmailState"
+            @keyup="initialEmailState"
             placeholder="이메일을 입력하세요."/>
           <button class="small" @click="onClickCheckEmail">중복 체크</button><br/>
           <button class="big-btn" @click="onClickSignUp">회원 가입</button>
@@ -134,6 +134,11 @@ export default {
       }
     },
     onOpenSign() {
+      this.signUpForm = {
+        nickname: '',
+        phone: '',
+        email: '',
+      };
       this.openSignModal = true;
     },
     onCloseSign() {
