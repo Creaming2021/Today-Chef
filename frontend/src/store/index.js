@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import home from './home.js';
 import user from './user.js';
 import event from './event.js';
-import review from './review.js';
 import course from './course.js';
 import member from './member.js';
 import product from './product.js';
@@ -16,7 +15,6 @@ export default new Vuex.Store({
     home,
     user,
     event,
-    review,
     course,
     member,
     product,

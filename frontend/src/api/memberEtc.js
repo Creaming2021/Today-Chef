@@ -35,7 +35,7 @@ export const postCartList = async ( cart ) => {
 }
 
 export const deleteCartList = async ( cart ) => {
-  return await basic.delete(`members/${cart.memberId}/carts/${cart.productId}`)
+  return await basic.delete(`members/${cart.memberId}/carts/${cart.cartId}`)
     .then(res => res)
     .catch(e => { console.log(e); });
 }

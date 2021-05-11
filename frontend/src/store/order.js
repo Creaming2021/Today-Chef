@@ -4,6 +4,7 @@ export default {
   state: {
     orderList: [],
     order: {},
+    cart: {},
   },
   mutations: {
     SET_ORDER_LIST(state, payload) {
@@ -12,8 +13,14 @@ export default {
     SET_ORDER(state, payload) {
       state.order = payload;
     },
+    SET_CART(state, payload) {
+      state.cart = payload;
+    },
   },
   actions: {
+    SET_CART({ commit }, data){
+      commit('SET_CART', data);
+    },
     GET_ORDER_LIST({ commit }, request){
       order.getOrderList(request)
         .then(({ data }) => {

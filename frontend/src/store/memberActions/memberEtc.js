@@ -26,14 +26,14 @@ export default{
   POST_CART_LIST({ dispatch }, request ) {
     memberEtc.postCartList(request)
       .then(() => {
-        dispatch('', request);
+        console.log(dispatch);
       })
       .catch(e => { console.log(e); });
   },
   DELETE_CART_LIST({ dispatch }, request ) {
     memberEtc.deleteCartList(request)
       .then(() => {
-        dispatch('GET_CART_LIST', request);
+        dispatch('GET_CART_LIST', request.memberId);
       })
       .catch(e => { console.log(e); });
   },
@@ -46,8 +46,8 @@ export default{
   },
   PUT_COUPON({ commit }, request ) {
     memberEtc.putCoupon(request)
-      .then(({ data }) => {
-        commit('', data);
+      .then(() => {
+        console.log(commit);
       })
       .catch(e => { console.log(e); });
   },
