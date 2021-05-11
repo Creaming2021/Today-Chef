@@ -14,6 +14,10 @@ import VueDaumPostcode from "vue-daum-postcode"
 import Cart from "@/views/Cart.vue";
 import Sign from "@/views/Sign.vue";
 import ErrorPage from "@/views/Error.vue";
+// chat
+import Chat from "@/views/Chat.vue";
+import RoomList from "@/views/RoomList.vue";
+import Room from '@/views/Room.vue';
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
@@ -98,7 +102,23 @@ const routes = [
     path: "/error",
     name: "Error",
     component: ErrorPage,
-  }
+  },
+  // chat
+  {
+    path: "/chat",
+    name: "Chat",
+    component: Chat,
+  },
+  {
+    path: "/chat/roomList",
+    name: "RoomList",
+    component: RoomList,
+  },
+  {
+    path: "/chat/:id",
+    name: "Room",
+    component: Room,
+  },
 ];
 
 const router = new VueRouter({
