@@ -6,18 +6,17 @@ const gravatar = require('gravatar');
 
 /** Middleware */
 const {
-    checkRegistrationFields,
     checkLoginFields,
 } = require('../middleware/authenticate');
 
 /**
- * @description  POST /register
+ * @description  POST /auth/register
  * @param  {} [checkRegistrationFields]
  * @param  {} request
  * @param  {} response
  * @access public
  */
-router.post('/register', [checkRegistrationFields], (req, res) => {
+router.post('/register', (req, res) => {
     let errors = [];
 
     User.findOne({ email: req.body.email }).then(user => {
@@ -40,7 +39,6 @@ router.post('/register', [checkRegistrationFields], (req, res) => {
                 .save()
                 .then(userData => {
                     res.status(200).send({
-                        // Here : 회원가입이므로 안보내도됨.
                         userData
                     });
                 })
@@ -55,13 +53,12 @@ router.post('/register', [checkRegistrationFields], (req, res) => {
 });
 
 /**
- * @description POST /login
+ * @description POST /auth/login
  * @param  {} checkLoginFields
  * @param  {} request
  * @param  {} response
  * @access public
  */
-// 로그인 => 채팅 자동 로그인
 router.post('/login', checkLoginFields, async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
@@ -75,7 +72,7 @@ router.post('/login', checkLoginFields, async (req, res) => {
 });
 
 /**
- * @description POST /logout
+ * @description POST /auth/logout
  * @param  {} request
  * @param  {} response
  * @access public

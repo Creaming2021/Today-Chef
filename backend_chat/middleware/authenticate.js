@@ -12,10 +12,7 @@ const createErrorObject = errors => {
     return errorObject;
 };
 
-// 회원가입 => user 정보 mongoDB 넣기
 const checkRegistrationFields = async (req, res, next) => {
-
-    // Here : nickname 으로 옴
 
     req.check('email').isEmail();
     req.check('username').isString();
@@ -37,16 +34,11 @@ const checkRegistrationFields = async (req, res, next) => {
     }
 };
 
-// 로그인 체크 !!!
 const checkLoginFields = async (req, res, next) => {
     let errors = [];
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
         errors.push({ param: 'email', msg: 'Invalid Details Entered' });
-    } else {
-        // if (req.body.password !== null && !(await user.isValidPassword(req.body.password))) {
-        //     errors.push({ param: 'password', msg: 'Invalid Details Entered' });
-        // }
     }
 
     if (errors.length !== 0) {
@@ -58,7 +50,6 @@ const checkLoginFields = async (req, res, next) => {
     }
 };
 
-// 채팅 회원 정보 수정 => Here : 되게 버튼 하나 생성하기
 const checkEditProfileFields = async (req, res, next) => {
     let errors = [];
 

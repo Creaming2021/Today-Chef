@@ -1,6 +1,5 @@
 /** Dotenv Environment Variables */
 if (process.env.HEROKU_DEPLOYMENT !== 'true') {
-    // Skip loading the .env file if deploying with heroku
     require('dotenv').config();
 }
 
@@ -29,8 +28,6 @@ const compression = require('compression');
 /** Socket IO */
 const app = express();
 const server = require('http').createServer(app);
-// const io = require('socket.io')(server);
-// const http = require('http').Server(app);
 const io = require('socket.io').listen(server, {origins:"*:*"});
 
 app.use(function(req, res, next) {
@@ -68,12 +65,6 @@ app.use(
 );
 app.use(morgan('dev'));
 
-if (process.env.HEROKU_DEPLOYMENT === 'true') {
-    /** Trust Proto Header for heroku */
-    app.enable('trust proxy');
-    app.use(enforce.HTTPS({ trustProtoHeader: true }));
-}
-
 app.use(helmet());
 app.use(compression());
 
@@ -99,8 +90,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 let userTypings = {};
-
-// io.set('origins', '*:*');
 
 /** Socket IO Connections */
 io.on('connection', socket => {
@@ -251,14 +240,6 @@ io.on('connection', socket => {
         }
     });
 });
-
-/** Serve static assets if production */
-// if (process.env.NODE_ENV === 'production') {
-//    app.use(express.static(path.resolve(__dirname, '../client', 'dist')));
-//    app.get('*', (req, res) => {
-//        res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
-//    });
-// }
 
  if (process.env.NODE_ENV !== 'test') {
     server.listen(process.env.PORT || 5000, () => {
