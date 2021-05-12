@@ -13,11 +13,14 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <!-- Text slides with image -->
-      <b-carousel-slide img-src="https://github.com/wlsdhr0831/wlsdhr0831/blob/main/event%20(4).png?raw=true"/>
-
-      <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://github.com/wlsdhr0831/wlsdhr0831/blob/main/event%20(3).png?raw=true"/>
+      <a 
+        v-for="image in imageList" 
+        :key="image.eventId"
+        :href="`notice/${image.eventId}`" >
+        <b-carousel-slide 
+          class="event-image"
+          :img-src="image.image"/>
+      </a>
 
       <!-- Slides with img slot -->
       <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
@@ -44,13 +47,29 @@
         sliding: null
       }
     },
+    props: {
+      imageList: Array,
+    },
     methods: {
       onSlideStart() {
         this.sliding = true;
       },
       onSlideEnd() {
         this.sliding = false;
-      }
+      },
+      // goToNoticeDetail(e) {
+      //   console.log(e);
+      //   // this.$router.push({
+      //   //   name: 'NoticeDetail',
+      //   //   params: { number: id },
+      //   // });
+      // },
     }
   }
 </script>
+
+<style scoped>
+.event-image{
+  cursor: pointer;
+}
+</style>

@@ -41,3 +41,9 @@ export const postEventImage = async ( event ) => {
     .then(res => res)
     .catch(e => { console.log(e); });
 }
+
+export const getEventImageList = async () => {
+  return await basic.get('events/images')
+    .then(res => res)
+    .catch(e => { console.log(e); });
+}

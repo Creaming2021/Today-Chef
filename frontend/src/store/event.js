@@ -4,6 +4,7 @@ export default {
   state: {
     eventList: [],
     event: {},
+    imageList: [],
   },
   mutations: {
     SET_EVENT_LIST(state, payload){
@@ -11,6 +12,9 @@ export default {
     },
     SET_EVENT(state, payload){
       state.event = payload;
+    },
+    SET_EVENT_IMAGE_LIST(state, payload){
+      state.imageList = payload;
     },
   },
   actions: {
@@ -57,6 +61,13 @@ export default {
               ...event,
               image: data,
             });
+        })
+        .catch(e => { console.log(e); });
+    },
+    GET_EVENT_IMAGE_LIST({ commit }) {
+      event.getEventImageList()
+        .then(({ data }) => {
+          commit('SET_EVENT_IMAGE_LIST', data);
         })
         .catch(e => { console.log(e); });
     },
