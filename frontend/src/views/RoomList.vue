@@ -358,6 +358,12 @@ export default {
         }
     },
     created() {
+        if(this.$store.state.user.memberId === ''){
+            this.$router.push({
+                name: "Error",
+            })
+        }
+
         this.getSocket.on('roomAdded', data => {
             this.rooms.unshift(JSON.parse(data));
         });
