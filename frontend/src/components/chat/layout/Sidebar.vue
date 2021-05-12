@@ -38,9 +38,9 @@ export default {
 <style lang="scss" scoped>
 .sidebar {
     height: 100vh;
-    position: fixed;
+    position: relative;
     left: 0;
-    background: rgba($color: #101113, $alpha: 0.9);
+    background: rgba($color: #f3f2ee, $alpha: 0.9);
     width: 300px;
     overflow: auto;
     display: flex;
@@ -53,7 +53,7 @@ export default {
         align-items: center;
         padding: 1rem 0;
         margin: 0 1rem;
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid black;
     }
 
     &__body {

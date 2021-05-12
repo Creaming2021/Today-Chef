@@ -25,18 +25,15 @@
                     </div>
                     <!-- Message belongs to the admin -->
                     <div class="chat__message-item u-flex-center" v-else-if="message.admin">
-                        <img
+                        <!-- <img
                             src="@/assets/img/icons8-businessman.svg"
                             class="chat__user-avatar"
                             alt
-                        >
+                        > -->
                         <div class="chat__message-body">
-                            <div class="chat__message-content">
-                                <span>{{ message.content }}</span>
-                            </div>
-                            <div class="chat__message-details">
-                                <span>Admin</span>
-                                <span>{{ moment(message.created_at).fromNow() }}</span>
+                            <div class="chat__message-alert">
+                                <!-- Here -->
+                                <span> {{ message.content }} </span>
                             </div>
                         </div>
                     </div>

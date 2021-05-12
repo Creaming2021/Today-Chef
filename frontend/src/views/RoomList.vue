@@ -42,51 +42,58 @@
                     </div>
                     <!-- RoomList Header End -->
                     <transition name="slideDown">
-                        <ul class="rooms__list">
-                            <transition-group name="slideUp" v-if="filteredRooms.length > 0">
-                                <li
-                                    v-for="room in filteredRooms"
-                                    :key="room._id"
-                                    class="rooms__list-item"
-                                >
-                                    <a
-                                        :href="`room/${room._id}`"
-                                        class="rooms__list-item-link"
-                                        @click.prevent="handleRoomClick(room)"
-                                    >
-                                        <div class="rooms__item-container">
-                                            <div class="rooms__item-details">
-                                                <p>{{ room.name }}</p>
-                                                <p
-                                                    :class="{ public: room.access, private: !room.access}"
-                                                >{{ room.access === true ? 'Public': 'Private' }}</p>
-                                                <p>
-                                                    <strong>Users:</strong>
-                                                    {{ room.users.length }}
-                                                </p>
-                                                <p>
-                                                    <strong>Room Admin:</strong>
-                                                    {{ room.user ? room.user.handle : 'Unknown User' }}
-                                                </p>
-                                            </div>
-                                            <div class="rooms__item-actions">
-                                                <div
-                                                    v-show="room.user && getUserData._id === room.user._id"
-                                                    class="rooms__item-action"
+                        <div class="row">
+                            <div class="col-lg-12"> 
+                                <ul class="rooms__list">
+                                    <transition-group name="slideUp" v-if="filteredRooms.length > 0">
+                                        <li
+                                            v-for="room in filteredRooms"
+                                            :key="room._id"
+                                            class="rooms__list-item chat-room col-lg-3 col-md-4 col-xs-12"
+                                        >
+                                                <a
+                                                    :href="`room/${room._id}`"
+                                                    class="rooms__list-item-link"
+                                                    @click.prevent="handleRoomClick(room)"
                                                 >
-                                                    <a
-                                                        @click.stop="handleDelete"
-                                                        :name="room.name"
-                                                        class="btn btn--danger"
-                                                    >Delete</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </transition-group>
-                            <span v-else>No Rooms</span>
-                        </ul>
+                                                    <div class="rooms__item-container">
+                                                        <div class="rooms__item-details">
+                                                            <p>{{ room.name }}</p>
+                                                            <p
+                                                                :class="{ public: room.access, private: !room.access}"
+                                                            >{{ room.access === true ? 'Public': 'Private' }}</p>
+                                                            <p>
+                                                                <strong>Users:</strong>
+                                                                {{ room.users.length }}
+                                                            </p>
+                                                            <p>
+                                                                <strong>Room Admin:</strong>
+                                                                {{ room.user ? room.user.handle : 'Unknown User' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="rooms__item-actions">
+                                                            <div
+                                                                v-if="room.user && getUserData._id === room.user._id"
+                                                                class="rooms__item-action"
+                                                            >
+                                                                <a
+                                                                    @click.stop="handleDelete"
+                                                                    :name="room.name"
+                                                                    class="btn btn--danger"
+                                                                >Delete</a>
+                                                            </div>
+                                                            <div v-else>
+                                                                <span class="btn btn--clear">Delete</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                        </li>
+                                    </transition-group>
+                                    <span v-else>No Rooms</span>
+                                </ul>
+                            </div>
+                        </div>
                     </transition>
                     <!-- Private Room Enter Modal  : modal.scss -->
                     <Modal name="private-room" ref="privateRoom">
@@ -388,4 +395,9 @@ export default {
 @import '@/assets/scss/views/rooms.scss';
 @import '@/assets/scss/components/form.scss';
 @import '@/assets/scss/base/base.scss';
+
+.chat-room {
+    display: inline-block;
+}
+
 </style>
