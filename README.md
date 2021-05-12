@@ -86,6 +86,16 @@
     <ul>
         <a href="documents/dev_log/20210503_dev_log.md"><li>5/3 - 팀 미팅 의견 반영 및 서비스 추가 / 개발 </li></a>
         <a href="documents/dev_log/20210504_dev_log.md"><li>5/4 - 개발 (TODO 기반) </li></a>
+        <a href="documents/dev_log/20210506_dev_log.md"><li>5/6 - 교보재 결제 & 개인 개발 진행 (주 - API 테스트) </li></a>
+        <a href="documents/dev_log/20210507_dev_log.md"><li>5/7 - 개발 (TODO 기반 : 배송 조회 API, 검색 필터, 채팅 기능, 스트리밍 및 STT 구현) </li></a>
+    </ul>
+</details>
+<details>
+    <summary>5주차</summary>
+    <ul>
+        <a href="documents/dev_log/20210510_dev_log.md"><li>5/10 - 일정 변경 및 정리, 팀 미팅 개발 상황 공유, 개발 진행 </li></a>
+        <a href="documents/dev_log/20210511_dev_log.md"><li>5/11 - 개발 (TODO 기반) </li></a>
+        <a href="documents/dev_log/20210512_dev_log.md"><li>5/12 - 팀 회의 (서비스 명, 로고 수정, AR, UCC 영상 기획), 개발 (TODO 기반)  </li></a>
     </ul>
 </details>
 
