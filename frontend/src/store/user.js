@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 import * as kakao from '@/api/kakao.js';
 import * as user from '@/api/user.js';
+import * as chat from '@/api/chat.js';
 
 export default {
   state: {
@@ -77,7 +78,21 @@ export default {
             memberId: data.memberId,
             couponId: 1
           });
+          dispatch('SIGN_UP_IN_CHAT', {
+            handle: memberInfo.nickname,
+            username: memberInfo.nickname,
+            email: memberInfo.email,
+          })
         });
+    },
+    SIGN_UP_IN_CHAT({ commit }, request) {
+        chat.signUpInChat(request)
+        .then(() => {
+          console.log(commit);
+        })
+        .catch((e) => {
+          console.log(e);
+        })
     },
     SIGN_OUT({ commit }) {
       sessionStorage.clear();
