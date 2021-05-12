@@ -31,7 +31,6 @@ VueRouter.prototype.push = function push(location) {
     });
 };
 
-
 const routes = [
   {
     path: "/",
@@ -39,9 +38,19 @@ const routes = [
     component: Home,
   },
   {
-    path: "/notice",
-    name: "Notice",
-    component: Notice,
+    path: "/creator/list",
+    name: "MyCourse",
+    component: MyCourse,
+  },
+  {
+    path: "/payment/course",
+    name: "PaymentCourse",
+    component: PaymentCourse,
+  },
+  {
+    path: "/payment/product",
+    name: "PaymentProduct",
+    component: PaymentProduct,
   },
   {
     path: "/notice/:number",
@@ -52,11 +61,6 @@ const routes = [
     path: "/me/:type",
     name: "Profile",
     component: Profile,
-  },
-  {
-    path: "/creator/list",
-    name: "MyCourse",
-    component: MyCourse,
   },
   {
     path: "/creator/:mode/:type",
@@ -79,14 +83,9 @@ const routes = [
     component: ItemDetail,
   },
   {
-    path: "/payment/course",
-    name: "PaymentCourse",
-    component: PaymentCourse,
-  },
-  {
-    path: "/payment/product",
-    name: "PaymentProduct",
-    component: PaymentProduct,
+    path: "/notice",
+    name: "Notice",
+    component: Notice,
   },
   {
     path: "/cart",
@@ -103,7 +102,6 @@ const routes = [
     name: "Error",
     component: ErrorPage,
   },
-  // chat
   {
     path: "/chat",
     name: "Chat",
@@ -119,6 +117,10 @@ const routes = [
     name: "Room",
     component: Room,
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/error',
+  }
 ];
 
 const router = new VueRouter({

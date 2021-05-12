@@ -6,7 +6,7 @@ import store from "./store";
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-// chat
+import VueSweetalert2 from 'vue-sweetalert2';
 import io from 'socket.io-client';
 import moment from 'moment';
 import axios from 'axios';
@@ -14,6 +14,7 @@ import axios from 'axios';
 window.Kakao.init('3a4c716678b023fe5358b12888ad66a7');
 
 Vue.use(BootstrapVue);
+Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false;
 // chat start //

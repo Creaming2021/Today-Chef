@@ -9,6 +9,7 @@ export default {
     nickname : '',
     authObj: {},
     emailState: false,
+    nicknameState: false,
   },
   mutations: {
     SET_AUTH_OBJ(state, payload){
@@ -28,9 +29,13 @@ export default {
       state.nickname = '';
       state.authObj = {};
       state.emailState = false;
+      state.nicknameState = false;
     },
     SET_EMAIL_STATE(state, payload){
       state.emailState = payload;
+    },
+    SET_NICKNAME_STATE(state, payload){
+      state.nicknameState = payload;
     },
     SET_NICKNAME(state, payload){
       state.nickname = payload;
@@ -62,12 +67,16 @@ export default {
           phone: memberInfo.phone,
           email: memberInfo.email,
         })
-        .then(() => {
+        .then(({ data }) => {
           Swal.fire({
             icon: 'success',
             text: '성공적으로 회원가입을 완료했습니다.',
           });
           dispatch('SIGN_IN', state.authObj);
+          dispatch('SET_COUPON', {
+            memberId: data.memberId,
+            couponId: 1
+          });
         });
     },
     SIGN_OUT({ commit }) {
@@ -93,8 +102,30 @@ export default {
         })
         .catch(e => { console.log(e); });
     },
+    CHECK_NICKNAME({ commit }, request) {
+      user.checkNickname(request)
+        .then(({ data }) => {
+          if(data) {
+            Swal.fire({
+              icon: 'success',
+              text: '사용 가능한 닉네임 입니다.',
+            });
+            commit('SET_NICKNAME_STATE', true);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              text: '이미 사용중인 닉네임 입니다.',
+            });
+            commit('SET_NICKNAME_STATE', false);
+          }
+        })
+        .catch(e => { console.log(e); });
+    },
     SET_EMAIL_STATE({ commit }, request) {
       commit('SET_EMAIL_STATE', request);
-    }
+    },
+    SET_NICKNAME_STATE({ commit }, request) {
+      commit('SET_NICKNAME_STATE', request);
+    },
   },
 };

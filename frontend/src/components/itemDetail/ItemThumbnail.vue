@@ -3,19 +3,19 @@
     <img 
       id="first-image"
       @click="onOpenThumbnailModal"
-      :src="imageList[0].imageUrl"/>
+      :src="imageList[0].imageUrl || imageList[0]"/>
     <img 
       id="second-image"
       @click="onOpenThumbnailModal"
-      :src="imageList[1].imageUrl"/>
+      :src="imageList[1].imageUrl || imageList[1]"/>
     <img 
       id="third-image"
       @click="onOpenThumbnailModal"
-      :src="imageList[2].imageUrl"/>
+      :src="imageList[2].imageUrl || imageList[2]"/>
     <img 
       id="fourth-image"
       @click="onOpenThumbnailModal"
-      :src="imageList[3].imageUrl"/>
+      :src="imageList[3].imageUrl || imageList[3]"/>
     <div 
       v-if="imageList.length > 4"
       class="remain-image-cnt"
@@ -24,7 +24,7 @@
     <b-modal v-model="openThumbnailModal" size="lg" hide-footer hide-header>
       <p class="thumbnail-modal-btn" @click="onCloseThumbnailModal">X</p>
       <span class="thumbnail-modal-btn" @click="onClickDecreaseImageIdx">이전</span>
-      <img class="modalImage" :src="imageList[currentImage].imageUrl"/>
+      <img class="modalImage" :src="imageList[currentImage].imageUrl || imageList[currentImage]"/>
       <span class="thumbnail-modal-btn" @click="onClickIncreaseImageIdx">다음</span>
     </b-modal>
   </div>
@@ -49,6 +49,9 @@ export default {
     imageList: function(){
       return this.settingItemList();
     },
+  },
+  props: {
+    images: Array,
   },
   created() {
     this.settingItemList();
@@ -75,7 +78,7 @@ export default {
     },
     settingItemList(){
       let item = this.$route.params.item;
-      return item === 'course' ? this.courseImageList : this.productImageList;
+      return this.images || (item === 'course' ? this.courseImageList : this.productImageList);
     },
   },
   watch: {

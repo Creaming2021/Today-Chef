@@ -17,14 +17,29 @@
       </div>
     </td>
     <td class="cart__price">{{cartDetail.price * cartDetail.amount}} 원</td>
-    <td class="cart__close"><i class="fa fa-close"></i></td>
+    <td class="cart__close" @click="deleteCart"><i class="fa fa-close"></i></td>
   </tr>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   props: {
     cartDetail: Object,
+  },
+  computed: {
+    ...mapState({
+      memberId: state => state.user.memberId,
+    }),
+  },
+  methods: {
+    deleteCart(){
+      this.$store.dispatch('DELETE_CART_LIST', {
+        memberId: this.memberId,
+        cartId: this.cartDetail.cartId,
+      });
+    }
   }
 }
 </script>

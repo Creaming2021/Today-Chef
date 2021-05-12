@@ -35,6 +35,9 @@ export default {
       likeState: false,
     }
   },
+  props: {
+    itemDetail: Object,
+  },
   created() {
     this.settingItemInfo();
   },
@@ -50,14 +53,33 @@ export default {
   },
   methods: {
     goToCart() {
-      alert("장바구니 추가 요청");
-      this.$router.push({
-        name: 'Cart',
-      })
+      if(this.user === ''){
+        this.$swal.fire({
+          icon: 'warning',
+          text: '로그인 후 사용 가능합니다.',
+        });
+      }else{
+        this.$swal.fire({
+          icon: 'question',
+          text: '구입할 갯수를 입력하세요.',
+          input: 'number',
+          showCancelButton: true,
+          inputValidator: ( amount ) => {
+            this.$store.dispatch('POST_CART_LIST', {
+              memberId: this.user,
+              amount: amount,
+              productId: this.$route.params.id,
+            });
+            this.$router.push({
+              name: 'Cart',
+            });
+          }
+        });
+      }
     },
     settingItemInfo(){
       this.item = this.$route.params.item;
-      return this.item === 'course' ? this.course : this.product;
+      return this.itemDetail || ( this.item === 'course' ? this.course : this.product );
     },
     goToPayment(){
       this.$router.push({
