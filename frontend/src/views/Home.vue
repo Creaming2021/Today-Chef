@@ -3,7 +3,7 @@
     <!-- <div id="preloder">
         <div class="loader"></div>
     </div> -->
-    <Event/>
+    <Event :imageList="eventImageList"/>
     <div class="home-sub-title">밀키트 TOP 6</div>
     <TopList
       :item="'product'"
@@ -39,11 +39,13 @@ export default {
   },
   created() {
     this.getTopList();
+    this.getEventImageList();
   },
   computed: {
     ...mapState({
       courseTopList: state => state.course.topList,
       productTopList: state => state.product.topList,
+      eventImageList: state => state.event.imageList,
     }),
   },
   methods: {
@@ -68,8 +70,11 @@ export default {
       this.$store.dispatch('GET_PRODUCT_TOP_LIST', {
         count: 6,
         category: 'KOREA',
-      });;
+      });
     },
+    getEventImageList(){
+      this.$store.dispatch('GET_EVENT_IMAGE_LIST');
+    }
   },
   data() {
     return {
