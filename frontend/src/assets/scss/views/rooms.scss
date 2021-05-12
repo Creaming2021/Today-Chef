@@ -3,7 +3,7 @@
 @import '../base/base.scss';
 
 .rooms {
-    background: lightblue;
+    background:#f3f2ee;
     box-shadow: $primary-container-box-shadow;
     width: 80%;
     max-width: auto;
@@ -28,6 +28,7 @@
 
         &-item {
             display: flex;
+            color: black;
             align-items: center;
             font-weight: bold;
 
@@ -44,10 +45,12 @@
     &__list {
         margin: 0;
         padding: 0 1rem;
-        // height: 500px;
-        // max-height: 500px;
+        // Here : 채팅방 리스트 화면 크기 설정
+        // 스크롤 안나오게 해야함
+        height: 500px;
+        max-height: 500px;
         overflow: auto;
-
+        
         &-item {
             list-style: none;
             margin: 0 0 1rem 0;
@@ -59,7 +62,7 @@
 
             &-link {
                 text-decoration: none;
-                color: #fff;
+                color: black;
             }
         }
     }
@@ -69,12 +72,15 @@
     // }
 
     &__item {
+
+        display: block;
+
         &-container {
-            display: flex;
+            // display: flex;
             padding: 1rem;
             border-radius: 3px;
-            border: 1px solid #eeeeee;
-
+            border: 1px solid black;
+            
             @include respond(phone) {
                 flex-flow: column;
             }
@@ -92,7 +98,7 @@
 
         /** List Item Actions */
         &-actions {
-            display: flex;
+            // display: flex;
             justify-content: flex-end;
 
             @include respond(phone) {

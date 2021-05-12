@@ -155,6 +155,11 @@ li .nav__link.router-link-exact-active {
         margin: 0;
         height: 100%;
     }
+
+    &--clear {
+        visibility: hidden;
+        border-radius: 5px;
+    }
 }
 
 .badge {
@@ -185,11 +190,13 @@ li .nav__link.router-link-exact-active {
 .icon {
     font-size: 1.5em;
     margin: 0 0.4em;
+    color: black;
 }
 
 .page {
     min-height: 85vh;
-    width: 100%;
+    width: 80%;
+    max-width: auto;
     background: transparent;
     color: #fff;
     // background: url(@/assets/img/BackgroundPath.svg) no-repeat;
@@ -199,6 +206,7 @@ li .nav__link.router-link-exact-active {
     position: relative;
     z-index: 2;
     overflow: hidden;
+    margin: 0 auto;
 
     @include respond(phone) {
         height: 100%;
@@ -219,7 +227,7 @@ li .nav__link.router-link-exact-active {
         width: auto;
         display: inline-block;
         font-family: 'Russo One', sans-serif;
-        color: red;
+        color: black;
     }
 
     // &__lead {
