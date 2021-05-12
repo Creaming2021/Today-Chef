@@ -50,15 +50,27 @@ export default {
           dispatch('SIGN_IN', authObj);
         });
     },
-    SIGN_IN({ commit }, authObj) {
+    SIGN_IN({ commit, dispatch }, authObj) {
       user.signIn(authObj.id)
         .then(({ data }) => {
           sessionStorage.setItem('access_token', authObj.auth.access_token);
           sessionStorage.setItem('refresh_token', authObj.auth.refresh_token);
           commit('SET_SIGN_IN', data);
+          dispatch('SIGN_IN_CHAT', {
+            email: data.email,
+          });
         })
         .catch(() => {
           commit('SET_SIGN_STATUS', 'signUp');
+        });
+    },
+    SIGN_IN_CHAT({ dispatch }, request) {
+      chat.signInChat(request)
+        .then(({ data }) => {
+          dispatch('saveChatUserData', data.user);
+        })
+        .catch((e) => {
+          console.log(e);
         });
     },
     SIGN_UP({ dispatch, state }, memberInfo) {
@@ -78,21 +90,21 @@ export default {
             memberId: data.memberId,
             couponId: 1
           });
-          dispatch('SIGN_UP_IN_CHAT', {
+          dispatch('SIGN_UP_CHAT', {
             handle: memberInfo.nickname,
             username: memberInfo.nickname,
             email: memberInfo.email,
-          })
+          });
         });
     },
-    SIGN_UP_IN_CHAT({ commit }, request) {
-        chat.signUpInChat(request)
-        .then(() => {
-          console.log(commit);
-        })
-        .catch((e) => {
-          console.log(e);
-        })
+    SIGN_UP_CHAT({ commit }, request) {
+        chat.signUpChat(request)
+          .then(() => {
+            console.log(commit);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
     },
     SIGN_OUT({ commit }) {
       sessionStorage.clear();
