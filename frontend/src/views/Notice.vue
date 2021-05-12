@@ -1,102 +1,98 @@
 <template>
   <div class="notice-container">
     <div class="body-header">공지사항</div>
-    <div class="body">
-      <div v-if="view === 'list'">
-        <List
-          :type="type"
-          :list="noticeList"
-          :pageTotal="pageTotal"
-          :currentPage="currentPage"/>
+    <div class="list-container">
+      <button 
+        v-if="role"
+        class="write-btn"
+        @click="onClickOpenModal">공지사항 작성하기</button>
+      <div 
+        class="list-item" 
+        v-for="item in eventList" 
+        :key="item.id"
+        @click="onGoToNoticeDetail(item.id)">
+          <span class="title">{{item.title}}</span>
+          <span class="detail">{{item.date.substring(0,10)}}</span>
+        <hr/>
       </div>
-      <ListDetail
-        v-if="view === 'detail'"
-        :type="type"
-        :item="noticeInfo"/>
+      <!-- <div class="row">
+        <div class="col-lg-12">
+          <div class="product__pagination">
+            <a v-for="i in pageTotal" :key="i"
+              :class="i === currentPage && 'active'">
+              {{i}}
+            </a>
+          </div>
+        </div>
+      </div> -->
+      <b-modal v-model="openModal" size="xl" centered hide-footer hide-header>
+        <p class="modal-btn" @click="onClickCloseModal">X</p>
+        <input 
+          class="board-title"
+          v-model="board.title" 
+          placeholder="제목을 입력하세요."/>
+        <editor
+          ref="content"
+          height="650px"
+          editType="wysiwyg"
+          placeholder="내용을 작성하세요."
+          previewStyle="tab"
+        />
+        <button 
+          @click="submitNotice"
+          class="write-btn board-submit">공지사항 작성 완료</button>
+      </b-modal>
     </div>
   </div>
 </template>
 
 <script>
-import List from '@/components/common/List.vue';
-import ListDetail from '@/components/common/ListDetail.vue';
+import { mapState } from 'vuex';
+import { Editor } from '@toast-ui/vue-editor';
 
 export default {
   data(){
     return {
-      type: 'notice',
-      view: 'list',
-      pageTotal: 5,
-      currentPage: 1,
-      noticeList: [
-        {
-          id: 1,
-          profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-          title: '이벤트 제목',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          imageUrl: 'https://lh3.googleusercontent.com/proxy/Fpk7E8Oc7gPcDsmdsYGN-i48HlRb0FAHdRO5KPQb6jbc9JayNkGtnWOiKDvBBtSYM8YOcWUXHiHP8_66c6nV0XJHeJvyFK7T4OZcqVuM1DGqbelzpVAA',
-        },
-        {
-          id: 2,
-          profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
-          title: '이벤트 제목',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          imageUrl: 'https://i.pinimg.com/originals/ad/e2/b3/ade2b3d4952f21339792c153b8fea8f0.png',
-        },
-        {
-          id: 3,
-          profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
-          title: '이벤트 제목',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          imageUrl: 'https://lh3.googleusercontent.com/proxy/UskfKbmMMCFSb1DW1k1QEfckkUZNo4RdqbTfjb7MwUnmUI6Y_cDTvljo8pW0h9S9wu0xeg5TPxtReGQVHBKl9Gch_SPRnf75GY1-oNRt8OfPKRp_7SP6LvHKBCowGo97YIuj53owjtOrRqyjS04HHUpaArq31h-EE97EIP4zA8HPPxWcivQ',
-        },
-        {
-          id: 4,
-          profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
-          title: '이벤트 제목',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          imageUrl: 'http://imagescdn.gettyimagesbank.com/500/201807/jv11177023.jpg',
-        },
-        {
-          id: 5,
-          profile:'https://t1.daumcdn.net/liveboard/styleade/b27fc94234c34dbc9240f1943cb2f0b5.png',
-          title: '이벤트 제목',
-          writer: '작성자 닉네임',
-          date: '2021년 4월 21일',
-          imageUrl: 'https://cdn.imweb.me/upload/S20191001749a3c1500682/2c7eec1aec69e.png',
-        }
-      ],
-      noticeInfo: {
-        id: 1,
-        profile:'https://img.sbs.co.kr/newsnet/etv/upload/2021/03/05/30000673929_1280.jpg',
-        title: '이벤트 제목',
-        content: '이벤트 내용',
-        writer: '작성자 닉네임',
-        date: '2021년 4월 21일',
-          imageUrl: 'https://www.kyeonggi.com/news/photo/201907/2138026_928105_1930.jpg',
-      },
+      openModal: false,
+      board: {
+        title: '',
+        content: '',
+      }
     }
   },
+  created(){
+    this.getNoticeList();
+  },
   components: {
-    List,
-    ListDetail,
+    editor: Editor,
+  },
+  computed: {
+    ...mapState({
+      role: state => state.user.role,
+      eventList: state => state.event.eventList,
+    }),
   },
   methods: {
-    checkQuery() {
-      const id = this.$route.params.number;
-      if(id){
-        this.getNoticeInfo(this.$route.params.number);
-        this.view = 'detail';
-      }else{
-        this.view = 'list';
-      }
+    getNoticeList(){
+      this.$store.dispatch('GET_EVENT_LIST');
     },
-    getNoticeInfo(id){
-      alert(`${id}로 요청 때립니다.`);
+    onGoToNoticeDetail(id){
+      this.$router.push({
+        name: 'NoticeDetail',
+        params: { number: id },
+      });
+    },
+    onClickOpenModal(){
+      this.openModal = true;
+    },
+    onClickCloseModal(){
+      this.openModal = false;
+    },
+    submitNotice(){
+      this.board.content = this.$refs.content.invoke("getMarkdown");
+
+      this.$store.dispatch('POST_EVENT', this.board);
+      this.onClickCloseModal();
     },
   },
   watch: { 
@@ -110,10 +106,104 @@ export default {
 </script>
 
 <style>
-
-.notice-container .body{
+.list-container {
   width: 60%;
   margin: auto;
   padding-bottom: 100px; 
+  text-align: left;
 }
+
+.write-btn{
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 10px;
+  width: 150px;
+  height: 40px;
+  background-color: #f3f2ee;
+  font-weight: bold;
+
+  /* position: absolute;
+  right: 20px;
+  margin-bottom: 50px; */
+}
+
+.write-btn:hover{
+  color: #f3f2ee;
+  background-color: #e53637;
+}
+
+.board-submit {
+  margin: 20px 0px 10px 0px;
+}
+
+.list-container .list-item{
+  cursor: pointer;
+}
+
+.list-container .title{
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  width: 90%;
+  padding: 20px 20px 0px 20px;
+}
+
+.list-container .detail{
+  display: inline-block;
+  font-size: 1rem;
+  color: darkgray;
+  font-weight: bold;
+  width: 10%;
+}
+
+.list-container .list-item-cnt{
+  float: right;
+  display: block;
+  border-radius: 50%;
+  border: 1.5px solid darkgray;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.list-container .list-item-thumbnail{
+  float: right;
+  display: block;
+  width: 70px;
+  height: 70px;
+}
+
+.list-container .list-item-cnt div{
+  font-size: 0.8rem;
+  font-weight: lighter;
+}
+
+.modal-btn{
+  text-align: right;
+  cursor: pointer;
+}
+
+.board-title{
+  width: 100%;
+  height: 50px;
+  padding-left: 10px;
+  margin: 0px auto 20px auto;
+  border-radius: 10px;
+  border: 1px solid darkgray;
+}
+
+/* @media screen and (max-width: 1500px) {
+  .list-container .list-item-left{
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .list-container .list-item-left{
+    width: 50%;
+  }
+} */
 </style>

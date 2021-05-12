@@ -147,7 +147,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .item-detail-container{
   padding: 10px;
 }
