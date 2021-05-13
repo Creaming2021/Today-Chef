@@ -3,6 +3,8 @@ package creaming.service;
 import creaming.domain.kakaopay.Kakaopay;
 import creaming.domain.kakaopay.KakaopayRepository;
 import creaming.dto.KakaopayDto;
+import creaming.dto.OrderDto;
+import creaming.dto.RegisterDto;
 import creaming.exception.BaseException;
 import creaming.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +34,10 @@ public class KakaopayService {
     private final KakaopayRepository kakaopayRepository;
     private KakaopayDto.KakaopayReady kakaoPayReadyDto;
     private int amount;
+    private String url = "http://localhost:9999/api/";
 
     // 결제 준비
-    public String kakaoPayReady(int amount) {
+    public Kakaopay kakaoPayReady(int amount) {
         this.amount = amount;
 
         RestTemplate restTemplate = new RestTemplate();
@@ -58,9 +61,9 @@ public class KakaopayService {
         params.add("quantity", amount + "");
         params.add("total_amount", amount + "");
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "https://k4b204.p.ssafy.io/api/kakao-pay/success/" + kakaopay.getId()); // 프론트 페이지 주소로 보내기
-        params.add("cancel_url", "https://k4b204.p.ssafy.io/api/kakao-pay/cancel");
-        params.add("fail_url", "https://k4b204.p.ssafy.io/api/kakao-pay/fail");
+        params.add("approval_url", url + "kakao-pay/success/" + kakaopay.getId()); // 프론트 페이지 주소로 보내기
+        params.add("cancel_url", url + "kakao-pay/cancel");
+        params.add("fail_url", url + "/kakao-pay/fail");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
 
@@ -74,14 +77,15 @@ public class KakaopayService {
             kakaopay.setTid(kakaoPayReadyDto.getTid());
             kakaopay.setUrl(kakaoPayReadyDto.getNext_redirect_pc_url());
 
-            return kakaoPayReadyDto.getNext_redirect_pc_url();
+            return kakaopay;
 
         } catch (RestClientException | URISyntaxException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        return "/kakao-pay";
+        kakaopay.setUrl("/kakao-pay");
+        return kakaopay;
     }
 
 

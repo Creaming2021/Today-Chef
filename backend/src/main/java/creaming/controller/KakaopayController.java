@@ -1,7 +1,11 @@
 package creaming.controller;
 
 import creaming.dto.KakaopayDto;
+import creaming.dto.OrderDto;
+import creaming.dto.RegisterDto;
 import creaming.service.KakaopayService;
+import creaming.service.MemberService;
+import creaming.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,15 +22,13 @@ import java.io.IOException;
 public class KakaopayController {
 
     private final KakaopayService kakaoPayService;
-
+    private String url = "http://localhost:8080/payment/";
 
     @GetMapping
     public ResponseEntity<KakaopayDto.KakaopayAddress> kakaoPay(@RequestParam("amount") int amount,
                                                                 HttpServletResponse response) throws IOException {
         log.info("kakaoPay post.. amount: {}", amount);
-
-//        return "redirect:" + kakaoPay3334Service.kakaoPayReady(amount); // 프론트 주소를 보내보자
-        String result = kakaoPayService.kakaoPayReady(amount);
+        String result = kakaoPayService.kakaoPayReady(amount).getUrl();
         log.info("result: {}", result);
         return ResponseEntity.status(HttpStatus.OK).body(new KakaopayDto.KakaopayAddress(result));
     }
@@ -39,20 +41,21 @@ public class KakaopayController {
         log.info("kakaoPaySuccess kakaopayId : " + kakaopayId);
         log.info("kakaoPaySuccess pg_token : " + pg_token);
         KakaopayDto.KakaopayApproval result = kakaoPayService.kakaoPayInfo(kakaopayId, pg_token);
+        log.info("result: " + result);
 
-        response.sendRedirect("https://k4b204.p.ssafy.io");
+        response.sendRedirect(url + "success");
     }
 
     @GetMapping("/cancel")
     public void kakaoPayCancel(HttpServletResponse response) throws IOException {
         log.info("kakaoPayCancel get .....");
-        response.sendRedirect("https://k4b204.p.ssafy.io");
+        response.sendRedirect(url + "fail");
     }
 
     @GetMapping("/fail")
     public void kakaoPayFail(HttpServletResponse response) throws IOException {
         log.info("kakaoPayFail get .....");
-        response.sendRedirect("https://k4b204.p.ssafy.io");
+        response.sendRedirect(url + "fail");
     }
 
 }
