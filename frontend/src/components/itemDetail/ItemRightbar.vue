@@ -18,7 +18,7 @@
       <b-icon icon="cart4"/> 
       <div>장바구니에 추가하기</div>
     </div>
-    <div v-if="item === 'course' && user === 'item.profile.memberId'">
+    <div v-if="item === 'course' && user === itemInfo.profile.memberId">
       <button @click="goToManageCourse">강의 정보 관리</button><br/>
       <button @click="startStreaming">수업 시작하기</button><br/>
     </div>
@@ -84,6 +84,7 @@ export default {
     goToPayment(){
       this.$router.push({
         name: 'PaymentCourse',
+        params: this.course.id,
       })
     }
   },

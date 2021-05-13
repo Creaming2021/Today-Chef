@@ -9,18 +9,23 @@ import java.time.LocalDateTime;
 public class KakaopayDto {
 
     @Data
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class KakaopayAddress {
         private String url;
     }
 
     @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class KakaopayAmount {
         private Integer total, tax_free, vat, point, discount;
     }
 
     @Data
-    public class KakaopayCard {
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class KakaopayCard {
 
         private String purchase_corp, purchase_corp_code;
         private String issuer_corp, issuer_corp_code;
@@ -29,7 +34,9 @@ public class KakaopayDto {
     }
 
     @Data
-    public class KakaopayApproval {
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class KakaopayApproval {
 
         //response
         private String aid, tid, cid, sid;
@@ -44,7 +51,7 @@ public class KakaopayDto {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class KakaopayReady {
+    public static class KakaopayReady {
 
         private String tid;
         private String next_redirect_pc_url;
