@@ -8,7 +8,6 @@ import course from './course.js';
 import member from './member.js';
 import product from './product.js';
 import order from './order.js';
-import payment from './payment.js';
 
 Vue.use(Vuex);
 
@@ -21,15 +20,14 @@ export default new Vuex.Store({
     member,
     product,
     order,
-    payment,
   },
   plugins: [
     createPersistedState({
       paths: [
         'user',
-        'order',
-        'member',
-        'payment',
+        // 'order',
+        // 'member',
+        // 'payment',
       ]
     }),
   ],

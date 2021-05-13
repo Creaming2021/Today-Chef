@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -15,6 +16,12 @@ export default {
       },
     }
     
+  },
+  computed: {
+    ...mapState({
+      memberId: state => state.user.memberId,
+      cartList: state => state.member.cartList,
+    })
   },
   created() {
 
@@ -30,6 +37,14 @@ export default {
       console.log(paymentInfo);
       this.$store.dispatch('POST_ORDER', paymentInfo);
       window.localStorage.setItem('payment_product', '');
+
+      // // 장바구니 비우기 요청
+      for(let idx in this.cartList){
+        this.$store.dispatch('DELETE_CART_LIST', {
+          memberId: this.memberId,
+          cartId: this.cartList[idx].cartId,
+        });
+      }
     }
 
     alert('마이페이지로 이동');

@@ -100,6 +100,7 @@
 <script>
 import { VueDaumPostcode } from "vue-daum-postcode";
 import { mapState } from 'vuex';
+import { payment } from '@/api/payment.js';
 
 export default {
   computed: {
@@ -155,8 +156,9 @@ export default {
         memberId: this.$store.state.user.memberId,
       }));
 
-      this.$store.dispatch('GET_PAYMENT_URL', this.paymentInfo.price);
-      // this.$store.commit('SET_PAYMENT', this.paymentInfo);
+      payment(this.paymentInfo.price)
+        .then(response => location.href = response.data.url);
+
     },
   },
   components: {
@@ -173,11 +175,11 @@ export default {
     //         console.log(`data change ${this.newWindow}`)
     //     },
     // },
-    url() {
-      if (this.url.length > 0) {
-        location.href = this.url;
-      }
-    }
+    // url() {
+    //   if (this.url.length > 0) {
+    //     location.href = this.url;
+    //   }
+    // }
   },
 }
 </script>

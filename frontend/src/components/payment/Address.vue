@@ -42,7 +42,7 @@
       <div class="checkout__input">
         <input 
           type="text" 
-          id="sample6_address" 
+          class="sample6_address" 
           @click="onOpenSettingAddress" 
           v-model="paymentInfo.address" 
           placeholder="주소" readonly>
@@ -50,7 +50,7 @@
       <div class="checkout__input">
         <input 
           type="text" 
-          id="sample6_detailAddress" 
+          class="sample6_detailAddress" 
           v-model="paymentInfo.detail" 
           placeholder="상세주소">
       </div>
