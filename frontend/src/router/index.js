@@ -14,6 +14,9 @@ import VueDaumPostcode from "vue-daum-postcode"
 import Cart from "@/views/Cart.vue";
 import Sign from "@/views/Sign.vue";
 import ErrorPage from "@/views/Error.vue";
+import Close from '@/views/Close.vue';
+import PaymentSuccess from '@/views/PaymentSuccess.vue';
+import PaymentFail from '@/views/PaymentFail.vue';
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
@@ -33,6 +36,16 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: '/payment/success',
+    name: 'PaymentSuccess',
+    component: PaymentSuccess,
+  },
+  {
+    path: '/payment/fail',
+    name: 'PaymentFail',
+    component: PaymentFail,
   },
   {
     path: "/notice",
@@ -75,7 +88,7 @@ const routes = [
     component: ItemDetail,
   },
   {
-    path: "/payment/course",
+    path: "/payment/course/:id",
     name: "PaymentCourse",
     component: PaymentCourse,
   },
@@ -98,7 +111,12 @@ const routes = [
     path: "/error",
     name: "Error",
     component: ErrorPage,
-  }
+  },
+  {
+    path: '/close',
+    name: 'Close',
+    component: Close,
+  },
 ];
 
 const router = new VueRouter({
