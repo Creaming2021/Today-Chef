@@ -36,6 +36,16 @@ body {
   font-family: "Nunito Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+.body-header{
+  text-align: center;
+  width: 100%;
+  height: 200px;
+  background-color: #f3f2ee;
+  font-weight: bold;
+  font-size: 2rem;
+  line-height: 200px;
+  margin-bottom: 50px;
+}
 
 h1,
 h2,
@@ -2409,7 +2419,7 @@ ol {
 }
 
 .cart__discount {
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
 
 .cart__discount h6 {
@@ -2662,6 +2672,7 @@ ol {
   color: #111111;
   overflow: hidden;
   margin-bottom: 18px;
+  font-weight: bold;
 }
 
 .checkout__order__products span {

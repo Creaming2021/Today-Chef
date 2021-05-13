@@ -1,6 +1,7 @@
 <template>
-  <!-- Checkout Section Begin -->
-  <section class="checkout payment">
+  <div>
+    <div class="body-header">결제하기</div>
+    <section class="checkout payment payment-container">
       <div class="container">
           <div class="checkout__form">
               <div>
@@ -87,13 +88,13 @@
           </div>
       </div>
 
-      <b-modal id="modal-scrollable" size="lg" v-model="isSettingAddressOpen" scrollable hide-footer>
-        <VueDaumPostcode 
-          @complete="onCompleteSettingAddress"
-          @close="onCloseSettingAddress"/>
-      </b-modal>
-  </section>
-  <!-- Checkout Section End -->
+    </section>
+    <b-modal id="modal-scrollable" size="lg" v-model="isSettingAddressOpen" scrollable hide-footer>
+      <VueDaumPostcode 
+        @complete="onCompleteSettingAddress"
+        @close="onCloseSettingAddress"/>
+    </b-modal>
+  </div>
 </template>
 
 <script>
@@ -120,6 +121,12 @@ export default {
     }
   },
   created() {
+    if(this.$store.state.user.memberId === ''){
+      this.$router.push({
+        name: "Error",
+      })
+    }
+
     this.$store.dispatch('GET_COURSE', this.$route.params.id);
     this.paymentInfo.courseName = this.course.name;
     this.paymentInfo.price = this.course.price;
@@ -176,4 +183,7 @@ export default {
 </script>
 
 <style>
+.payment-container{
+  margin-top: -50px;
+}
 </style>

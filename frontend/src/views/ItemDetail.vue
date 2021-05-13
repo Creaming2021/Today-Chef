@@ -39,11 +39,12 @@ export default {
         this.$store.dispatch('GET_COURSE', this.id);
       } else if(this.item === 'product') {
         this.$store.dispatch('GET_PRODUCT', this.id);
-      } else if (this.item === 'review') {
-        this.$store.dispatch('GET_REVIEW_LIST', this.id);
-      } else if (this.item === 'qna') {
-        this.$store.dispatch('GET_COURSE_QNA_LIST', this.id);
-      }
+      } 
+      // else if (this.item === 'review') {
+      //   this.$store.dispatch('GET_REVIEW_LIST', this.id);
+      // } else if (this.item === 'qna') {
+      //   this.$store.dispatch('GET_COURSE_QNA_LIST', this.id);
+      // }
     }
   },
   watch: { 

@@ -14,10 +14,22 @@ export const signIn = async ( kakaoId ) => {
 
 export const checkEmail = async ( email ) => {
   return await basic.get(
-    'users/check', 
+    'users/email', 
     {
       params : { 
         email 
+      }
+    })
+    .then(res => res)
+    .catch(e => { console.log(e); });
+}
+
+export const checkNickname = async ( nickname ) => {
+  return await basic.get(
+    'users/nickname', 
+    {
+      params : { 
+        nickname 
       }
     })
     .then(res => res)

@@ -19,6 +19,7 @@ public abstract class File extends BaseTimeEntity {
     @Column(name = "file_id")
     protected Long id;
 
+    @Lob
     protected String fileName;
 
     public File(String fileName) {

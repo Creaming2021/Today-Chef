@@ -10,13 +10,13 @@
     </nav>
     </div>
     <div class="row">
-      <div v-if="filteredCouponList.length > 0">
+      <template v-if="filteredCouponList.length > 0">
         <div 
-          class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
+          class="col-lg-4 col-md-6 col-sm-6 mix new-arrivals" 
           v-for="(coupon,idx) in filteredCouponList" :key="idx">
             <CouponItem :coupon="coupon" :idx="idx" />
         </div>
-      </div>
+      </template>
       <div v-else>
         쿠폰이 없습니다.
       </div>

@@ -3,13 +3,17 @@
     @click="() => setProductItem(itemDetail.productId)">
     <div v-if="itemDetail.name !== ''">
       <img 
-        v-if="itemDetail.images"
+        v-if="itemDetail.images && itemDetail.images[0]"
         class="blog__item__pic set-bg" 
         :src="itemDetail.images[0].imageUrl || 'https://imgix.kotaku.com.au/content/uploads/sites/3/2016/02/17/whey2gwjqbx21xu023qo.gif?ar=16%3A9&auto=format&fit=crop&q=65&w=720&nrs=40&fm=gif'"/>
       <img 
         v-else-if="itemDetail.image || itemDetail.image !== ''"
         class="blog__item__pic set-bg" 
         :src="itemDetail.image || 'https://imgix.kotaku.com.au/content/uploads/sites/3/2016/02/17/whey2gwjqbx21xu023qo.gif?ar=16%3A9&auto=format&fit=crop&q=65&w=720&nrs=40&fm=gif'"/>
+      <img
+        v-else
+        class="blog__item__pic set-bg" 
+        :src="'https://imgix.kotaku.com.au/content/uploads/sites/3/2016/02/17/whey2gwjqbx21xu023qo.gif?ar=16%3A9&auto=format&fit=crop&q=65&w=720&nrs=40&fm=gif'"/>
       <div class="blog__item__text">
         <span>{{itemDetail.category}}</span>
         <h6>{{itemDetail.name}}</h6>

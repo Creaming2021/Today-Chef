@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import Home from "@/views/Home.vue";
 import Notice from "@/views/Notice.vue";
+import NoticeDetail from "@/views/NoticeDetail.vue";
 import ItemList from "@/views/ItemList.vue";
 import ItemDetail from "@/views/ItemDetail.vue";
 import MyCourse from "@/views/MyCourse.vue";
@@ -30,7 +31,6 @@ VueRouter.prototype.push = function push(location) {
     });
 };
 
-
 const routes = [
   {
     path: "/",
@@ -48,24 +48,29 @@ const routes = [
     component: PaymentFail,
   },
   {
-    path: "/notice",
-    name: "Notice",
-    component: Notice,
+    path: "/creator/list",
+    name: "MyCourse",
+    component: MyCourse,
+  },
+  {
+    path: "/payment/course/:id",
+    name: "PaymentCourse",
+    component: PaymentCourse,
+  },
+  {
+    path: "/payment/product",
+    name: "PaymentProduct",
+    component: PaymentProduct,
   },
   {
     path: "/notice/:number",
     name: "NoticeDetail",
-    component: Notice,
+    component: NoticeDetail,
   },
   {
     path: "/me/:type",
     name: "Profile",
     component: Profile,
-  },
-  {
-    path: "/creator/list",
-    name: "MyCourse",
-    component: MyCourse,
   },
   {
     path: "/creator/:mode/:type",
@@ -88,14 +93,9 @@ const routes = [
     component: ItemDetail,
   },
   {
-    path: "/payment/course/:id",
-    name: "PaymentCourse",
-    component: PaymentCourse,
-  },
-  {
-    path: "/payment/product",
-    name: "PaymentProduct",
-    component: PaymentProduct,
+    path: "/notice",
+    name: "Notice",
+    component: Notice,
   },
   {
     path: "/cart",
@@ -116,6 +116,10 @@ const routes = [
     path: '/close',
     name: 'Close',
     component: Close,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/error',
   },
 ];
 
