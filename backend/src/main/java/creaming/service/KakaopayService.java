@@ -34,7 +34,8 @@ public class KakaopayService {
     private final KakaopayRepository kakaopayRepository;
     private KakaopayDto.KakaopayReady kakaoPayReadyDto;
     private int amount;
-    private String url = "http://localhost:9999/api/";
+    private String localUrl = "http://localhost:9999/api/";
+    private String serverUrl = "https://k4b204.p.ssafy.io/api/";
 
     // 결제 준비
     public Kakaopay kakaoPayReady(int amount) {
@@ -61,9 +62,9 @@ public class KakaopayService {
         params.add("quantity", amount + "");
         params.add("total_amount", amount + "");
         params.add("tax_free_amount", "0");
-        params.add("approval_url", url + "kakao-pay/success/" + kakaopay.getId()); // 프론트 페이지 주소로 보내기
-        params.add("cancel_url", url + "kakao-pay/cancel");
-        params.add("fail_url", url + "/kakao-pay/fail");
+        params.add("approval_url", serverUrl + "kakao-pay/success/" + kakaopay.getId()); // 프론트 페이지 주소로 보내기
+        params.add("cancel_url", serverUrl + "kakao-pay/cancel");
+        params.add("fail_url", serverUrl + "/kakao-pay/fail");
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, headers);
 

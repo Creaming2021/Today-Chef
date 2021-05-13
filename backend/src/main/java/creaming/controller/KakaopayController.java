@@ -22,7 +22,8 @@ import java.io.IOException;
 public class KakaopayController {
 
     private final KakaopayService kakaoPayService;
-    private String url = "http://localhost:8080/payment/";
+    private String localUrl = "http://localhost:8080/payment/";
+    private String serverUrl = "https://k4b204.p.ssafy.io/payment";
 
     @GetMapping
     public ResponseEntity<KakaopayDto.KakaopayAddress> kakaoPay(@RequestParam("amount") int amount,
@@ -43,19 +44,19 @@ public class KakaopayController {
         KakaopayDto.KakaopayApproval result = kakaoPayService.kakaoPayInfo(kakaopayId, pg_token);
         log.info("result: " + result);
 
-        response.sendRedirect(url + "success");
+        response.sendRedirect(serverUrl + "success");
     }
 
     @GetMapping("/cancel")
     public void kakaoPayCancel(HttpServletResponse response) throws IOException {
         log.info("kakaoPayCancel get .....");
-        response.sendRedirect(url + "fail");
+        response.sendRedirect(serverUrl + "fail");
     }
 
     @GetMapping("/fail")
     public void kakaoPayFail(HttpServletResponse response) throws IOException {
         log.info("kakaoPayFail get .....");
-        response.sendRedirect(url + "fail");
+        response.sendRedirect(serverUrl + "fail");
     }
 
 }
