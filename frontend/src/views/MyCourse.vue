@@ -1,6 +1,8 @@
 <template>
   <div class="my-course-container">
-    <div class="body-header">내가 만든 강의</div>
+    <div class="body-header">
+      <img src="@/assets/img/banner/banner-teacher.png"/>
+    </div>
     <div class="my-course-button">
       <button class="button" @click="goToCreator">강의 제작하기</button>
     </div>
