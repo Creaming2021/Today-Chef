@@ -9,6 +9,7 @@
                                 <div>
                                     <ion-icon name="contacts" class="icon"></ion-icon>
                                 </div>
+
                                 <span class="section__title">Online Users</span>
                                 <div @click="toggleUserList">
                                     <ion-icon name="backspace" class="icon"></ion-icon>
@@ -56,7 +57,8 @@
                     <div class="chat__content" v-bind:class="{ mlzero: !sidebarVisible }">
                         <!-- Here => 채팅방 헤더 : 방장만 권한주기 -->
                         <div class="chat__header" v-if="room">
-                            <span class="section__title"># {{ room.name }}</span>
+                            &nbsp; &nbsp;
+                            <span class="section__title"> {{ room.name }}</span>
                             <div class="chat__actions">
                                 <ion-icon name="return-left" @click="leaveRoom" class="icon"></ion-icon>
                                 <!-- Here -->

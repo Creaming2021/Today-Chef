@@ -1,13 +1,17 @@
 <template>
-    <div class="chat__input">
-        <textarea
-            class="chat__input-control"
-            placeholder="Type a Message"
-            v-model.trim="content"
-            v-on:keyup="triggerMessageSend"
-            data-gramm_editor="false"
-        ></textarea>
-        <button class="btn btn--clear btn--info btn-send-chat-message m-0 u-border-rad-0" @click="sendMessage">Send</button>
+    <div class="chat-input">
+        <div class="chat__input">   
+            <button class="btn btn-send-chat-message" @click="sendMessage">
+                <ion-icon name="md-paper-plane" class="send-icon"></ion-icon>
+            </button>    
+            <input
+                class="chat__input-control"
+                placeholder="Type a message here..."
+                v-model.trim="content"
+                v-on:keyup="triggerMessageSend"
+                data-gramm_editor="false"
+            />
+        </div>
     </div>
 </template>
 
@@ -66,7 +70,29 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.chat-input {
+    box-shadow: 0px 0px 20px 0.5px grey;
+}
+
 .btn-send-chat-message {
+    position: inherit;
     color: white;
+    background-color: #e53637;
+    border-radius: 100%;
+
+    position: absolute;
+    // top: 10%;
+    left: 85%;
+    margin-right: px;
+    // margin-top: 17px;
+    z-index: 1;
+    // color: #4f5b66;
+}
+
+.send-icon {
+    font-size: 1.5em;
+    color: #fff;
+    margin: 0 auto;
 }
 </style>

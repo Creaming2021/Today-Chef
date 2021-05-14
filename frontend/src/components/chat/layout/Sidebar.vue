@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar {
-    height: 100vh;
+    height: auto;
     position: relative;
     left: 0;
     background: rgba($color: #f3f2ee, $alpha: 0.9);
