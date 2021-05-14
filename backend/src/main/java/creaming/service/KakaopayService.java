@@ -34,7 +34,7 @@ public class KakaopayService {
     private final KakaopayRepository kakaopayRepository;
     private KakaopayDto.KakaopayReady kakaoPayReadyDto;
     private int amount;
-    private String localUrl = "http://localhost:9999/api/";
+//    private String serverUrl = "http://localhost:9999/api/";
     private String serverUrl = "https://k4b204.p.ssafy.io/api/";
 
     // 결제 준비
