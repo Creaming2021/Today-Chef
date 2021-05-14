@@ -15,14 +15,11 @@ import VueDaumPostcode from "vue-daum-postcode"
 import Cart from "@/views/Cart.vue";
 import Sign from "@/views/Sign.vue";
 import ErrorPage from "@/views/Error.vue";
-<<<<<<< HEAD
 import RoomList from "@/views/RoomList.vue";
 import Room from '@/views/Room.vue';
-=======
 import Close from '@/views/Close.vue';
 import PaymentSuccess from '@/views/PaymentSuccess.vue';
 import PaymentFail from '@/views/PaymentFail.vue';
->>>>>>> develop
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);

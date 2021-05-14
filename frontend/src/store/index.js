@@ -8,11 +8,8 @@ import course from './course.js';
 import member from './member.js';
 import product from './product.js';
 import order from './order.js';
-<<<<<<< HEAD
 import chat from './chat.js';
-=======
 import payment from './payment.js';
->>>>>>> develop
 
 Vue.use(Vuex);
 
@@ -25,10 +22,7 @@ export default new Vuex.Store({
     member,
     product,
     order,
-<<<<<<< HEAD
     chat,
-  }
-=======
     payment,
   },
   plugins: [
@@ -41,5 +35,4 @@ export default new Vuex.Store({
       ]
     }),
   ],
->>>>>>> develop
 });
