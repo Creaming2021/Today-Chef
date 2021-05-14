@@ -1,6 +1,8 @@
 <template>
   <div class="item-detail-container">
-    <div class="body-header">공지사항</div>
+    <div class="body-header">
+      <img src="@/assets/img/banner/banner-notice.png"/>
+    </div>
     <div class="item-detail" v-if="event.title">
       <div class="header">
         <span class="back" @click="goBack()">

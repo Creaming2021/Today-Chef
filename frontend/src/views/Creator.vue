@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="body-header">장바구니</div>
+    <div class="body-header">
+      <img src="@/assets/img/banner/banner-teacher.png"/>
+    </div>
     <div class="container">
       <div class="row">
         
