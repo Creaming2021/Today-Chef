@@ -21,6 +21,7 @@ export default {
     ...mapState({
       memberId: state => state.user.memberId,
       cartList: state => state.member.cartList,
+      cart: state => state.order.cart,
     })
   },
   created() {
@@ -38,11 +39,19 @@ export default {
       this.$store.dispatch('POST_ORDER', paymentInfo);
       window.localStorage.setItem('payment_product', '');
 
-      // // 장바구니 비우기 요청
+      // 장바구니 비우기 요청
       for(let idx in this.cartList){
         this.$store.dispatch('DELETE_CART_LIST', {
           memberId: this.memberId,
           cartId: this.cartList[idx].cartId,
+        });
+      }
+
+      // 쿠폰 사용 요청
+      if(this.cart.selectedCoupon.memberCouponId !== 0){
+        this.$store.dispatch('PUT_COUPON', {
+          memberId: this.memberId,
+          couponId: this.cart.selectedCoupon.memberCouponId,
         });
       }
     }

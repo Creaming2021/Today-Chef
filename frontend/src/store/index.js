@@ -22,13 +22,14 @@ export default new Vuex.Store({
     order,
   },
   plugins: [
-    createPersistedState({
-      paths: [
-        'user',
-        // 'order',
-        // 'member',
-        // 'payment',
-      ]
-    }),
+    // createPersistedState({
+    //   paths: [
+    //     'user',
+    //     // 'order',
+    //     'member',
+    //     // 'payment',
+    //   ]
+    // }),
+    createPersistedState(),
   ],
 });

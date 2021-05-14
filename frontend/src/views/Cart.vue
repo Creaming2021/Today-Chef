@@ -28,7 +28,7 @@
         </div>
         <div class="col-lg-4">
           <CouponList
-            :couponList="couponList"
+            :couponList="filteredCouponList"
             :selectedCoupon="selectedCoupon"
             @setCoupon="setCoupon"/>
           <div class="cart__total">
@@ -82,6 +82,9 @@ export default{
       return this.cartList.reduce((acc, curr) => 
         (acc + (curr.price * curr.amount)), 0);
     },
+    filteredCouponList() {
+      return this.couponList.filter(coupon => coupon.couponStats === 'AVAILABLE');
+    }
   },
   components: {
     CartItem,

@@ -164,23 +164,6 @@ export default {
   components: {
     VueDaumPostcode,
   },
-  watch: {
-    // flag: function() {
-    //   console.log(this.flag);
-    //   this.$router.push('payment/success');
-    // },
-    // newWindow: {
-    //     deep: true,
-    //     handler() {
-    //         console.log(`data change ${this.newWindow}`)
-    //     },
-    // },
-    // url() {
-    //   if (this.url.length > 0) {
-    //     location.href = this.url;
-    //   }
-    // }
-  },
 }
 </script>
 
