@@ -12,12 +12,13 @@
     @include respond(phone) {
         width: 100%;
     }
-
+    
     &__header {
         padding: 1rem 0;
     }
-
+    
     &__details {
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -44,12 +45,13 @@
 
     &__list {
         margin: 0;
-        padding: 0 1rem;
+        padding: 0 1rem 0.6rem;
         // Here : 채팅방 리스트 화면 크기 설정
         // 스크롤 안나오게 해야함
         height: 500px;
         max-height: 500px;
         overflow: auto;
+        text-decoration: none;
         
         &-item {
             list-style: none;
@@ -57,7 +59,7 @@
             transition: opacity 0.5s ease, transform 0.5s ease;
 
             &:hover {
-                opacity: 0.6;
+                opacity: 0.8;
             }
 
             &-link {
@@ -80,6 +82,7 @@
             padding: 1rem;
             border-radius: 3px;
             border: 1px solid black;
+            text-decoration: none;
             
             @include respond(phone) {
                 flex-flow: column;
@@ -87,7 +90,7 @@
         }
 
         &-details {
-            width: 50%;
+            width: 100%;
             text-align: left;
 
             @include respond(phone) {
@@ -120,8 +123,11 @@
 
     &__actions {
         padding: 1rem;
-
         width: 50%;
+
+        &:hover {
+            cursor: pointer;
+        }
 
         @include respond(phone) {
             & > * {

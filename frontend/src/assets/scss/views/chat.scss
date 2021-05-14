@@ -3,8 +3,8 @@
 .chat {
     // Here
     width: 80%;
-    height: 700px;
-    max-height: 700px;
+    // height: 700px;
+    // max-height: 700px;
     // position: relative;
     display: flex;
     max-width: auto;
@@ -200,7 +200,7 @@
         white-space: nowrap;
         overflow: hidden;
         transition: all 0.5s ease;
-        background: #101114;
+        background: black;
 
         & > span {
             font-family: 'Work Sans';

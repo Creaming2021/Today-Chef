@@ -44,6 +44,7 @@
                     <transition name="slideDown">
                         <div class="row">
                             <div class="col-lg-12"> 
+                                <!-- room list -->
                                 <ul class="rooms__list">
                                     <transition-group name="slideUp" v-if="filteredRooms.length > 0">
                                         <li
@@ -53,23 +54,22 @@
                                         >
                                                 <a
                                                     :href="`room/${room._id}`"
-                                                    class="rooms__list-item-link"
+                                                    class="rooms__list-item-link room-link"
                                                     @click.prevent="handleRoomClick(room)"
                                                 >
                                                     <div class="rooms__item-container">
                                                         <div class="rooms__item-details">
-                                                            <p>{{ room.name }}</p>
-                                                            <p
+                                                            <div>{{ room.name }}</div>
+                                                            <div
                                                                 :class="{ public: room.access, private: !room.access}"
-                                                            >{{ room.access === true ? 'Public': 'Private' }}</p>
-                                                            <p>
-                                                                <strong>Users:</strong>
-                                                                {{ room.users.length }}
-                                                            </p>
-                                                            <p>
-                                                                <strong>Room Admin:</strong>
+                                                            >{{ room.access === true ? '공개': '비공개' }}</div>
+                                                            <div>
+                                                                <strong>참여자 수: {{ room.users.length }}</strong>
+                                                            </div>
+                                                            <div>
+                                                                <strong>방장:</strong>
                                                                 {{ room.user ? room.user.handle : 'Unknown User' }}
-                                                            </p>
+                                                            </div>
                                                         </div>
                                                         <div class="rooms__item-actions">
                                                             <div
@@ -80,10 +80,10 @@
                                                                     @click.stop="handleDelete"
                                                                     :name="room.name"
                                                                     class="btn btn--danger"
-                                                                >Delete</a>
+                                                                >삭제</a>
                                                             </div>
                                                             <div v-else>
-                                                                <span class="btn btn--clear">Delete</span>
+                                                                <span class="btn btn--clear">삭제</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -404,6 +404,11 @@ export default {
 
 .chat-room {
     display: inline-block;
+}
+
+.room-link:hover {
+    color: black;
+    text-decoration: none;
 }
 
 </style>
