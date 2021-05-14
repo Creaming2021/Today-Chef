@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="body-header">결제하기</div>
+    <div class="body-header">
+      <img src="@/assets/img/banner/banner-payment.png"/>
+    </div>
     <section class="checkout payment payment-container">
       <div class="container">
           <div class="checkout__form">

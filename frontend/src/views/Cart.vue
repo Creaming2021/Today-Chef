@@ -1,7 +1,9 @@
 <template>
   <!-- Shopping Cart Section Begin -->
   <section class="shopping-cart shopping-cart-container">
-    <div class="body-header">장바구니</div>
+    <div class="body-header">
+      <img src="@/assets/img/banner/banner-cart.png"/>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8">

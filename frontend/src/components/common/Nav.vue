@@ -190,7 +190,7 @@ export default {
   text-align: right;
   font-size: 1rem;
   /* background-color: #f3f2ee; */
-  background-color: #b30b0b;
+  background-color: #e53637;
   padding: 10px 50px 10px 0px;
 }
 
