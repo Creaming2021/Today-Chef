@@ -97,6 +97,7 @@
         <a href="documents/dev_log/20210511_dev_log.md"><li>5/11 - 개발 (TODO 기반) </li></a>
         <a href="documents/dev_log/20210512_dev_log.md"><li>5/12 - 팀 회의 (서비스 명, 로고 수정, AR, UCC 영상 기획), 개발 (TODO 기반)  </li></a>
         <a href="documents/dev_log/20210513_dev_log.md"><li>5/13 - AR 영상 촬영, UCC 콘티 제작 및 촬영, 개발 (TODO 기반)  </li></a>
+        <a href="documents/dev_log/20210514_dev_log.md"><li>5/14 - 개발 (TODO 기반)  </li></a>
     </ul>
 </details>
 
