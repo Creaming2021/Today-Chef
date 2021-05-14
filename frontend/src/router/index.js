@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import Home from "@/views/Home.vue";
 import Notice from "@/views/Notice.vue";
+import NoticeDetail from "@/views/NoticeDetail.vue";
 import ItemList from "@/views/ItemList.vue";
 import ItemDetail from "@/views/ItemDetail.vue";
 import MyCourse from "@/views/MyCourse.vue";
@@ -14,8 +15,14 @@ import VueDaumPostcode from "vue-daum-postcode"
 import Cart from "@/views/Cart.vue";
 import Sign from "@/views/Sign.vue";
 import ErrorPage from "@/views/Error.vue";
+<<<<<<< HEAD
 import RoomList from "@/views/RoomList.vue";
 import Room from '@/views/Room.vue';
+=======
+import Close from '@/views/Close.vue';
+import PaymentSuccess from '@/views/PaymentSuccess.vue';
+import PaymentFail from '@/views/PaymentFail.vue';
+>>>>>>> develop
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
@@ -36,12 +43,22 @@ const routes = [
     component: Home,
   },
   {
+    path: '/payment/success',
+    name: 'PaymentSuccess',
+    component: PaymentSuccess,
+  },
+  {
+    path: '/payment/fail',
+    name: 'PaymentFail',
+    component: PaymentFail,
+  },
+  {
     path: "/creator/list",
     name: "MyCourse",
     component: MyCourse,
   },
   {
-    path: "/payment/course",
+    path: "/payment/course/:id",
     name: "PaymentCourse",
     component: PaymentCourse,
   },
@@ -63,7 +80,7 @@ const routes = [
   {
     path: "/notice/:number",
     name: "NoticeDetail",
-    component: Notice,
+    component: NoticeDetail,
   },
   {
     path: "/me/:type",
@@ -111,9 +128,14 @@ const routes = [
     component: ErrorPage,
   },
   {
+    path: '/close',
+    name: 'Close',
+    component: Close,
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/error',
-  }
+  },
 ];
 
 const router = new VueRouter({

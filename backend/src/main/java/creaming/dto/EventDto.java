@@ -70,4 +70,19 @@ public class EventDto {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EventImageDto {
+        private Long eventId;
+        private String image;
+
+        public EventImageDto(Event event) {
+            this.eventId = event.getId();
+            this.image = event.getImage();
+        }
+    }
+
 }

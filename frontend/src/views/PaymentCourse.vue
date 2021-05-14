@@ -6,7 +6,7 @@
           <div class="checkout__form">
               <div>
                   <div class="row">
-                      <div class="col-lg-8 col-md-6">
+                      <!-- <div class="col-lg-8 col-md-6">
                           <h4 class="checkout__title">배송 정보</h4>
                           <div class="row">
                               <div class="col-lg-6">
@@ -34,7 +34,7 @@
                               <div class="col-lg-8">
                                 <input 
                                   type="text" 
-                                  id="sample6_address" 
+                                  class="sample6_address" 
                                   @click="onOpenSettingAddress" 
                                   v-model="paymentInfo.zonecode" 
                                   placeholder="우편번호" readonly>
@@ -49,7 +49,7 @@
                             <div class="checkout__input">
                               <input 
                                 type="text" 
-                                id="sample6_address" 
+                                class="sample6_address" 
                                 @click="onOpenSettingAddress" 
                                 v-model="paymentInfo.address" 
                                 placeholder="주소" readonly>
@@ -68,7 +68,7 @@
                               type="text"
                               placeholder="예) 경비실에 맡겨주세요">
                           </div>
-                      </div>
+                      </div> -->
                       <div class="col-lg-4 col-md-6">
                           <div class="checkout__order">
                               <h4 class="order__title">결제 금액</h4>
@@ -99,30 +99,38 @@
 
 <script>
 import { VueDaumPostcode } from "vue-daum-postcode";
-// import { payment } from '@/api/payment';
+import { mapState } from 'vuex';
 
 export default {
+  computed: {
+    ...mapState({
+      url: state => state.payment.url,
+      flag: state => state.payment.flag,
+      course: state => state.course.course,
+    })
+  },
   data() {
     return {
       paymentInfo: {
-        userName: '',
-        phoneNumber: '',
         courseName: '강의 제목',
         price: 10000,
-        address: '',
-        zonecode: '',
-        detail: '',
+        courseId: 0,
       },
-      discount : 0,
+      discount: 0,
       isSettingAddressOpen: false,
     }
   },
-  created(){
+  created() {
     if(this.$store.state.user.memberId === ''){
       this.$router.push({
         name: "Error",
       })
     }
+
+    this.$store.dispatch('GET_COURSE', this.$route.params.id);
+    this.paymentInfo.courseName = this.course.name;
+    this.paymentInfo.price = this.course.price;
+    this.paymentInfo.courseId = this.id;
   },
   methods: {
     // 주소 및 우편번호 설정 관련 함수
@@ -139,20 +147,37 @@ export default {
     },
     // 결제 요청 함수
     onSubmitPayment() {
-      alert("결제 요청 보냅니다.");
-      // payment(
-      //   this.paymentInfo.price - this.discount,
-      //   (res) => {  
-      //     console.log(res);
-      //   },
-      //   (err) => {
-      //     console.log(err);
-      //   }
-      // );
-    }
+      
+      // 결제 완료 후 요청 보낼 것 미리 저장하기
+      window.localStorage.setItem('payment_course', JSON.stringify({
+        courseId: this.$route.params.id,
+        paidPrice: this.paymentInfo.price,
+        memberId: this.$store.state.user.memberId,
+      }));
+
+      this.$store.dispatch('GET_PAYMENT_URL', this.paymentInfo.price);
+      // this.$store.commit('SET_PAYMENT', this.paymentInfo);
+    },
   },
   components: {
     VueDaumPostcode,
+  },
+  watch: {
+    // flag: function() {
+    //   console.log(this.flag);
+    //   this.$router.push('payment/success');
+    // },
+    // newWindow: {
+    //     deep: true,
+    //     handler() {
+    //         console.log(`data change ${this.newWindow}`)
+    //     },
+    // },
+    url() {
+      if (this.url.length > 0) {
+        location.href = this.url;
+      }
+    }
   },
 }
 </script>

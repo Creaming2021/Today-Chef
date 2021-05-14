@@ -59,4 +59,12 @@ public class EventController {
         eventService.deleteEvent(eventId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @GetMapping("/images")
+    @Operation(summary = "이벤트 이미지 리스트 가져오기", description = "이벤트 이미지 리스트를 가져옵니다.")
+    public ResponseEntity<List<EventDto.EventImageDto>> getEventImageList() {
+        log.info("(Get) getEventImageList");
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.getEventImageList());
+    }
+
 }
