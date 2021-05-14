@@ -14,35 +14,35 @@
     box-sizing: border-box;
 }
 
-html,
-body {
-    height: 100%;
-    background: #18191c;
-    font-family: 'Work Sans', sans-serif;
-}
+// html,
+// body {
+//     height: 100%;
+//     background: #18191c;
+//     font-family: 'Work Sans', sans-serif;
+// }
 
-header {
-    background: #18191c;
-    border-bottom: 1px solid #fff;
-    width: 100%;
-    position: relative;
-    z-index: 10;
+// header {
+//     background: #18191c;
+//     border-bottom: 1px solid #fff;
+//     width: 100%;
+//     position: relative;
+//     z-index: 10;
 
-    @include respond(phone) {
-        position: fixed;
-        top: 0;
-    }
-}
+//     @include respond(phone) {
+//         position: fixed;
+//         top: 0;
+//     }
+// }
 
-img {
-    width: 100%;
-}
+// img {
+//     width: 100%;
+// }
 
-nav a {
-    text-decoration: none;
-    color: #fff;
-    margin: 0 0.5rem;
-}
+// nav a {
+//     text-decoration: none;
+//     color: #fff;
+//     margin: 0 0.5rem;
+// }
 
 li .nav__link.router-link-exact-active {
     font-weight: bold;
