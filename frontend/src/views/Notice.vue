@@ -1,6 +1,8 @@
 <template>
   <div class="notice-container">
-    <div class="body-header">공지사항</div>
+    <div class="body-header">
+      <img src="@/assets/img/banner/banner-notice.png"/>
+    </div>
     <div class="list-container">
       <button 
         v-if="role"

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="body-header">{{ item === 'course' ? '강의 찾아보기': '밀키트 찾아보기'}}</div>
+    <div class="body-header">
+      <img v-if="item === 'course'" src="@/assets/img/banner/banner-course.png" />
+      <img v-else-if="item === 'product'" src="@/assets/img/banner/banner-product.png" />
+    </div>
     <section class="shop disableselect item-list-container" >
       <div class="container">
         <div class="row">
@@ -25,7 +28,6 @@
     </section>
   </div>
 </template>
-
 
 <script>
 import { mapState } from 'vuex';

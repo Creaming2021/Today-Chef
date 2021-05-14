@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="body-header">내 정보</div>
+    <div class="body-header">
+      <img src="@/assets/img/banner/banner-profile.png"/>
+    </div>
     <section class="shop disableselect" >
       <div class="container">
         <div class="row">
