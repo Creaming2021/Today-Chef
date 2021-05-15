@@ -116,6 +116,15 @@
         }
     }
 
+    &__messages::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    &__messages::-webkit-scrollbar-thumb {
+        background-color: lightgrey;
+        border-radius: 10px;
+      }
+
     &__message {
         margin: 1.2rem 0;
         transition: opacity 0.5s ease, transform 0.5s ease;
