@@ -22,7 +22,7 @@ export default {
     name: 'Sidebar',
     data: function() {
         return {
-            visible: window.innerWidth < 768 ? false : true
+            visible: false
         };
     },
     methods: {
@@ -37,23 +37,23 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar {
-    height: auto;
-    position: relative;
-    left: 0;
+    height: 100%;
+    position: absolute;
+    right: 0px;
+    top: 0px;
     background: rgba($color: #f3f2ee, $alpha: 0.9);
     width: 300px;
     overflow: auto;
     display: flex;
     flex-flow: column;
     transition: all 0.5s ease;
-    z-index: 10;
+    z-index: 100;
 
     &__header {
         display: flex;
         align-items: center;
-        padding: 1rem 0;
+        padding: 1rem 0 0 0;
         margin: 0 1rem;
-        border-bottom: 1px solid black;
     }
 
     &__body {

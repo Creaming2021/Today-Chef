@@ -1,10 +1,10 @@
 <template>
-    <div class="page roomList">
+    <div class="roomList">
+        <div class="body-header">
+            <img src="@/assets/img/banner/banner-chat.png"/>
+        </div>
         <!-- section : base.scss -->
-        <section class="section section--mmt">
-            <div class="section__heading">
-                <span class="section__title">Room List</span>
-            </div>
+        <section class="section section--mmt section-room-list">
             <div class="section__content">
                 <Error :errorMessage="errorMessage" />
                 <!-- RoomList Start : rooms.scss -->
@@ -23,7 +23,7 @@
                                 >{{ getPrivateRooms.length }}</span>
                             </div>
                             <div class="rooms__details-item">
-                                공개방:
+                                <ion-icon name="md-unlock" class="icon"></ion-icon>
                                 <span
                                     class="badge badge--success"
                                 >{{ getPublicRooms.length }}</span>
@@ -36,7 +36,7 @@
                         <input
                             type="text"
                             class="rooms__search-input"
-                            placeholder="방 이름 검색창"
+                            placeholder="채팅방 이름 검색"
                             v-model.trim="searchInput"
                         />
                     </div>
@@ -46,11 +46,11 @@
                             <div class="col-lg-12"> 
                                 <!-- room list -->
                                 <ul class="rooms__list">
-                                    <transition-group name="slideUp" v-if="filteredRooms.length > 0">
+                                    <template name="slideUp" v-if="filteredRooms.length > 0">
                                         <li
                                             v-for="room in filteredRooms"
                                             :key="room._id"
-                                            class="rooms__list-item chat-room col-lg-3 col-md-4 col-xs-12"
+                                            class="rooms__list-item chat-room col-lg-3 col-md-4 col-xs-6"
                                         >
                                                 <a
                                                     :href="`room/${room._id}`"
@@ -59,15 +59,15 @@
                                                 >
                                                     <div class="rooms__item-container">
                                                         <div class="rooms__item-details">
-                                                            <div>{{ room.name }}</div>
+                                                            <strong>{{ room.name.substring(0,7) }}</strong>
                                                             <div
                                                                 :class="{ public: room.access, private: !room.access}"
                                                             >{{ room.access === true ? '공개': '비공개' }}</div>
                                                             <div>
-                                                                <strong>참여자 수: {{ room.users.length }}</strong>
+                                                                <div>참여자 수: {{ room.users.length }}</div>
                                                             </div>
                                                             <div>
-                                                                <strong>방장:</strong>
+                                                                <div>방장:</div>
                                                                 {{ room.user ? room.user.handle : 'Unknown User' }}
                                                             </div>
                                                         </div>
@@ -89,7 +89,7 @@
                                                     </div>
                                                 </a>
                                         </li>
-                                    </transition-group>
+                                    </template>
                                     <span v-else>No Rooms</span>
                                 </ul>
                             </div>
@@ -411,4 +411,7 @@ export default {
     text-decoration: none;
 }
 
+.section-room-list {
+    margin-top: -50px;
+}
 </style>

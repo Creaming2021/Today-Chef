@@ -3,79 +3,68 @@
         <section class="section section--room section--mmt p-0">
             <div class="section__content u-max-height p-0">
                 <div class="chat">
-                    <Sidebar name="userlist" ref="userList">
-                        <template slot="header">
-                            <div class="userlist__actions">
-                                <div>
-                                    <ion-icon name="contacts" class="icon"></ion-icon>
-                                </div>
-
-                                <span class="section__title">Online Users</span>
-                                <div @click="toggleUserList">
-                                    <ion-icon name="backspace" class="icon"></ion-icon>
-                                </div>
-                            </div>
-                        </template>
-                        <template slot="body">
-                            <input
-                                type="text"
-                                class="rooms__search-input"
-                                placeholder="Search user by name"
-                                v-model.trim="searchInput"
-                            />
-                            <ul class="chat__userlist" v-if="this.getCurrentRoom && filteredUsers">
-                                <transition-group name="slideDown">
-                                    <li
-                                        class="chat__user"
-                                        v-for="user in filteredUsers"
-                                        :key="user.lookup._id"
-                                    >
-                                        <div class="chat__user-item">
-                                            <div class="chat__user-image">
-                                                <img
-                                                    :src="user.lookup.image"
-                                                    class="chat__user-avatar"
-                                                    alt
-                                                />
-                                            </div>
-
-                                            <div class="chat__user-details">
-                                                <span>{{ user.lookup.handle }}</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </transition-group>
-                            </ul>
-                        </template>
-                        <template slot="footer">
-                            <button
-                                @click="leaveRoom"
-                                class="btn btn--clear btn--danger center"
-                            >Leave Room</button>
-                        </template>
-                    </Sidebar>
-                    <div class="chat__content" v-bind:class="{ mlzero: !sidebarVisible }">
-                        <!-- Here => 채팅방 헤더 : 방장만 권한주기 -->
+                    <div class="chat__content mlzero">
                         <div class="chat__header" v-if="room">
-                            &nbsp; &nbsp;
-                            <span class="section__title"> {{ room.name }}</span>
+                            <ion-icon name="return-left" @click="leaveRoom" class="icon"></ion-icon>
+                            <span class="section__title"> {{ room.name }} </span>
                             <div class="chat__actions">
-                                <ion-icon name="return-left" @click="leaveRoom" class="icon"></ion-icon>
-                                <!-- Here -->
-                                <!-- <ion-icon v-if="this.$store.state.chat.authUser._id == this.getCurrentRoom.user._id" name="create" @click="openEditRoom" class="icon"></ion-icon>
-                                <h3>여기 {{ this.getCurrentRoom.user._id}}</h3> -->
-                                <ion-icon name="analytics" @click="viewRoomDetails" class="icon"></ion-icon>
-                                <ion-icon name="people" @click="toggleUserList" class="icon"></ion-icon>
+                                <!-- 햄버거 메뉴 -->
+                                <ion-icon name="md-menu" @click="toggleUserList" class="icon"></ion-icon>
                             </div>
                         </div>
                         <MessageList :messages="messages" />
-                        <!-- <transition name="slideDown">
-                            <div class="chat__utyping" v-show="usersTyping.length > 0">
-                                <span>{{ getUsersTyping }}</span>
-                            </div>
-                        </transition> -->
                         <ChatInput />
                     </div>
+                    <Sidebar name="userlist" ref="userList">
+                            <template slot="header">
+                                <div class="userlist__actions">
+                                    <div>
+                                        <ion-icon name="people" class="icon"></ion-icon>
+                                    </div>
+                                    <span class="section__title">{{filteredUsers.length}}</span>
+                                    <div class="toggle-icon" @click="toggleUserList">
+                                        <ion-icon name="close-circle" class="icon"></ion-icon>
+                                    </div>
+                                </div>
+                            </template>
+                            <template slot="body">
+                                <input
+                                    type="text"
+                                    class="rooms__search-input"
+                                    placeholder="유저 닉네임 검색"
+                                    v-model.trim="searchInput"
+                                />
+                                <ul class="chat__userlist" v-if="this.getCurrentRoom && filteredUsers">
+                                    <transition-group name="slideDown">
+                                        <li
+                                            class="chat__user"
+                                            v-for="user in filteredUsers"
+                                            :key="user.lookup._id"
+                                        >
+                                            <div class="chat__user-item">
+                                                <div class="chat__user-image">
+                                                    <img
+                                                        :src="user.lookup.image"
+                                                        class="chat__user-avatar"
+                                                        alt
+                                                    />
+                                                </div>
+
+                                                <div class="chat__user-details">
+                                                    <span>{{ user.lookup.handle }}</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </transition-group>
+                                </ul>
+                            </template>
+                            <template slot="footer">
+                                <button
+                                    @click="leaveRoom"
+                                    class="btn btn--clear btn--danger center"
+                                >Leave Room</button>
+                            </template>
+                    </Sidebar>
                 </div>
             </div>
             <Modal name="editRoom" ref="editRoom" v-if="this.getCurrentRoom">

@@ -176,12 +176,20 @@ ol {
 .primary-btn {
   display: inline-block;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: bold;
   text-transform: uppercase;
   padding: 14px 30px;
-  color: #ffffff;
-  background: #000000;
+  border: 5px solid #f3f2ee;
+  border-radius: 10px;
+  color: black !important;
+  background: white;
   letter-spacing: 4px;
+}
+
+.primary-btn:hover{
+  color: white !important;
+  background: #e53637;
+  border: 5px solid #e53637;
 }
 
 .site-btn {

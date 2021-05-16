@@ -13,7 +13,7 @@
 .slideDown-enter,
 .slideDown-leave-to {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(50px);
 }
 
 .slideDown-leave,
@@ -26,7 +26,7 @@
 .slideUp-enter,
 .slideUp-leave-to {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(50px);
 }
 
 .slideUp-leave,
@@ -39,7 +39,7 @@
 .slideLeft-enter,
 .slideLeft-leave-to {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: translateX(100%);
 }
 
 .slideLeft-leave,
