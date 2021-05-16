@@ -51,7 +51,7 @@ module.exports = {
         if (room) {
             if (
                 room.users &&
-                !room.users.find(user => user.lookup._id.toString() === data.user._id)
+                !room.users.find(user => user.lookup.toString() === data.user._id)
             ) {
                 room.users.push({
                     lookup: mongoose.Types.ObjectId(data.user._id),
@@ -65,7 +65,7 @@ module.exports = {
             } else {
                 // Update user socket id if the user already exists
                 const existingUser = room.users.find(
-                    user => user.lookup._id.toString() === data.user._id
+                    user => user.lookup.toString() === data.user._id
                 );
                 if (existingUser.socketId != data.socketId) {
                     
