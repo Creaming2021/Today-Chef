@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TouchItem : MonoBehaviour
 {
+    public GameObject gameObject;
     // Start is called before the first frame update
     void Start()
     {
