@@ -10,7 +10,7 @@
                     >
                         <div class="chat__message-body">
                             <div class="chat__message-content chat__message-content--right">
-                                <span>{{ message.content }}</span>
+                                <span v-html="message.content"></span>
                             </div>
                             <div class="chat__message-details">
                                 <span>{{ message.user.handle }}</span>

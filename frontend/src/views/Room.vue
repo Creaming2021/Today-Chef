@@ -8,7 +8,7 @@
                             <ion-icon name="return-left" @click="leaveRoom" class="icon"></ion-icon>
                             <span class="section__title"> {{ room.name }} </span>
                             <div class="chat__actions">
-                                <!-- 햄버거 메뉴 -->
+                                <ion-icon v-if="this.$store.state.chat.authUser._id === this.getUserData._id" name="ios-link" @click="sendStreamingLink" class="icon"></ion-icon>
                                 <ion-icon name="md-menu" @click="toggleUserList" class="icon"></ion-icon>
                             </div>
                         </div>
@@ -183,6 +183,14 @@ export default {
     },
     methods: {
         ...mapActions(['saveCurrentRoom']),
+        sendStreamingLink() {
+            this.getSocket.emit('newMessage', {
+                room: this.getCurrentRoom,
+                user: this.getUserData,
+                content: '<a href="http://www.creaming.co.kr/live/' + this.getCurrentRoom.name + '/' + this.$store.state.user.memberId + '" target="_blank">'
+                        + '<img src="https://creaming-bucket-b204.s3.ap-northeast-2.amazonaws.com/logo2-13.png"/></a>',
+            });
+        },
         checkUserTabs(room) {
             if (
                 room &&
@@ -279,6 +287,13 @@ export default {
         }
     },
     created() {
+
+        if(this.$store.state.user.memberId === ''){
+            this.$router.push({
+                name: "Error",
+            })
+        }
+
         chat
             .get(`/room/${this.$route.params.id}`)
             .then(res => {

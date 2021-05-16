@@ -358,6 +358,7 @@ export default {
         }
     },
     created() {
+
         if(this.$store.state.user.memberId === ''){
             this.$router.push({
                 name: "Error",
