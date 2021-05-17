@@ -32,10 +32,10 @@ export const getRegisterList = async ( memberId ) => {
 
 export const postRegister = async ( register ) => {
   return await basic.post(`members/${register.memberId}/registers`,
-      {
-        paidPrice: register.paidPrice,
-        courseId: register.courseId,
-      }
+    {
+      paidPrice: register.paidPrice,
+      courseId: register.courseId,
+    }
   ). then(res => res)
     .catch(e => { console.log(e); });
 }

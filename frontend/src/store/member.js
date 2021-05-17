@@ -28,6 +28,7 @@ export default {
     },
     SET_CART_LIST(state, payload){
       state.cartList = payload;
+      console.log(payload);
     },
     SET_COUPON_LIST(state, payload){
       state.couponList = payload;

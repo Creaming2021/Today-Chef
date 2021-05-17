@@ -26,8 +26,6 @@ export default {
   created() {
     const paymentProductString = window.localStorage.getItem('payment_product');
     const paymentCourseString = window.localStorage.getItem('payment_course');
-    console.log("찍히니", paymentProductString);
-    console.log("찍히니", paymentCourseString);
     if (paymentCourseString) {
       const paymentInfo = JSON.parse(paymentCourseString);
       this.$store.dispatch('POST_REGISTER', paymentInfo);
@@ -38,6 +36,7 @@ export default {
       window.localStorage.removeItem('payment_product');
 
       // 장바구니 비우기 요청
+      console.log(this.cartList);
       for(let idx in this.cartList){
         this.$store.dispatch('DELETE_CART_LIST', {
           memberId: this.memberId,
