@@ -78,20 +78,20 @@ const checkCreateRoomFields = async (req, res, next) => {
         req.check('room_name')
             .not()
             .isEmpty()
-            .withMessage('Room name is required');
+            .withMessage('채팅방 이름을 입력해주세요.');
     } else {
         req.check('room_name')
             .isString()
-            .isLength({ min: 3, max: 20 })
-            .withMessage('Room name must be between 5 and 20 characters');
+            .isLength({ min: 1, max: 7 })
+            .withMessage('채팅방 이름은 1자 이상 7자 이하입니다.');
     }
 
     if (req.body.password) {
         req.check('password')
             .not()
             .isEmpty()
-            .isLength({ min: 5, max: 15 })
-            .withMessage('Password should be between 5 and 15 characters');
+            .isLength({ min: 5, max: 10 })
+            .withMessage('비밀번호는 5자 이상 10자 이하입니다.');
     }
 
     const errors = req.validationErrors();

@@ -51,7 +51,7 @@ router.post(
         const room = await Room.findOne({ name: req.body.room_name }).exec();
         if (room) {
             if (room.name === req.body.room_name) {
-                errors.push({ param: 'room_taken', msg: 'Roomname already taken' });
+                errors.push({ param: 'room_taken', msg: '이미 존재하는 채팅방 이름입니다.' });
             }
             return res.json({ errors: createErrorObject(errors) });
         } else {
@@ -92,7 +92,7 @@ router.post('/verify', async (req, res) => {
             errors: createErrorObject([
                 {
                     param: 'password_required',
-                    msg: 'Password is required'
+                    msg: '비밀번호를 입력해주세요.'
                 }
             ])
         });
@@ -112,7 +112,7 @@ router.post('/verify', async (req, res) => {
                 errors: createErrorObject([
                     {
                         param: 'invalid_password',
-                        msg: 'Invalid Password'
+                        msg: '비밀번호가 틀렸습니다.'
                     }
                 ])
             });
