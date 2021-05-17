@@ -29,7 +29,7 @@ export default{
   POST_CART_LIST({ dispatch }, request ) {
     memberEtc.postCartList(request)
       .then(() => {
-        console.log(dispatch);
+        dispatch('GET_CART_LIST', request.memberId);
       })
       .catch(e => { console.log(e); });
   },

@@ -73,8 +73,6 @@ export default {
     },
     // 결제 요청 함수
     onSubmitPayment() {
-      console.log(this.cart);
-
       // 카카오 페이 성공 뜨면
       // 주문 요청
       let orderDetail = {
