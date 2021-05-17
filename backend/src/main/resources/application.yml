@@ -16,10 +16,10 @@ spring:
     hibernate:
       ddl-auto: update
 #      ddl-auto: create-drop
-    show-sql: true
+#    show-sql: true
     properties:
       hibernate:
-        format_sql: true
+#        format_sql: true
         default_batch_fetch_size: 1000
   servlet:
     multipart:

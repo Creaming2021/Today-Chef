@@ -10,6 +10,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.util.IOUtils;
 import lombok.NoArgsConstructor;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,22 @@ public class S3Util {
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(this.region)
                 .build();
+    }
+
+    // Base64 file upload
+    public String uploadBase64File(String base64EncodedString) throws IOException {
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String fileName = date.format(new Date()) + "_" + base64EncodedString.hashCode() + ".png";
+        byte[] bytes = Base64.decodeBase64(base64EncodedString.substring(22));
+
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(bytes.length);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+
+        s3Client.putObject(new PutObjectRequest(bucket, fileName, byteArrayInputStream, metadata)
+                .withCannedAcl(CannedAccessControlList.PublicRead));
+
+        return  "https://d6sx5vd3amky9.cloudfront.net/" + fileName;
     }
 
     // 파일 업로드
