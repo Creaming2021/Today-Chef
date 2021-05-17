@@ -41,7 +41,7 @@ public class CourseDto {
             this.price = course.getPrice();
             this.rating = course.getCourseReviews().stream()
                     .collect(Collectors.averagingInt(CourseReview::getRating));
-            List<CourseFile> courseFiles = course.getCourseFiles();
+            this.image = course.getCourseFiles().get(0).getFileName();
             this.category = course.getCategory();
             this.reviewCnt = course.getCourseReviews().size();
         }
