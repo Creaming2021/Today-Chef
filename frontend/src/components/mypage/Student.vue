@@ -36,13 +36,13 @@ export default {
   display: flex;
 }
 .left {
-  width : 30%;
+  width : 50%;
   display: flex;
   flex-direction: row;
   margin-right: 10px;
 }
 .right {
-  width : 60%;
+  width : 50%;
   display: flex;
 
 }
@@ -50,6 +50,7 @@ export default {
   width : 50px;
   height: 50px;
   align-self: center;
+  margin-right: 30px;
 }
 .info-box {
   padding: 20px 5px 20px 5px;

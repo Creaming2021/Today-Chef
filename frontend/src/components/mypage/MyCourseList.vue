@@ -5,17 +5,17 @@
         <div 
           class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
           v-for="(course, idx) in courseList" :key="idx">
-            <ItemCard :itemDetail="course" :type="type" />
+            <ItemCard :itemDetail="course" :type="type" :item="'course'"/>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-lg-12">
           <div class="product__pagination">
             <a class="active" href="#">1</a>
             <a href="#">2</a>
           </div>
         </div>
-      </div>
+      </div> -->
     </template>
     <template v-else>
       <img src="@/assets/img/empty/course.png"/>
@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .my-course-list-container{
   text-align: center;
 }
