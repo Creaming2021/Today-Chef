@@ -9,8 +9,13 @@ import ChatComponent from './chat/ChatComponent';
 import OpenViduLayout from '../layout/openvidu-layout';
 import UserModel from '../models/user-model';
 import ToolbarComponent from './toolbar/ToolbarComponent';
+import Dictaphone from './Dictaphone';
+
 
 var localUser = new UserModel();
+
+
+
 
 class VideoRoomComponent extends Component {
     constructor(props) {
@@ -472,6 +477,24 @@ class VideoRoomComponent extends Component {
         }
     }
 
+    rootFunction = ({ command }) => {
+        if (command == '음소거' || command == '마이크 꺼' && localUser.isAudioActive()) {
+            this.micStatusChanged();
+        } else if (command == '음소거 해제' || command == '마이크 켜' && !localUser.isAudioActive()) {
+            this.micStatusChanged();
+        } else if (command == '카메라 켜' || command == '화면 켜' && !localUser.isVideoActive()) {
+            this.camStatusChanged();
+        } else if (command == '카메라 꺼' || command == '화면 꺼' && localUser.isVideoActive()) {
+            this.camStatusChanged();
+        } else if (command == '채팅 켜' || command == '채팅 창 켜' || command == '채팅창 켜') {
+            this.toggleChat('');            
+        } else if (command == '채팅 꺼' || command == '채팅 창 꺼' || command == '채팅창 꺼') {
+            this.toggleChat('none');
+        }
+    
+    }
+
+
     render() {
         const mySessionId = this.state.mySessionId;
         const localUser = this.state.localUser;
@@ -512,10 +535,13 @@ class VideoRoomComponent extends Component {
                                 chatDisplay={this.state.chatDisplay}
                                 close={this.toggleChat}
                                 messageReceived={this.checkNotification}
+                                message={this.message}
+                                rootFunction={this.rootFunction}
                             />
                         </div>
                     )}
                 </div>
+
             </div>
         );
     }

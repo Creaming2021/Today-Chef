@@ -6,6 +6,7 @@ import Send from '@material-ui/icons/Send';
 
 import './ChatComponent.css';
 import { Tooltip } from '@material-ui/core';
+import Dictaphone from '../Dictaphone';
 
 export default class ChatComponent extends Component {
     constructor(props) {
@@ -77,6 +78,11 @@ export default class ChatComponent extends Component {
     close() {
         this.props.close(undefined);
     }
+    
+    parentFunction = (data) => {
+        this.state.message = data;
+        this.sendMessage();
+    }
 
     render() {
         const styleChat = { display: this.props.chatDisplay };
@@ -127,6 +133,10 @@ export default class ChatComponent extends Component {
                         </Tooltip>
                     </div>
                 </div>
+                <Dictaphone 
+                    parentFunction={this.parentFunction}
+                    rootFunction={this.props.rootFunction}
+                />
             </div>
         );
     }

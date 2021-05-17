@@ -15,7 +15,8 @@
         "react-dom": "16.13.1",
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "^3.4.3"
+        "react-scripts": "^3.4.3",
+        "react-speech-recognition": "^3.8.0"
     },
     "name": "openvidu-call-react",
     "private": true,

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
+import Dictaphone from './components/Dictaphone';
 import VideoRoomComponent from './components/VideoRoomComponent';
 
 class App extends React.Component {
   // const history = useHistory();
   render() {
+
+
     return (
       <>      	
         <Switch>
@@ -12,7 +15,9 @@ class App extends React.Component {
             <VideoRoomComponent/>
           </Route> */}
           <Route exact path="/live/:sessionName/:memberId" component={VideoRoomComponent}/>
+          <Route exact path="/dictaphone" component={Dictaphone} />
         </Switch>
+        {/* <Dictaphone /> */}
       </>
     )
   }
