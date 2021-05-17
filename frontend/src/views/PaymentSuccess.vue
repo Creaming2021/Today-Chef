@@ -19,8 +19,8 @@ export default {
   computed: {
     ...mapState({
       memberId: state => state.user.memberId,
-      cartList: state => state.member.cartList,
-      cart: state => state.order.cart,
+      // cartList: state => state.member.cartList,
+      // cart: state => state.order.cart,
     })
   },
   created() {
@@ -36,9 +36,15 @@ export default {
       window.localStorage.removeItem('payment_product');
 
       // 장바구니 비우기 요청
-      console.log(this.cartList);
-      alert("요기여");
-      for(let idx in this.cartList){
+      const cartListString = window.localStorage.getItem('payment_cart_list');
+      const cartString = window.localStorage.getItem('payment_cart');
+      const cartList = JSON.parse(cartListString);
+      const cart = JSON.parse(cartString);
+      console.log(cartList);
+      console.log(cart);
+      window.localStorage.removeItem('payment_cart_list');
+      window.localStorage.removeItem('payment_cart');
+      for(let idx in cartList){
         this.$store.dispatch('DELETE_CART_LIST', {
           memberId: this.memberId,
           cartId: this.cartList[idx].cartId,
@@ -46,10 +52,10 @@ export default {
       }
 
       // 쿠폰 사용 요청
-      if(this.cart.selectedCoupon && this.cart.selectedCoupon.memberCouponId !== 0){
+      if(cart.selectedCoupon.memberCouponId !== 0){
         this.$store.dispatch('PUT_COUPON', {
           memberId: this.memberId,
-          couponId: this.cart.selectedCoupon.memberCouponId,
+          couponId: cart.selectedCoupon.memberCouponId,
         });
       }
     }

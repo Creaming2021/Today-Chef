@@ -100,6 +100,8 @@ export default {
       }
 
       window.localStorage.setItem('payment_product', JSON.stringify(orderDetail));
+      window.localStorage.setItem('payment_cart_list', JSON.stringify(this.cartList));
+      window.localStorage.setItem('payment_cart', JSON.stringify(this.cart));
       
       payment(orderDetail.totalPrice)
         .then(response => location.href = response.data.url);
