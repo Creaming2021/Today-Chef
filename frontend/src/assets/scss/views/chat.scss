@@ -90,7 +90,6 @@
             width: 50px;
             margin-left: 1rem;
             font-size: 1rem;
-            font-family: 'Russo One';
             color: black;
             font-weight: bold;
         }
@@ -159,7 +158,6 @@
             text-align: center;
             margin: 0 1rem;
             align-self: center;
-            font-family: 'Work Sans';
             white-space: pre-line;
 
             &--left::before {
@@ -196,7 +194,6 @@
             border-radius: 14px;
             text-align: center;
             align-self: center;
-            font-family: 'Work Sans';
             white-space: pre-line;
         }
 
@@ -214,7 +211,6 @@
         background: black;
 
         & > span {
-            font-family: 'Work Sans';
             transition: all 0.5s ease;
         }
     }
@@ -225,7 +221,6 @@
         overflow: hidden;
         display: flex;
         height: 45px;
-        // padding: 1rem 0;
         margin: 0.5rem 1rem;
         background-color: lightgray;
         border-radius: 150px;
@@ -233,8 +228,6 @@
 
         &-control {
             position: relative;
-            // padding: 1rem 0 1rem 0.5rem;
-            font-family: 'Russo One';
             font-size: 0.9rem !important;
             width: 100%;
             resize: none;
