@@ -19,11 +19,11 @@
             <ul>
               <li @click="onClickTab('Course', 'korea')">한식</li>
               <li @click="onClickTab('Course', 'japan')">일식</li>
-              <li @click="onClickTab('Course', 'usa')">양식</li>
+              <li @click="onClickTab('Course', 'western')">양식</li>
               <li @click="onClickTab('Course', 'china')">중식</li>
               <li @click="onClickTab('Course', 'dessert')">디저트</li>
-              <li @click="onClickTab('Course', 'drinks')">음료</li>
-              <li @click="onClickTab('Course', 'dessert')">세계 음식</li>
+              <li @click="onClickTab('Course', 'drink')">음료</li>
+              <li @click="onClickTab('Course', 'world')">세계 음식</li>
               <li @click="onClickTab('Course', 'etc')">기타</li>
             </ul>
           </div>
@@ -76,9 +76,10 @@ export default {
         })
       } else if(pathName === 'Course'){
         this.$router.push({
-          name: pathName,
+          name: 'ItemList',
           params: {
-            category: paramsType,
+            item: 'course',
+            category : paramsType,
           }
         })
       } else {
