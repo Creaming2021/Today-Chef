@@ -3,6 +3,11 @@
         <div v-show="visible" class="modal">
             <transition name="slideDown">
                 <div v-show="visible" class="modal__content">
+                    <div class="modal__close">
+                        <slot name="modal-close">
+                            <p class="close-modal-btn" @click="close">X</p>
+                        </slot>
+                    </div>
                     <div class="modal__header">
                         <slot name="header">
                             <h4>Default Header</h4>
@@ -11,11 +16,6 @@
                     <div class="modal__body">
                         <slot name="body">
                             <h4>Default Body Content</h4>
-                        </slot>
-                    </div>
-                    <div class="modal__footer">
-                        <slot name="footer">
-                            <a @click="close" class="btn btn--modal" slot="footer">Close</a>
                         </slot>
                     </div>
                 </div>
@@ -55,4 +55,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/components/modal.scss';
+
+.close-modal-btn{
+  text-align: right;
+  cursor: pointer;
+  padding: 5px 13px;
+}
 </style>

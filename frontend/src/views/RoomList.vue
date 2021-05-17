@@ -119,7 +119,7 @@
                     <!-- Create Room Modal -->
                     <Modal name="create-room" ref="createRoom">
                         <template slot="header">
-                            <h2 class="text-upper">Create Room</h2>
+                            <div class="text-upper modal-title">Create Room</div>
                         </template>
                         <template slot="body">
                             <form
@@ -133,10 +133,11 @@
                                         type="text"
                                         name="room_name"
                                         class="form__control"
-                                        placeholder="Enter Room Name"
+                                        placeholder="1자 이상 7자 이하"
+                                        pattern=".{1,7}"
                                         v-model.trim="room_name"
                                     />
-                                    <label for="room_name" class="form__label">Room Name</label>
+                                    <label for="room_name" class="form__label">채팅방 이름</label>
                                 </div>
                                 <div class="form__input-group">
                                     <ion-icon name="key" class="form__icon"></ion-icon>
@@ -144,15 +145,13 @@
                                         type="password"
                                         name="password"
                                         class="form__control"
-                                        placeholder="Enter Password"
+                                        placeholder="5자 이상 10자 이하"
                                         pattern=".{5,10}"
-                                        title="Password must be between 5 and 15 characters"
                                         v-model.trim="password"
                                     />
-                                    <label for="password" class="form__label">Password (Optional)</label>
+                                    <label for="password" class="form__label">비밀번호 (선택)</label>
                                 </div>
-                                <Error :errors="errors" />
-                                <button type="submit" class="primary-btn">Create Room</button>
+                                <button type="submit" class="primary-btn">생성 완료</button>
                             </form>
                         </template>
                     </Modal>
@@ -271,7 +270,10 @@ export default {
                     if (res.data.errors) {
                         for (const error of res.data.errors) {
                             const [value] = Object.values(error);
-                            this.errors.push(value);
+                            this.$swal.fire({
+                                icon: 'error',
+                                text: value,
+                            });
                         }
                     } else {
                         this.$store.dispatch('addRoom', res.data);
@@ -412,6 +414,12 @@ export default {
     position: absolute;
     width: 60%;
     top: 4px;
+}
+
+.modal-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
 }
 
 </style>

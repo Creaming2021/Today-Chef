@@ -45,13 +45,13 @@
     &__control {
         position: relative;
         padding: 1em;
-        border-radius: 3px;
-        border: 1px solid #fff;
-        background: transparent;
+        border-radius: 10px;
+        border: none;
+        background-color: #f3f2ee;
         margin: 1.5em 0 2.5em 0;
         z-index: 1;
         width: 90%;
-        color: #fff;
+        color: black;
         font-weight: bold;
         font-family: 'Work Sans', sans-serif;
         outline: none;
@@ -70,11 +70,11 @@
         }
 
         &:focus:invalid {
-            border: 1px solid crimson;
+            border: 1.5px solid crimson;
         }
 
         &:focus:valid {
-            border: 1px solid lightgreen;
+            border: 1.5px solid lightgreen;
         }
     }
 
@@ -109,8 +109,8 @@
 
     &__icon {
         position: absolute;
-        top: 30px;
-        right: 15px;
+        top: 40px;
+        right: 17px;
         font-size: 1.5em;
         margin: 0 0.8em;
         z-index: 2;
@@ -135,11 +135,12 @@
         border-radius: 3px;
         margin: 1em;
         padding: 12px;
-        color: #fff;
+        color: white;
         font-weight: bold;
 
         & span {
             display: block;
+            color: black;
         }
     }
 
