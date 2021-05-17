@@ -40,7 +40,9 @@
         & span {
             margin: 0 5px;
         }
+        
     }
+
 
     &__list {
         margin: 0;
@@ -94,6 +96,21 @@
                 flex-flow: column;
             }
         }
+        
+        &-detail {
+            margin: 0.8rem 0 0.5rem 0.8rem;
+            padding: 0 2px;
+            
+            &-span {
+                display: inline;
+                margin-bottom: 4px;
+                position: absolute;
+    
+                & span {
+                    position: relative;
+                }
+            }
+        }
 
         &-details {
             width: 100%;
@@ -109,8 +126,9 @@
                 width: 100%;
                 text-align: center;
             }
-        }
 
+        }
+        
         /** List Item Actions */
         &-actions {
             // display: flex;
@@ -132,11 +150,9 @@
             }
         }
 
-        &-detail {
-            display: inline-block;
-
-            // & span {
-            // }
+        &-header {
+            display: flex;
+            padding: 20px 10px 10px 10px;
         }
 
     }

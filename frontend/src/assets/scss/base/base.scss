@@ -62,6 +62,7 @@ li .nav__link.router-link-exact-active {
 }
 
 .public {
+    display: inline-block;
     color: lightgreen;
 }
 
@@ -189,6 +190,7 @@ li .nav__link.router-link-exact-active {
 }
 
 .icon {
+    display: inline-block;
     font-size: 1.8em;
     margin: 0 0.4em;
     color: grey;

@@ -58,24 +58,30 @@
                                                 >
                                                     <div class="rooms__item-container">
                                                         <div class="rooms__item-details">
-                                                            <div v-if="room.access"
-                                                                :class="{ public: room.access, private: !room.access}"
-                                                            >
-                                                                <ion-icon name="md-unlock" class="icon"></ion-icon>
-                                                            </div>
-                                                            <div v-else
-                                                                :class="{ public: room.access, private: !room.access}"
-                                                            >
-                                                                <ion-icon name="md-lock" class="icon" style="color: black"></ion-icon>
-                                                            </div>
-                                                            <strong>{{ room.name.substring(0,7) }}</strong>
-                                                            <div class="rooms__item-detail">
-                                                                <ion-icon name="md-people" class="icon"></ion-icon>
-                                                                <span>{{ room.users.length }}</span>
+                                                            <div class="rooms__item-header">
+                                                                <div v-if="room.access"
+                                                                    :class="{ public: room.access, private: !room.access}"
+                                                                >
+                                                                    <ion-icon name="md-unlock" class="title-icon"></ion-icon>
+                                                                </div>
+                                                                <div v-else
+                                                                    :class="{ public: room.access, private: !room.access}"
+                                                                >
+                                                                    <ion-icon name="md-lock" class="title-icon"></ion-icon>
+                                                                </div>
+                                                                <strong class="room-title">{{ room.name.substring(0,7) }}</strong>
                                                             </div>
                                                             <div class="rooms__item-detail">
-                                                                <ion-icon name="md-trophy" class="icon"></ion-icon>
-                                                                <span>{{ room.user ? room.user.handle : 'Unknown User' }}</span>
+                                                                <ion-icon name="md-people" class="info-icon"></ion-icon>
+                                                                <div class="rooms__item-detail-span">
+                                                                    <span>{{ room.users.length }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="rooms__item-detail">
+                                                                <ion-icon name="md-trophy" class="info-icon"></ion-icon>
+                                                                <div class="rooms__item-detail-span">
+                                                                    <span>{{ room.user ? room.user.handle : 'Unknown User' }}</span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -418,6 +424,36 @@ export default {
     font-size: 2rem;
     font-weight: bold;
     color: black;
+}
+
+.room-title {
+    display: inline;
+    padding-top: 2px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title-icon {
+    display: inline-block;
+    font-size: 2em;
+    margin: 0 0.4em;
+    color: black;
+}
+
+.title-icon:hover {
+    cursor: pointer;
+}
+
+.info-icon {
+    display: inline-block;
+    font-size: 1.4rem;
+    margin: 0 0.5em;
+    color: grey;
+}
+
+.info-icon:hover {
+    cursor: pointer;
 }
 
 </style>
