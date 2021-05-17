@@ -23,7 +23,7 @@ public class KakaopayController {
 
     private final KakaopayService kakaoPayService;
 //    private String serverUrl = "http://localhost:8080/payment/";
-    private String serverUrl = "https://k4b204.p.ssafy.io/payment";
+    private String serverUrl = "https://k4b204.p.ssafy.io/payment/";
 
     @GetMapping
     public ResponseEntity<KakaopayDto.KakaopayAddress> kakaoPay(@RequestParam("amount") int amount,
