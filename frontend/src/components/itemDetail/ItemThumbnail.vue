@@ -1,6 +1,6 @@
 <template>
   <div class="thumbnail-container" v-if="imageList">
-    <template v-if="imageList" >
+    <template v-if="imageList.length > 0" >
       <img 
         id="first-image"
         @click="onOpenThumbnailModal"
@@ -26,7 +26,7 @@
     <b-modal v-model="openThumbnailModal" size="lg" hide-footer hide-header>
       <p class="thumbnail-modal-btn" @click="onCloseThumbnailModal">X</p>
       <span class="thumbnail-modal-btn" @click="onClickDecreaseImageIdx">이전</span>
-      <img class="modalImage" :src="imageList[currentImage].imageUrl || imageList[currentImage]"/>
+      <img class="modalImage" :src="imageList.length > 0 && imageList[currentImage].imageUrl || imageList[currentImage]"/>
       <span class="thumbnail-modal-btn" @click="onClickIncreaseImageIdx">다음</span>
     </b-modal>
   </div>
