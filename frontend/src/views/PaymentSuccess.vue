@@ -37,6 +37,7 @@ export default {
 
       // 장바구니 비우기 요청
       console.log(this.cartList);
+      alert("요기여");
       for(let idx in this.cartList){
         this.$store.dispatch('DELETE_CART_LIST', {
           memberId: this.memberId,
