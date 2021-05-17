@@ -26,6 +26,9 @@
               <li :class="currentTab === 'Course' && 'active'" @click="onClickNav('Course', 'all')">클래스</li>
               <template v-if="this.user.memberId != ''">
                 <li 
+                  :class="currentTab === 'RoomList' && 'active'"
+                  @click="onClickNav('RoomList')">채팅</li>
+                <li 
                   :class="currentTab === 'Cart' && 'active'"
                   @click="onClickNav('Cart')">장바구니</li>
                 <li

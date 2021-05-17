@@ -15,6 +15,8 @@ import VueDaumPostcode from "vue-daum-postcode"
 import Cart from "@/views/Cart.vue";
 import Sign from "@/views/Sign.vue";
 import ErrorPage from "@/views/Error.vue";
+import RoomList from "@/views/RoomList.vue";
+import Room from '@/views/Room.vue';
 import Close from '@/views/Close.vue';
 import PaymentSuccess from '@/views/PaymentSuccess.vue';
 import PaymentFail from '@/views/PaymentFail.vue';
@@ -61,6 +63,16 @@ const routes = [
     path: "/payment/product",
     name: "PaymentProduct",
     component: PaymentProduct,
+  },
+  {
+    path: "/chat/roomList",
+    name: "RoomList",
+    component: RoomList,
+  },
+  {
+    path: "/chat/:id",
+    name: "Room",
+    component: Room,
   },
   {
     path: "/notice/:number",

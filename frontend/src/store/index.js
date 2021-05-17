@@ -7,6 +7,8 @@ import course from './course.js';
 import member from './member.js';
 import product from './product.js';
 import order from './order.js';
+import chat from './chat.js';
+import payment from './payment.js';
 import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
@@ -20,6 +22,8 @@ export default new Vuex.Store({
     member,
     product,
     order,
+    chat,
+    payment,
   },
   plugins: [
     createPersistedState({
