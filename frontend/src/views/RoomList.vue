@@ -90,9 +90,7 @@
                     <!-- Private Room Enter Modal  : modal.scss -->
                     <Modal name="private-room" ref="privateRoom">
                         <template slot="header">
-                            <h2
-                                class="text-upper"
-                            >Enter {{ this.privateRoomName || 'Private Room' }}</h2>
+                            <div class="text-upper modal-title">{{ this.privateRoomName || 'Private Room' }}</div>
                         </template>
                         <template slot="body">
                             <form
@@ -106,13 +104,13 @@
                                         type="password"
                                         name="password"
                                         class="form__control"
-                                        placeholder="Enter Password"
+                                        placeholder="비밀번호를 입력해주세요."
                                         v-model.trim="privateRoomPassword"
                                     />
-                                    <label for="password" class="form__label">Password</label>
+                                    <label for="password" class="form__label">비밀번호</label>
                                 </div>
                                 <Error :errors="errors" />
-                                <button type="submit" class="btn btn--clear btn--info">Enter Room</button>
+                                <button type="submit" class="primary-btn">채팅방 입장</button>
                             </form>
                         </template>
                     </Modal>
@@ -330,11 +328,10 @@ export default {
                 .then(res => {
                     if (res.data.errors) {
                         for (const error of res.data.errors) {
-                            const [key] = Object.keys(error);
                             const [value] = Object.values(error);
-                            this.errors.push({
-                                key,
-                                value
+                            this.$swal.fire({
+                                icon: 'error',
+                                text: value,
                             });
                         }
                         this.privateRoomPassword = null;
@@ -412,8 +409,9 @@ export default {
 
 .create-btn {
     position: absolute;
-    width: 60%;
+    width: 40%;
     top: 4px;
+    right: 10px;
 }
 
 .modal-title {

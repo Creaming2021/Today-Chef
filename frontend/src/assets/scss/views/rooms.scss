@@ -30,6 +30,7 @@
             color: black;
             align-items: center;
             font-weight: bold;
+            margin: 0 10px;
 
             @include respond(phone) {
                 text-align: left;
