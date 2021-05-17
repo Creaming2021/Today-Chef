@@ -28,7 +28,7 @@
       v-model="modalState" 
       hide-footer hide-header>
       <div class="container" style="min-height : 300px">
-        <p @click="onCloseDetailModal" class="btn" style="display : flex;justify-content : flex-end">X</p>
+        <p @click="onCloseDetailModal" class="btn" style="display: flex; justify-content: flex-end; width: 100%;">X</p>
         <DeliveryDetail 
           v-if="modalType === 'detail'"
           :payment="payment"
@@ -76,9 +76,8 @@ import DeliveryTracker from '@/components/mypage/DeliveryTracker.vue';
       },
       deliveryDetail() {
         delivery.getDeliveryTracker({
-            carrierId: 'kr.epost',
+            carrierId: this.payment.delivery.company,
             trackId: this.payment.delivery.number,
-            // trackId: '1111111111111',
           }
         ).then(({ data }) => {
           this.deliveryTrackList = data;
