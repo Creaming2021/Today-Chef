@@ -44,15 +44,15 @@ export default {
       console.log(cart);
       window.localStorage.removeItem('payment_cart_list');
       window.localStorage.removeItem('payment_cart');
-      for(let cartItem in cartList){
+      for(let idx in cartList){
         this.$store.dispatch('DELETE_CART_LIST', {
           memberId: this.memberId,
-          cartId: cartItem.cartId,
+          cartId: cartList[idx].cartId,
         });
       }
 
       // 쿠폰 사용 요청
-      if(cart.selectedCoupon.memberCouponId !== 0){
+      if(cart.selectedCoupon.memberCouponId !== '' && cart.selectedCoupon.memberCouponId !== 0){
         this.$store.dispatch('PUT_COUPON', {
           memberId: this.memberId,
           couponId: cart.selectedCoupon.memberCouponId,
