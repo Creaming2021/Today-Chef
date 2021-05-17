@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="courseList.length > 0">
+  <div class="my-course-list-container">
+    <template v-if="courseList.length > 0">
       <div class="row">
         <div 
           class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
@@ -16,10 +16,10 @@
           </div>
         </div>
       </div>
-    </div>
-    <div v-else>
-      강의가 없습니다.
-    </div>
+    </template>
+    <template v-else>
+      <img src="@/assets/img/empty/course.png"/>
+    </template>
   </div>
 </template>
 
@@ -67,4 +67,10 @@ export default {
 </script>
 
 <style>
+.my-course-list-container{
+  text-align: center;
+}
+.my-course-list-container img{
+  width: 500px;
+}
 </style>

@@ -9,7 +9,7 @@
       <h5 v-if="item === 'course'" class="teacher">{{itemInfo.profile.nickname}}</h5>
       <h5 class="price">{{itemInfo.price}}원</h5>
     </div>
-    <b-form-rating v-model="itemInfo.rating" readonly no-border/>
+    <b-form-rating v-model="itemInfo.rating" color="orange" size="lg" readonly no-border/>
     
     <template v-if="item !== 'course' || user !== itemInfo.profile.memberId">
       <div v-if="item === 'course'" class="cart-btn" @click="goToPayment">

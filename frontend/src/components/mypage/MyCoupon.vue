@@ -17,9 +17,9 @@
             <CouponItem :coupon="coupon" :idx="idx" />
         </div>
       </template>
-      <div v-else>
-        쿠폰이 없습니다.
-      </div>
+      <template v-else>
+        <img class="img" src="@/assets/img/empty/coupon.png"/>
+      </template>
     </div>
   </div>
 </template>
@@ -78,5 +78,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.img{
+  margin: auto;
+  width: 500px;
+  height: auto;
+}
 </style>
