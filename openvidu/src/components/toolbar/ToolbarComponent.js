@@ -19,7 +19,8 @@ import QuestionAnswer from '@material-ui/icons/QuestionAnswer';
 
 import IconButton from '@material-ui/core/IconButton';
 
-const logo = require('../../assets/images/openvidu_logo.png');
+const logo = require('../../assets/images/today-shef_logo.png');
+const logo2 = require('../../assets/images/today-shef_logo2.png');
 
 export default class ToolbarComponent extends Component {
     constructor(props) {
@@ -73,12 +74,12 @@ export default class ToolbarComponent extends Component {
                     <div id="navSessionInfo">
                         <img
                             id="header_img"
-                            alt="OpenVidu Logo"
+                            alt="Today-Shef Logo"
                             src={logo}
                         />
 
                         {this.props.sessionId && <div id="titleContent">
-                            <span id="session-title">{mySessionId}</span>
+                            <span id="session-title">방이름: {mySessionId}</span>
                         </div>}
                     </div>
 
@@ -92,12 +93,12 @@ export default class ToolbarComponent extends Component {
                                 <Videocam />
                             ) : (
                                 <VideocamOff color="secondary" />
-                            )}``
+                            )}
                         </IconButton>
 
-                        <IconButton color="inherit" className="navButton" onClick={this.screenShare}>
+                        {/* <IconButton color="inherit" className="navButton" onClick={this.screenShare}>
                             {localUser !== undefined && localUser.isScreenShareActive() ? <PictureInPicture /> : <ScreenShare />}
-                        </IconButton>
+                        </IconButton> */}
 
                         {localUser !== undefined &&
                             localUser.isScreenShareActive() && (

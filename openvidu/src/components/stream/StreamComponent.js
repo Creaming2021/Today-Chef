@@ -55,7 +55,7 @@ export default class StreamComponent extends Component {
         return (
             <div className="OT_widget-container">
                 <div className="pointer nickname">
-                    {this.state.showForm ? (
+                    {/* {this.state.showForm ? (
                         <FormControl id="nicknameForm">
                             <IconButton color="inherit" id="closeButton" onClick={this.toggleNicknameForm}>
                                 <HighlightOff />
@@ -78,12 +78,12 @@ export default class StreamComponent extends Component {
                                 <FormHelperText id="name-error-text">Nickname is too long!</FormHelperText>
                             )}
                         </FormControl>
-                    ) : (
+                    ) : ( */}
                         <div onClick={this.toggleNicknameForm}>
-                            <span id="nickname">{this.props.user.getNickname()}</span>
-                            {this.props.user.isLocal() && <span id=""> (edit)</span>}
+                            <span id="nickname">닉네임: {this.props.user.getNickname()}</span>
+                            {/* {this.props.user.isLocal() && <span id=""> (edit)</span>} */}
                         </div>
-                    )}
+                    {/* )} */}
                 </div>
 
                 {this.props.user !== undefined && this.props.user.getStreamManager() !== undefined ? (

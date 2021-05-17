@@ -94,6 +94,15 @@ class VideoRoomComponent extends Component {
     joinSession() {
         this.OV = new OpenVidu();
 
+        this.OV.setAdvancedConfiguration({
+            publisherSpeakingEventsOptions: {
+                interval: 100,   // Frequency of the polling of audio streams in ms (default 100)
+                threshold: -50  // Threshold volume in dB (default -50)
+            }
+        });
+
+        
+
         this.setState(
             {
                 session: this.OV.initSession(),
@@ -139,6 +148,8 @@ class VideoRoomComponent extends Component {
                 alert('There was an error connecting to the session:', error.message);
                 console.log('There was an error connecting to the session:', error.code, error.message);
             });
+        
+            
     }
 
     connectWebCam() {
