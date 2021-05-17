@@ -7,7 +7,6 @@ import axios from "axios";
 // axios.defaults.validateStatus = (status) => status >= 200 && status < 300;
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
-
 const baseURL = 'https://k4b204.p.ssafy.io/api/';
 // const baseURL = 'http://localhost:9999/api/';
 const baseURLImage = 'https://k4b204.p.ssafy.io/api/images/';

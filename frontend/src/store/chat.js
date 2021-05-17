@@ -3,7 +3,6 @@ import { chat } from '@/api/instance.js';
 
 export default {
     state: {
-        authState: false,
         authUser: {},
         currentRoom: null,
         rooms: [],
@@ -12,7 +11,6 @@ export default {
     getters: {
         getUserData: state => state.authUser,
         getRoomData: state => state.rooms,
-        // isAuthorized: state => state.authState,
         getSocket: state => state.socket,
         getCurrentRoom: state => state.currentRoom
     },
@@ -33,9 +31,6 @@ export default {
             state.currentRoom = null;
             state.rooms = state.rooms.filter(room => room._id !== payload._id);
         },
-        TOGGLE_AUTH_STATE: (state, payload) => {
-            state.authState = payload;
-        },
         ASSIGN_SOCKET: (state, payload) => {
             state.socket = payload;
         },
@@ -46,7 +41,6 @@ export default {
             state.currentRoom = payload;
         },
         RESET_STATE: state => {
-            state.authState = false;
             state.authUser = {};
             state.currentRoom = null;
             state.rooms = [];
@@ -64,9 +58,6 @@ export default {
         },
         deleteRoom: (context, payload) => {
             context.commit('DELETE_ROOM', payload);
-        },
-        toggleAuthState: (context, payload) => {
-            context.commit('TOGGLE_AUTH_STATE', payload);
         },
         assignSocket: (context, payload) => {
             context.commit('ASSIGN_SOCKET', payload);

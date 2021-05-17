@@ -14,36 +14,6 @@
     box-sizing: border-box;
 }
 
-// html,
-// body {
-//     height: 100%;
-//     background: #18191c;
-//     font-family: 'Work Sans', sans-serif;
-// }
-
-// header {
-//     background: #18191c;
-//     border-bottom: 1px solid #fff;
-//     width: 100%;
-//     position: relative;
-//     z-index: 10;
-
-//     @include respond(phone) {
-//         position: fixed;
-//         top: 0;
-//     }
-// }
-
-// img {
-//     width: 100%;
-// }
-
-// nav a {
-//     text-decoration: none;
-//     color: #fff;
-//     margin: 0 0.5rem;
-// }
-
 li .nav__link.router-link-exact-active {
     font-weight: bold;
     color: #fff;
@@ -241,20 +211,6 @@ li .nav__link.router-link-exact-active {
         font-size: 1.5rem;
     }
 
-    // &__lead {
-    //     text-align: center;
-    //     width: 50%;
-    //     margin: 1em auto 3em auto;
-    //     font-size: 0.9em;
-    //     line-height: 1.5em;
-    //     color: black;
-
-    //     @include respond(phone) {
-    //         width: 100%;
-    //     }
-    // }
-
-    // Not required??
     &:first-child {
         @include respond(phone) {
             height: 100%;

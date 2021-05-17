@@ -141,10 +141,8 @@
 
 
 <script>
-// Here
 import MessageList from '@/components/chat/chat/MessageList.vue';
 import ChatInput from '@/components/chat/chat/ChatInput.vue';
-
 import Sidebar from '@/components/chat/layout/Sidebar.vue';
 import Modal from '@/components/chat/layout/Modal.vue';
 import Error from '@/components/chat/error/Error.vue';
@@ -184,12 +182,6 @@ export default {
                 .sort(this.sortAlphabetical)
                 .filter(user => user.lookup.username.includes(this.searchInput));
         },
-        // Here : Expected to return a value in computed 
-        // getUsersTyping() {
-        //     if (this.usersTyping.length > 0) {
-        //         return `${this.usersTyping.join(', ')} is typing...`;
-        //     }
-        // },
     },
     methods: {
         ...mapActions(['saveCurrentRoom']),
@@ -327,7 +319,6 @@ export default {
                 this.users = res.data.users;
                 this.$store.dispatch('saveCurrentRoom', res.data);
                 
-                /** Check for private access and access Id */
                 if (!res.data.access) {
                     if (
                         !res.data.accessIds.includes(this.getUserData._id) &&
@@ -339,7 +330,6 @@ export default {
                         });
                     }
                 }
-                /** Socket IO: User join event, get latest messages from room */
                 this.getSocket.emit('userJoined', {
                     room: this.getCurrentRoom,
                     user: this.getUserData,
@@ -347,7 +337,6 @@ export default {
                     admin: true
                 });
 
-                /** Socket IO: Received New User Event */
                 this.getSocket.on('updateRoomData', data => {
                     data = JSON.parse(data);
                     if (data.messages) {
@@ -361,7 +350,6 @@ export default {
                     }
                 });
 
-                /** Socket IO: Reconnect User Event */
                 this.getSocket.on('reconnect', () => {
                     this.usersTyping = [];
                     this.getSocket.emit('reconnectUser', {
@@ -378,29 +366,24 @@ export default {
                     console.warn('Disconnected');
                 });
 
-                /** Socket IO: User Exit Event - Update User List */
                 this.getSocket.on('updateUserList', data => {
                     this.users = JSON.parse(data).users;
                 });
 
-                /** Socket IO: User Exit Event - Check other tabs of the same room and redirect */
                 this.getSocket.on('receivedUserExit', room => {
                     this.checkUserTabs(room);
                 });
 
-                /** Socket IO: New Messaage Event - Append the new message to the messages array */
                 this.getSocket.on('receivedNewMessage', message => {
                     this.messages.push(JSON.parse(message));
                 });
 
-                /** Socket IO: User Typing Event  */
                 this.getSocket.on('receivedUserTyping', data => {
                     this.usersTyping = JSON.parse(data).filter(
                         user => user !== this.getUserData.handle
                     );
                 });
 
-                /** Socket IO: Room Deleted Event - Redirect all users */
                 this.getSocket.on('roomDeleted', () => {
                     this.$store.dispatch('saveCurrentRoom', null);
                     setTimeout(() => {
@@ -408,7 +391,6 @@ export default {
                     }, 2000);
                 });
 
-                /** Socket IO: Room Updated Event */
                 this.getSocket.on('roomUpdated', data => {
                     this.room = JSON.parse(data).room;
                     this.$store.dispatch('saveCurrentRoom', JSON.parse(data).room);

@@ -43,20 +43,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Message belongs to another user -->
-                    <!-- <div class="chat__message-item" v-else>
-                        <img :src="message.user.social.image" class="chat__user-avatar" alt>
-                        <div class="chat__message-body">
-                            <div class="chat__message-content chat__message-content--left">
-                                <span>{{ message.content }}</span>
-                            </div>
-                            <div class="chat__message-details">
-                                <span>{{ message.user.handle }}</span>
-                                <span>{{ moment(message.created_at).fromNow() }}</span>
-                            </div>
-                        </div>
-                    </div> -->
                 </li>
             </transition-group>
         </ul>
