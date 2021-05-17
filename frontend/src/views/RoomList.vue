@@ -3,21 +3,20 @@
         <div class="body-header">
             <img src="@/assets/img/banner/banner-chat.png"/>
         </div>
-        <!-- section : base.scss -->
         <section class="section section--mmt section-room-list">
             <div class="section__content">
                 <Error :errorMessage="errorMessage" />
-                <!-- RoomList Start : rooms.scss -->
                 <div class="rooms" v-if="rooms">
-                    <!-- RoomList Header Start : rooms.scss -->
                     <div class="rooms__header">
                         <div class="rooms__details">
                             <div class="rooms__details-item">
-                                개설된 방 수:
-                                <span class="badge badge--info">{{ rooms.length }}</span>
+                                <ion-icon name="ios-chatbubbles" class="icon"></ion-icon>
+                                <span 
+                                    class="badge badge--info"
+                                >{{ rooms.length }}</span>
                             </div>
                             <div class="rooms__details-item">
-                                비공개방:
+                                <ion-icon name="md-lock" class="icon"></ion-icon>
                                 <span
                                     class="badge badge--danger"
                                 >{{ getPrivateRooms.length }}</span>
@@ -29,8 +28,8 @@
                                 >{{ getPublicRooms.length }}</span>
                             </div>
                             <div class="rooms__actions">
-                                <a @click="openModal" class="primary-btn">Create Room</a>
-                                <!-- <a @click="fetchRoomData" class="site-btn">Refresh Rooms</a> -->
+                                <a @click="openModal" class="primary-btn create-btn">Create Room</a>
+                                <!-- <ion-icon name="md-refresh-circle" @click="fetchRoomData" class="icon"></ion-icon> -->
                             </div>
                         </div>
                         <input
@@ -59,31 +58,24 @@
                                                 >
                                                     <div class="rooms__item-container">
                                                         <div class="rooms__item-details">
-                                                            <strong>{{ room.name.substring(0,7) }}</strong>
-                                                            <div
+                                                            <div v-if="room.access"
                                                                 :class="{ public: room.access, private: !room.access}"
-                                                            >{{ room.access === true ? '공개': '비공개' }}</div>
-                                                            <div>
-                                                                <div>참여자 수: {{ room.users.length }}</div>
-                                                            </div>
-                                                            <div>
-                                                                <div>방장:</div>
-                                                                {{ room.user ? room.user.handle : 'Unknown User' }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="rooms__item-actions">
-                                                            <div
-                                                                v-if="room.user && getUserData._id === room.user._id"
-                                                                class="rooms__item-action"
                                                             >
-                                                                <a
-                                                                    @click.stop="handleDelete"
-                                                                    :name="room.name"
-                                                                    class="btn btn--danger"
-                                                                >삭제</a>
+                                                                <ion-icon name="md-unlock" class="icon"></ion-icon>
                                                             </div>
-                                                            <div v-else>
-                                                                <span class="btn btn--clear">삭제</span>
+                                                            <div v-else
+                                                                :class="{ public: room.access, private: !room.access}"
+                                                            >
+                                                                <ion-icon name="md-lock" class="icon" style="color: black"></ion-icon>
+                                                            </div>
+                                                            <strong>{{ room.name.substring(0,7) }}</strong>
+                                                            <div class="rooms__item-detail">
+                                                                <ion-icon name="md-people" class="icon"></ion-icon>
+                                                                <span>{{ room.users.length }}</span>
+                                                            </div>
+                                                            <div class="rooms__item-detail">
+                                                                <ion-icon name="md-trophy" class="icon"></ion-icon>
+                                                                <span>{{ room.user ? room.user.handle : 'Unknown User' }}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -415,4 +407,11 @@ export default {
 .section-room-list {
     margin-top: -50px;
 }
+
+.create-btn {
+    position: absolute;
+    width: 60%;
+    top: 4px;
+}
+
 </style>

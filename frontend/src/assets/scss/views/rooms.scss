@@ -19,6 +19,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0 3px;
 
         @include respond(phone) {
             margin: 0 0.8rem;
@@ -36,15 +37,13 @@
         }
 
         & span {
-            margin: 0 10px;
+            margin: 0 5px;
         }
     }
 
     &__list {
         margin: 0;
         padding: 0 1rem 0.6rem;
-        // Here : 채팅방 리스트 화면 크기 설정
-        // 스크롤 안나오게 해야함
         height: 500px;
         overflow: auto;
         text-decoration: none;
@@ -64,11 +63,18 @@
                 color: black;
             }
         }
+
+        
+    }
+    
+    &__list::-webkit-scrollbar {
+        width: 7px;
     }
 
-    // &__list::-webkit-scrollbar {
-
-    // }
+    &__list::-webkit-scrollbar-thumb {
+        background-color: lightgrey;
+        border-radius: 10px;
+    }
 
     &__item {
 
@@ -124,10 +130,19 @@
                 margin: 0.5rem 0;
             }
         }
+
+        &-detail {
+            display: inline-block;
+
+            // & span {
+            // }
+        }
+
     }
 
     &__actions {
-        padding: 1rem;
+        position: relative;
+        padding: 2rem;
         width: 50%;
 
         &:hover {

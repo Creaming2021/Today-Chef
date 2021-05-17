@@ -163,7 +163,6 @@ li .nav__link.router-link-exact-active {
 }
 
 .badge {
-    font-size: 1rem;
     display: flex;
     border-radius: 15px;
     padding: 5px;
@@ -171,6 +170,7 @@ li .nav__link.router-link-exact-active {
     width: auto;
     justify-content: center;
     align-items: center;
+    font-size: 90%;
 
     &--info {
         color: #fff;
@@ -192,6 +192,10 @@ li .nav__link.router-link-exact-active {
     font-size: 1.8em;
     margin: 0 0.4em;
     color: grey;
+}
+
+.icon:hover {
+    cursor: pointer;
 }
 
 .page {

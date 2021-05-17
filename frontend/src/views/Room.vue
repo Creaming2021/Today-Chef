@@ -8,7 +8,17 @@
                             <ion-icon name="return-left" @click="leaveRoom" class="icon"></ion-icon>
                             <span class="section__title"> {{ room.name }} </span>
                             <div class="chat__actions">
-                                <ion-icon v-if="this.$store.state.chat.authUser._id === this.getUserData._id" name="ios-link" @click="sendStreamingLink" class="icon"></ion-icon>
+                                <ion-icon v-if="this.$store.state.chat.authUser._id === getUserData._id" 
+                                    ios="ios-trash" md="md-trash"
+                                    @click.stop="handleDelete"
+                                    :name="room.name"
+                                    class="icon">
+                                </ion-icon>
+                                <ion-icon v-if="this.$store.state.chat.authUser._id === getUserData._id" 
+                                    name="ios-link" 
+                                    @click="sendStreamingLink" 
+                                    class="icon">
+                                </ion-icon>
                                 <ion-icon name="md-menu" @click="toggleUserList" class="icon"></ion-icon>
                             </div>
                         </div>
@@ -187,7 +197,7 @@ export default {
             this.getSocket.emit('newMessage', {
                 room: this.getCurrentRoom,
                 user: this.getUserData,
-                content: '<a href="http://www.creaming.co.kr/live/' + this.getCurrentRoom.name + '/' + this.$store.state.user.memberId + '" target="_blank">'
+                content: '<a href="http://www.creaming.co.kr/live/' + this.getCurrentRoom._id + '/' + this.$store.state.chat.authUser.username + '" target="_blank">'
                         + '<img src="https://creaming-bucket-b204.s3.ap-northeast-2.amazonaws.com/logo2-13.png"/></a>',
             });
         },
@@ -284,7 +294,23 @@ export default {
         toggleUserList() {
             this.$refs.userList.toggle();
             this.sidebarVisible = !this.sidebarVisible;
-        }
+        },
+        handleDelete(e) {
+            e.preventDefault();
+            chat
+                .delete(`/room/${e.target.name}`)
+                .then(res => {
+                    this.$store.dispatch('deleteRoom', res.data);
+                    this.getSocket.emit('roomDeleted', {
+                        room: res.data,
+                        user: this.getUserData,
+                        admin: true,
+                        content: `${res.data.user.username} deleted room ${res.data.name}`
+                    });
+                    this.$router.push({ name: 'RoomList' });
+                })
+                .catch(err => console.log(err));
+        },
     },
     created() {
 
