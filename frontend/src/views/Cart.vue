@@ -94,7 +94,7 @@ export default{
         (acc + (curr.price * curr.amount)), 0);
     },
     filteredCouponList() {
-      return this.couponList.filter(coupon => coupon.couponStats === 'AVAILABLE');
+      return this.couponList.filter(coupon => coupon.couponStatus === 'AVAILABLE');
     }
   },
   components: {
