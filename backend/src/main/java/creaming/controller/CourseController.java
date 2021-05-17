@@ -32,8 +32,12 @@ public class CourseController {
     @Operation(summary = "모든 강의 페이징 없이 출력", description = "모든 강의를 출력합니다")
     @GetMapping
     public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseAll() {
+        long startTime = System.currentTimeMillis();
         log.info("(Get) getCourseAll - No Pageable");
-        return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourseAll());
+        List<CourseDto.CourseSimpleResponse> result = courseService.getCourseAll();
+        long endTime = System.currentTimeMillis();
+        log.info("Time - {}", endTime - startTime);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @Operation(summary = "강의 하나 출력", description = "courseId에 해당하는 강의 정보를 출력합니다")

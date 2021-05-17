@@ -25,6 +25,8 @@ public class ProductReview extends BaseTimeEntity {
     private Long id;
 
     private String title;
+
+    @Lob
     private String content;
     private Integer rating;
 

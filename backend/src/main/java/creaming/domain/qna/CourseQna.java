@@ -25,6 +25,8 @@ public class CourseQna extends BaseTimeEntity {
     private Long id;
 
     private String title;
+
+    @Lob
     private String content;
     private Boolean isSecret;
 

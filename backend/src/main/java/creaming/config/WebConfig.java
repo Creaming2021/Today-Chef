@@ -22,5 +22,4 @@ public class WebConfig implements WebMvcConfigurer {
     void started() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
     }
-
 }
