@@ -4,7 +4,7 @@
       <div class="row">
         <div 
           class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
-          v-for="course in courseList" :key="course.courseId">
+          v-for="(course, idx) in courseList" :key="idx">
             <ItemCard :itemDetail="course" :type="type" />
         </div>
       </div>
