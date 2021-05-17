@@ -6,7 +6,8 @@
     <section class="shop disableselect" >
       <div class="container">
         <div class="row">
-          <Sidebar/>
+          <Sidebar
+            :type="type"/>
 
           <div 
             v-show="type === 'info'" 

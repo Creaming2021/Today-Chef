@@ -12,11 +12,11 @@
               <div class="card-body">
                 <div class="shop__sidebar__price">
                   <ul id="mypage-filter">
-                    <li @click="changeFilter('info')">내 정보 수정</li>
-                    <li @click="changeFilter('coupon')">내 쿠폰</li>
-                    <li @click="changeFilter('student')">내가 수강한 강의</li>
-                    <li @click="changeFilter('teacher')">내가 진행한 강의</li>
-                    <li @click="changeFilter('payment')">결제 내역</li>
+                    <li :class="type==='info' && 'active'" @click="changeFilter('info')">내 정보 수정</li>
+                    <li :class="type==='coupon' && 'active'" @click="changeFilter('coupon')">내 쿠폰</li>
+                    <li :class="type==='student' && 'active'" @click="changeFilter('student')">내가 수강한 강의</li>
+                    <li :class="type==='teacher' && 'active'" @click="changeFilter('teacher')">내가 진행한 강의</li>
+                    <li :class="type==='payment' && 'active'" @click="changeFilter('payment')">결제 내역</li>
                   </ul>
                 </div>
               </div>
@@ -33,9 +33,7 @@
 <script>
 export default {
   props: {
-    courseInfo: Object,
-    state: String,
-    role: String,
+    type: String,
   },
   methods: {
     changeFilter(type){
