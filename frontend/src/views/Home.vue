@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-container">
     <!-- <div id="preloder">
         <div class="loader"></div>
     </div> -->
@@ -97,8 +97,8 @@ export default {
 .home-sub-title{
   width: 100%;
   text-align: center;
-  size: 1.25rem;
+  font-size: 2rem;
   font-weight: bold;
-  margin-top: 30px;
+  margin: 50px auto -30px auto;
 }
 </style>
