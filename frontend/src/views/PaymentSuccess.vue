@@ -44,10 +44,10 @@ export default {
       console.log(cart);
       window.localStorage.removeItem('payment_cart_list');
       window.localStorage.removeItem('payment_cart');
-      for(let idx in cartList){
+      for(let cartItem in cartList){
         this.$store.dispatch('DELETE_CART_LIST', {
           memberId: this.memberId,
-          cartId: this.cartList[idx].cartId,
+          cartId: cartItem.cartId,
         });
       }
 
