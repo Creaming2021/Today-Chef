@@ -4,7 +4,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./frontend
-    container_name: app_frontend
+    container_name: frontend
     volumes:
       - /app/node_modules
       - ./frontend:/app
@@ -15,7 +15,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./nginx
-    container_name: app_nginx
+    container_name: nginx
     ports:
       - 80:80
       - 443:443
@@ -24,7 +24,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./backend
-    container_name: app_backend
+    container_name: backend_api
     volumes:
       - ./backend:/app
     ports: 

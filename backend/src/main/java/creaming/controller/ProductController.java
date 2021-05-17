@@ -1,5 +1,6 @@
 package creaming.controller;
 
+import creaming.domain.etc.FoodType;
 import creaming.dto.ProductDto;
 import creaming.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,6 +50,14 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable("productId") Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @Operation(summary = "카테고리별 top (count) 제품 리스트 요청", description = "카테고리별 상위권 제품을 count 개수만큼 가져옵니다.")
+    @GetMapping("/rank")
+    public ResponseEntity<List<ProductDto.ProductSimpleResponse>> getProductRankByRating(@RequestParam("count") int count,
+                                                                                      @RequestParam("category") FoodType category)  {
+        log.info("(Get) getProductRankByRating - count : {} | category : {}", count, category);
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getProductRankByRating(count, category));
     }
 
 }

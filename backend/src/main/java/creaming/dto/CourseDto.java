@@ -31,6 +31,7 @@ public class CourseDto {
         private Double rating;
         private String image;
         private FoodType category;
+        private Integer reviewCnt;
 
         public CourseSimpleResponse(Course course) {
             this.courseId = course.getId();
@@ -46,6 +47,7 @@ public class CourseDto {
                 this.image = courseFiles.get(0).getFileName();
             }
             this.category = course.getCategory();
+            this.reviewCnt = course.getCourseReviews().size();
         }
     }
 
@@ -66,6 +68,7 @@ public class CourseDto {
         private String descriptions;
         private List<ImageDto> images;
         private ProductDto.ProductDetailResponse product;
+        private String liveToken;
 
         public CourseDetailResponse(Course course) {
             this.courseId = course.getId();
@@ -77,10 +80,14 @@ public class CourseDto {
             this.rating = course.getCourseReviews().stream()
                     .collect(Collectors.averagingInt(CourseReview::getRating));
             this.descriptions = course.getDescriptions();
+            this.category = course.getCategory();
             this.images = course.getCourseFiles().stream()
                     .map(courseFile -> new ImageDto(courseFile.getId(), courseFile.getFileName()))
                     .collect(Collectors.toList());
-            this.product = new ProductDto.ProductDetailResponse(course.getProduct());
+            if(course.getProduct() != null) {
+                this.product = new ProductDto.ProductDetailResponse(course.getProduct());
+            }
+            this.liveToken = course.getCourseRoom().getToken();
         }
     }
 
@@ -105,6 +112,8 @@ public class CourseDto {
         private FoodType category;
         @NotEmpty
         private String descriptions;
+        // 이미지 리스트 저장
+        private List<String> images;
 
         public Course toEntity() {
             return Course.builder()

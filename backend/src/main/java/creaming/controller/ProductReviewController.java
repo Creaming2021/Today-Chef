@@ -1,5 +1,6 @@
 package creaming.controller;
 
+import creaming.common.Validator;
 import creaming.dto.ProductReviewDto;
 import creaming.service.ProductReviewService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -18,6 +20,7 @@ import java.util.List;
 public class ProductReviewController {
 
     private final ProductReviewService productReviewService;
+    private final Validator validator;
 
     @Operation(summary = "상품 리뷰 전체 조회", description = "상품 전체를 조회합니다.")
     @GetMapping
@@ -25,16 +28,24 @@ public class ProductReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(productReviewService.getProductReviewList(id));
     }
 
+    @Operation(summary = "상품 리뷰 하나 조회", description = "상품 하나를 조회합니다.")
+    @GetMapping("/{productReviewId}")
+    public ResponseEntity<ProductReviewDto.ProductReviewResponse> getProductReview(@PathVariable("productReviewId") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(productReviewService.getProductReview(id));
+    }
+
+
     @Operation(summary = "상품 리뷰 등록", description = "상품 리뷰를 등록합니다.")
     @PostMapping
-    public ResponseEntity<Long> postProductReview(@RequestBody ProductReviewDto.ProductReviewPostRequest dto) {
+    public ResponseEntity<Long> postProductReview(@RequestBody @Valid ProductReviewDto.ProductReviewPostRequest dto) {
+        validator.ratingValidator(dto.getRating());
         return ResponseEntity.status(HttpStatus.OK).body(productReviewService.postProductReview(dto));
     }
 
     @Operation(summary = "상품 리뷰 수정", description = "상품 리뷰를 수정합니다.")
     @PutMapping("/{productReviewId}")
     public ResponseEntity<Long> putProductReview(@PathVariable("productReviewId") Long id,
-                                                 @RequestBody ProductReviewDto.ProductReviewPutRequest dto) {
+                                                 @RequestBody @Valid ProductReviewDto.ProductReviewPutRequest dto) {
         return ResponseEntity.status(HttpStatus.OK).body(productReviewService.putProductReview(id, dto));
     }
 

@@ -23,16 +23,20 @@ public class UserService {
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
     }
 
-    // 닉네임 중복 확인
+    // 이메일 중복 확인
     public boolean checkEmail(String email) {
         return memberRepository.findByEmail(email).isEmpty();
     }
-
+    
+    // 닉네임 중복 확인
+    public Boolean checkNickname(String nickname) {
+        return memberRepository.findByNickname(nickname).isEmpty();
+    }
+    
     // 회원가입
     public UserDto.LoginResponseDto signUp(UserDto.SignupRequestDto dto) {
         Member member = memberRepository.save(dto.toEntity());
         return new UserDto.LoginResponseDto(member);
     }
-
-
+    
 }

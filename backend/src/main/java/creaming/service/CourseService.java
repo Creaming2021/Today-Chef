@@ -2,19 +2,22 @@ package creaming.service;
 
 import creaming.domain.course.Course;
 import creaming.domain.course.CourseRepository;
+import creaming.domain.etc.FoodType;
+import creaming.domain.file.CourseFile;
 import creaming.domain.member.Member;
 import creaming.domain.member.MemberRepository;
 import creaming.domain.product.Product;
 import creaming.domain.product.ProductRepository;
 import creaming.domain.register.Register;
 import creaming.domain.register.RegisterRepository;
+import creaming.domain.room.CourseRoom;
+import creaming.domain.room.CourseRoomRepository;
 import creaming.dto.CourseDto;
 import creaming.dto.MemberDto;
 import creaming.exception.BaseException;
 import creaming.exception.ErrorCode;
+import creaming.utils.MakeToken;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +33,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final RegisterRepository registerRepository;
     private final ProductRepository productRepository;
+    private final CourseRoomRepository courseRoomRepository;
 
     // 모든 강의 페이징 처리 후 출력
 //    public Page<CourseDto.CourseSimpleResponse> getCourseAll(Pageable pageable) {
@@ -69,10 +73,20 @@ public class CourseService {
         Member member = memberRepository.findById(dto.getMemberId())
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
         Course course = dto.toEntity();
+
+        // 이미지
+        List<String> images = dto.getImages();
+        images.stream().filter(image -> !image.equals(""))
+                .forEach(image -> course.addCourseFile(new CourseFile((image))));
+
         Product product = productRepository.findById(dto.getProductId())
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
         product.addCourse(course);
         member.addCourse(course);
+
+        CourseRoom courseRoom = courseRoomRepository.save(new CourseRoom(MakeToken.makeToken()));
+        course.addRoom(courseRoom);
+
         return courseRepository.save(course).getId();
     }
 
@@ -91,6 +105,16 @@ public class CourseService {
                 .orElseThrow(() -> new BaseException(ErrorCode.COURSE_NOT_FOUND));
         course.getMember().deleteCourse(course);
         courseRepository.delete(course);
+    }
+
+    public List<CourseDto.CourseSimpleResponse> getCourseRankByRating(int count, FoodType category) {
+        return courseRepository.findAll()
+                .stream()
+                .filter(course -> course.getCategory().equals(category))
+                .map(CourseDto.CourseSimpleResponse::new)
+                .sorted((o1, o2) -> (int) (o2.getRating() - o1.getRating()))
+                .limit(count)
+                .collect(Collectors.toList());
     }
 
 }

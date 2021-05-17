@@ -1,43 +1,43 @@
 export default {
   state: {
-    arrivalHomeState: null,
-    currentArrivalHomeState: null,
-    categoryHomeState: null,
-    currentCategoryHomeState: null,
-    randomListState: null,
+    arrivalHomeState: [],
+    currentArrivalHomeState: [],
+    categoryHomeState: [],
+    currentCategoryHomeState: [],
+    randomListState: [],
   },
   mutations: {
-    setArrivalHomeState(state, payload) {
-      state.arrivalHomeState = payload
+    SET_ARRIVAL_HOME_STATE(state, payload) {
+      state.arrivalHomeState = payload;
     },
-    setCurrentArrivalHomeState(state, payload) {
-      state.currentArrivalHomeState = payload
+    SET_CURRENT_ARRIVAL_HOME_STATE(state, payload) {
+      state.currentArrivalHomeState = payload;
     },
-    setCategoryHomeState(state, payload) {
-      state.categoryHomeState = payload
+    SET_CATEGORY_HOME_STATE(state, payload) {
+      state.categoryHomeState = payload;
     },
-    setCurrentCategotyHomeState(state, payload) {
-      state.currentCategoryHomeState = payload
+    SET_CURRENT_CATEGORY_HOME_STATE(state, payload) {
+      state.currentCategoryHomeState = payload;
     },
-    setRandomListState(state, payload) {
-      state.randomListState = payload
+    SET_RANDOM_LIST_STATE(state, payload) {
+      state.randomListState = payload;
     },
   },
   actions: {
-    setArrivalHomeState : function(context, payload) {
-      context.commit('setArrivalHomeState', payload)
+    SET_ARRIVAL_HOME_STATE : function({ commit }, payload) {
+      commit('SET_ARRIVAL_HOME_STATE', payload);
     },
-    setCurrentArrivalHomeState : function(context, payload) {
-      context.commit('setCurrentArrivalHomeState', payload)
+    SET_CURRENT_ARRIVAL_HOME_STATE : function({ commit }, payload) {
+      commit('SET_CURRENT_ARRIVAL_HOME_STATE', payload);
     },
-    setCategoryHomeState : function(context, payload) {
-      context.commit('setCategoryHomeState', payload)
+    SET_CATEGORY_HOME_STATE : function({ commit }, payload) {
+      commit('SET_CATEGORY_HOME_STATE', payload);
     },
-    setCurrentCategotyHomeState : function(context, payload) {
-      context.commit('setCurrentCategotyHomeState', payload)
+    SET_CURRENT_CATEGORY_HOME_STATE : function({ commit }, payload) {
+      commit('SET_CURRENT_CATEGORY_HOME_STATE', payload);
     },
-    setRandomListState : function(context, payload) {
-      context.commit('setRandomListState', payload)
+    SET_RANDOM_LIST_STATE : function({ commit }, payload) {
+      commit('SET_RANDOM_LIST_STATE', payload);
     },
   },
 };

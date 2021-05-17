@@ -1,8 +1,14 @@
 server:
   servlet:
     context-path: /api
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
   error:
     include-message: always
+#  port:
+#    9999
 
 spring:
   jpa:

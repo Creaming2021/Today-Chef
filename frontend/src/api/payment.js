@@ -2,12 +2,11 @@ import { basic } from './instance.js';
 
 // 결제하기
 export const payment = async ( amount ) => {
-  await basic.get(
+  console.log(amount);
+  return await basic.get(
     'kakao-pay', 
     {
       'params': { amount }
     }
-	).then(response => {
-		window.location.href = response.data.url;
-	}).finally(() => (response.data))
+	).catch(error => console.log(error));
 }
