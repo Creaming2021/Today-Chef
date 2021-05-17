@@ -75,8 +75,8 @@ export default {
         
         if(this.item === 'course' && this.currentFilter != 'all'){ // 필터 검색
           let date = new Date();
-          let today = '' + date.getFullYear() 
-                      + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1))
+          let today = '' + date.getFullYear() + '-'
+                      + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + '-'
                       + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
 
           if(this.currentFilter === 'done' && today < item.date){
@@ -94,7 +94,9 @@ export default {
         } else if(this.currentSortId === 'rank') {
           return itemB.rating - itemA.rating;
         } else if(this.currentSortId === 'arrival') {
-          return itemA.date - itemB.date;
+          if(itemA.date < itemB.date) return -1;
+          if(itemA.date > itemB.date) return 1;
+          if(itemA.date === itemB.date) return 0;
         } else if(this.currentSortId === 'price') {
           return itemA.price - itemB.price;
         }

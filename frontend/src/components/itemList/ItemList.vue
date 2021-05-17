@@ -37,15 +37,20 @@
       </div>
     </div>
     <div class="row">
-      <div 
-        class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
-        v-for="(itemDetail,idx) in itemList" :key="idx">
-          <ItemCard 
-            :item="item"
-            :itemDetail="itemDetail" 
-            :idx="idx" 
-            :type="'otherClass'"/>
-      </div>
+      <template v-if="itemList.length > 0">
+        <div 
+          class="col-lg-4 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" 
+          v-for="(itemDetail,idx) in itemList" :key="idx">
+            <ItemCard 
+              :item="item"
+              :itemDetail="itemDetail" 
+              :idx="idx" 
+              :type="'otherClass'"/>
+        </div>
+      </template>
+      <template v-else>
+        <img class="empty-search-img" src="@/assets/img/empty/search.png"/>
+      </template>
     </div>
     <!-- <div class="row">
       <div class="col-lg-12">
@@ -97,6 +102,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.empty-search-img {
+  width: 450px !important;
+  height: 450px !important;
+  margin: auto !important;
+}
 
 </style>

@@ -107,7 +107,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .list-container {
   width: 60%;
   margin: auto;

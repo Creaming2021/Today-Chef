@@ -8,27 +8,32 @@
       v-else-if="type === 'notice'" 
       class="write-btn"
       @click="onClickOpenModal">공지사항 작성하기</button>
-    <div 
-      class="list-item" 
-      v-for="(item, idx) in computedList" 
-      v-bind:key="idx"
-      @click="type === 'review' 
-              ? onGoToReviewDetail(item)
-              : onGoToNoticeDetail(item.reviewId)">
-      <div class="list-item-thumbnail" 
-        v-if="type === 'notice'">
-          <img :src="item.profile.profileImage"/>
+    <template v-if="computedList.length > 0">
+      <div 
+        class="list-item" 
+        v-for="(item, idx) in computedList" 
+        v-bind:key="idx"
+        @click="type === 'review' 
+                ? onGoToReviewDetail(item)
+                : onGoToNoticeDetail(item.reviewId)">
+        <div class="list-item-thumbnail" 
+          v-if="type === 'notice'">
+            <img :src="item.profile.profileImage"/>
+        </div>
+        <div class="list-item-left">
+          <div class="title">{{item.title}}</div>
+        </div>
+        <div class="list-item-cnt" 
+          v-if="type === 'review' && item === 'course'">
+            {{item.commentCount}}<div>답변</div></div>
+        <b-form-rating v-model="item.rating" color="orange" size="lg" inline no-border/>
+        <div class="detail">{{item.profile.nickname}} | {{item.createdDate.substring(0, 10)}}</div>
+        <hr/>
       </div>
-      <div class="list-item-left">
-        <div class="title">{{item.title}}</div>
-      </div>
-      <div class="list-item-cnt" 
-        v-if="type === 'review'">
-          {{item.commentCount}}<div>답변</div></div>
-      <b-form-rating v-model="item.rating" color="orange" size="lg" inline no-border/>
-      <div class="detail">{{item.profile.nickname}} | {{item.createdDate.substring(0, 10)}}</div>
-      <hr/>
-    </div>
+    </template>
+    <template v-else>
+      <img src="@/assets/img/empty/board.png"/>
+    </template>
     <!-- <div class="row">
       <div class="col-lg-12">
         <div class="product__pagination">

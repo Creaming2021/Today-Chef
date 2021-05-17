@@ -6,27 +6,33 @@
       <div 
         class="blog__item__text"
         @click="onClickDetail">
-          <span>{{itemDetail.category}}</span>
+          <b-badge variant="primary">{{itemDetail.category}}</b-badge>
           <span v-if="item === 'course'"><img src="@/assets/img/icon/calendar.png" alt="">{{itemDetail.date}}</span>
           <h6>{{itemDetail.name}}</h6>
-          <span v-if="item === 'course'" href="#">{{itemDetail.profile.nickname}} </span><span> 별점 : {{itemDetail.rating}}</span>
+          <span v-if="item === 'course'" href="#">{{itemDetail.profile.nickname}} </span>
+          <b-form-rating v-model="itemDetail.rating" color="orange" size="xl" readonly no-border/>
           <h6>{{itemDetail.price}}원</h6>
       </div>
       <b-modal 
         size="lg" 
         v-model="modalState" 
-        hide-footer hide-header>
-        <div class="container" style="min-height : 300px">
+        hide-footer hide-header centered>
+        <div class="container" style="min-height : 300px; padding-bottom: 50px;">
           <p @click="onCloseDetailModal" class="btn" style="display : flex;justify-content : flex-end">X</p>
-          <div class="row" style="justify-content : space-around">
+          <!-- <div class="row" style="justify-content : space-around">
             <p class="modal-btn" @click="onClickUpdateClass">강의 정보 수정</p>
             <p class="modal-btn" @click="onClickReopenClass">강의 재오픈</p>
-          </div>
-          <div style="text-align : center; font-weight : 700; font-size : 20px">{{this.itemDetail.name}}</div>
-          <div class="row" style="justify-content : center; height: 60vh;"
-            v-for="student in studentList" :key="student.memberId">
-              <Student :student="student"/>
-          </div>
+          </div> -->
+          <div style="text-align : center; font-weight : 700; font-size : 20px; margin-bottom: 60px;">{{this.itemDetail.name}}</div>
+          <template v-if="studentList.length > 0">
+            <div class="row" style="justify-content : center; margin-top: 20px;"
+              v-for="student in studentList" :key="student.memberId">
+                <Student :student="student"/>
+            </div>
+          </template>
+          <template v-else>
+            <img class="empty-student-list" src="@/assets/img/empty/student.png"/>
+          </template>
         </div>
       </b-modal>
     </div>
@@ -75,9 +81,9 @@ export default {
   methods : {
     onClickDetail() {
       if (this.type === "teacher") {
-        this.$store.dispatch('GET_COURSE', this.course.courseId);
-        this.$store.dispatch('GET_COURSE_STUDENT_LIST', this.course.courseId);
-        this.onOpenDetailModal(this.course);
+        this.$store.dispatch('GET_COURSE', this.itemDetail.courseId);
+        this.$store.dispatch('GET_COURSE_STUDENT_LIST', this.itemDetail.courseId);
+        this.onOpenDetailModal();
       } else if (this.type === "student") {
         this.$router.push({
           name: 'ItemDetail',
@@ -170,5 +176,13 @@ export default {
 .active {
   color: #111111;
   font-weight: 700;
+}
+.container {
+  text-align: center;
+}
+.container .empty-student-list{
+  margin: auto;
+  width: 500px;
+  height: 500px;
 }
 </style>
