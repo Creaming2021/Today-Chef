@@ -18,8 +18,17 @@
                 </tr>
               </thead>
               <tbody>
-                <template v-for="cartDetail in cartList">
-                  <CartItem :cartDetail="cartDetail" :key="cartDetail.cartId"/>
+                <template v-if="cartList.length > 0">
+                  <template v-for="cartDetail in cartList">
+                    <CartItem :cartDetail="cartDetail" :key="cartDetail.cartId"/>
+                  </template>
+                </template>
+                <template v-else>
+                  <tr>
+                    <td colspan="4" class="empty-cart-img">
+                      <img src="@/assets/img/empty/cart.png"/>
+                    </td>
+                  </tr>
                 </template>
               </tbody>
             </table>
@@ -101,15 +110,23 @@ export default{
   },
   methods:{
     goToPayment(){
-      this.$store.dispatch('SET_CART', {
-        selectedCoupon: this.selectedCoupon,
-        discountPrice: this.discountPrice,
-        totalPrice: this.totalPrice,
-      });
+      if(this.cartList.length === 0){
+        this.$swal.fire({
+          icon: 'error',
+          title: '장바구니가 비어있어요.',
+          text: '물건을 담아주세요.',
+        });
+      } else{
+        this.$store.dispatch('SET_CART', {
+          selectedCoupon: this.selectedCoupon,
+          discountPrice: this.discountPrice,
+          totalPrice: this.totalPrice,
+        });
 
-      this.$router.push({
-        name: 'PaymentProduct',
-      });
+        this.$router.push({
+          name: 'PaymentProduct',
+        });
+      }
     },
     goToProductList(){
       this.$router.push({
@@ -146,5 +163,12 @@ export default{
 }
 .cart__total h6{
   font-weight: bold;
+}
+.empty-cart-img{
+  text-align: center;
+}
+.empty-cart-img img{
+  width: 300px;
+  height: auto;
 }
 </style>

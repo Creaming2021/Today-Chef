@@ -87,7 +87,7 @@ export default {
           },
           company: 'kr.cjlogistics',
           note: this.paymentInfo.note,
-          number: '',
+          number: '385025557902',
         },
         memberId: this.memberId,
         orderDetails: [],

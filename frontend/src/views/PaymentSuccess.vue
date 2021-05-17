@@ -1,6 +1,5 @@
 <template>
   <div>
-    결제 완료
   </div>
 </template>
 
@@ -25,7 +24,6 @@ export default {
     })
   },
   created() {
-
     const paymentProductString = window.localStorage.getItem('payment_product');
     const paymentCourseString = window.localStorage.getItem('payment_course');
     if (paymentCourseString != '') {
@@ -54,8 +52,18 @@ export default {
       }
     }
 
-    alert('마이페이지로 이동');
-    this.$router.push('/me/info');
+    this.$swal.fire({
+      icon: 'success',
+      title: '결제 완료',
+      text: '마이페이지로 이동합니다.',
+    });
+    
+    this.$router.push({
+      name: 'Profile',
+      params: {
+        type: 'info',
+      }
+    });
   },
 }
 </script>
