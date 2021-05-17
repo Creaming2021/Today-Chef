@@ -23,22 +23,21 @@
               <li :class="currentTab === 'Home' && 'active'" @click="onClickNav('Home')">홈</li>
               <li :class="currentTab === 'Notice' && 'active'" @click="onClickNav('Notice')">공지사항</li>
               <li :class="currentTab === 'Product' && 'active'" @click="onClickNav('Product', 'all')">밀키트</li>
-              <li :class="currentTab === 'Course' && 'active'" @click="onClickNav('Course', 'all')">강의</li>
-              <li
-                :class="currentTab === 'MyCourse' && 'active'"  
-                v-if="this.user.memberId != ''"
-                @click="onClickNav('MyCourse', 'list')">강사</li>
-              <li 
-                v-if="this.user.memberId != ''"
-                @click="onClickNav('RoomList')">채팅</li>
-              <li 
-                :class="currentTab === 'Cart' && 'active'"
-                v-if="this.user.memberId != ''" 
-                @click="onClickNav('Cart')">장바구니</li>
-              <li 
-                :class="currentTab === 'Profile' && 'active'"
-                v-if="this.user.memberId != ''" 
-                @click="onClickNav('Profile', 'info')">마이프로필</li>
+              <li :class="currentTab === 'Course' && 'active'" @click="onClickNav('Course', 'all')">클래스</li>
+              <template v-if="this.user.memberId != ''">
+                <li 
+                  :class="currentTab === 'RoomList' && 'active'"
+                  @click="onClickNav('RoomList')">채팅</li>
+                <li 
+                  :class="currentTab === 'Cart' && 'active'"
+                  @click="onClickNav('Cart')">장바구니</li>
+                <li
+                  :class="currentTab === 'MyCourse' && 'active'"  
+                  @click="onClickNav('MyCourse', 'list')">MY CLASS</li>
+                <li 
+                  :class="currentTab === 'Profile' && 'active'"
+                  @click="onClickNav('Profile', 'info')">MY PAGE</li>
+              </template>
             </ul>
           </nav>
         </div>
@@ -67,6 +66,7 @@
       </div>
       <div v-else>
         <img 
+          class="kakao-signin-btn"
           src="@/assets/img/kakao/kakao_login_large_wide.png"
           @click="onClickKakaoSignIn"/>
       </div>
@@ -245,4 +245,7 @@ export default {
   cursor: pointer;
 }
 
+.kakao-signin-btn{
+  cursor: pointer; 
+}
 </style>

@@ -8,14 +8,16 @@
             class="small-profile-image"
             :src="member.profileImage || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBuHwFCvVVSVGc-l7HNr2xuMVs-ru25GcUUmjpIp-pBgx5ZAlyN510nbsXzyLn5X8RdmY&usqp=CAU'" alt="">
         </div>
-        <div>닉네임 : {{member.nickname}}</div>
+        <h4>{{member.nickname}}</h4>
       </div>
       <div><button @click="onClickChange('img')">수정</button></div>
     </div>
     <div class="personal-card">
       <div class="personal-header">연락처 관리</div>
-      <div>휴대전화 : {{member.phone}}</div>
-      <div>연락처 이메일 : {{member.email}}</div>
+      <div class="personal-content">
+        <h5><b-icon icon="telephone"/> {{member.phone}}</h5>
+        <h5><b-icon icon="envelope"/> {{member.email}}</h5>
+      </div>
       <div><button @click="onClickChange('phone&email')">수정</button></div>
     </div>
     <!-- <div class="personal-card">
@@ -30,15 +32,6 @@
       <div 
         v-if="type === 'img'"
         class="modify-container">
-        
-          <!-- <ImageSmall src={imgUrl || (userTypeBoolean ? consumerInfo.profileImage : shelterInfo.profileImage)} />
-          <label htmlFor="img-file" className={`${styles['user-img-edit-btn']} ${!userTypeBoolean && styles['blue-btn']}`}>
-            프로필 이미지 편집
-          </label>
-          <input 
-            type="file" id="img-file" className={styles['img-input-tag']} 
-            onChange={handleChangeImg} 
-          /> -->
           <img 
             @click="selectImage"
             class="profile-image"
@@ -49,7 +42,12 @@
             class='img-input-tag' 
             @change="changeImg" 
           />
-          <input class="big" v-model="modifyForm.nickname" placeholder="닉네임을 입력하세요."/><br/>
+          <input 
+            class="small" 
+            v-model="modifyForm.nickname" 
+            @keyup="initialNicknameState"
+            placeholder="닉네임을 입력하세요."/>
+          <button @click="onClickCheckNickname">중복 체크</button><br/>
           <button class="big-btn" @click="onPutMemberInfo">수정 완료</button>
       </div>
       <div v-else-if="type === 'phone&email'" class="modify-container">
@@ -87,6 +85,7 @@ export default {
   computed : {
     ...mapState({
       member: state => state.member.memberInfo,
+      nicknameState: state => state.user.nicknameState,
     }),
   },
   methods : {
@@ -114,8 +113,15 @@ export default {
       this.openModifyModal = false;
     },
     onPutMemberInfo(){
-      this.$store.dispatch('PUT_MEMBER_INFO', this.modifyForm);
-      this.onCloseModal();
+      if(this.member.nickname !== this.modifyForm.nickname && !this.nicknameState){
+        this.$swal.fire({
+          icon: 'error',
+          text: '닉네임 중복체크를 해주세요.',
+        });
+      }else{
+        this.$store.dispatch('PUT_MEMBER_INFO', this.modifyForm);
+        this.onCloseModal();
+      }
     },
     changeImg(event) {
       this.profileUrl = URL.createObjectURL(event.target.files[0]);
@@ -123,6 +129,14 @@ export default {
     },
     selectImage(){
       this.$refs.imgFile.click();
+    },
+    onClickCheckNickname(){
+      this.$store.dispatch('CHECK_NICKNAME', this.modifyForm.nickname);
+    },
+    initialNicknameState(){
+      if(this.member.nickname !== this.modifyForm.nickname){
+        this.$store.dispatch('SET_NICKNAME_STATE', false);
+      }
     },
   },
 }
@@ -142,31 +156,40 @@ export default {
   width : 100%;
   border: 2px solid #e5e5e5;
   margin-bottom : 15px;
+  position: relative;
 }
 .personal-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  width: 100%;
+  margin-top: 20px;
 }
 .personal-header {
   font-size: 18px;
   font-weight: 700;
 }
 .personal-card button {
+  position: absolute;
   color: #111111;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 700;
-  text-transform: uppercase;
-  display: inline-block;
-  border: 1px solid #e5e5e5;
+  border: none;
   padding: 6px 25px;
-  margin-top: 30px;
   cursor: pointer;
+  right: 10px;
+  top: 10px;
+  border-radius: 10px;
+}
+.personal-card button:hover {
+  color: white;
+  background-color: #e53637;
 }
 .personal-content .small-profile-image {
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
   border-radius: 100%;
-  margin: 10px 50px 0px 0px;
+  margin: 10px 0px 20px 0px;
   object-fit: cover;
 }
 .profile-image{
@@ -199,6 +222,15 @@ export default {
   border-radius: 10px;
   border: 1px solid #afafaf;
   width: 400px;
+  height: 60px;
+  padding-left: 30px;
+}
+
+.modify-container .small{
+  margin: 20px 20px 20px 0px;
+  border-radius: 10px;
+  border: 1px solid #afafaf;
+  width: 200px;
   height: 60px;
   padding-left: 30px;
 }

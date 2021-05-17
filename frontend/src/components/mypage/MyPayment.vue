@@ -3,28 +3,41 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="shopping__cart__table">
-        <span @click="changeType('course')">강의</span> | 
-        <span @click="changeType('product')">밀키트</span>
+        <span :class="type==='course' && 'active'" @click="changeType('course')">강의</span> | 
+        <span :class="type==='product' && 'active'" @click="changeType('product')">밀키트</span>
         <table>
           <thead>
               <tr>
-                <th v-if="type === 'course'">강의 정보</th>
-                <th v-else-if="type === 'product'">주문 번호</th>
-                <th v-if="type === 'course'">결제일</th>
-                <th v-else-if="type === 'product'">결제 내역</th>
+                <template v-if="type === 'course'">
+                  <th>강의 정보</th>
+                  <th>결제일</th>
+                </template>
+                <template v-else-if="type === 'product'">
+                  <th>주문 번호</th>
+                  <th>결제 내역</th>
+                </template>
                 <th>가격</th>
               </tr>
           </thead>
           <tbody>
-            <template v-if="type === 'course'">
-              <template v-for="payment in paymentList">
-                <CoursePayment :payment="payment" :type="type" :key="payment.registerId"/>
+            <template v-if="paymentList.length > 0">
+              <template v-if="type === 'course'">
+                <template v-for="payment in paymentList">
+                  <CoursePayment :payment="payment" :type="type" :key="payment.registerId"/>
+                </template>
+              </template>
+              <template v-else-if="type === 'product'">
+                <template v-for="payment in paymentList">
+                  <ProductPayment :payment="payment" :type="type" :key="payment.orderId"/>
+                </template>
               </template>
             </template>
-            <template v-else-if="type === 'product'">
-              <template v-for="payment in paymentList">
-                <ProductPayment :payment="payment" :type="type" :key="payment.orderId"/>
-              </template>
+            <template v-else>
+              <tr>
+                <td colspan="3" class="empty-payment">
+                  <img src="@/assets/img/empty/payment.png"/>
+                </td>
+              </tr>
             </template>
           </tbody>
         </table>
@@ -90,4 +103,15 @@ export default {
 </script>
 
 <style>
+.shopping__cart__table span{
+  cursor: pointer;
+}
+.empty-payment{
+  width: 100%;
+  text-align: center;
+}
+.empty-payment img{
+  width: 500px;
+  height: auto;
+}
 </style>

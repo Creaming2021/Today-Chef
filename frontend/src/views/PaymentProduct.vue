@@ -36,8 +36,8 @@
 
 <script>
 import { mapState } from "vuex";
-// import { payment } from '@/api/payment';
 import Address from '@/components/payment/Address.vue';
+import { payment } from '@/api/payment.js';
 
 export default {
   data() {
@@ -73,16 +73,8 @@ export default {
     },
     // 결제 요청 함수
     onSubmitPayment() {
-      // payment(
-      //   this.paymentInfo.price - this.discount,
-      //   (res) => {  
-      //     console.log(res);
-      //   },
-      //   (err) => {
-      //     console.log(err);
-      //   }
-      // );
-      
+      console.log(this.cart);
+
       // 카카오 페이 성공 뜨면
       // 주문 요청
       let orderDetail = {
@@ -95,7 +87,7 @@ export default {
           },
           company: 'kr.cjlogistics',
           note: this.paymentInfo.note,
-          number: '',
+          number: '385025557902',
         },
         memberId: this.memberId,
         orderDetails: [],
@@ -108,6 +100,11 @@ export default {
           productId: this.cartList[idx].productId,
         })
       }
+
+      window.localStorage.setItem('payment_product', JSON.stringify(orderDetail));
+      
+      payment(orderDetail.totalPrice)
+        .then(response => location.href = response.data.url);
 
       // this.$store.dispatch('POST_ORDER', orderDetail);
       // // 쿠폰 사용 요청

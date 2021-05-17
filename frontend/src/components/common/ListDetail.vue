@@ -8,7 +8,7 @@
           :src="computedDetail.profile.profileImage || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
         <div>
           <div class="writer">{{computedDetail.profile.nickname}}</div><br/>
-          <div class="date">{{computedDetail.date}}</div>
+          <div class="date">{{computedDetail.date.substring(0, 10)}}</div>
         </div>
       </div>
       <div class="title">{{computedDetail.title}}</div>

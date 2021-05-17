@@ -1,30 +1,32 @@
 <template>
   <div class="thumbnail-container" v-if="imageList">
-    <img 
-      id="first-image"
-      @click="onOpenThumbnailModal"
-      :src="imageList[0].imageUrl || imageList[0]"/>
-    <img 
-      id="second-image"
-      @click="onOpenThumbnailModal"
-      :src="imageList[1].imageUrl || imageList[1]"/>
-    <img 
-      id="third-image"
-      @click="onOpenThumbnailModal"
-      :src="imageList[2].imageUrl || imageList[2]"/>
-    <img 
-      id="fourth-image"
-      @click="onOpenThumbnailModal"
-      :src="imageList[3].imageUrl || imageList[3]"/>
-    <div 
-      v-if="imageList.length > 4"
-      class="remain-image-cnt"
-      @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
-    </div>
+    <template v-if="imageList.length > 0" >
+      <img 
+        id="first-image"
+        @click="onOpenThumbnailModal"
+        :src="imageList[0].imageUrl"/>
+      <img 
+        id="second-image"
+        @click="onOpenThumbnailModal"
+        :src="imageList[1].imageUrl || imageList[0].imageUrl"/>
+      <img 
+        id="third-image"
+        @click="onOpenThumbnailModal"
+        :src="imageList[2].imageUrl || imageList[0].imageUrl"/>
+      <img 
+        id="fourth-image"
+        @click="onOpenThumbnailModal"
+        :src="imageList[3].imageUrl || imageList[0].imageUrl"/>
+      <div 
+        v-if="imageList.length > 4"
+        class="remain-image-cnt"
+        @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
+      </div>
+    </template>    
     <b-modal v-model="openThumbnailModal" size="lg" hide-footer hide-header>
       <p class="thumbnail-modal-btn" @click="onCloseThumbnailModal">X</p>
       <span class="thumbnail-modal-btn" @click="onClickDecreaseImageIdx">이전</span>
-      <img class="modalImage" :src="imageList[currentImage].imageUrl || imageList[currentImage]"/>
+      <img class="modalImage" :src="imageList.length > 0 && imageList[currentImage].imageUrl || imageList[currentImage]"/>
       <span class="thumbnail-modal-btn" @click="onClickIncreaseImageIdx">다음</span>
     </b-modal>
   </div>
@@ -58,6 +60,7 @@ export default {
   },
   mounted() {
     this.setRemainImageCnt();
+    console.log(this.imageList);
   },
   methods: {
     setRemainImageCnt(){

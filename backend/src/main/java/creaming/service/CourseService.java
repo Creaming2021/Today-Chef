@@ -4,6 +4,7 @@ import creaming.domain.course.Course;
 import creaming.domain.course.CourseRepository;
 import creaming.domain.etc.FoodType;
 import creaming.domain.file.CourseFile;
+import creaming.domain.file.CourseFileRepository;
 import creaming.domain.member.Member;
 import creaming.domain.member.MemberRepository;
 import creaming.domain.product.Product;
@@ -16,12 +17,22 @@ import creaming.dto.CourseDto;
 import creaming.dto.MemberDto;
 import creaming.exception.BaseException;
 import creaming.exception.ErrorCode;
+import creaming.exception.FunctionWithException;
 import creaming.utils.MakeToken;
+import creaming.utils.S3Util;
+import creaming.utils.WrapperUtil;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +45,8 @@ public class CourseService {
     private final RegisterRepository registerRepository;
     private final ProductRepository productRepository;
     private final CourseRoomRepository courseRoomRepository;
+    private final CourseFileRepository courseFileRepository;
+    private final S3Util s3Util;
 
     // 모든 강의 페이징 처리 후 출력
 //    public Page<CourseDto.CourseSimpleResponse> getCourseAll(Pageable pageable) {
@@ -45,7 +58,12 @@ public class CourseService {
     public List<CourseDto.CourseSimpleResponse> getCourseAll() {
         return courseRepository.findAll()
                 .stream()
-                .map(CourseDto.CourseSimpleResponse::new)
+                .map(course -> {
+                    CourseDto.CourseSimpleResponse courseSimpleResponse = new CourseDto.CourseSimpleResponse(course);
+                    Optional<CourseFile> firstByCourseId = courseFileRepository.findFirstByCourseId(course.getId());
+                    firstByCourseId.ifPresent(courseFile -> courseSimpleResponse.setImage(courseFile.getFileName()));
+                    return courseSimpleResponse;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -75,9 +93,9 @@ public class CourseService {
         Course course = dto.toEntity();
 
         // 이미지
-        List<String> images = dto.getImages();
-        images.stream().filter(image -> !image.equals(""))
-                .forEach(image -> course.addCourseFile(new CourseFile((image))));
+        dto.getImages().stream().filter(encodedString -> !encodedString.equals(""))
+                .map(wrapper(s3Util::uploadBase64File))
+                .forEach(s -> course.addCourseFile(new CourseFile((s))));
 
         Product product = productRepository.findById(dto.getProductId())
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
@@ -116,5 +134,18 @@ public class CourseService {
                 .limit(count)
                 .collect(Collectors.toList());
     }
+
+    // 람다식 내 try catch 문을 없애기 위한 방법
+    private <T, R, E extends Exception> Function<T, R> wrapper(FunctionWithException<T, R, E> fe) {
+        return arg -> {
+            try {
+                return fe.apply(arg);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        };
+    }
+
+
 
 }

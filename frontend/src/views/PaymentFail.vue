@@ -1,6 +1,5 @@
 <template>
   <div>
-    
   </div>
 </template>
 
@@ -8,12 +7,18 @@
 
 export default {
   created() {
-    alert('결제 실패, 메인 화면으로 이동합니다.');
+    this.$swal.fire({
+      icon: 'error',
+      title: '결제 실패',
+      text: '메인 화면으로 이동합니다.',
+    });
 
     window.localStorage.setItem('payment_course', '');
     window.localStorage.setItem('payment_product', '');
 
-    this.$router.push('/');
+    this.$router.push({
+      name: 'Home'
+    });
   },
 }
 </script>

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import createPersistedState from 'vuex-persistedstate';
 import home from './home.js';
 import user from './user.js';
 import event from './event.js';
@@ -10,6 +9,7 @@ import product from './product.js';
 import order from './order.js';
 import chat from './chat.js';
 import payment from './payment.js';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -27,12 +27,13 @@ export default new Vuex.Store({
   },
   plugins: [
     createPersistedState({
-      paths: [
+      storage: window.sessionStorage,
+      paths: [ 
+        'home',
         'user',
-        'order',
-        'member',
-        'payment',
-      ]
+        'event',
+         
+      ],
     }),
   ],
 });

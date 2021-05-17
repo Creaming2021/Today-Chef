@@ -4,8 +4,8 @@
       <span v-if="this.item === 'course'" @click="onChangeType('introduction')">클래스 소개</span> |
       <span @click="item === 'course' ? onChangeType('kit') : onChangeType('introduction')">키트 소개</span> |
       <span @click="onChangeType('review')">리뷰</span> |
-      <span @click="onChangeType('qna')">QnA</span> |
-      <span @click="onChangeType('refund')">한불 정책</span>
+      <span @click="onChangeType('qna')">QnA</span>
+      <!-- <span @click="onChangeType('refund')">환불 정책</span> -->
     </div>
     <ItemViewer 
       v-if="this.type === 'introduction'"/>
@@ -17,8 +17,8 @@
       v-else-if="this.type === 'reviewDetail'"/>
     <ItemQnA 
       v-else-if="this.type === 'qna'"/>
-    <ItemRefund 
-      v-else-if="this.type === 'refund'"/>
+    <!-- <ItemRefund 
+      v-else-if="this.type === 'refund'"/> -->
   </div>
 </template>
 
@@ -29,7 +29,7 @@ import ItemKit from '@/components/itemDetail/ItemKit.vue';
 import List from '@/components/common/List.vue';
 import ListDetail from '@/components/common/ListDetail.vue';
 import ItemQnA from '@/components/itemDetail/ItemQnA.vue';
-import ItemRefund from '@/components/itemDetail/ItemRefund.vue';
+// import ItemRefund from '@/components/itemDetail/ItemRefund.vue';
 
 export default {
   data() {
@@ -58,7 +58,7 @@ export default {
     List,
     ListDetail,
     ItemQnA,
-    ItemRefund,
+    // ItemRefund,
   },
   methods: {
     onChangeType( clickType ){

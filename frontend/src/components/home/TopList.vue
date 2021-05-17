@@ -26,9 +26,7 @@
       </div>
     </div>
     <div v-else class="default-message">
-      <template v-if="item === 'course'">강의가 없어요.<br/></template>
-      <template v-else>밀키트가 없어요.<br/></template>
-      <img src="https://image.freepik.com/free-photo/back-to-school-concept-school-empty-classroom-lecture-room-with-desks-and-chairs-iron-wood-for-studying_4236-1543.jpg"/>
+      <img src="@/assets/img/empty/search.png"/>
     </div>
   </section>
   <!-- Product Section End -->
@@ -71,9 +69,8 @@ export default {
 
 <style>
 .product .default-message{
-  width: 100%;
-  font-weight: 500;
-  text-align: center;
-  font-size: 1rem;
+  width: 30%;
+  height: auto;
+  margin: auto;
 }
 </style>

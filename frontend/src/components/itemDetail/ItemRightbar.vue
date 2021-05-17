@@ -9,19 +9,19 @@
       <h5 v-if="item === 'course'" class="teacher">{{itemInfo.profile.nickname}}</h5>
       <h5 class="price">{{itemInfo.price}}원</h5>
     </div>
-    <b-form-rating v-model="itemInfo.rating" readonly no-border/>
-    <div v-if="item === 'course'" class="cart-btn" @click="goToPayment">
-      <b-icon icon="cart4"/> 
-      <div>결제하기</div>
-    </div>
-    <div v-else-if="item === 'product'" class="cart-btn" @click="goToCart">
-      <b-icon icon="cart4"/> 
-      <div>장바구니에 추가하기</div>
-    </div>
-    <div v-if="item === 'course' && user === itemInfo.profile.memberId">
-      <button @click="goToManageCourse">강의 정보 관리</button><br/>
-      <button @click="startStreaming">수업 시작하기</button><br/>
-    </div>
+    <b-form-rating v-model="itemInfo.rating" color="orange" size="lg" readonly no-border/>
+    
+    <template v-if="item !== 'course' || user !== itemInfo.profile.memberId">
+      <div v-if="item === 'course'" class="cart-btn" @click="goToPayment">
+        <b-icon icon="cart4"/> 
+        <div>결제하기</div>
+      </div>
+      <div v-else-if="item === 'product'" class="cart-btn" @click="goToCart">
+        <b-icon icon="cart4"/> 
+        <div>장바구니에 추가하기</div>
+      </div>
+    </template>
+
   </div>
 </template>
 

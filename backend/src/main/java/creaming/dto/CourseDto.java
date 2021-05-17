@@ -4,10 +4,8 @@ import creaming.domain.course.Course;
 import creaming.domain.etc.FoodType;
 import creaming.domain.file.CourseFile;
 import creaming.domain.review.CourseReview;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class CourseDto {
 
+    @Setter
     @Getter
     @Builder
     @NoArgsConstructor
@@ -43,9 +42,6 @@ public class CourseDto {
             this.rating = course.getCourseReviews().stream()
                     .collect(Collectors.averagingInt(CourseReview::getRating));
             List<CourseFile> courseFiles = course.getCourseFiles();
-            if (!courseFiles.isEmpty()) {
-                this.image = courseFiles.get(0).getFileName();
-            }
             this.category = course.getCategory();
             this.reviewCnt = course.getCourseReviews().size();
         }
@@ -112,6 +108,7 @@ public class CourseDto {
         private FoodType category;
         @NotEmpty
         private String descriptions;
+
         // 이미지 리스트 저장
         private List<String> images;
 

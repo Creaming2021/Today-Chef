@@ -20,16 +20,16 @@
           <img :src="item.profile.profileImage"/>
       </div>
       <div class="list-item-left">
-        <div class="title">제목: {{item.title}} | 별점: {{ item.rating }}</div>
-        <h6 v-if="type === 'review'">{{item.content}}</h6>
-        <div class="detail">{{item.profile.nickname}} | {{item.createdDate}}</div>
+        <div class="title">{{item.title}}</div>
       </div>
       <div class="list-item-cnt" 
         v-if="type === 'review'">
           {{item.commentCount}}<div>답변</div></div>
+      <b-form-rating v-model="item.rating" color="orange" size="lg" inline no-border/>
+      <div class="detail">{{item.profile.nickname}} | {{item.createdDate.substring(0, 10)}}</div>
       <hr/>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-12">
         <div class="product__pagination">
           <a v-for="i in pageTotal" :key="i"
@@ -38,18 +38,14 @@
           </a>
         </div>
       </div>
-    </div>
+    </div> -->
     <b-modal v-model="openModal" size="xl" centered hide-footer hide-header>
       <p class="modal-btn" @click="onClickCloseModal">X</p>
       <input 
         class="board-title"
         v-model="board.title" 
         placeholder="제목을 입력하세요."/>
-      <input 
-        type="number"
-        class="board-title"
-        v-model="board.rating" 
-        placeholder="별점을 입력하세요."/>
+      <b-form-rating id="rating" v-model="board.rating" color="orange" size="lg" no-border inline/>
       <editor
         ref="content"
         height="650px"
@@ -57,10 +53,12 @@
         placeholder="내용을 작성하세요."
         previewStyle="tab"
       />
-      <button 
-        @click="submitReview"
-        class="write-btn board-submit">
-          {{type === 'review' ? '리뷰 작성 완료' : '공지사항 작성 완료'}}</button>
+      <div class="button">
+        <button 
+          @click="submitReview"
+          class="write-btn board-submit">
+            {{type === 'review' ? '리뷰 작성 완료' : '공지사항 작성 완료'}}</button>
+      </div>
     </b-modal>
   </div>
 </template>
@@ -168,7 +166,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .list-container{
   text-align: left;
 }
@@ -204,7 +202,7 @@ export default {
 
 .list-container .list-item-left{
   display: inline-block;
-  width: 90%;
+  width: 80%;
 }
 
 .list-container .title{
@@ -214,6 +212,7 @@ export default {
 }
 
 .list-container .detail{
+  display: inline;
   font-size: 0.8rem;
   color: darkgray;
 }
@@ -228,6 +227,7 @@ export default {
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
+  margin-top: 5px;
 }
 
 .list-container .list-item-thumbnail{
@@ -237,10 +237,14 @@ export default {
   height: 70px;
 }
 
-
 .list-container .list-item-cnt div{
   font-size: 0.8rem;
   font-weight: lighter;
+}
+
+.button{
+  width: 100%;
+  text-align: center;
 }
 
 .modal-btn{
@@ -249,7 +253,7 @@ export default {
 }
 
 .board-title{
-  width: 100%;
+  width: 82%;
   height: 50px;
   padding-left: 10px;
   margin: 0px auto 20px auto;
@@ -261,6 +265,15 @@ export default {
 @media screen and (max-width: 1500px) {
   .list-container .list-item-left{
     width: 80%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .list-container .list-item-left{
+    width: 70%;
+  }
+  .board-title{
+    width: 100%;
   }
 }
 

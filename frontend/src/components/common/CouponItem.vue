@@ -2,7 +2,7 @@
   <div class="product__item coupon">
     <div class="coupon-name">{{coupon.name}}</div>
     <div class="coupon-discount">{{coupon.discount}}% 할인</div>
-    <div class="coupon-date">~ {{coupon.expiredDate}}까지 사용 가능</div>
+    <div class="coupon-date">~ {{coupon.expiredDate.substring(0,10)}}까지 사용 가능</div>
     <div class="coupon-content">{{coupon.content}}</div>
   </div>
 </template>
