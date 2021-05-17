@@ -50,7 +50,6 @@ li .nav__link.router-link-exact-active {
     font-size: 0.9em;
     line-height: 1.5em;
     color: rgba(255, 255, 255, 0.8);
-    font-family: 'Russo One';
     text-transform: uppercase;
 }
 
@@ -71,7 +70,6 @@ li .nav__link.router-link-exact-active {
 
     &--clear {
         border: 0;
-        font-family: 'Work Sans';
     }
 
     &--rounded {
@@ -206,7 +204,6 @@ li .nav__link.router-link-exact-active {
     &__title {
         display: inline-block;
         text-align: center;
-        font-family: 'Russo One', sans-serif;
         color: black;
         font-size: 1.5rem;
     }

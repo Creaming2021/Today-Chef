@@ -175,7 +175,6 @@
     }
 
     &__search-input {
-        font-family: 'Work Sans';
         position: relative;
         padding: 15px;
         border-radius: 20px;
@@ -184,7 +183,6 @@
         margin: 0.5rem 0 0.5rem 0;
         z-index: 1;
         width: 100%;
-        font-family: 'Work Sans', sans-serif;
 
         @include respond(phone) {
             width: 90%;
