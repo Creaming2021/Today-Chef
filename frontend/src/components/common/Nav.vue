@@ -2,31 +2,43 @@
   <!-- Header Section Begin -->
   <header class="header">
     <div class="sign-container">
-      <div v-if="user.signStatus === 'signIn'" @click="setSignOut">
-        {{user.userNickname}}님 안녕하세요! SIGN OUT</div>
-      <div v-else @click="onOpenSign">SIGN IN</div>
+      <div v-if="user.signStatus === 'signIn'">
+        {{user.nickname}}님 안녕하세요!
+        <span class="sign" @click="onClickSignOut">SIGN OUT</span></div>
+      <div class="sign" v-else @click="onOpenSign">SIGN IN</div>
     </div>
     <div class="container">
       <div class="row">
-          <div class="col-lg-3 col-md-3">
-              <div 
-                class="header__logo"
-                @click="onClickNav('Home')">
-                  <img src="@/assets/img/logo/logo_col.png"/>
-                  <!-- <a href="./index.html"><img src="@/assets/CREAMING-logo-white.png" alt=""></a> -->
-              </div>
+        <div class="col-lg-3 col-md-3">
+          <div 
+            class="header__logo"
+            @click="onClickNav('Home')">
+              <img src="@/assets/img/logo/logo_col.png"/>
+              <!-- <a href="./index.html"><img src="@/assets/CREAMING-logo-white.png" alt=""></a> -->
           </div>
-          <div class="col-lg-6 col-md-6">
-              <nav class="header__menu mobile-menu">
-                  <ul>
-                      <li class="active" @click="onClickNav('Home')">홈</li>
-                      <li @click="onClickNav('Notice')">공지사항</li>
-                      <li @click="onClickNav('Course', 'all')">강의</li>
-                      <li @click="onClickNav('Creator', 'info')">강사</li>
-                      <li @click="onClickNav('Profile', 'info')">마이프로필</li>
-                  </ul>
-              </nav>
-          </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+          <nav class="header__menu mobile-menu">
+            <ul>
+              <li :class="currentTab === 'Home' && 'active'" @click="onClickNav('Home')">홈</li>
+              <li :class="currentTab === 'Notice' && 'active'" @click="onClickNav('Notice')">공지사항</li>
+              <li :class="currentTab === 'Product' && 'active'" @click="onClickNav('Product', 'all')">밀키트</li>
+              <li :class="currentTab === 'Course' && 'active'" @click="onClickNav('Course', 'all')">강의</li>
+              <li
+                :class="currentTab === 'MyCourse' && 'active'"  
+                v-if="this.user.memberId != ''"
+                @click="onClickNav('MyCourse', 'list')">강사</li>
+              <li 
+                :class="currentTab === 'Cart' && 'active'"
+                v-if="this.user.memberId != ''" 
+                @click="onClickNav('Cart')">장바구니</li>
+              <li 
+                :class="currentTab === 'Profile' && 'active'"
+                v-if="this.user.memberId != ''" 
+                @click="onClickNav('Profile', 'info')">마이프로필</li>
+            </ul>
+          </nav>
+        </div>
       </div>
       <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
@@ -35,9 +47,20 @@
       <div 
         v-if="user.signStatus === 'signUp'"
         class="sign-up-container">
-          <input v-model="signUpForm.phoneNumber" placeholder="010-1234-5678"/><br/>
-          <input v-model="signUpForm.email" placeholder="이메일을 입력하세요."/>
-          <button @click="onClickSignUp">회원 가입</button>
+          <input 
+            class="medium" 
+            v-model="signUpForm.nickname" 
+            @keyup="initialNicknameState"
+            placeholder="닉네임을 입력하세요."/>
+          <button class="small" @click="onClickCheckNickname">중복 체크</button><br/>
+          <input class="big" v-model="signUpForm.phone" placeholder="010-1234-5678"/><br/>
+          <input 
+            class="medium" 
+            v-model="signUpForm.email" 
+            @keyup="initialEmailState"
+            placeholder="이메일을 입력하세요."/>
+          <button class="small" @click="onClickCheckEmail">중복 체크</button><br/>
+          <button class="big-btn" @click="onClickSignUp">회원 가입</button>
       </div>
       <div v-else>
         <img 
@@ -50,45 +73,57 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
-
 export default {
   data(){
     return {
       openSignModal: false,
       signUpForm : {
-        phoneNumber: '',
+        nickname: '',
+        phone: '',
         email: '',
-      }
+      },
+      currentTab: 'Home',
     }
   },
   computed : {
-    ...mapState(['user']),
-  },
-  watch: {
-    user : {
-      handler: function () {
-        if(this.user.signStatus == 'signIn'){
-          this.onCloseSign();
-        }
-      },
-      deep: true,
+    user: function(){
+      if(this.$store.state.user.signStatus === 'signIn'){
+        this.onCloseSign();
+      }
+      return this.$store.state.user;
     }
   },
-  methods : {
-    ...mapActions(['getKakaoInfo','setSignOut', 'setSignUp']),
+  methods: {
     onClickNav(pathName, paramsType) {
-      if(pathName === "Profile" || pathName === "Creator"){
+      this.currentTab = pathName;
+      if(pathName === "Profile"){
         this.$router.push({
           name: pathName,
           params: {
             type : paramsType,
           }
         })
-      } else if(pathName === 'Course') {
+      } else if(pathName === 'Creator') {
         this.$router.push({
           name: pathName,
           params: {
+            mode: 'create',
+            type : paramsType,
+          }
+        })
+      } else if(pathName === 'Product') {
+        this.$router.push({
+          name: 'ItemList',
+          params: {
+            item: 'product',
+            category : paramsType,
+          }
+        })
+      } else if(pathName === 'Course') {
+        this.$router.push({
+          name: 'ItemList',
+          params: {
+            item: 'course',
             category : paramsType,
           }
         })
@@ -99,18 +134,49 @@ export default {
       }
     },
     onOpenSign() {
+      this.signUpForm = {
+        nickname: '',
+        phone: '',
+        email: '',
+      };
       this.openSignModal = true;
     },
     onCloseSign() {
       this.openSignModal = false;
     },
     onClickKakaoSignIn() {
-      // this.onCloseSign();
-      this.getKakaoInfo();
+      this.$store.dispatch('GET_KAKAO_INFO');
     },
     onClickSignUp() {
-      this.setSignUp(this.signUpForm);
-    }   
+      if(!this.user.nicknameState){
+        this.$swal.fire({
+          icon: 'error',
+          text: '닉네임 중복체크를 해주세요.',
+        });
+      } else if(!this.user.emailState){
+        this.$swal.fire({
+          icon: 'error',
+          text: '이메일 중복체크를 해주세요.',
+        });
+      } else {
+        this.$store.dispatch('SIGN_UP', this.signUpForm);
+      }
+    },
+    onClickSignOut() {
+      this.$store.dispatch('SIGN_OUT');
+    },
+    onClickCheckEmail(){
+      this.$store.dispatch('CHECK_EMAIL', this.signUpForm.email);
+    },
+    onClickCheckNickname(){
+      this.$store.dispatch('CHECK_NICKNAME', this.signUpForm.nickname);
+    },
+    initialEmailState(){
+      this.$store.dispatch('SET_EMAIL_STATE', false);
+    },
+    initialNicknameState(){
+      this.$store.dispatch('SET_NICKNAME_STATE', false);
+    },
   }
 }
 </script>
@@ -121,11 +187,12 @@ export default {
   text-align: right;
   font-size: 1rem;
   /* background-color: #f3f2ee; */
-  background-color: #b30b0b;
+  background-color: #e53637;
   padding: 10px 50px 10px 0px;
 }
 
-.header .sign-container > div{
+.header .sign-container .sign{
+  margin-left: 8px;
   cursor: pointer;
   /* color: black; */
   color: white;
@@ -134,24 +201,34 @@ export default {
 
 .sign-up-container{
   text-align: center;
-  padding-top: 50px;
+  padding: 30px 0px 30px 0px;
 }
 
 .sign-up-container input,
-.sign-up-container button{
+.sign-up-container button {
   margin: 10px 0px 10px 0px;
-  width: 80%;
   height: 50px;
   border-radius: 10px;
   border: 1px solid #f3f2ee;
   padding-left: 10px;
 }
 
-.sign-up-container button{
-  margin: 50px 0px 50px 0px;
-  background-color: #f3f2ee;
-  border: none;
-  font-weight: bold;
+.sign-up-container .small{
+  width: 30%;
+}
+
+.sign-up-container .medium{
+  margin: 10px 3% 10px 0px;
+  width: 47%;
+}
+
+.sign-up-container .big,
+.sign-up-container .big-btn{
+  width: 80%;
+}
+
+.sign-up-container .big-btn{
+  margin-top: 50px;
 }
 
 .sign-up-container button:hover{

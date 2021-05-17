@@ -14,7 +14,6 @@
                   <li id="thumbnail" @click="changeFilter('thumbnail')">2. 제목 및 커버</li>
                   <li id="course" @click="changeFilter('course')">3. 클래스 소개</li>
                   <li id="kit" @click="changeFilter('kit')">4. 키트 소개</li>
-                  <li id="preview" @click="changeFilter('preview')">5. 클래스 미리보기</li>
                 </ul>
               </div>
             </div>
@@ -36,44 +35,45 @@
 	},
   watch : {
     currentAtiveFilter : function(to,from) {
-      document.querySelector(`#${from}`).setAttribute('class','')
-      document.querySelector(`#${to}`).setAttribute('class','active')
+      document.querySelector(`#${from}`).setAttribute('class','');
+      document.querySelector(`#${to}`).setAttribute('class','active');
     }
   },
   mounted () {
   },
 	props: {
-    currentAtiveFilter : String,
+    type : String,
     creatorData : Object,
 	},
 	methods : {
     onClickSaveBtn() {
-      this.tmpSaveFlag = true
+      this.tmpSaveFlag = true;
     },
     isEmptyObject(obj) {
       for (const key of Object.keys(obj)) {
         if (typeof(obj[key]) === Object) {
           for (const v of Object.values(key)) {
             if (v === '') {
-              return false
+              return false;
             }
           }
         }
         else {
           if (obj[key] === '') {
-            return false
+            return false;
           }
         }
       }
-      return true
+      return true;
     },
     changeFilter(type){
       this.$router.push({
         name: 'Creator',
         params: {
+          mode: this.$route.params.mode,
           type: type,
         }
-      })
+      });
       // if (this.$route.params.type === 'preview') this.tmpSaveFlag = true
       // if (this.tmpSaveFlag) {
       //   this.tmpSaveFlag = type === 'preview' ? true : false

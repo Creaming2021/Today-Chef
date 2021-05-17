@@ -54,4 +54,10 @@ public class ProductReviewService {
         productReviewRepository.delete(productReviewRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND)));
     }
+
+    public ProductReviewDto.ProductReviewResponse getProductReview(Long id) {
+        return productReviewRepository.findById(id)
+                .map(ProductReviewDto.ProductReviewResponse::new)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
+    }
 }

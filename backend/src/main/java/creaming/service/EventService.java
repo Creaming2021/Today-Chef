@@ -50,4 +50,10 @@ public class EventService {
                 .orElseThrow(() -> new BaseException(ErrorCode.EVENT_NOT_FOUND))
                 .update(dto.getTitle(), dto.getContent());
     }
+
+    public List<EventDto.EventImageDto> getEventImageList() {
+        return eventRepository.findAll()
+                .stream().map(EventDto.EventImageDto::new)
+                .collect(Collectors.toList());
+    }
 }

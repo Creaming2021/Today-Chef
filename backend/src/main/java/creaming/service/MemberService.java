@@ -274,16 +274,13 @@ public class MemberService {
 
     // 장바구니 제거
     @Transactional
-    public void deleteCart(Long memberId, Long productId) {
+    public void deleteCart(Long memberId, Long cartId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
-        Cart cart = cartRepository.findByMemberIdAndProductId(memberId, productId)
+        Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_FOUND));
 
         cart.getMember().deleteCart(cart);
-        product.deleteCart(cart);
         member.deleteCart(cart);
         cartRepository.delete(cart);
     }

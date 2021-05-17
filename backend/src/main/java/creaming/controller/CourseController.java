@@ -1,5 +1,6 @@
 package creaming.controller;
 
+import creaming.domain.etc.FoodType;
 import creaming.dto.CourseDto;
 import creaming.dto.MemberDto;
 import creaming.service.CourseService;
@@ -31,8 +32,12 @@ public class CourseController {
     @Operation(summary = "모든 강의 페이징 없이 출력", description = "모든 강의를 출력합니다")
     @GetMapping
     public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseAll() {
+        long startTime = System.currentTimeMillis();
         log.info("(Get) getCourseAll - No Pageable");
-        return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourseAll());
+        List<CourseDto.CourseSimpleResponse> result = courseService.getCourseAll();
+        long endTime = System.currentTimeMillis();
+        log.info("Time - {}", endTime - startTime);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @Operation(summary = "강의 하나 출력", description = "courseId에 해당하는 강의 정보를 출력합니다")
@@ -75,6 +80,14 @@ public class CourseController {
         log.info("(Delete) deleteCourse - courseId: {}", courseId);
         courseService.deleteCourse(courseId);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @Operation(summary = "카테고리별 top (count) 강의 리스트 요청", description = "카테고리별 상위권 강의를 count 개수만큼 가져옵니다.")
+    @GetMapping("/rank")
+    public ResponseEntity<List<CourseDto.CourseSimpleResponse>> getCourseRankByRating(@RequestParam("count") int count,
+                                                                                      @RequestParam("category") FoodType category)  {
+        log.info("(Get) getCourseRankByRating - count : {} | category : {}", count, category);
+        return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourseRankByRating(count, category));
     }
 
 }

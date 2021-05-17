@@ -43,15 +43,10 @@ public class CourseQnaDto {
     @AllArgsConstructor
     public static class CourseQnaPostRequest {
 
-        @NotNull
         private Long memberId;
-        @NotNull
         private Long courseId;
-        @NotEmpty
         private String title;
-        @NotEmpty
         private String content; // TODO editor 로 작업시 수정
-        @NotNull
         private Boolean isSecret;
 
         public CourseQna toEntity() {

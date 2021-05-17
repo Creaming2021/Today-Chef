@@ -17,11 +17,14 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
+    "sweetalert2": "^10.16.7",
     "tui-image-editor": "^3.14.3",
     "vue": "^2.6.12",
     "vue-daum-postcode": "^0.9.0",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-persistedstate": "^4.0.0-beta.3",
+    "vue-sweetalert2": "^4.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

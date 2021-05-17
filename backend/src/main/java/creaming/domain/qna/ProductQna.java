@@ -24,6 +24,8 @@ public class ProductQna extends BaseTimeEntity {
     private Long id;
 
     private String title;
+
+    @Lob
     private String content;
     private Boolean isSecret;
     private String answer; // 답변

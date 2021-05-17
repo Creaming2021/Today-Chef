@@ -192,12 +192,12 @@ public class MemberController {
     }
 
     // 장바구니 제거
-    @DeleteMapping("/{memberId}/carts/{productId}")
-    @Operation(summary = "장바구니에서 제거", description = "memberId의 장바구니에 productId의 제품을 제거합니다.")
+    @DeleteMapping("/{memberId}/carts/{cartId}")
+    @Operation(summary = "장바구니에서 제거", description = "memberId의 장바구니에 cartId를 제거합니다.")
     public ResponseEntity<Void> deleteCart(@PathVariable("memberId") Long memberId,
-                                                               @PathVariable("productId") Long productId) {
-        log.info("(Post) postCart - memberId : {} | productId : {} ", memberId, productId);
-        memberService.deleteCart(memberId, productId);
+                                           @PathVariable("cartId") Long cartId) {
+        log.info("(Post) deleteCart - memberId : {} | cartId : {} ", memberId, cartId);
+        memberService.deleteCart(memberId, cartId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

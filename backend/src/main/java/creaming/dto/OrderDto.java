@@ -21,14 +21,13 @@ public class OrderDto {
     @AllArgsConstructor
     public static class PostOrderRequest {
         private Long memberId;
-        private LocalDateTime orderDate;
         private Integer totalPrice;
         private List<OrderDetailDto.OrderDetailRequest> orderDetails;
         private DeliveryDto.DeliveryRequest delivery;
 
         public Order toEntity() {
             return Order.builder()
-                    .date(orderDate)
+                    .date(LocalDateTime.now())
                     .totalPrice(totalPrice)
                     .build();
         }
