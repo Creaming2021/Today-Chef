@@ -22,6 +22,7 @@ import creaming.domain.register.RegisterRepository;
 import creaming.dto.*;
 import creaming.exception.BaseException;
 import creaming.exception.ErrorCode;
+import creaming.utils.MailUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,7 @@ public class MemberService {
     private final ProductRepository productRepository;
     private final ProductLikeRepository productLikeRepository;
     private final RegisterRepository registerRepository;
+    private final MailUtil mailUtil;
 
     // 모든 유저의 정보 가져오기 
     public List<MemberDto.MemberResponse> getMemberAll() {
@@ -177,6 +179,8 @@ public class MemberService {
         Register register = dto.toEntity();
         course.addRegister(register);
         member.addRegister(register);
+
+        mailUtil.sendChatRoomInfo(member.getEmail(), course.getName(), course.getRoomName(), course.getPassword());
 
         return registerRepository.save(register).getId();
     }
