@@ -85,7 +85,6 @@ export default {
             icon: 'success',
             text: '성공적으로 회원가입을 완료했습니다.',
           });
-          dispatch('SIGN_IN', state.authObj);
           dispatch('SET_COUPON', {
             memberId: data.memberId,
             couponId: 1
@@ -96,11 +95,12 @@ export default {
             email: memberInfo.email,
           });
         });
-    },
-    SIGN_UP_CHAT({ commit }, request) {
+      },
+      SIGN_UP_CHAT({ dispatch, commit, state }, request) {
         chat.signUpChat(request)
-          .then(() => {
-            console.log(commit);
+        .then(() => {
+          dispatch('SIGN_IN', state.authObj);
+          console.log(commit);
           })
           .catch((e) => {
             console.log(e);
