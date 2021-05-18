@@ -8,15 +8,15 @@
       <img 
         id="second-image"
         @click="onOpenThumbnailModal"
-        :src="imageList[1].imageUrl || imageList[0].imageUrl"/>
+        :src="(imageList[1] && imageList[1].imageUrl) || imageList[0].imageUrl"/>
       <img 
         id="third-image"
         @click="onOpenThumbnailModal"
-        :src="imageList[2].imageUrl || imageList[0].imageUrl"/>
+        :src="(imageList[2] && imageList[2].imageUrl) || imageList[0].imageUrl"/>
       <img 
         id="fourth-image"
         @click="onOpenThumbnailModal"
-        :src="imageList[3].imageUrl || imageList[0].imageUrl"/>
+        :src="(imageList[3] && imageList[3].imageUrl) || imageList[0].imageUrl"/>
       <div 
         v-if="imageList.length > 4"
         class="remain-image-cnt"
