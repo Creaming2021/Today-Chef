@@ -118,7 +118,14 @@ export default {
 
 .course-detail-main-container .tab{
   word-spacing: 5px;
+  margin: auto;
   margin-bottom: 40px;
+  display: table;
+  width: 80%;
+}
+
+.course-detail-main-container span{
+  display: table-cell;
 }
 
 .course-detail-main-container .tab:hover{
@@ -131,7 +138,7 @@ export default {
   border-radius: 10px 10px 0px 0px;
   border-width: 3px 3px 0px 3px;
   border-style: solid;
-  border-color: red;
+  border-color: #f3f2ee;
   padding: 5px 10px 5px 10px;
 }
 
@@ -140,7 +147,7 @@ export default {
   width: 120px;
   border-width: 0px 0px 3px 0px;
   border-style: solid;
-  border-color: red;
+  border-color: #f3f2ee;
   margin: 0px -3px 0px -3px;
   padding: 5px 10px 5px 10px;
 }
