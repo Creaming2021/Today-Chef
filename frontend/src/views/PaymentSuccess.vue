@@ -28,6 +28,7 @@ export default {
     const paymentCourseString = window.localStorage.getItem('payment_course');
     if (paymentCourseString) {
       const paymentInfo = JSON.parse(paymentCourseString);
+      alert(paymentProductString);
       this.$store.dispatch('POST_REGISTER', paymentInfo);
       window.localStorage.removeItem('payment_course');
     } else if (paymentProductString) {
@@ -66,12 +67,12 @@ export default {
       text: '마이페이지로 이동합니다.',
     });
     
-    this.$router.push({
-      name: 'Profile',
-      params: {
-        type: 'info',
-      }
-    });
+    // this.$router.push({
+    //   name: 'Profile',
+    //   params: {
+    //     type: 'info',
+    //   }
+    // });
   },
 }
 </script>
