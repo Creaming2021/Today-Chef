@@ -69,7 +69,7 @@ export default {
         memberId: this.$store.state.user.memberId,
       }));
 
-      payment(this.paymentInfo.price)
+      payment(this.course.price)
         .then(response => location.href = response.data.url);
 
     },
