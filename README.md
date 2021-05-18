@@ -100,6 +100,15 @@
         <a href="documents/dev_log/20210514_dev_log.md"><li>5/14 - 개발 (TODO 기반)  </li></a>
     </ul>
 </details>
+<details>
+    <summary>6주차</summary>
+    <ul>
+        <a href="documents/dev_log/20210517_dev_log.md"><li>5/17 - 개발, QA 및 버그 수정 </li></a>
+        <a href="documents/dev_log/20210518_dev_log.md"><li>5/18 - DB 초기화, 더미 데이터 삽입, QA 및 버그 수정, css 디자인 수정 </li></a>
+        <a href="documents/dev_log/20210520_dev_log.md"><li>5/20 -  </li></a>
+        <a href="documents/dev_log/20210521_dev_log.md"><li>5/21 -  </li></a>
+    </ul>
+</details>
 
 ## :wrench: 기술 스택
 ![기술 스택](./documents/README/images/tech_stack.png)
