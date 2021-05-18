@@ -107,6 +107,7 @@ export default {
           });
     },
     SIGN_OUT({ commit }) {
+      localStorage.clear();
       sessionStorage.clear();
       commit('SET_SIGN_OUT');
     },
