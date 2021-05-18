@@ -28,9 +28,9 @@ export default {
     const paymentCourseString = window.localStorage.getItem('payment_course');
     if (paymentCourseString) {
       const paymentInfo = JSON.parse(paymentCourseString);
-      alert(paymentProductString);
+      alert(paymentCourseString);
       this.$store.dispatch('POST_REGISTER', paymentInfo);
-      window.localStorage.removeItem('payment_course');
+      // window.localStorage.removeItem('payment_course');
     } else if (paymentProductString) {
       const paymentInfo = JSON.parse(paymentProductString);
       this.$store.dispatch('POST_ORDER', paymentInfo);
