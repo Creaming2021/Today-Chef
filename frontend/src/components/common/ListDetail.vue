@@ -2,13 +2,13 @@
   <div class="item-detail-container">
     <div class="header">
       <div class="back" @click="goBack()">뒤로 가기</div>
-      <div class="item-info">
+      <div class="item-info row">
         <img 
           class="profile"
           :src="computedDetail.profile.profileImage || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
         <div>
           <div class="writer">{{computedDetail.profile.nickname}}</div><br/>
-          <div class="date">{{computedDetail.date.substring(0, 10)}}</div>
+          <div class="date">{{computedDetail.createdDate.substring(0, 10)}}</div>
         </div>
       </div>
       <div class="title">{{computedDetail.title}}</div>
@@ -25,16 +25,21 @@
     <div v-if="type === 'reviewDetail' && item === 'course'" class="comment-container">
       <hr/>
       <div>댓글 {{computedComments.length}}개</div>
-      <div v-for="comment in computedComments" v-bind:key="comment.commentId">
-        <img 
-          class="profile"
-          :src="comment.profile.profileImage  || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
-        <div>
-          <div class="writer">{{comment.profile.nickname}}</div><br/>
-          <div class="date">{{comment.date}}</div>
+      <template v-if="computedComments.length > 0">
+        <div v-for="comment in computedComments" v-bind:key="comment.commentId">
+          <img 
+            class="profile"
+            :src="comment.profile.profileImage  || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
+          <div>
+            <div class="writer">{{comment.profile.nickname}}</div><br/>
+            <div class="date">{{comment.date}}</div>
+          </div>
+          <div class="content">{{comment.content}}</div>
         </div>
-        <div class="content">{{comment.content}}</div>
-      </div>
+      </template>
+      <template v-else>
+        댓글이 아직 없어요
+      </template>
       <input 
         v-if="memberId !== ''"
         @keyup.enter="submitComment"
@@ -138,11 +143,11 @@ export default {
     settingViewerValue() {
       this.$refs.viewer && this.$refs.viewer.invoke('setMarkdown', this.computedDetail.content);
     },
-    watch: {
-      computedDetail: function(){
-        this.settingViewerValue();
-      }
-    }
+    // watch: {
+    //   computedDetail: function(){
+    //     this.settingViewerValue();
+    //   }
+    // }
   },
 }
 </script>
@@ -179,6 +184,7 @@ export default {
 
 .item-detail-container .back{
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .item-detail-container .header .item-info{

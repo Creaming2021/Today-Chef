@@ -113,9 +113,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .course-qna-container {
   text-align: left;
+  margin-bottom: 100px;
 }
 
 .course-qna-container .user-info {
@@ -200,9 +201,9 @@ export default {
   background-color: #f3f2ee;
   font-weight: bold;
 
-  /* position: absolute;
-  right: 20px;
-  margin-bottom: 50px; */
+  /* position: absolute; */
+  /* right: 20px; */
+  margin-bottom: 50px;
 }
 
 .write-btn:hover{

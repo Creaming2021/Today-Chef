@@ -1,26 +1,29 @@
 <template>
   <tr>
-    <td class="product__cart__item">
-        <div class="product__cart__item__text">
-            <h6>{{payment.date}}-{{payment.orderId}}</h6>
-        </div>
-    </td>
     <td class="quantity__item">
-        <div class="quantity">
-            <div class="pro-qty-2" v-for="detail in payment.orderDetails" :key="detail.product.id">
-              <h5>{{detail.product.category}}</h5>
-              <img :src="detail.product.image" />
-              <h5>{{detail.product.name}}</h5>
-              <h5>{{detail.product.price}}원</h5>
-              <h5>{{detail.amount}}개</h5>
-            </div>
-        </div>
+      <div class="product__cart__item__text">
+        <h6>{{payment.date.substring(0,10)}}-{{payment.orderId}}</h6>
+      </div>
     </td>
-    <td class="cart__price">{{payment.totalPrice}}원</td>
+    <td class="product__cart__item">
+      <div class="quantity">
+        <div class="pro-qty-2" v-for="detail in payment.orderDetails" :key="detail.product.id">
+          <div class="product-img">
+            <b-badge variant="primary">{{detail.product.category}}</b-badge><br/>
+            <img :src="detail.product.image" />
+          </div>
+          <div class="product-detail">
+            <div class="name">{{detail.product.name}}</div>
+            <div class="price">{{detail.product.price}}원</div>
+            <div class="amount">{{detail.amount}}개</div>
+          </div>
+        </div>
+      </div>
+    </td>
+    <td class="cart__price centered">{{payment.totalPrice}}원</td>
     <td class="cart__price">
       <div 
-        v-if="type === 'product'"
-        class="payment-detail" 
+        class="payment-detail centered" 
         @click="onClickPaymentDetail">상세 내역</div>
     </td>
     <b-modal 
@@ -94,12 +97,41 @@ import DeliveryTracker from '@/components/mypage/DeliveryTracker.vue';
 </script>
 
 <style scoped>
-.product__cart__item__pic img {
+.product__cart__item img {
   width : 150px;
   height: 150px;
   object-fit: cover;
+  display: inline-block;
 }
 .payment-detail {
   cursor: pointer;
+}
+.centered{
+  text-align: center;
+}
+.product-img{
+  display: inline-block;
+  width: 150px;
+}
+.product-detail{
+  display: inline-block;
+  width: 200px;
+  padding: 0px 0px 0px 20px;
+}
+.product-detail .name{
+  margin: 20px 0px 10px 0px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.product-detail .price{
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+.product-detail .amount{
+  font-size: 0.8rem;
+}
+.pro-qty-2{
+  margin-bottom: 20px;
 }
 </style>

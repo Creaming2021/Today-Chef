@@ -2777,14 +2777,14 @@ ol {
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  width: 80%;
+  width: 90%;
   box-shadow: 0px 15px 60px rgba(67, 69, 70, 0.1); 
 }
 
 .blog__item__text span {
-  color: #3d3d3d;
+  /* color: #3d3d3d; */
   font-size: 13px;
-  display: block;
+  /* display: block; */
   margin-bottom: 10px;
 }
 

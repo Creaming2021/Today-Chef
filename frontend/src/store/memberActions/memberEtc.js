@@ -8,9 +8,10 @@ export default{
       })
       .catch(e => { console.log(e); });
   },
-  PUT_MEMBER_INFO({ dispatch }, request ) {
+  PUT_MEMBER_INFO({ commit, dispatch }, request ) {
     memberEtc.putMemberInfo(request)
       .then(() => {
+        commit('SET_NICKNAME', request.nickname);
         if(typeof(request.profileImage) === 'string'){
           dispatch('GET_MEMBER_INFO', request.memberId);
         }else{
@@ -29,7 +30,7 @@ export default{
   POST_CART_LIST({ dispatch }, request ) {
     memberEtc.postCartList(request)
       .then(() => {
-        console.log(dispatch);
+        dispatch('GET_CART_LIST', request.memberId);
       })
       .catch(e => { console.log(e); });
   },

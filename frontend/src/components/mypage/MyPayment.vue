@@ -10,7 +10,7 @@
               <tr>
                 <template v-if="type === 'course'">
                   <th>강의 정보</th>
-                  <th>결제일</th>
+                  <th colspan="2">결제일</th>
                 </template>
                 <template v-else-if="type === 'product'">
                   <th>주문 번호</th>
@@ -61,7 +61,6 @@ export default {
   data(){
     return {
       type: 'course',
-      paymentList: [],
     };
   },
   computed : {
@@ -70,6 +69,9 @@ export default {
       coursePaymentList: state => state.member.paymentList,
       productPaymentList: state => state.order.orderList,
     }),
+    paymentList: function(){
+      return this.setPaymentList();
+    },
   },
   created() {
     this.setPaymentList();
@@ -80,18 +82,26 @@ export default {
     },
     setPaymentList() {
       if(this.type === 'course'){
-        this.getCoursePaymentList();
+        return this.getCoursePaymentList();
       } else if(this.type === 'product'){
-        this.getProductPaymentList();
+        return this.getProductPaymentList();
       }
     },
     getCoursePaymentList() {
-        this.$store.dispatch('GET_REGISTER_LIST', this.user.memberId);
-        this.paymentList = this.coursePaymentList;
+      this.$store.dispatch('GET_REGISTER_LIST', this.user.memberId);
+      return this.coursePaymentList.sort((o1, o2) => {
+        if(o1.paidDate < o2.paidDate) return 1;
+        if(o1.paidDate > o2.paidDate) return -1;
+        if(o1.paidDate === o2.paidDate) return 0;
+      });
     },
     getProductPaymentList() {
-        this.$store.dispatch('GET_ORDER_LIST', this.user.memberId);
-        this.paymentList = this.productPaymentList;
+      this.$store.dispatch('GET_ORDER_LIST', this.user.memberId);
+      return this.productPaymentList.sort((o1, o2) => {
+        if(o1.date < o2.date) return 1;
+        if(o1.date > o2.date) return -1;
+        if(o1.date === o2.date) return 0;
+      });
     },
   },
   watch: {
@@ -102,7 +112,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .shopping__cart__table span{
   cursor: pointer;
 }
@@ -113,5 +123,11 @@ export default {
 .empty-payment img{
   width: 500px;
   height: auto;
+}
+table{
+  margin-top: 30px;
+}
+th{
+  text-align: center;
 }
 </style>

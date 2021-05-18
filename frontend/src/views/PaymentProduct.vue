@@ -73,8 +73,6 @@ export default {
     },
     // 결제 요청 함수
     onSubmitPayment() {
-      console.log(this.cart);
-
       // 카카오 페이 성공 뜨면
       // 주문 요청
       let orderDetail = {
@@ -102,6 +100,8 @@ export default {
       }
 
       window.localStorage.setItem('payment_product', JSON.stringify(orderDetail));
+      window.localStorage.setItem('payment_cart_list', JSON.stringify(this.cartList));
+      window.localStorage.setItem('payment_cart', JSON.stringify(this.cart));
       
       payment(orderDetail.totalPrice)
         .then(response => location.href = response.data.url);
