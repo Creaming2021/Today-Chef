@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import './DialogExtension.css';
+import red from '@material-ui/core/colors/red';
 
 export default class DialogExtensionComponent extends Component {
     constructor(props) {

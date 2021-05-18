@@ -7,6 +7,7 @@ import Send from '@material-ui/icons/Send';
 import './ChatComponent.css';
 import { Tooltip } from '@material-ui/core';
 import Dictaphone from '../Dictaphone';
+import red from '@material-ui/core/colors/red';
 
 export default class ChatComponent extends Component {
     constructor(props) {
@@ -90,9 +91,9 @@ export default class ChatComponent extends Component {
             <div id="chatContainer">
                 <div id="chatComponent" style={styleChat}>
                     <div id="chatToolbar">
-                        <span>{this.props.user.getStreamManager().stream.session.sessionId} - CHAT</span>
+                        <span>{this.props.user.getStreamManager().stream.session.sessionId}</span>
                         <IconButton id="closeButton" onClick={this.close}>
-                            <HighlightOff color="secondary" />
+                            <HighlightOff style={{ color: red[800] }} />
                         </IconButton>
                     </div>
                     <div className="message-wrap" ref={this.chatScroll}>

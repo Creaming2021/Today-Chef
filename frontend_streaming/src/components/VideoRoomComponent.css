@@ -1,5 +1,6 @@
 #header {
-  color: #ffffff;
+  height: 50px;
+  color: #494949;
   background-color: #333333;
   padding: 0 14px 0 0;
   position: absolute;
@@ -11,14 +12,11 @@
 
 .toolbar{
   min-height: 40px !important;
-
+  box-shadow: none !important;
 }
 
 #titleContent{
-  max-width: 100px;
-  background-color: #494949;
-  margin: 5px -18px;
-  padding: 0px 15px;
+  width: 100%;
   font-size: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -26,9 +24,9 @@
 
 .buttonsContent{
 	height: 40px !important;
-	text-align: center;
-	margin: auto;
-    min-width: 400px;
+	text-align: right;
+	margin-right: 50px;
+  width: 100%;
 }
 .navButton{
 	height: 40px !important;
@@ -45,7 +43,7 @@
 
 
 .bounds {
-  background-color: #494949;
+  background-color: white;
   overflow: hidden;
   position: absolute;
   left: 0;
@@ -377,8 +375,8 @@
   top: 14px;
   left: 14px;
   background-color: #575757;
-  -webkit-box-shadow: 0 0 5px 1px #575757;
-  box-shadow: 0 0 5px 1px #575757;
+  /* -webkit-box-shadow: 0 0 5px 1px #575757;
+  box-shadow: 0 0 5px 1px #575757; */
 }
 
 .OT_archiving-light.OT_active {
