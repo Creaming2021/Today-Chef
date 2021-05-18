@@ -14,7 +14,7 @@ class App extends React.Component {
           {/* <Route exact path="/live/:sessionName/:memberId">
             <VideoRoomComponent/>
           </Route> */}
-          <Route exact path="/live/:sessionName/:memberId" component={VideoRoomComponent}/>
+          <Route exact path="/:sessionName/:memberId/:type" component={VideoRoomComponent}/>
           <Route exact path="/dictaphone" component={Dictaphone} />
         </Switch>
         {/* <Dictaphone /> */}

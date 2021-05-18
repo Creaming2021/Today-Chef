@@ -34,6 +34,7 @@ class VideoRoomComponent extends Component {
         // let userName = '';
         let sessionName = this.props.match.params.sessionName ? this.props.match.params.sessionName : 'SessionA'; 
         let userName = this.props.match.params.memberId ? this.props.match.params.memberId : 'OpenVidu_User' + Math.floor(Math.random() * 100);
+        this.type = this.props.match.params.type ? this.props.match.params.type : 'stt';
 
         console.log("파라미터 정보 : ", sessionName, userName);
 
@@ -537,6 +538,7 @@ class VideoRoomComponent extends Component {
                                 messageReceived={this.checkNotification}
                                 message={this.message}
                                 rootFunction={this.rootFunction}
+                                type={this.type}
                             />
                         </div>
                     )}
