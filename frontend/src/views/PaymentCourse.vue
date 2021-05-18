@@ -47,6 +47,7 @@ export default {
       url: state => state.payment.url,
       flag: state => state.payment.flag,
       course: state => state.course.course,
+      memberId: state => state.user.memberId,
     })
   },
   created() {
@@ -66,7 +67,7 @@ export default {
       window.localStorage.setItem('payment_course', JSON.stringify({
         courseId: this.$route.params.id,
         paidPrice: this.course.price,
-        memberId: this.$store.state.user.memberId,
+        memberId: this.memberId,
       }));
 
       payment(this.course.price)
