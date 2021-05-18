@@ -76,6 +76,7 @@
 
 <script>
 // Components import
+import { mapGetters } from 'vuex';
 import Sidebar from '@/components/makeCourse/Sidebar.vue';
 import Class from '@/components/makeCourse/Class.vue';
 import Kit from '@/components/makeCourse/Kit.vue';
@@ -116,6 +117,9 @@ export default {
       },
       typeList: ['info', 'thumbnail', 'course', 'kit', 'chat'],
     }
+  },
+  computed: {
+    ...mapGetters(['getSocket']),
   },
   watch : {
     $route(to, from) { 
