@@ -20,9 +20,11 @@
         placeholder="내용을 작성하세요."
         previewStyle="tab"
       />
-      <button 
-        @click="submitQna"
-        class="write-btn board-submit">QnA 작성 완료</button>
+      <div class="button">
+        <button 
+          @click="submitQna"
+          class="write-btn board-submit">QnA 작성 완료</button>
+      </div>
     </b-modal>
 
   </div>
@@ -64,6 +66,12 @@ export default {
     this.settingQnaList();
   },
   methods: {
+    setBoardInitial(){
+      this.board = {
+        title: '',
+        content: '',
+      }
+    },
     onClickOpenModal(){
       this.openModal = true;
     },
@@ -89,7 +97,6 @@ export default {
       let item = this.$route.params.item;
       let id = Number(this.$route.params.id);
       if(item === 'course'){
-
         this.$store.dispatch('POST_COURSE_QNA', 
           {
             ...this.board,
@@ -106,7 +113,7 @@ export default {
             isSecret: false,
           });
       }
-      this.settingQnaList();
+      this.setBoardInitial();
       this.onClickCloseModal();
     },
   },
@@ -154,44 +161,6 @@ export default {
   font-size: 1rem;
 }
 
-.course-qna-container .answer-list-container{
-  margin: 20px 0px 20px 0px;
-}
-
-.course-qna-container .answer-list-container .answer-container{
-  margin-bottom: 20px;
-  background-color: #f3f2ee;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.course-qna-container .answer-list-container .user-info > img{
-  display: inline-block;
-  margin: 10px;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  object-fit: cover;
-}
-
-.course-qna-container .answer-list-container .user-info > div{
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: normal;
-  color: #666666;
-}
-
-.course-qna-container .answer-list-container > input{
-  display: block;
-  margin: 20px 0px 20px 0px;
-  border-radius: 25px;
-  border: 1px solid darkgray;
-  width: 100%;
-  height: 50px;
-  padding-left: 20px;
-}
-
-
 .write-btn{
   font-size: 0.8rem;
   border: none;
@@ -227,6 +196,14 @@ export default {
   margin: 0px auto 20px auto;
   border-radius: 10px;
   border: 1px solid darkgray;
+}
 
+.course-qna-create-container{
+  text-align: center;
+}
+
+.button{
+  width: 100%;
+  text-align: center;
 }
 </style>

@@ -107,6 +107,13 @@ export default {
     this.settingList();
   },
   methods: {
+    setBoardInitial(){
+      this.board = {
+        title: '',
+        content: '',
+        rating: 0,
+      }
+    },
     onGoToReviewDetail(item){
       const id = this.$route.params.item === 'course' ? item.courseReviewId : item.productReviewId;
       this.$router.push({
@@ -160,6 +167,7 @@ export default {
             memberId: this.memberId,
           });
       }
+      this.setBoardInitial();
       this.onClickCloseModal();
     },
     settingList(){
@@ -214,6 +222,7 @@ export default {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 20px;
+  padding-left: 20px;
 }
 
 .list-container .detail{
@@ -264,7 +273,6 @@ export default {
   margin: 0px auto 20px auto;
   border-radius: 10px;
   border: 1px solid darkgray;
-
 }
 
 @media screen and (max-width: 1500px) {

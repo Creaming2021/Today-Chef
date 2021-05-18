@@ -2,7 +2,7 @@
     <div class="blog__item" >
       <img class="blog__item__pic set-bg" 
         @click="onClickDetail"
-        :src="itemDetail.image || (itemDetail.images && itemDetail.images[0].imageUrl) || 'https://imgix.kotaku.com.au/content/uploads/sites/3/2016/02/17/whey2gwjqbx21xu023qo.gif?ar=16%3A9&auto=format&fit=crop&q=65&w=720&nrs=40&fm=gif'"/>
+        :src="itemDetail.image || (itemDetail.images && itemDetail.images.length > 0 && itemDetail.images[0].imageUrl) || 'https://imgix.kotaku.com.au/content/uploads/sites/3/2016/02/17/whey2gwjqbx21xu023qo.gif?ar=16%3A9&auto=format&fit=crop&q=65&w=720&nrs=40&fm=gif'"/>
       <div 
         class="blog__item__text"
         @click="onClickDetail">
