@@ -1,12 +1,16 @@
 <template>
   <div>
     <div class="row">
-    <nav class="coupon-nav header__menu mobile-menu">
-      <ul>
-        <li @click="onClickCouponFilter('AVAILABLE')">사용 가능 쿠폰</li>
-        <li @click="onClickCouponFilter('USED')">사용 완료 쿠폰</li>
-        <li @click="onClickCouponFilter('EXPIRED')">사용 만료 쿠폰</li>
-      </ul>
+    <nav class="coupon-nav header__menu mobile-menu tab">
+      <div 
+        :class="couponFilter === 'AVAILABLE' ? 'active' : 'inactive'"
+        @click="onClickCouponFilter('AVAILABLE')">사용 가능 쿠폰</div>
+      <div 
+        :class="couponFilter === 'USED' ? 'active' : 'inactive'"
+        @click="onClickCouponFilter('USED')">사용 완료 쿠폰</div>
+      <div 
+        :class="couponFilter === 'EXPIRED' ? 'active' : 'inactive'"
+        @click="onClickCouponFilter('EXPIRED')">사용 만료 쿠폰</div>
     </nav>
     </div>
     <div class="row">
@@ -32,8 +36,7 @@ import CouponItem from '@/components/common/CouponItem.vue';
 export default {
   data(){
     return {
-      couponAtiveFilter : '',
-      filteredCouponList: [],
+      couponFilter: 'AVAILABLE',
     }
   },
   components: {
@@ -44,36 +47,23 @@ export default {
       user: state => state.user,
       couponList: state => state.member.couponList,
     }),
+    filteredCouponList: function(){
+      return this.setCouponList();
+    }
   },
   created() {
     this.getCouponList();
   },
-  mounted() {
-    this.initActiveFilter();
-    this.setClickEventOfFilter(document.querySelector('.coupon-nav').querySelectorAll('li'),'couponAtiveFilter');
-    this.onClickCouponFilter('AVAILABLE');
-  },
   methods: {
-    initActiveFilter() {
-      this.couponAtiveFilter = 0;
-      const mypageCouponActiveArray = document.querySelector('.coupon-nav').querySelectorAll('li');
-      mypageCouponActiveArray[this.couponAtiveFilter].classList.toggle('active');
-    },
-    setClickEventOfFilter(array,type) {
-      array.forEach((element,idx) => {
-        element.addEventListener('click',() => {
-          array[this[type]].classList.toggle('active');
-          this[type] = idx;
-          array[this[type]].classList.toggle('active');
-        })
-      });
-    },
     onClickCouponFilter(state) {
-      this.filteredCouponList = this.couponList.filter(coupon => coupon.couponStatus === state);
+      this.couponFilter = state;
     },
     getCouponList(){
       this.$store.dispatch('GET_COUPON_LIST', this.user.memberId);
     },
+    setCouponList(){
+      return this.couponList.filter(coupon => coupon.couponStatus === this.couponFilter);
+    }
   }
 }
 </script>
@@ -83,5 +73,34 @@ export default {
   margin: auto;
   width: 500px;
   height: auto;
+}
+
+.tab{
+  display: table;
+  width: 100%;
+}
+
+.tab div{
+  display: table-cell;
+}
+
+.active{
+  display: inline-block;
+  width: 200px;
+  border-radius: 10px 10px 0px 0px;
+  border-width: 3px 3px 0px 3px;
+  border-style: solid;
+  border-color: #f3f2ee;
+  padding: 5px 10px 5px 10px;
+}
+
+.inactive{
+  display: inline-block;
+  width: 200px;
+  border-width: 0px 0px 3px 0px;
+  border-style: solid;
+  border-color: #f3f2ee;
+  margin: 0px -3px 0px -3px;
+  padding: 5px 10px 5px 10px;
 }
 </style>

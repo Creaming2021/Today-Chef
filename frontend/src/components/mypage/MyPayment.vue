@@ -3,8 +3,14 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="shopping__cart__table">
-        <span :class="type==='course' && 'active'" @click="changeType('course')">강의</span> | 
-        <span :class="type==='product' && 'active'" @click="changeType('product')">밀키트</span>
+        <div class="tab">
+          <span 
+            :class="type==='course' ? 'active' : 'inactive'" 
+            @click="changeType('course')">강의</span>
+          <span 
+            :class="type==='product' ? 'active' : 'inactive'" 
+            @click="changeType('product')">밀키트</span>
+        </div>
         <table>
           <thead>
               <tr>
@@ -34,7 +40,7 @@
             </template>
             <template v-else>
               <tr>
-                <td colspan="3" class="empty-payment">
+                <td colspan="4" class="empty-payment">
                   <img src="@/assets/img/empty/payment.png"/>
                 </td>
               </tr>
@@ -129,5 +135,35 @@ table{
 }
 th{
   text-align: center;
+}
+
+.tab{
+  display: table;
+  width: 100%;
+}
+
+.tab span{
+  display: table-cell;
+  text-align: center;
+}
+
+.active{
+  display: inline-block;
+  width: 200px;
+  border-radius: 10px 10px 0px 0px;
+  border-width: 3px 3px 0px 3px;
+  border-style: solid;
+  border-color: #f3f2ee;
+  padding: 10px 10px 5px 10px;
+}
+
+.inactive{
+  display: inline-block;
+  width: 200px;
+  border-width: 0px 0px 3px 0px;
+  border-style: solid;
+  border-color: #f3f2ee;
+  margin: 0px -3px 0px -3px;
+  padding: 10px 10px 5px 10px;
 }
 </style>
