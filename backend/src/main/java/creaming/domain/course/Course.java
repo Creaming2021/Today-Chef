@@ -48,6 +48,9 @@ public class Course extends BaseTimeEntity {
     @Embedded // 강의 내용...
     private CourseDescription courseDescription;
 
+    private String roomName;
+    private String password;
+
     // 강의 제작자
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")

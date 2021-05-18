@@ -18,6 +18,7 @@ import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
 import QuestionAnswer from '@material-ui/icons/QuestionAnswer';
 
 import IconButton from '@material-ui/core/IconButton';
+import red from '@material-ui/core/colors/red';
 
 const logo = require('../../assets/images/today-shef_logo.png');
 const logo2 = require('../../assets/images/today-shef_logo2.png');
@@ -79,20 +80,20 @@ export default class ToolbarComponent extends Component {
                         />
 
                         {this.props.sessionId && <div id="titleContent">
-                            <span id="session-title">방이름: {mySessionId}</span>
+                            <span id="session-title">{mySessionId}</span>
                         </div>}
                     </div>
 
                     <div className="buttonsContent">
                         <IconButton color="inherit" className="navButton" id="navMicButton" onClick={this.micStatusChanged}>
-                            {localUser !== undefined && localUser.isAudioActive() ? <Mic /> : <MicOff color="secondary" />}
+                            {localUser !== undefined && localUser.isAudioActive() ? <Mic /> : <MicOff style={{ color: red[800] }} />}
                         </IconButton>
 
                         <IconButton color="inherit" className="navButton" id="navCamButton" onClick={this.camStatusChanged}>
                             {localUser !== undefined && localUser.isVideoActive() ? (
                                 <Videocam />
                             ) : (
-                                <VideocamOff color="secondary" />
+                                <VideocamOff style={{ color: red[800] }} />
                             )}
                         </IconButton>
 
@@ -103,14 +104,14 @@ export default class ToolbarComponent extends Component {
                         {localUser !== undefined &&
                             localUser.isScreenShareActive() && (
                                 <IconButton onClick={this.stopScreenShare} id="navScreenButton">
-                                    <StopScreenShare color="secondary" />
+                                    <StopScreenShare style={{ color: red[800] }} />
                                 </IconButton>
                             )}
 
                         <IconButton color="inherit" className="navButton" onClick={this.toggleFullscreen}>
                             {localUser !== undefined && this.state.fullscreen ? <FullscreenExit /> : <Fullscreen />}
                         </IconButton>
-                        <IconButton color="secondary" className="navButton" onClick={this.leaveSession} id="navLeaveButton">
+                        <IconButton style={{ color: red[800] }} className="navButton" onClick={this.leaveSession} id="navLeaveButton">
                             <PowerSettingsNew />
                         </IconButton>
                          <IconButton color="inherit" onClick={this.toggleChat} id="navChatButton">

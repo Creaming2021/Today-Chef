@@ -32,6 +32,9 @@ public class CourseDto {
         private FoodType category;
         private Integer reviewCnt;
 
+        private String roomName;
+        private String password;
+
         public CourseSimpleResponse(Course course) {
             this.courseId = course.getId();
             this.profile = new MemberDto.MemberSimpleProfile(course.getMember());
@@ -44,6 +47,8 @@ public class CourseDto {
             this.image = course.getCourseFiles().get(0).getFileName();
             this.category = course.getCategory();
             this.reviewCnt = course.getCourseReviews().size();
+            this.roomName = course.getRoomName();
+            this.password = course.getPassword();
         }
     }
 
@@ -65,6 +70,8 @@ public class CourseDto {
         private List<ImageDto> images;
         private ProductDto.ProductDetailResponse product;
         private String liveToken;
+        private String roomName;
+        private String password;
 
         public CourseDetailResponse(Course course) {
             this.courseId = course.getId();
@@ -84,6 +91,8 @@ public class CourseDto {
                 this.product = new ProductDto.ProductDetailResponse(course.getProduct());
             }
             this.liveToken = course.getCourseRoom().getToken();
+            this.roomName = course.getRoomName();
+            this.password = course.getPassword();
         }
     }
 
@@ -109,6 +118,9 @@ public class CourseDto {
         @NotEmpty
         private String descriptions;
 
+        private String roomName;
+        private String password;
+
         // 이미지 리스트 저장
         private List<String> images;
 
@@ -120,6 +132,8 @@ public class CourseDto {
                     .category(this.category)
                     .descriptions(this.descriptions)
                     .time(this.time)
+                    .roomName(this.roomName)
+                    .password(this.password)
                     .build();
         }
 
