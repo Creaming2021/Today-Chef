@@ -291,6 +291,12 @@ export default {
                     console.log(err);
                 });
 
+            this.$swal.fire({
+                icon: 'success',
+                text: "채팅방 생성이 완료되었습니다.",
+            });
+            location.reload();
+
             setTimeout(() => {
                 this.errors = [];
             }, 1500);
