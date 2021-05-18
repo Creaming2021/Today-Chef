@@ -8,6 +8,9 @@
                             <ion-icon name="return-left" @click="leaveRoom" class="icon"></ion-icon>
                             <span class="section__title"> {{ room.name }} </span>
                             <div class="chat__actions">
+                                <div class="chat-admin-button" v-if="this.$store.state.chat.authUser._id === getUserData._id">
+                                    <a v-bind:href="this.teacherLink" target="_blank" class="primary-btn class-btn">클래스 입장</a>
+                                </div>
                                 <ion-icon v-if="this.$store.state.chat.authUser._id === getUserData._id" 
                                     ios="ios-trash" md="md-trash"
                                     @click.stop="handleDelete"
@@ -168,7 +171,8 @@ export default {
             sidebarVisible: window.innerWidth < 768 ? false : true,
             searchInput: '',
             errors: [],
-            roomLeft: false
+            roomLeft: false,
+            teacherLink: '',
         };
     },
     computed: {
@@ -189,7 +193,7 @@ export default {
             this.getSocket.emit('newMessage', {
                 room: this.getCurrentRoom,
                 user: this.getUserData,
-                content: '<a href="http://www.creaming.co.kr/live/' + this.getCurrentRoom._id + '/' + this.$store.state.chat.authUser.username + '" target="_blank">'
+                content: '<a href="http://creaming.co.kr/' + this.getCurrentRoom._id + '/' + this.$store.state.chat.authUser.username + '/basic' +'" target="_blank">'
                         + '<img src="https://creaming-bucket-b204.s3.ap-northeast-2.amazonaws.com/logo2-13.png"/></a>',
             });
         },
@@ -330,6 +334,9 @@ export default {
                         });
                     }
                 }
+
+                this.teacherLink = "http://creaming.co.kr/"+this.getCurrentRoom._id+"/"+this.$store.state.chat.authUser.username+"/stt";
+
                 this.getSocket.emit('userJoined', {
                     room: this.getCurrentRoom,
                     user: this.getUserData,
@@ -420,4 +427,11 @@ export default {
 @import '@/assets/scss/views/chat.scss';
 @import '@/assets/scss/views/rooms.scss';
 @import '@/assets/scss/components/infobox.scss';
+
+.chat-admin-button {
+    display: inline;
+}
+.class-btn:hover {
+    text-decoration: none;
+}
 </style>
