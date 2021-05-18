@@ -2,7 +2,7 @@
   <div class="col-lg-3 course-right-bar-container">
     <div class="course-detail-header">
       <b-badge variant="primary">{{itemInfo.category}}</b-badge>
-      <span  v-if="item === 'course'">{{itemInfo.time}}</span>
+      <span v-if="item === 'course'">{{itemInfo.time}}</span>
     </div>
     <h4>{{itemInfo.name}}</h4>
     <div class="row detail-info">
@@ -95,8 +95,8 @@ export default {
 .course-right-bar-container{
   display: inline-block;
   width: 30%;
-  height: inherit;
-  padding: 10px;
+  height: max-content;
+  padding: 10px 10px 30px 10px;
 
   background-color: #f3f2ee;
   border-radius: 10px;
@@ -107,6 +107,10 @@ export default {
 .course-detail-header{
   text-align: left;
   margin-bottom: 10px;
+}
+
+.course-detail-header span{
+  margin-left: 10px;
 }
 
 .course-right-bar-container h4{

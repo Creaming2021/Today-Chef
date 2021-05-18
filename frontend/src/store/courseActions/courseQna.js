@@ -15,7 +15,6 @@ export default {
   POST_COURSE_QNA({ dispatch }, request){
     courseQna.postQna(request)
       .then(({ data }) => {
-        alert('QNA 작성 완료')
         if(data){ 
           console.log(data);
           dispatch('GET_COURSE_QNA_LIST', request.courseId);
@@ -28,7 +27,6 @@ export default {
   PUT_COURSE_QNA({ dispatch }, request){
     courseQna.putQna(request)
      .then(({ data }) => {
-       alert('QNA 수정 완료');
        if(data){
         dispatch('GET_COURSE_QNA_LIST', request.courseId);
        } else {
@@ -40,7 +38,6 @@ export default {
   DELETE_COURSE_QNA({ dispatch }, request){
     courseQna.deleteQna(request)
      .then(({ data }) => {
-       alert('QnA 삭제 완료');
        if(data){
         dispatch('GET_COURSE_QNA_LIST', request.courseId);
        } else {

@@ -58,8 +58,8 @@ export default {
       ],
       filterList: [
         {id: 'all', value: '모두'}, 
-        {id: 'done', value: '수강완료'}, 
-        {id: 'before', value: '수강 시작 전'},
+        {id: 'done', value: '수업 완료'}, 
+        {id: 'before', value: '수업 시작 전'},
       ],
     }
   },

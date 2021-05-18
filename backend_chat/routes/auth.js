@@ -59,7 +59,7 @@ router.post('/register', (req, res) => {
  * @param  {} response
  * @access public
  */
-router.post('/login', checkLoginFields, async (req, res) => {
+router.post('/login', async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {

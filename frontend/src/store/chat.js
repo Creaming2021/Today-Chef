@@ -6,12 +6,10 @@ export default {
         authUser: {},
         currentRoom: null,
         rooms: [],
-        socket: null
     },
     getters: {
         getUserData: state => state.authUser,
         getRoomData: state => state.rooms,
-        getSocket: state => state.socket,
         getCurrentRoom: state => state.currentRoom
     },
     mutations: {
@@ -30,9 +28,6 @@ export default {
         DELETE_ROOM: (state, payload) => {
             state.currentRoom = null;
             state.rooms = state.rooms.filter(room => room._id !== payload._id);
-        },
-        ASSIGN_SOCKET: (state, payload) => {
-            state.socket = payload;
         },
         LEAVE_ROOM: (state, payload) => {
             state.currentRoom.users = payload;
@@ -58,9 +53,6 @@ export default {
         },
         deleteRoom: (context, payload) => {
             context.commit('DELETE_ROOM', payload);
-        },
-        assignSocket: (context, payload) => {
-            context.commit('ASSIGN_SOCKET', payload);
         },
         saveCurrentRoom: (context, payload) => {
             context.commit('SAVE_CURRENT_ROOM', payload);

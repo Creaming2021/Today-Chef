@@ -7,6 +7,7 @@ import member from './member.js';
 import product from './product.js';
 import order from './order.js';
 import chat from './chat.js';
+import socket from './socket.js';
 import payment from './payment.js';
 import createPersistedState from 'vuex-persistedstate';
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     order,
     chat,
     payment,
+    socket,
   },
   plugins: [
     createPersistedState({
@@ -29,7 +31,7 @@ export default new Vuex.Store({
       paths: [ 
         'user',
         'event',
-        // 'chat',
+        'chat',
       ],
     }),
   ],
