@@ -111,6 +111,8 @@ export default {
         descriptions: '',
         images: ['','','','','','','','','',''],
         productId: '',
+        roomName: '',
+        password: '',
       },
       typeList: ['info', 'thumbnail', 'course', 'kit', 'chat'],
     }
@@ -156,6 +158,7 @@ export default {
           images: this.courseInfo.images,
         })
         .then((res) => {
+          this.handleCreateRoom();
           this.$router.push({
             name: "ItemDetail",
             params: {
@@ -187,14 +190,12 @@ export default {
         }
       });
     },
-    handleCreateRoom(e) {
-      e.preventDefault();
-
+    handleCreateRoom() {
       chat
         .post('/room', {
-          room_name: this.room_name,
-          user: this.$store.state.chat.authUser,
-          password: this.password
+          room_name: this.courseInfo.roomName,
+          user: this.$store.state.user.nickname,
+          password: this.courseInfo.password
         })
         .then(res => {
           if (res.data.errors) {
@@ -207,9 +208,6 @@ export default {
             }
           } else {
             this.$store.dispatch('addRoom', res.data);
-            this.room_name = null;
-            this.password = null;
-            this.$refs.createRoom.close();
             this.getSocket.emit('roomAdded', res.data);
           }
         })

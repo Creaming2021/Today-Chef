@@ -5,7 +5,7 @@
       class="form form--nbs pt-3"
     >
       <div class="form__input-group">
-        <ion-icon name="list-box" class="form__icon"></ion-icon>
+        <ion-icon name="list-box" class="chat-create__icon"></ion-icon>
         <input
             type="text"
             name="room_name"
@@ -17,7 +17,7 @@
         <label for="room_name" class="form__label">채팅방 이름</label>
       </div>
       <div class="form__input-group">
-        <ion-icon name="key" class="form__icon"></ion-icon>
+        <ion-icon name="key" class="chat-create__icon"></ion-icon>
         <input
           type="password"
           name="password"
@@ -26,7 +26,7 @@
           pattern=".{5,10}"
           v-model.trim="courseInfo.password"
         />
-        <label for="password" class="form__label">비밀번호 (선택)</label>
+        <label for="password" class="form__label">비밀번호</label>
       </div>
     </div>
   </div>
@@ -34,16 +34,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      room_name: null,
-      password: null,
-      privateRoomPassword: null,
-      searchInput: '',
-      errorMessage: this.message,
-      errors: []
-    };
-  },
   props: {
     handleCreateRoom: Function,
     courseInfo: Object,
@@ -51,6 +41,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.chat-create__icon{
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  font-size: 1.5em;
+  margin: 0 0.8em;
+  z-index: 2;
+}
 </style>
