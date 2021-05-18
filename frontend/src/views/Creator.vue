@@ -153,21 +153,12 @@ export default {
           memberId: this.$store.state.user.memberId,
           name: this.courseInfo.name,
           price: this.courseInfo.price,
-          productId: 1,
+          productId: this.courseInfo.productId,
           time: this.courseInfo.startTime + "-" + this.courseInfo.endTime,
           images: this.courseInfo.images,
         })
         .then((res) => {
-          this.handleCreateRoom();
-          this.$router.push({
-            name: "ItemDetail",
-            params: {
-              item: 'course',
-              category: this.courseInfo.category,
-              id: res,
-              type: 'introduction',
-            }
-          });
+          this.handleCreateRoom(res);
         });
     },
     goToBefore(){
@@ -190,11 +181,11 @@ export default {
         }
       });
     },
-    handleCreateRoom() {
+    handleCreateRoom(id) {
       chat
         .post('/room', {
           room_name: this.courseInfo.roomName,
-          user: this.$store.state.user.nickname,
+          user: this.$store.state.chat.authUser,
           password: this.courseInfo.password
         })
         .then(res => {
@@ -209,6 +200,15 @@ export default {
           } else {
             this.$store.dispatch('addRoom', res.data);
             this.getSocket.emit('roomAdded', res.data);
+            this.$router.push({
+              name: "ItemDetail",
+              params: {
+                item: 'course',
+                category: this.courseInfo.category,
+                id: id,
+                type: 'introduction',
+              }
+            });
           }
         })
         .catch(err => {
