@@ -2,20 +2,22 @@
   <div class="item-detail-container">
     <div class="header">
       <div class="back" @click="goBack()">뒤로 가기</div>
-      <div class="item-info row">
-        <img 
-          class="profile"
-          :src="computedDetail.profile.profileImage || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
-        <div>
-          <div class="writer">{{computedDetail.profile.nickname}}</div><br/>
-          <div class="date">{{computedDetail.createdDate.substring(0, 10)}}</div>
+      <template v-if="computedDetail.profile">
+        <div class="item-info row">
+          <img 
+            class="profile"
+            :src="computedDetail.profile.profileImage || 'https://www.edmundsgovtech.com/wp-content/uploads/2020/01/default-picture_0_0.png'"/>
+          <div>
+            <div class="writer">{{computedDetail.profile.nickname}}</div><br/>
+            <div class="date">{{computedDetail.createdDate.substring(0, 10)}}</div>
+          </div>
         </div>
-      </div>
-      <div class="title">{{computedDetail.title}}</div>
-      <div v-if="type === 'reviewDetail' && item === 'course'" class="comment-size">
-        <b-icon icon="chat-square"/>
-          {{computedComments.length}}
-      </div>
+        <div class="title">{{computedDetail.title}}</div>
+        <div v-if="type === 'reviewDetail' && item === 'course'" class="comment-size">
+          <b-icon icon="chat-square"/>
+            {{computedComments.length}}
+        </div>
+      </template>
     </div>
 
     <br>
@@ -143,11 +145,11 @@ export default {
     settingViewerValue() {
       this.$refs.viewer && this.$refs.viewer.invoke('setMarkdown', this.computedDetail.content);
     },
-    // watch: {
-    //   computedDetail: function(){
-    //     this.settingViewerValue();
-    //   }
-    // }
+  },
+  watch: {
+    computedDetail: function(){
+      this.settingViewerValue();
+    },
   },
 }
 </script>
