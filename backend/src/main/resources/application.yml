@@ -21,10 +21,23 @@ spring:
       hibernate:
 #        format_sql: true
         default_batch_fetch_size: 1000
+
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ekdbs628@gmail.com
+    password: meloncha!0205
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
