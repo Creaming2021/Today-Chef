@@ -10,8 +10,8 @@ export default {
   },
   POST_PRODUCT_REVIEW({ dispatch }, request) {
     productReview.postReview(request)
-      .then(({ data }) => {
-        dispatch('GET_PRODUCT_REVIEW', data);
+      .then(() => {
+        dispatch('GET_PRODUCT_REVIEW_LIST', request.productId);
       })
       .catch(e => { console.log(e); });
   },  

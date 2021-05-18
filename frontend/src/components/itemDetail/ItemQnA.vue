@@ -73,7 +73,14 @@ export default {
       }
     },
     onClickOpenModal(){
-      this.openModal = true;
+      if(this.memberId === ''){
+        this.$swal.fire({
+          icon: 'error',
+          text: '로그인이 필요한 기능입니다.',
+        });
+      } else{
+        this.openModal = true;
+      }
     },
     onClickCloseModal(){
       this.openModal = false;
