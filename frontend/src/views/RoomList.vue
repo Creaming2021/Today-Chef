@@ -80,7 +80,7 @@
                                                             <div class="rooms__item-detail">
                                                                 <ion-icon name="md-trophy" class="info-icon"></ion-icon>
                                                                 <div class="rooms__item-detail-span">
-                                                                    <span>{{ room.user ? room.user.handle : 'Unknown User' }}</span>
+                                                                    <span>{{ room.user ? ( room.user.handle || room.user.username ) : 'Unknown User' }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -295,7 +295,6 @@ export default {
                 icon: 'success',
                 text: "채팅방 생성이 완료되었습니다.",
             });
-            location.reload();
 
             setTimeout(() => {
                 this.errors = [];
