@@ -134,10 +134,12 @@ export default class ChatComponent extends Component {
                         </Tooltip>
                     </div>
                 </div>
-                <Dictaphone 
-                    parentFunction={this.parentFunction}
-                    rootFunction={this.props.rootFunction}
-                />
+                { this.props.type == 'stt' && (
+                    <Dictaphone 
+                        parentFunction={this.parentFunction}
+                        rootFunction={this.props.rootFunction}
+                    /> 
+                )}
             </div>
         );
     }
