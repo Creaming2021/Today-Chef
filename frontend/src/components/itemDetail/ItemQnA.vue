@@ -66,6 +66,12 @@ export default {
     this.settingQnaList();
   },
   methods: {
+    setBoardInitial(){
+      this.board = {
+        title: '',
+        content: '',
+      }
+    },
     onClickOpenModal(){
       this.openModal = true;
     },
@@ -91,7 +97,6 @@ export default {
       let item = this.$route.params.item;
       let id = Number(this.$route.params.id);
       if(item === 'course'){
-
         this.$store.dispatch('POST_COURSE_QNA', 
           {
             ...this.board,
@@ -108,7 +113,7 @@ export default {
             isSecret: false,
           });
       }
-      this.settingQnaList();
+      this.setBoardInitial();
       this.onClickCloseModal();
     },
   },
