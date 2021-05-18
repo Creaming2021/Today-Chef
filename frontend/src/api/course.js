@@ -18,7 +18,6 @@ export const getCourseList = async () => {
 }
 
 export const postCourse = async ( course ) => {
-  console.log(course);
   return await basic.post('courses', course)
     .then(res => res)
     .catch(e => { console.log(e); });
