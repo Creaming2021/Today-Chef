@@ -1,10 +1,21 @@
 <template>
   <div class="col-lg-9 course-detail-main-container">
     <div class="tab">
-      <span v-if="this.item === 'course'" @click="onChangeType('introduction')">클래스 소개</span> |
-      <span @click="item === 'course' ? onChangeType('kit') : onChangeType('introduction')">키트 소개</span> |
-      <span @click="onChangeType('review')">리뷰</span> |
-      <span @click="onChangeType('qna')">QnA</span>
+      <span 
+        v-if="this.item === 'course'" 
+        :class="type === 'introduction' ? 'active' : 'inactive'"
+        @click="onChangeType('introduction')">클래스 소개</span>
+      <span 
+        :class="item === 'course' 
+          ? type === 'kit' ? 'active' : 'inactive'
+          : type === 'introduction' ? 'active' : 'inactive'"
+        @click="item === 'course' ? onChangeType('kit') : onChangeType('introduction')">키트 소개</span>
+      <span 
+        :class="type === 'review' ? 'active' : 'inactive'"
+        @click="onChangeType('review')">리뷰</span>
+      <span 
+        :class="type === 'qna' ? 'active' : 'inactive'"
+        @click="onChangeType('qna')">QnA</span>
       <!-- <span @click="onChangeType('refund')">환불 정책</span> -->
     </div>
     <ItemViewer 
@@ -97,7 +108,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .course-detail-main-container{
   display: inline-block;
   width: 70%;
@@ -112,5 +123,25 @@ export default {
 
 .course-detail-main-container .tab:hover{
   cursor: pointer;
+}
+
+.active{
+  display: inline-block;
+  width: 120px;
+  border-radius: 10px 10px 0px 0px;
+  border-width: 3px 3px 0px 3px;
+  border-style: solid;
+  border-color: red;
+  padding: 5px 10px 5px 10px;
+}
+
+.inactive{
+  display: inline-block;
+  width: 120px;
+  border-width: 0px 0px 3px 0px;
+  border-style: solid;
+  border-color: red;
+  margin: 0px -1px 0px -1px;
+  padding: 5px 10px 5px 10px;
 }
 </style>
