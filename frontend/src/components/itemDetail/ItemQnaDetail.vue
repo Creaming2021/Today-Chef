@@ -5,7 +5,7 @@
       <div>
         <div class="title">{{qna.title}} </div>
         <span class="writer">{{qna.profile.nickname}} </span>
-        <span class="date">{{qna.date}}</span>
+        <span class="date">{{qna.date.substring(0,10)}}</span>
       </div>
     </div>
     <div class="content">
@@ -52,6 +52,24 @@ export default{
 }
 </script>
 
-<style>
-
+<style scoped>
+.user-info img{
+  float: left;
+  display: block;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 0px 20px 20px 0px;
+}
+.user-info .title{
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.user-info .writer{
+  font-size: 1rem;
+}
+.user-info .date{
+  font-size: 0
+  .8rem;
+}
 </style>

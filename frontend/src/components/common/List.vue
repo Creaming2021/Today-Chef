@@ -264,7 +264,6 @@ export default {
   margin: 0px auto 20px auto;
   border-radius: 10px;
   border: 1px solid darkgray;
-
 }
 
 @media screen and (max-width: 1500px) {
