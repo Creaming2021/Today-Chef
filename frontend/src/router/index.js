@@ -65,12 +65,12 @@ const routes = [
     component: PaymentProduct,
   },
   {
-    path: "/chat/roomList",
+    path: "/chatting/roomList",
     name: "RoomList",
     component: RoomList,
   },
   {
-    path: "/chat/:id",
+    path: "/chatting/:id",
     name: "Room",
     component: Room,
   },
