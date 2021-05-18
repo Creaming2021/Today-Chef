@@ -156,6 +156,8 @@ export default {
           productId: this.courseInfo.productId,
           time: this.courseInfo.startTime + "-" + this.courseInfo.endTime,
           images: this.courseInfo.images,
+          roomName: this.courseInfo.roomName,
+          password: this.courseInfo.password,
         })
         .then((res) => {
           this.handleCreateRoom(res);
