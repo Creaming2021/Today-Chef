@@ -53,7 +53,7 @@ public class S3Util {
 
     // Base64 file upload
     public String uploadBase64File(String base64EncodedString) throws IOException {
-        if (base64EncodedString.length < 25) {
+        if (base64EncodedString.length() < 25) {
             return "https://d6sx5vd3amky9.cloudfront.net/logo_icon.png";
         }
 
