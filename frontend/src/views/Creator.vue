@@ -36,6 +36,12 @@
             ref="kit" 
             :courseInfo="courseInfo"/>
         </div>
+
+        <div v-else-if="type === 'chat'" class="col-lg-9">
+          <CreateChat 
+            ref="chat" 
+            :courseInfo="courseInfo"/>
+        </div>
       </div>
     </div>
 
@@ -48,10 +54,10 @@
               v-if="this.step !== 0" 
               @click="goToBefore">이전 단계 넘어가기</button>
             <button 
-              v-if="this.step !== 3"
+              v-if="this.step !== 4"
               @click="goToNext">다음 단계 넘어가기</button>
             <button 
-              v-if="this.step === 3"
+              v-if="this.step === 4"
               @click="onClickSave">클래스 개설하기</button>
             <button @click="onClickOpenModal">미리보기</button>
           </div>
@@ -76,6 +82,7 @@ import Kit from '@/components/makeCourse/Kit.vue';
 import Thumbnail from '@/components/makeCourse/Thumbnail.vue';
 import Info from '@/components/makeCourse/Info.vue';
 import Preview from '@/components/makeCourse/Preview.vue';
+import CreateChat from '@/components/chat/chat/CreateChat.vue';
 
 export default {
   components : {
@@ -85,6 +92,7 @@ export default {
     Thumbnail,
     Info,
     Preview,
+    CreateChat,
   },
   data() {
     return {
@@ -103,7 +111,7 @@ export default {
         images: ['','','','','','','','','',''],
         productId: '',
       },
-      typeList: ['info', 'thumbnail', 'course', 'kit'],
+      typeList: ['info', 'thumbnail', 'course', 'kit', 'chat'],
     }
   },
   watch : {
@@ -169,7 +177,7 @@ export default {
       });
     },
     goToNext(){
-      this.step = this.step === 3 ? 3 : this.step + 1;
+      this.step = this.step === 4 ? 4 : this.step + 1;
       this.$router.push({
         name: 'Creator',
         params: {

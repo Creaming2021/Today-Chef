@@ -32,7 +32,6 @@ export default new Vuex.Store({
         'home',
         'user',
         'event',
-         
       ],
     }),
   ],
