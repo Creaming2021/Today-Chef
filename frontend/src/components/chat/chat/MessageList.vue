@@ -48,7 +48,7 @@
                         <img :src="message.user.image" class="chat__user-avatar" alt>
                         <div class="chat__message-body">
                             <div class="chat__message-content chat__message-content--left">
-                                <span>{{ message.content }}</span>
+                                <span v-html="message.content"></span>
                             </div>
                             <div class="chat__message-details">
                                 <span>{{ message.user.handle }}</span>
