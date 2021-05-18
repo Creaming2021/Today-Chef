@@ -141,7 +141,7 @@ export default {
   border-width: 0px 0px 3px 0px;
   border-style: solid;
   border-color: red;
-  margin: 0px -1px 0px -1px;
+  margin: 0px -3px 0px -3px;
   padding: 5px 10px 5px 10px;
 }
 </style>
