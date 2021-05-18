@@ -185,6 +185,7 @@ export default {
 }
 
 .write-btn{
+  display: block;
   font-size: 0.8rem;
   border: none;
   border-radius: 10px;
