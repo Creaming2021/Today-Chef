@@ -39,7 +39,7 @@
 
         <div v-else-if="type === 'chat'" class="col-lg-9">
           <CreateChat 
-            ref="chat" 
+            ref="chat"
             :courseInfo="courseInfo"/>
         </div>
       </div>
@@ -83,6 +83,7 @@ import Thumbnail from '@/components/makeCourse/Thumbnail.vue';
 import Info from '@/components/makeCourse/Info.vue';
 import Preview from '@/components/makeCourse/Preview.vue';
 import CreateChat from '@/components/chat/chat/CreateChat.vue';
+import { chat } from '@/api/instance.js';
 
 export default {
   components : {
@@ -185,7 +186,41 @@ export default {
           type: this.typeList[this.step],
         }
       });
-    }
+    },
+    handleCreateRoom(e) {
+      e.preventDefault();
+
+      chat
+        .post('/room', {
+          room_name: this.room_name,
+          user: this.$store.state.chat.authUser,
+          password: this.password
+        })
+        .then(res => {
+          if (res.data.errors) {
+            for (const error of res.data.errors) {
+              const [value] = Object.values(error);
+              this.$swal.fire({
+                icon: 'error',
+                text: value,
+              });
+            }
+          } else {
+            this.$store.dispatch('addRoom', res.data);
+            this.room_name = null;
+            this.password = null;
+            this.$refs.createRoom.close();
+            this.getSocket.emit('roomAdded', res.data);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      setTimeout(() => {
+        this.errors = [];
+      }, 1500);
+    },
   }
 }
 </script>
