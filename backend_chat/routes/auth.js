@@ -21,13 +21,8 @@ router.post('/register', (req, res) => {
 
     User.findOne({ email: req.body.email }).then(user => {
         if (user === null) {
-            /** Assign Gravatar */
-            const avatar = gravatar.url(req.body.email, {
-                s: '220',
-                r: 'pg',
-                d: 'identicon'
-            });
-
+            
+            const avatar = "https://creaming-bucket-b204.s3.ap-northeast-2.amazonaws.com/profile_image.png";
             const newUser = new User({
                 handle: req.body.handle,
                 username: req.body.username,
