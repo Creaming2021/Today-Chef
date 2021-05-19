@@ -14,22 +14,6 @@
         @click="onOpenThumbnailModal"
         src="@/assets/img/empty/image.png"/>
     </template>
-    <!-- <img 
-      id="first-image"
-      @click="onOpenThumbnailModal"
-      :src="imageList[0].imageUrl || defaultImage"/>
-    <img 
-      id="second-image"
-      @click="onOpenThumbnailModal"
-      :src="(imageList[1] && imageList[1].imageUrl) || defaultImage"/>
-    <img 
-      id="third-image"
-      @click="onOpenThumbnailModal"
-      :src="(imageList[2] && imageList[2].imageUrl) || defaultImage"/>
-    <img 
-      id="fourth-image"
-      @click="onOpenThumbnailModal"
-      :src="(imageList[3] && imageList[3].imageUrl) || defaultImage"/> -->
     <div 
       v-if="remainImageCnt > 0"
       class="remain-image-cnt"
