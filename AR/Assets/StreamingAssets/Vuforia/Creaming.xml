@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="test" size="100.000000 100.000000" />
+    <ImageTarget name="videoStartImage" size="100.000000 56.303417" />
+    <ImageTarget name="spatula" size="100.000000 100.000000" />
+    <ImageTarget name="measuringSpoons" size="100.000000 100.000000" />
+    <ImageTarget name="knife" size="100.000000 100.000000" />
+    <ImageTarget name="kitchenTimer" size="100.000000 100.000000" />
+    <ImageTarget name="etc" size="100.000000 100.000000" />
+    <ImageTarget name="ToastMaker" size="100.000000 100.000000" />
+    <ImageTarget name="AR_video" size="100.000000 100.000000" />
+  </Tracking>
+</QCARConfig>
