@@ -21,10 +21,10 @@ public class MailUtil {
             messageHelper.setFrom("noreply@creaming.co.kr");
             messageHelper.setTo(email);
             messageHelper.setSubject("[오늘 셰프] ");
-            String content = mailContent.append("<strong>강의명</strong> :").append(courseName).append("</br>")
-                    .append("<strong>채팅방 이름</strong> :").append(roomName).append("</br>")
-                    .append("<strong>채팅방 비밀번호</strong> :").append(password).append("</br>")
-                    .append("<img src='https://creaming-bucket-b204.s3.ap-northeast-2.amazonaws.com/logo_icon.png'/>")
+            String content = mailContent.append("<strong style=\"font-size:1rem\">강의명</strong> : ").append(courseName).append("<br/>")
+                    .append("<strong style=\"font-size:1rem\">채팅방 이름</strong> : ").append(roomName).append("<br/>")
+                    .append("<strong style=\"font-size:1rem\">채팅방 비밀번호</strong> : ").append(password).append("<br/>")
+                    .append("<img src='https://creaming-bucket-b204.s3.ap-northeast-2.amazonaws.com/logo_icon.png' width=\"300\"/>")
                     .toString();
             messageHelper.setText(content, true);
         };
