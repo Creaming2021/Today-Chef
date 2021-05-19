@@ -82,10 +82,17 @@ export default {
       return this.itemDetail || ( this.item === 'course' ? this.course : this.product );
     },
     goToPayment(){
-      this.$router.push({
-        name: 'PaymentCourse',
-        params: this.course.id,
-      })
+      if(this.user === ''){
+        this.$swal.fire({
+          icon: 'warning',
+          text: '로그인 후 사용 가능합니다.',
+        });
+      }else{
+        this.$router.push({
+          name: 'PaymentCourse',
+          params: this.course.id,
+        })
+      }
     }
   },
 }

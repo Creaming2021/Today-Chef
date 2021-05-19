@@ -1,24 +1,24 @@
 <template>
   <div class="thumbnail-container" v-if="imageList">
-    <template v-if="imageList.length > 0" >
+    <template v-if="imageList.length > 0 || images.length > 0" >
       <img 
         id="first-image"
         @click="onOpenThumbnailModal"
-        :src="imageList[0].imageUrl"/>
+        :src="images[0] || imageList[0].imageUrl"/>
       <img 
         id="second-image"
         @click="onOpenThumbnailModal"
-        :src="imageList[1].imageUrl || imageList[0].imageUrl"/>
+        :src="images[1] || images[0] || (imageList[1] && imageList[1].imageUrl) || imageList[0].imageUrl"/>
       <img 
         id="third-image"
         @click="onOpenThumbnailModal"
-        :src="imageList[2].imageUrl || imageList[0].imageUrl"/>
+        :src="images[2] || images[0] || (imageList[2] && imageList[2].imageUrl) || imageList[0].imageUrl"/>
       <img 
         id="fourth-image"
         @click="onOpenThumbnailModal"
-        :src="imageList[3].imageUrl || imageList[0].imageUrl"/>
+        :src="images[3] || images[0] || (imageList[3] && imageList[3].imageUrl) || imageList[0].imageUrl"/>
       <div 
-        v-if="imageList.length > 4"
+        v-if="remainImageCnt > 0"
         class="remain-image-cnt"
         @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
       </div>
@@ -60,11 +60,14 @@ export default {
   },
   mounted() {
     this.setRemainImageCnt();
-    console.log(this.imageList);
   },
   methods: {
     setRemainImageCnt(){
-      this.remainImageCnt = this.imageList.length - 4;
+      if(this.images){
+        this.images.reduce((acc, cur) => cur !== '' ? acc + 1 : acc , 0);
+      }else{
+        this.remainImageCnt = this.imageList.length - 4;
+      }
     },
     onOpenThumbnailModal(){
       this.currentImage = 0;
@@ -81,7 +84,7 @@ export default {
     },
     settingItemList(){
       let item = this.$route.params.item;
-      return this.images || (item === 'course' ? this.courseImageList : this.productImageList);
+      return item === 'course' ? this.courseImageList : this.productImageList;
     },
   },
   watch: {
