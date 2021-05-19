@@ -1,11 +1,13 @@
 <template>
   <div class="thumbnail-container">
-    <img
-      v-for="(image, idx) in imageList"
-      :key="idx"
-      :id="classList[idx]"
-      @click="onOpenThumbnailModal"
-      :src="image.imageUrl"/>
+    <template v-for="(image, idx) in imageList">
+      <img
+        v-if="idx < 4"
+        :key="idx"
+        :id="classList[idx]"
+        @click="onOpenThumbnailModal"
+        :src="image.imageUrl"/>
+    </template>
     <template v-for="idx in 4">
       <img
         v-if="imageList.length < idx"
