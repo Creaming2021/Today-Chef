@@ -51,14 +51,15 @@
         class="sign-up-container">
           <input 
             class="medium" 
-            v-model="signUpForm.nickname" 
+            v-model="nickname" 
             @keyup="initialNicknameState"
             placeholder="닉네임을 입력하세요."/>
           <button class="small" @click="onClickCheckNickname">중복 체크</button><br/>
-          <input class="big" v-model="signUpForm.phone" placeholder="010-1234-5678"/><br/>
+          <input class="big" @keyup="autoHypenPhone" v-model="signUpForm.phone" placeholder="010-1234-5678" maxlength="13"/><br/>
           <input 
+            type="email"
             class="medium" 
-            v-model="signUpForm.email" 
+            v-model="email" 
             @keyup="initialEmailState"
             placeholder="이메일을 입력하세요."/>
           <button class="small" @click="onClickCheckEmail">중복 체크</button><br/>
@@ -86,6 +87,8 @@ export default {
         email: '',
       },
       currentTab: 'Home',
+      email: '',
+      nickname: '',
     }
   },
   computed : {
@@ -161,7 +164,14 @@ export default {
           icon: 'error',
           text: '이메일 중복체크를 해주세요.',
         });
+      } else if (this.signUpForm.phone == '') {
+        this.$swal.fire({
+          icon: 'error',
+          text: '전화번호를 입력해주세요.',
+        });
       } else {
+        this.signUpForm.nickname = this.nickname;
+        this.signUpForm.email = this.email;
         this.$store.dispatch('SIGN_UP', this.signUpForm);
       }
     },
@@ -169,10 +179,34 @@ export default {
       this.$store.dispatch('SIGN_OUT');
     },
     onClickCheckEmail(){
-      this.$store.dispatch('CHECK_EMAIL', this.signUpForm.email);
+      const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      if (this.email == '') {
+        this.$swal.fire({
+          icon: 'error',
+          text: '이메일을 입력해주세요.',
+        });
+        this.initialEmailState();
+        return;
+      } else if (this.email.match(regExp) == null) {
+        this.$swal.fire({
+          icon: 'error',
+          text: '올바른 이메일을 입력해주세요.',
+        });
+        this.initialEmailState();
+        return;
+      }
+      this.$store.dispatch('CHECK_EMAIL', this.email);
     },
     onClickCheckNickname(){
-      this.$store.dispatch('CHECK_NICKNAME', this.signUpForm.nickname);
+      if (this.nickname == '') {
+        this.$swal.fire({
+          icon: 'error',
+          text: '닉네임을 입력해주세요.',
+        });
+        this.initialNicknameState();
+        return;
+      }
+      this.$store.dispatch('CHECK_NICKNAME', this.nickname);
     },
     initialEmailState(){
       this.$store.dispatch('SET_EMAIL_STATE', false);
@@ -180,6 +214,38 @@ export default {
     initialNicknameState(){
       this.$store.dispatch('SET_NICKNAME_STATE', false);
     },
+    autoHypenPhone(event) {
+      let str = event.target.value.replace(/[^0-9]/g, '');
+      let tmp = '';
+      if( str.length < 4){
+          return str;
+      }else if(str.length < 7){
+          tmp += str.substr(0, 3);
+          tmp += '-';
+          tmp += str.substr(3);
+      }else if(str.length < 11){
+          tmp += str.substr(0, 3);
+          tmp += '-';
+          tmp += str.substr(3, 3);
+          tmp += '-';
+          tmp += str.substr(6);
+      }else{              
+          tmp += str.substr(0, 3);
+          tmp += '-';
+          tmp += str.substr(3, 4);
+          tmp += '-';
+          tmp += str.substr(7);
+      }
+      this.signUpForm.phone = tmp;
+    },
+  },
+  watch: {
+    email() {
+      this.$store.dispatch('SET_EMAIL_STATE', false);
+    },
+    nickname() {
+      this.$store.dispatch('SET_NICKNAME_STATE', false);
+    }
   }
 }
 </script>

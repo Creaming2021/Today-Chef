@@ -149,7 +149,57 @@ export default {
       this.step = this.typeList.indexOf(this.type);
     },
     onClickSave() {
-      // console.log(this.courseInfo);
+        if (!this.courseInfo.category) {
+          this.$swal.fire({
+            icon: 'error',
+            text: '카테고리를 선택해주세요',
+          })
+          return;
+        } else if (this.courseInfo.date == '') {
+
+          this.$swal.fire({
+            icon: 'error',
+            text: '강의 날짜를 선택해주세요',
+          })
+          return;
+        } else if (this.courseInfo.startTime == '' || this.courseInfo.endTime == '') {
+          this.$swal.fire({
+            icon: 'error',
+            text: '강의 시작 시간과 종료 시간을 선택해주세요',
+          })
+          return;
+        } else if (this.courseInfo.price == 0) {
+          this.$swal.fire({
+            icon: 'error',
+            text: '강의 수강료를 작성해주세요',
+          })
+          return;
+        } else if (this.courseInfo.name == '') {
+          this.$swal.fire({
+            icon: 'error',
+            text: '클래스 제목를 작성해주세요',
+          })
+          return;
+        } else if (this.courseInfo.descriptions == '') {
+          this.$swal.fire({
+            icon: 'error',
+            text: '클래스 소개를 작성해주세요',
+          })
+          return;
+        } else if (this.courseInfo.productId == 0) {
+          this.$swal.fire({
+            icon: 'error',
+            text: '밀키트 제품을 선택해주세요',
+          })
+          return;
+        } else if (this.courseInfo.roomName == '') {
+          this.$swal.fire({
+            icon: 'error',
+            text: '채팅방을 만들어주세요',
+          })
+          return;
+        } 
+
       this.$store.dispatch("POST_COURSE", {
           category: this.courseInfo.category,
           date: this.courseInfo.date,
