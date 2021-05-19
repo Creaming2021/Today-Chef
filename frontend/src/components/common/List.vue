@@ -156,7 +156,28 @@ export default {
       }
     },
     submitReview(){
+      if (this.board.title == '') {
+        this.$swal.fire({
+          icon: 'error',
+          text: '제목을 입력해주세요.',
+        });
+        return;
+      } else if (this.board.rating == 0) {
+        this.$swal.fire({
+          icon: 'error',
+          text: '별점을 입력해주세요.',
+        });
+        return;
+      }
+
       this.board.content = this.$refs.content.invoke("getMarkdown");
+      if (this.board.content == '') {
+        this.$swal.fire({
+          icon: 'error',
+          text: '내용을 입력해주세요.',
+        });
+        return;
+      }
 
       let item = this.$route.params.item;
       if(item === 'course'){
