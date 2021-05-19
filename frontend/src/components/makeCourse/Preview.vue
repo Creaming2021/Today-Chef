@@ -1,6 +1,6 @@
 <template>
   <div class="preview-container">
-    <ItemThumbnail :images="courseInfo.images"/>
+    <PreviewThumbnail :images="courseInfo.images"/>
     <div class="preview-description">
       <viewer :initialValue="courseInfo.descriptions" height="300px"/>
     </div>
@@ -10,18 +10,14 @@
 
 <script>
 import { Viewer } from '@toast-ui/vue-editor';
-import ItemThumbnail from '@/components/itemDetail/ItemThumbnail.vue';
+import PreviewThumbnail from '@/components/makeCourse/PreviewThumbnail.vue';
 import ItemRightbar from '@/components/itemDetail/ItemRightbar.vue';
 
   export default {
     components: {
-      ItemThumbnail,
+      PreviewThumbnail,
       ItemRightbar,
       'viewer': Viewer
-  },
-  data(){
-    return {
-    }
   },
   props: {
     courseInfo : Object,

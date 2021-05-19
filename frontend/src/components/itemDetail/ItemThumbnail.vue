@@ -1,28 +1,24 @@
 <template>
-  <div class="thumbnail-container" v-if="imageList">
-    <template v-if="imageList.length > 0 || images.length > 0" >
-      <img 
-        id="first-image"
+  <div class="thumbnail-container">
+    <img
+      v-for="(image, idx) in imageList"
+      :key="idx"
+      :id="classList[idx]"
+      @click="onOpenThumbnailModal"
+      :src="image.imageUrl"/>
+    <template v-for="idx in 4">
+      <img
+        v-if="imageList.length < idx"
+        :key="idx"
+        :id="classList[idx-1]"
         @click="onOpenThumbnailModal"
-        :src="images[0] || imageList[0].imageUrl"/>
-      <img 
-        id="second-image"
-        @click="onOpenThumbnailModal"
-        :src="images[1] || images[0] || (imageList[1] && imageList[1].imageUrl) || imageList[0].imageUrl"/>
-      <img 
-        id="third-image"
-        @click="onOpenThumbnailModal"
-        :src="images[2] || images[0] || (imageList[2] && imageList[2].imageUrl) || imageList[0].imageUrl"/>
-      <img 
-        id="fourth-image"
-        @click="onOpenThumbnailModal"
-        :src="images[3] || images[0] || (imageList[3] && imageList[3].imageUrl) || imageList[0].imageUrl"/>
-      <div 
-        v-if="remainImageCnt > 0"
-        class="remain-image-cnt"
-        @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
-      </div>
-    </template>    
+        src="@/assets/img/empty/image.png"/>
+    </template>
+    <div 
+      v-if="remainImageCnt > 0"
+      class="remain-image-cnt"
+      @click="onOpenThumbnailModal">+ {{remainImageCnt}}개의<br/>이미지
+    </div> 
     <b-modal v-model="openThumbnailModal" size="lg" hide-footer hide-header>
       <p class="thumbnail-modal-btn" @click="onCloseThumbnailModal">X</p>
       <span class="thumbnail-modal-btn" @click="onClickDecreaseImageIdx">이전</span>
@@ -41,6 +37,7 @@ export default {
       remainImageCnt: 0,
       openThumbnailModal: false,
       currentImage: 0,
+      classList: ['first-image', 'second-image', 'third-image', 'fourth-image'],
     }
   },
   computed: {
@@ -52,9 +49,6 @@ export default {
       return this.settingItemList();
     },
   },
-  props: {
-    images: Array,
-  },
   created() {
     this.settingItemList();
   },
@@ -63,11 +57,7 @@ export default {
   },
   methods: {
     setRemainImageCnt(){
-      if(this.images){
-        this.images.reduce((acc, cur) => cur !== '' ? acc + 1 : acc , 0);
-      }else{
-        this.remainImageCnt = this.imageList.length - 4;
-      }
+      this.remainImageCnt = this.imageList.length - 4;
     },
     onOpenThumbnailModal(){
       this.currentImage = 0;
