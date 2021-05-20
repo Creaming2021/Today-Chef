@@ -9,7 +9,7 @@
                     >
                         <div class="chat__message-body">
                             <div class="chat__message-content chat__message-content--right">
-                                <span v-html="message.content"></span>
+                                <span v-html="message.content" @click="goToStreaming"></span>
                             </div>
                             <div class="chat__message-details">
                                 <span>{{ message.user.handle }}</span>
@@ -71,7 +71,7 @@ export default {
     name: 'MessageList',
     props: ['messages'],
     computed: {
-        ...mapGetters(['getUserData'])
+        ...mapGetters(['getUserData', 'getCurrentRoom'])
     },
     data: function() {
         return {
@@ -85,7 +85,10 @@ export default {
         scrollMessages() {
             var container = this.$refs.messages;
             container.scrollTop = container.scrollHeight;
-        }
+        },
+        goToStreaming() {
+            window.open(`http://creaming.co.kr/${this.getCurrentRoom._id}/${this.$store.state.chat.authUser.username}/basic`);
+        },
     },
     mounted() {
         this.scrollMessages();
