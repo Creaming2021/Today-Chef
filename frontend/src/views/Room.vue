@@ -17,7 +17,7 @@
                                     :name="room.name"
                                     class="icon">
                                 </ion-icon>
-                                <ion-icon v-if="this.$store.state.chat.authUser._id !== this.getCurrentRoom.user._id" 
+                                <ion-icon v-if="this.$store.state.chat.authUser._id === this.getCurrentRoom.user._id" 
                                     name="ios-link" 
                                     @click="sendStreamingLink" 
                                     class="icon">
