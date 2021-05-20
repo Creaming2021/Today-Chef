@@ -90,7 +90,7 @@ export default {
       
       this.filteredItemList.sort((itemA, itemB) => { // 정렬
         if(this.currentSortId === 'review'){
-          return itemA.reviewCnt - itemB.reviewCnt;
+          return itemB.reviewCnt - itemA.reviewCnt;
         } else if(this.currentSortId === 'rank') {
           return itemB.rating - itemA.rating;
         } else if(this.currentSortId === 'arrival') {
