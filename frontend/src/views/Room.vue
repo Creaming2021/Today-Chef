@@ -8,16 +8,16 @@
                             <ion-icon name="return-left" @click="leaveRoom" class="icon"></ion-icon>
                             <span class="section__title"> {{ room.name }} </span>
                             <div class="chat__actions">
-                                <div class="chat-admin-button" v-if="this.$store.state.chat.authUser._id === getUserData._id">
+                                <div class="chat-admin-button" v-if="this.$store.state.chat.authUser._id === this.getCurrentRoom.user._id">
                                     <a v-bind:href="this.teacherLink" target="_blank" class="primary-btn class-btn">클래스 입장</a>
                                 </div>
-                                <ion-icon v-if="this.$store.state.chat.authUser._id === getUserData._id" 
+                                <ion-icon v-if="this.$store.state.chat.authUser._id === this.getCurrentRoom.user._id" 
                                     ios="ios-trash" md="md-trash"
                                     @click.stop="handleDelete"
                                     :name="room.name"
                                     class="icon">
                                 </ion-icon>
-                                <ion-icon v-if="this.$store.state.chat.authUser._id === getUserData._id" 
+                                <ion-icon v-if="this.$store.state.chat.authUser._id !== this.getCurrentRoom.user._id" 
                                     name="ios-link" 
                                     @click="sendStreamingLink" 
                                     class="icon">
@@ -193,8 +193,7 @@ export default {
             this.getSocket.emit('newMessage', {
                 room: this.getCurrentRoom,
                 user: this.getUserData,
-                content: '<a href="http://creaming.co.kr/' + this.getCurrentRoom._id + '/' + this.$store.state.chat.authUser.username + '/basic' +'" target="_blank">'
-                        + '<img src="https://creaming-bucket-b204.s3.ap-northeast-2.amazonaws.com/logo2-13.png"/></a>',
+                content: '<img src="https://creaming-bucket-b204.s3.ap-northeast-2.amazonaws.com/logo2-13.png"/>',
             });
         },
         checkUserTabs(room) {
