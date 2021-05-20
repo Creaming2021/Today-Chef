@@ -101,8 +101,7 @@
     <ul>
         <a href="documents/dev_log/20210517_dev_log.md"><li>5/17 - 개발, QA 및 버그 수정 </li></a>
         <a href="documents/dev_log/20210518_dev_log.md"><li>5/18 - DB 초기화, 더미 데이터 삽입, QA 및 버그 수정, css 디자인 수정 </li></a>
-        <a href="documents/dev_log/20210520_dev_log.md"><li>5/20 -  </li></a>
-        <a href="documents/dev_log/20210521_dev_log.md"><li>5/21 -  </li></a>
+        <a href="documents/dev_log/20210520_dev_log.md"><li>5/20 - UCC, PPT, 발표준비, 최종 산출물 제작 및 제출 </li></a>
     </ul>
 </details>
 
@@ -138,6 +137,11 @@
 - 실시간 스트리밍 서비스를 통해 **빠른 커뮤니케이션 및 피드백 제공**
 - 스트리밍 **음성 제어 서비스**로 편리한 사용 가능
 - 향후 카테고리 확장을 통해 **다양한 분야에서 지식 공유 가능**
+
+
+
+
+
 
 ## :pushpin: 주제 선정 배경 및 시장 분석
 ##### :one: 기술 트렌드 및 동향
