@@ -102,6 +102,7 @@
         <a href="documents/dev_log/20210517_dev_log.md"><li>5/17 - 개발, QA 및 버그 수정 </li></a>
         <a href="documents/dev_log/20210518_dev_log.md"><li>5/18 - DB 초기화, 더미 데이터 삽입, QA 및 버그 수정, css 디자인 수정 </li></a>
         <a href="documents/dev_log/20210520_dev_log.md"><li>5/20 - UCC, PPT, 발표준비, 최종 산출물 제작 및 제출 </li></a>
+        <li>5/21 - 포팅 매뉴얼 제출, 발표, README 작성  </li>
     </ul>
 </details>
 
@@ -111,13 +112,14 @@
 ## :rocket: 주요 기능
 - **밀키트 판매 서비스**
     - **AR 조리 방법 및 조리 도구 설명서** 제공 <br />
+        ![ar](./documents/README/gif/ar.gif)
         ![arPhone](./documents/README/gif/arPhone_1.gif)
 - **채팅방 개설 및 참여**
     - 유저끼리의 소통 공간 제공 <br />
         ![chat](./documents/README/gif/chat.gif)
 - **온라인 주방 기능**
     - **실시간 스트리밍 화상 채팅 서비스** 제공 <br />
-        ![streaming](./documents/README/gif/streaming.gif)
+        ![streaming](./documents/README/gif/steaming.gif)
 - **STT 음성 인식 기능**
     - **시스템 제어 및 커뮤니케이션** <br />
         ![sttSystem](./documents/README/gif/sttSystem.gif)
@@ -131,3 +133,10 @@
 - 스트리밍 **음성 제어 서비스**로 요리를 진행하면서도 서비스를 편하게 사용 가능
 - 스트리밍 STT기능과 AR 영상 자막 서비스 제공으로 **청각장애인도 편리하게 서비스 이용 가능**
 - 향후 카테고리 확장을 통해 **다양한 분야에서 지식 공유 가능**
+
+
+## :floppy_disk: ERD
+![ERD](./documents/README/images/todaychef_erd.png)
+
+## :tv: UCC
+[오늘 셰프 UCC](https://youtu.be/K-vmcpYcQWU)
