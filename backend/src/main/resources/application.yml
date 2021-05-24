@@ -1,1 +1,69 @@
+server:
+  servlet:
+    context-path: /api
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+  error:
+    include-message: always
+#  port:
+#    9999
+
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+#      ddl-auto: create-drop
+#    show-sql: true
+    properties:
+      hibernate:
+#        format_sql: true
+        default_batch_fetch_size: 1000
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ekdbs628@gmail.com
+    password: zahrmwuaesenicdb
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://k4b204.p.ssafy.io/creaming?useUnicode=true&charaterEncoding=utf-8
+    username: root
+    password: creaming2021^^
+
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/creaming
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIATO7XDVM2BFKFQC6M
+      secret-key: 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
+    s3:
+      bucket: creaming-bucket-b204
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+my-app:
+  server-url: https://k4b204.p.ssafy.io
+
 

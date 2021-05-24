@@ -1,0 +1,191 @@
+@import '../abstract/variables.scss';
+@import '../abstract/mixins.scss';
+@import '../base/base.scss';
+
+.rooms {
+    width: 80%;
+    margin: auto;
+
+    @include respond(phone) {
+        width: 100%;
+    }
+    
+    &__header {
+        padding: 1rem 0;
+    }
+    
+    &__details {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 3px;
+
+        @include respond(phone) {
+            margin: 0 0.8rem;
+        }
+
+        &-item {
+            display: flex;
+            color: black;
+            align-items: center;
+            font-weight: bold;
+            margin: 0 10px;
+
+            @include respond(phone) {
+                text-align: left;
+            }
+        }
+
+        & span {
+            margin: 0 5px;
+        }
+        
+    }
+
+
+    &__list {
+        margin: 0;
+        padding: 0 1rem 0.6rem;
+        height: 500px;
+        overflow: auto;
+        text-decoration: none;
+        text-align: left;
+        
+        &-item {
+            list-style: none;
+            margin: 0 0 1rem 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &-link {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        
+    }
+    
+    &__list::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    &__list::-webkit-scrollbar-thumb {
+        background-color: lightgrey;
+        border-radius: 10px;
+    }
+
+    &__item {
+
+        display: block;
+
+        &-container {
+            // display: flex;
+            padding: 1rem;
+            border-radius: 10px;
+            border: none;
+            background-color: #f3f2ee;
+            text-decoration: none;
+            height: 200px;
+            
+            @include respond(phone) {
+                flex-flow: column;
+            }
+        }
+        
+        &-detail {
+            margin: 0.8rem 0 0.5rem 0.8rem;
+            padding: 0 2px;
+            
+            &-span {
+                display: inline;
+                margin-bottom: 4px;
+                position: absolute;
+    
+                & span {
+                    position: relative;
+                }
+            }
+        }
+
+        &-details {
+            width: 100%;
+            text-align: left;
+
+            @include respond(phone) {
+                width: 100%;
+                text-align: center;
+            }
+            
+            & strong{
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+
+        }
+        
+        /** List Item Actions */
+        &-actions {
+            // display: flex;
+            justify-content: flex-end;
+
+            @include respond(phone) {
+                justify-content: center;
+            }
+        }
+
+        &-action {
+            width: 50%;
+            align-self: center;
+            text-align: right;
+
+            @include respond(phone) {
+                width: initial;
+                margin: 0.5rem 0;
+            }
+        }
+
+        &-header {
+            display: flex;
+            padding: 20px 10px 10px 10px;
+        }
+
+    }
+
+    &__actions {
+        position: relative;
+        padding: 2rem;
+        width: 50%;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        @include respond(phone) {
+            & > * {
+                width: 100%;
+                margin: 0.5em 0;
+            }
+        }
+    }
+
+    &__search-input {
+        position: relative;
+        padding: 15px;
+        border-radius: 20px;
+        border: none;
+        background-color: #f3f2ee;
+        margin: 0.5rem 0 0.5rem 0;
+        z-index: 1;
+        width: 100%;
+
+        @include respond(phone) {
+            width: 90%;
+        }
+    }
+}
