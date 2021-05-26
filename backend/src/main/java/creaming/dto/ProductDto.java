@@ -5,6 +5,7 @@ import creaming.domain.etc.FoodType;
 import creaming.domain.file.ProductFile;
 import creaming.domain.product.Product;
 import creaming.domain.review.ProductReview;
+import creaming.utils.RoundUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +40,8 @@ public class ProductDto {
             if (!productFiles.isEmpty()) {
                 this.image = productFiles.get(0).getFileName();
             }
-            this.rating = product.getProductReviews().stream()
-                    .collect(Collectors.averagingDouble(ProductReview::getRating));
+            this.rating = RoundUtil.round(product.getProductReviews().stream()
+                    .collect(Collectors.averagingDouble(ProductReview::getRating)));
             this.reviewCnt = product.getProductReviews().size();
         }
     }
@@ -69,8 +70,8 @@ public class ProductDto {
             this.images = product.getProductFiles().stream()
                     .map(productFile -> new ImageDto(productFile.getId(), productFile.getFileName()))
                     .collect(Collectors.toList());
-            this.rating = product.getProductReviews().stream()
-                    .collect(Collectors.averagingDouble(ProductReview::getRating));
+            this.rating = RoundUtil.round(product.getProductReviews().stream()
+                    .collect(Collectors.averagingDouble(ProductReview::getRating)));
             this.like = product.getProductLikes().size();
         }
     }

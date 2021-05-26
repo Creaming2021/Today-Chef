@@ -4,6 +4,7 @@ import creaming.domain.course.Course;
 import creaming.domain.etc.FoodType;
 import creaming.domain.file.CourseFile;
 import creaming.domain.review.CourseReview;
+import creaming.utils.RoundUtil;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,8 +43,8 @@ public class CourseDto {
             this.date = course.getDate();
             this.time = course.getTime();
             this.price = course.getPrice();
-            this.rating = course.getCourseReviews().stream()
-                    .collect(Collectors.averagingInt(CourseReview::getRating));
+            this.rating = RoundUtil.round(course.getCourseReviews().stream()
+                    .collect(Collectors.averagingInt(CourseReview::getRating)));
             if (!course.getCourseFiles().isEmpty()) {
                 this.image = course.getCourseFiles().get(0).getFileName();
             }
@@ -82,8 +83,8 @@ public class CourseDto {
             this.date = course.getDate();
             this.time = course.getTime();
             this.price = course.getPrice();
-            this.rating = course.getCourseReviews().stream()
-                    .collect(Collectors.averagingInt(CourseReview::getRating));
+            this.rating = RoundUtil.round(course.getCourseReviews().stream()
+                    .collect(Collectors.averagingInt(CourseReview::getRating)));
             this.descriptions = course.getDescriptions();
             this.category = course.getCategory();
             this.images = course.getCourseFiles().stream()
