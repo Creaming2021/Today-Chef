@@ -18,7 +18,7 @@
         <span>{{itemDetail.category}}</span>
         <h6>{{itemDetail.name}}</h6>
         <span> 별점 : {{itemDetail.rating}}</span>
-        <h6>{{itemDetail.price}}원</h6>
+        <h6>{{itemDetail.price.toLocaleString()}}원</h6>
       </div>
     </div>
     <div v-else class="default-message">

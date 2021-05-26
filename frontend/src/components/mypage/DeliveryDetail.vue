@@ -12,7 +12,7 @@
           <div class="order-info-detail">
             <div><strong>카테고리</strong> : {{detail.product.category}}</div>
             <div><strong>상품명</strong> : {{detail.product.name}}</div>
-            <div><strong>상품금액 (수량)</strong> : {{detail.product.price}}원 ({{detail.amount}}개)</div>
+            <div><strong>상품금액 (수량)</strong> : {{detail.product.price.toLocaleString()}}원 ({{detail.amount}}개)</div>
           </div>
         </div>
     </div>

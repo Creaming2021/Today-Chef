@@ -25,7 +25,7 @@
                   <li>{{course.name}}</li>
                 </ul>
                 <ul class="checkout__total__all">
-                  <li>최종 가격 <span>{{course.price}}원</span></li>
+                  <li>최종 가격 <span>{{course.price.toLocaleString()}}원</span></li>
                 </ul>
                 <button class="site-btn" @click="onSubmitPayment">카카오 페이 결제</button>
               </div>

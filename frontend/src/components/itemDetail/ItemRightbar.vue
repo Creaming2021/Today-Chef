@@ -7,7 +7,7 @@
     <h4>{{itemInfo.name}}</h4>
     <div class="row detail-info">
       <h5 v-if="item === 'course'" class="teacher">{{itemInfo.profile.nickname}}</h5>
-      <h5 class="price">{{itemInfo.price}}원</h5>
+      <h5 class="price">{{itemInfo.price.toLocaleString()}}원</h5>
     </div>
     <b-form-rating v-model="itemInfo.rating" color="orange" size="lg" readonly no-border/>
     
