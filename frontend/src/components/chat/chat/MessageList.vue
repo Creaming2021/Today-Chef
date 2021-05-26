@@ -87,7 +87,7 @@ export default {
             container.scrollTop = container.scrollHeight;
         },
         goToStreaming() {
-            window.open(`http://creaming.co.kr/${this.getCurrentRoom._id}/${this.$store.state.chat.authUser.username}/basic`);
+            window.open(`http://creaming.co.kr/${this.getCurrentRoom._id}/${this.$store.state.chat.authUser.username}/stt`);
         },
     },
     mounted() {
