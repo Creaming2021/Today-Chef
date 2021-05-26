@@ -16,7 +16,7 @@
         </div>
       </div>
     </td>
-    <td class="cart__price">{{cartDetail.price * cartDetail.amount}} 원</td>
+    <td class="cart__price">{{ (cartDetail.price * cartDetail.amount).toLocaleString() }} 원</td>
     <td class="cart__close" @click="deleteCart"><i class="fa fa-close"></i></td>
   </tr>
 </template>

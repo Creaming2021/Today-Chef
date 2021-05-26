@@ -16,13 +16,13 @@
                 <div class="checkout__order__products">상품 명 <span>상품 금액 X 구매 갯수</span></div>
                 <ul class="checkout__total__products">
                   <li v-for="product in cartList" :key="product.cartId">
-                    {{product.name}}<span>{{product.price}}원 X {{product.amount}}개</span>
+                    {{product.name}}<span>{{product.price.toLocaleString()}}원 X {{product.amount}}개</span>
                   </li>
                 </ul>
                 <ul class="checkout__total__all">
-                  <li>총 합계 <span>{{cart.totalPrice}}원</span></li>
-                  <li>총 할인 금액 <span>- {{cart.discountPrice}}원</span></li>
-                  <li>최종 가격 <span>{{cart.totalPrice - cart.discountPrice}}원</span></li>
+                  <li>총 합계 <span>{{cart.totalPrice.toLocaleString()}}원</span></li>
+                  <li>총 할인 금액 <span>- {{cart.discountPrice.toLocaleString()}}원</span></li>
+                  <li>최종 가격 <span>{{(cart.totalPrice - cart.discountPrice).toLocaleString()}}원</span></li>
                 </ul>
                 <button class="site-btn" @click="onSubmitPayment">카카오 페이 결제</button>
               </div>

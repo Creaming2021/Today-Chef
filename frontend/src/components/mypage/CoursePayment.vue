@@ -15,7 +15,7 @@
         <h5>{{payment.paidDate.substring(0,10)}}</h5>
       </div>
     </td>
-    <td class="cart__price centered">{{payment.paidPrice}}원</td>
+    <td class="cart__price centered">{{payment.paidPrice.toLocaleString()}}원</td>
   </tr>
 </template>
 

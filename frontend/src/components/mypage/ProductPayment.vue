@@ -14,13 +14,13 @@
           </div>
           <div class="product-detail">
             <div class="name">{{detail.product.name}}</div>
-            <div class="price">{{detail.product.price}}원</div>
+            <div class="price">{{detail.product.price.toLocaleString()}}원</div>
             <div class="amount">{{detail.amount}}개</div>
           </div>
         </div>
       </div>
     </td>
-    <td class="cart__price centered">{{payment.totalPrice}}원</td>
+    <td class="cart__price centered">{{payment.totalPrice.toLocaleString()}}원</td>
     <td class="cart__price">
       <div 
         class="payment-detail centered" 

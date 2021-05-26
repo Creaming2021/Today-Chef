@@ -46,13 +46,13 @@
             <h6>Cart total</h6>
             <ul>
               <li>전체 금액
-                <span>{{totalPrice}} 원</span>
+                <span>{{totalPrice.toLocaleString()}} 원</span>
               </li>
               <li>할인 금액
-                <span>- {{discountPrice}} 원</span>
+                <span>- {{discountPrice.toLocaleString()}} 원</span>
               </li>
               <li>결제 예상 금액
-                <span>{{totalPrice - discountPrice}}원</span>
+                <span>{{(totalPrice - discountPrice).toLocaleString()}}원</span>
               </li>
             </ul>
             <div @click="goToPayment" class="primary-btn go-to-payment">결제 하러 가기</div>

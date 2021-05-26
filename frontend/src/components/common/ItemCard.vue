@@ -11,7 +11,7 @@
           <h6>{{itemDetail.name}}</h6>
           <span v-if="item === 'course'" href="#">{{itemDetail.profile.nickname}} </span>
           <b-form-rating v-model="itemDetail.rating" color="orange" size="xl" readonly no-border/>
-          <h6>{{itemDetail.price}}원</h6>
+          <h6>{{itemDetail.price.toLocaleString()}}원</h6>
       </div>
       <b-modal 
         size="lg" 
