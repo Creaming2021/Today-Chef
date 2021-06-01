@@ -19,7 +19,7 @@
 
 - Github: [@wlsdhr0831](https://github.com/wlsdhr0831)
 
-**:koala: Seong Ho Park**
+**:koala: Sung Ho Park**
 
 - Github: [@solser12](https://github.com/solser12)
 
