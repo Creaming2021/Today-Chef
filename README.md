@@ -107,24 +107,42 @@
 </details>
 
 ## :wrench: 기술 스택
-![기술 스택](./documents/README/images/tech_stack.png)
+![기술 스택1](./documents/README/images/tech_stack1.png)
+![기술 스택2](./documents/README/images/tech_stack2.png)
 
 ## :rocket: 주요 기능
-- **밀키트 판매 서비스**
-    - **AR 조리 방법 및 조리 도구 설명서** 제공 <br />
-        ![ar](./documents/README/gif/ar.gif)
-        ![arPhone](./documents/README/gif/arPhone_1.gif)
-- **채팅방 개설 및 참여**
-    - 유저끼리의 소통 공간 제공 <br />
-        ![chat](./documents/README/gif/chat.gif)
-- **온라인 주방 기능**
-    - **실시간 스트리밍 화상 채팅 서비스** 제공 <br />
-        ![streaming](./documents/README/gif/steaming.gif)
-- **STT 음성 인식 기능**
-    - **시스템 제어 및 커뮤니케이션** <br />
-        ![sttSystem](./documents/README/gif/sttSystem.gif)
-    - **실시간 음성을 채팅 메세지로 전송** <br />
-        ![sttchat](./documents/README/gif/sttchat.gif)
+#### 1. AR 기반의 밀키트 안내서
+- **AR 기반 안내서를 위한 안드로이드 앱 제작화면** <br />
+    ![ar](./documents/README/gif/ar.gif)
+- **요리 미리보기 및 영양성분표 확인** <br />
+    ![ar3D_1](./documents/README/gif/ar3D_1.gif)
+- **동영상을 통한 조리방법 안내** <br />
+    ![arPhone_2](./documents/README/gif/arPhone_2.gif)
+#### 2. 밀키트를 활용한 언택트 쿠킹 클래스
+- **밀키트 정보 확인 및 구매**
+    ![payment_1](./documents/README/gif/payment_1.gif)
+    + 고객은 사이트에서 밀키트를 검색할 수 있고, 특정 밀키트의 자세한 정보를 제공받습니다. <br />
+    + 해당 제품의 리뷰와 QnA를 통해 구입 여부를 결정할 수 있으며, 원하는 밀키트를 구매하고 배송받을 수 있습니다. <br />
+- **나만의 요리 꿀팁을 공유하는 쿠킹클래스 만들기**
+    ![courseCreate_1](./documents/README/gif/courseCreate_1.gif)
+    + 모든 고객들은 자신들의 꿀팁을 공유할 수 있는 쿠킹 클래스를 오픈할 수 있습니다. <br />
+- **쿠킹 클래스 참여**
+    ![streamingFour](./documents/README/gif/streamingFour.gif)
+    + 요리를 함께 진행하는 과정에서 고객들은 빠른 커뮤니케이션과 정확한 피드백을 받을 수 있습니다. <br />
+- **음성 인식 시스템 제어**
+    - 요리를 한다는 특수적인 상황에 있어 편의성을 제공하기 위한 음성 시스템 제어 기능을 제공합니다.
+    - 채팅창 켜 / 채팅창 꺼
+    ![sttSystem_1](./documents/README/gif/sttSystem_1.gif)
+    - 카메라 켜 / 카메라 꺼
+    ![sttSystem_2](./documents/README/gif/sttSystem_2.gif)
+    - 마이크 켜 / 마이크 꺼
+    ![sttSystem_3](./documents/README/gif/sttSystem_3.gif)
+- **실시간 음성을 채팅 메세지로 전송** <br />
+    ![sttchat](./documents/README/gif/sttchat.gif)
+#### 3. 모두의 쿠킹 커뮤니티
+- **커뮤니티 공간 제공**
+    ![chat_1](./documents/README/gif/chat_1.gif)
+    - 누구나 요리와 관련된 정보를 쉽게 공유할 수 있으며 실시간 접속중인 다른 고객들도 확인이 가능합니다.
 
 ## :sparkles: 기대효과
 - **건강하고 간편한 집밥 요리 횟수 증가**
