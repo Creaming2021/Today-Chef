@@ -30,8 +30,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ekdbs628@gmail.com
-    password: zahrmwuaesenicdb
+    username: {YOUR_EMAIL}
+    password: {YOUR_PASSWORD}
     properties:
       mail:
         smtp:
@@ -42,8 +42,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://k4b204.p.ssafy.io/creaming?useUnicode=true&charaterEncoding=utf-8
-    username: root
-    password: creaming2021^^
+    username: {YOUR_DATABASE_USERNAME}
+    password: {YOUR_DATABASE_PASSWORD}
 
 #  datasource:
 #    url: jdbc:h2:tcp://localhost/~/creaming
@@ -54,10 +54,10 @@ spring:
 cloud:
   aws:
     credentials:
-      access-key: AKIATO7XDVM2BFKFQC6M
-      secret-key: QgwTBkzjXMTXuSwJCAWf61d/q7ZMTSlY3G3iLYap
+      access-key: {YOUR_ACCESS_KEY}
+      secret-key: {YOUR_SECRET_KEY}
     s3:
-      bucket: creaming-bucket-b204
+      bucket: {YOUR_BUCKET}
     region:
       static: ap-northeast-2
     stack:
