@@ -281,3 +281,11 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/java,java-web,intellij,windows,macos,vue,vuejs,vscode,eclipse
+
+# large files
+Models/Astronaut.FBX
+Models/uploads_files_2821748_utensils.obj
+Assets/toaster joined.obj
+Video/2-1.mp4
+Video/3.mp4
+gif/arPhone_1.gif
