@@ -283,9 +283,9 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/java,java-web,intellij,windows,macos,vue,vuejs,vscode,eclipse
 
 # large files
-Models/Astronaut.FBX
-Models/uploads_files_2821748_utensils.obj
-Assets/toaster joined.obj
-Video/2-1.mp4
-Video/3.mp4
-gif/arPhone_1.gif
+AR/**/Models/Astronaut.FBX
+AR/**/Models/uploads_files_2821748_utensils.obj
+AR/**/Assets/toaster joined.obj
+AR/**/Video/2-1.mp4
+AR/**/Video/3.mp4
+documents/**/gif/arPhone_1.gif
