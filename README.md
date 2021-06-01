@@ -107,8 +107,8 @@
 </details>
 
 ## :wrench: 기술 스택
-![기술 스택1](./documents/README/images/tech_stack1.png)
-![기술 스택2](./documents/README/images/tech_stack2.png)
+![기술 스택1](./documents/README/images/tech_stack1.PNG)
+![기술 스택2](./documents/README/images/tech_stack2.PNG)
 
 ## :rocket: 주요 기능
 #### 1. AR 기반의 밀키트 안내서
